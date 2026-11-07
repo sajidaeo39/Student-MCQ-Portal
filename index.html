@@ -106,6 +106,53 @@
         .student-info input { width:100%; padding:11px; border:1px solid #cbd5e1; border-radius:7px; font-size:1rem; background:white; }
         @media(max-width:600px) { .summary-grid { grid-template-columns:repeat(2,1fr); } .summary-card strong {font-size:1.05rem;} .summary-panel {padding:8px;} }
 
+        /* Mobile-first usability improvements */
+        @media (max-width: 600px) {
+            header { padding: 15px 10px; }
+            h1 { font-size: 1.08rem; letter-spacing: .3px; }
+            h2 { font-size: .76rem; line-height: 1.45; }
+            .container { margin: 12px auto; padding: 0 10px; }
+            .welcome-box { padding: 22px 14px; border-radius: 12px; }
+            .welcome-box h3 { font-size: 1.35rem; line-height: 1.35; }
+            .welcome-box p { font-size: .92rem; margin-bottom: 18px; }
+            .student-info { padding: 12px; margin: 14px 0 18px; }
+            .student-info input { min-height: 44px; font-size: 16px; }
+            .summary-panel { padding: 8px; }
+            .summary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+            .summary-card { min-width: 0; padding: 8px 4px; }
+            .summary-card strong { font-size: 1.05rem; }
+            .summary-card span { font-size: .66rem; line-height: 1.25; }
+            .grid-container { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
+            .card { padding: 16px 8px; border-radius: 10px; }
+            .card h4 { font-size: .95rem; overflow-wrap: anywhere; }
+            .top-bar { gap: 8px; margin-bottom: 12px; }
+            .top-bar h2 { font-size: 1.05rem; }
+            .btn { min-height: 44px; padding: 10px 14px; font-size: .92rem; }
+            .quiz-header { padding: 11px 13px; margin-bottom: 12px; }
+            .question-box { padding: 15px 12px; margin-bottom: 12px; }
+            .question-text { font-size: 1.05rem; line-height: 1.55; margin-bottom: 16px; overflow-wrap: anywhere; }
+            .options-container { gap: 9px; }
+            .option-btn { width: 100%; min-height: 48px; padding: 12px 10px; font-size: .93rem; line-height: 1.45; overflow-wrap: anywhere; }
+            .option-btn .option-label { margin-right: 9px; flex: 0 0 auto; }
+            .nav-buttons { gap: 8px; margin-top: 10px; }
+            .nav-buttons .btn { width: 100%; max-width: none; }
+            .stats-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7px; margin: 18px 0; }
+            .stat-item { padding: 10px 5px; }
+            .stat-item h3 { font-size: 1.15rem; }
+            .stat-item p { font-size: .72rem; }
+            .result-box { padding: 22px 12px; }
+            .score-circle { width: 118px; height: 118px; }
+            .score-circle h1 { font-size: 2.25rem; }
+            .performance-msg { font-size: 1rem; margin-bottom: 18px; }
+            .review-item { padding: 13px; }
+            .site-footer { padding: 14px 10px; font-size: .78rem; }
+        }
+        @media (max-width: 360px) {
+            .grid-container { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .summary-card span { font-size: .62rem; }
+        }
+
         .site-footer {
             background: #1e3a8a;
             color: #ffffff;
@@ -458,10 +505,25 @@
                 : "Counter service did not respond. Please refresh or try another network."; 
         }
 
+        function waitMs(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
         async function hitCounter(key) {
-            const response = await fetch(`${COUNTER_BASE}/hit/${key}`);
-            if (!response.ok) throw new Error("Counter update failed");
-            return response.json();
+            const response = await fetch(`${COUNTER_BASE}/hit/${key}?t=${Date.now()}`, { cache: "no-store" });
+            if (!response.ok) throw new Error("Counter update failed: " + response.status);
+            const data = await response.json();
+            if (data.value === undefined) throw new Error("Counter value missing");
+            return Number(data.value);
+        }
+
+        async function hitCounterWithRetry(key) {
+            let lastError;
+            for (let attempt = 0; attempt < 3; attempt++) {
+                try { return await hitCounter(key); }
+                catch (error) { lastError = error; await waitMs(500 * (attempt + 1)); }
+            }
+            throw lastError;
         }
 
         async function saveAttemptStats(total, answered) {
@@ -469,16 +531,28 @@
             quizRecorded = true;
             const schoolEntered = document.getElementById("school-name").value.trim().length > 0;
             const studentEntered = document.getElementById("student-name").value.trim().length > 0;
+            const questionOutput = document.getElementById("questions-attempted");
             try {
-                const updates = [hitCounter(COUNTER_KEYS.tests)];
-                if (schoolEntered) updates.push(hitCounter(COUNTER_KEYS.schools));
-                if (studentEntered) updates.push(hitCounter(COUNTER_KEYS.students));
-                for (let i = 0; i < answered; i++) updates.push(hitCounter(COUNTER_KEYS.questions));
-                await Promise.all(updates);
-                loadPortalStats();
+                // Sequential requests prevent missed increments from a burst of parallel hits.
+                const testsValue = await hitCounterWithRetry(COUNTER_KEYS.tests);
+                document.getElementById("tests-attempted").innerText = testsValue.toLocaleString();
+                if (schoolEntered) {
+                    const value = await hitCounterWithRetry(COUNTER_KEYS.schools);
+                    document.getElementById("total-schools").innerText = value.toLocaleString();
+                }
+                if (studentEntered) {
+                    const value = await hitCounterWithRetry(COUNTER_KEYS.students);
+                    document.getElementById("total-students").innerText = value.toLocaleString();
+                }
+                let questionsValue = Number(questionOutput.innerText.replace(/,/g, "")) || 0;
+                for (let i = 0; i < answered; i++) {
+                    questionsValue = await hitCounterWithRetry(COUNTER_KEYS.questions);
+                    questionOutput.innerText = questionsValue.toLocaleString();
+                    if (i < answered - 1) await waitMs(250);
+                }
+                document.getElementById("stats-status").innerText = "Statistics updated successfully";
             } catch (error) {
-                quizRecorded = false;
-                document.getElementById("stats-status").innerText = "Stats could not sync right now. Please try again later.";
+                document.getElementById("stats-status").innerText = "Some statistics could not sync. Please try again later.";
             }
         }
 
