@@ -56,3 +56,79 @@ Provide:
 
 ## First action for the next assistant
 Inspect the repository and determine whether **Question bank.pdf** or an already extracted question-bank dataset is present. If accessible, proceed with the full audit. If not accessible, explain the exact missing source and stop short of claiming that question verification or portal data updates have been completed.
+
+
+## Detailed PDF investigation procedure (mandatory)
+Treat the 247-page PDF as a scanned visual source if text extraction returns empty or incomplete. Do not assume an empty text layer means the PDF has no questions.
+
+### A. Preserve and inspect the source
+1. Confirm the exact source file is accessible and record its filename, page count, and page dimensions.
+2. Keep an unchanged copy. Never overwrite or alter the original PDF.
+3. Check representative pages visually, including the first and last pages and pages around apparent student transitions.
+4. If text extraction is empty/incomplete, render every page to images and run OCR. Use English and Urdu OCR where available. OCR is only a draft transcription: visually verify every question, option, student name, class label, and answer mark against the page image.
+5. Maintain a page-by-page index. Do not rely on OCR alone for Urdu text, mathematical notation, symbols, fractions, exponents, diagrams, or option markers.
+
+### B. Build student-to-page groups before extracting questions
+Create a page ledger with these fields:
+- PDF page number;
+- student name as printed;
+- class as printed;
+- start/end page of that student's question set;
+- subject shown for each question;
+- confidence/status and notes.
+
+Use the student's name/class heading and the sequence of subsequent pages to associate questions with that student. A new student heading starts a new group. If a page has no visible heading, attach it only when the preceding/following page sequence clearly supports that association. Otherwise mark it unresolved; do not infer the class from question difficulty.
+
+### C. Extract each MCQ faithfully
+For every question, capture:
+- source page number(s), student name, and class;
+- subject;
+- exact question wording (preserve Urdu script and English wording);
+- options A, B, C, D exactly as printed;
+- answer marked in the PDF, if any;
+- diagrams/images needed to understand the question;
+- transcription confidence and any ambiguity.
+
+Do not silently rewrite a question in a way that changes its meaning. Correct obvious OCR spelling only after checking the page image. Keep a link/reference to its source page in the audit dataset.
+
+### D. Independently verify the correct answer
+1. Solve each question independently; do not copy the marked answer as the answer key.
+2. For English, check the relevant grammar, vocabulary, reading, or language rule.
+3. For Urdu, check the relevant grammar, vocabulary, idiom, spelling, or comprehension context.
+4. For Mathematics, recompute the result step by step and check that exactly one option matches (unless the question explicitly permits multiple answers).
+5. For Science, verify the underlying concept and check units, terminology, and option wording.
+6. For any factual/current/ambiguous item, use reliable references where needed and record the reference or reasoning in the audit notes.
+7. Compare the independently verified answer with the PDF's marked answer. Label each as: MATCH, SOURCE MARKING WRONG, NO MARKING, AMBIGUOUS, or DEFECTIVE QUESTION.
+8. If no option is correct, more than one option is correct, or the question is incomplete, do not force an answer. Mark it DEFECTIVE/AMBIGUOUS and explain why. Do not insert a guessed answer into practice mode.
+9. Store both source_marked_answer and verified_correct_answer in the audit data. Practice mode must use verified_correct_answer only for approved questions.
+
+### E. Detect duplicates across the entire PDF
+1. Compare normalized question text across all pages, ignoring harmless differences such as case, extra spaces, punctuation, and option-label formatting.
+2. Compare Urdu text carefully without stripping meaningful characters/diacritics that could change meaning.
+3. Compare options as well as question wording. The same stem with materially different options may need manual review.
+4. Report separately:
+   - exact duplicates (same question and materially same options);
+   - near-duplicates (same concept/stem with small wording or option changes);
+   - repeated question appearing under different students/classes/subjects.
+5. Do not automatically merge near-duplicates. A human/manual review decision is required. Preserve all source page references even when one canonical question is selected.
+
+### F. Produce an auditable master dataset and report
+Create a structured master dataset (JSON or CSV, depending on the portal architecture) with stable question IDs and at least:
+question_id, class, subject, student_name, source_page_start, source_page_end, question, option_a, option_b, option_c, option_d, source_marked_answer, verified_correct_answer, answer_status, duplicate_group_id, duplicate_type, verification_note, review_status.
+
+Also create a readable audit report containing:
+- PDF pages reviewed and any unreadable pages;
+- student groups and class mapping;
+- extracted question totals by class and subject;
+- exact and near-duplicate totals, with question IDs and source pages;
+- source answer markings that were wrong;
+- defective, ambiguous, or unanswered questions;
+- final selected practice questions and why selected.
+
+### G. Quality gates before portal update
+- Every selected question must have a verified answer and all four options.
+- Every selected question must have a confirmed class and subject.
+- No unresolved OCR/transcription or answer ambiguity may enter the live practice bank.
+- Required final distribution: Classes 3–5 have 3 approved questions in each of English, Urdu, Mathematics; Classes 6–8 have 3 approved questions in each of English, Urdu, Mathematics, Science.
+- If any class/subject has fewer than 3 approved unique questions, report the shortfall and request a decision; never fabricate questions.
+- Keep the complete audit dataset separate from the smaller selected practice dataset.
