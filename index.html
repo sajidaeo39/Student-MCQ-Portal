@@ -65,7 +65,7 @@
         .option-btn.selected { background: #dbeafe; border-color: var(--secondary-color); font-weight: 600; }
         .option-btn .option-label { font-weight: 700; margin-right: 15px; color: var(--primary-color); }
 
-        .nav-buttons { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 12px; }
+        .nav-buttons { display: flex; flex-direction: column-reverse; align-items: center; gap: 10px; margin-top: 12px; }
         .nav-buttons .btn { width: 100%; max-width: 260px; }
 
         .result-box { background: var(--card-bg); padding: 40px 20px; border-radius: 15px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
@@ -88,7 +88,7 @@
         @media (max-width: 600px) {
             h1 { font-size: 1.1rem; } h2 { font-size: 0.8rem; } .welcome-box h3 { font-size: 1.5rem; }
             .grid-container { grid-template-columns: 1fr 1fr; gap: 10px; } .card { padding: 20px 10px; }
-            .question-box { padding: 20px; } .nav-buttons { flex-direction: column; }
+            .question-box { padding: 20px; } .nav-buttons { flex-direction: column-reverse; }
             .nav-buttons .btn { width: 100%; } .stats-grid { grid-template-columns: 1fr; }
         }
 
@@ -426,20 +426,27 @@
         async function readCounter(key, elementId) {
             const output = document.getElementById(elementId);
             try {
-                const response = await fetch(`${COUNTER_BASE}/get/${key}`, { cache: "no-store" });
-                // New counters return 404 until their first hit; display zero instead of a dash.
-                if (response.status === 404) { output.innerText = "0"; return true; }
-                if (!response.ok) throw new Error("Counter unavailable");
+                const response = await fetch(`${COUNTER_BASE}/get/${key}?t=${Date.now()}`, { cache: "no-store" });
+                if (response.status === 404) {
+                    // Create a new counter at zero only when it does not exist.
+                    const init = await fetch(`${COUNTER_BASE}/set/${key}?value=0&t=${Date.now()}`, { cache: "no-store" });
+                    if (!init.ok) throw new Error("Could not initialize counter");
+                    output.innerText = "0";
+                    return true;
+                }
+                if (!response.ok) throw new Error(`Counter returned ${response.status}`);
                 const data = await response.json();
-                output.innerText = Number(data.value || 0).toLocaleString();
+                if (data.value === undefined) throw new Error("Counter value missing");
+                output.innerText = Number(data.value).toLocaleString();
                 return true;
             } catch (error) {
-                output.innerText = "0";
+                output.innerText = "—";
                 return false;
             }
         }
 
         async function loadPortalStats() {
+            document.getElementById("stats-status").innerText = "Loading live totals...";
             const results = await Promise.all([
                 readCounter(COUNTER_KEYS.schools, "total-schools"),
                 readCounter(COUNTER_KEYS.students, "total-students"),
@@ -448,7 +455,7 @@
             ]);
             document.getElementById("stats-status").innerText = results.every(Boolean)
                 ? "Live shared statistics"
-                : "Statistics service temporarily unavailable";
+                : "Counter service did not respond. Please refresh or try another network."; 
         }
 
         async function hitCounter(key) {
