@@ -529,7 +529,8 @@
         // ==========================================
         // QUIZ LOGIC
         // ==========================================
-        function startQuiz() {\n            quizRecorded = false;
+        function startQuiz() {
+            quizRecorded = false;
             let rawQuestions = JSON.parse(JSON.stringify(questionBank[currentClass][currentSubject]));
             shuffleArray(rawQuestions);
             
@@ -618,7 +619,9 @@
             });
 
             const total = currentQuestions.length;
-            const percentage = Math.round((correct / total) * 100);\n            const answered = userAnswers.filter(a => a !== null).length;\n            saveAttemptStats(total, answered, correct, wrong);
+            const percentage = Math.round((correct / total) * 100);
+            const answered = userAnswers.filter(a => a !== null).length;
+            saveAttemptStats(total, answered, correct, wrong);
 
             document.getElementById('score-percentage').innerText = `${percentage}%`;
             document.getElementById('total-q').innerText = total;
@@ -670,7 +673,8 @@
             }
         }
 
-        renderClasses();\n        loadPortalStats();
+        renderClasses();
+        loadPortalStats();
     </script>
 </body>
 </html>
