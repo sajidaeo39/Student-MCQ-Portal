@@ -65,7 +65,8 @@
         .option-btn.selected { background: #dbeafe; border-color: var(--secondary-color); font-weight: 600; }
         .option-btn .option-label { font-weight: 700; margin-right: 15px; color: var(--primary-color); }
 
-        .nav-buttons { display: flex; justify-content: space-between; gap: 10px; margin-top: 20px; }
+        .nav-buttons { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 12px; }
+        .nav-buttons .btn { width: 100%; max-width: 260px; }
 
         .result-box { background: var(--card-bg); padding: 40px 20px; border-radius: 15px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
         .score-circle { width: 150px; height: 150px; border-radius: 50%; background: var(--secondary-color); color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 20px; box-shadow: 0 4px 10px rgba(59, 130, 246, 0.4); }
@@ -92,18 +93,18 @@
         }
 
 
-        .summary-panel { background: var(--card-bg); padding: 20px; border-radius: 14px; margin-bottom: 18px; box-shadow: 0 4px 12px rgba(0,0,0,.05); }
-        .summary-panel h3 { color: var(--primary-color); text-align: center; margin-bottom: 14px; font-size: 1.15rem; }
-        .summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-        .summary-card { background: #eff6ff; border-radius: 10px; padding: 15px 8px; text-align: center; display:flex; flex-direction:column; gap:5px; }
-        .summary-card strong { color: var(--primary-color); font-size: 1.65rem; }
-        .summary-card span { color: #475569; font-size: .82rem; font-weight: 600; }
-        .stats-status { text-align:center; color:#64748b; font-size:.78rem; margin-top:10px; }
+        .summary-panel { background: var(--card-bg); padding: 10px 12px; border-radius: 10px; margin-bottom: 12px; box-shadow: 0 2px 7px rgba(0,0,0,.04); }
+        .summary-panel h3 { color: var(--primary-color); text-align: center; margin-bottom: 7px; font-size: .95rem; }
+        .summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+        .summary-card { background: #eff6ff; border-radius: 7px; padding: 7px 4px; text-align: center; display:flex; flex-direction:column; gap:2px; }
+        .summary-card strong { color: var(--primary-color); font-size: 1.15rem; line-height: 1.2; }
+        .summary-card span { color: #475569; font-size: .68rem; font-weight: 600; }
+        .stats-status { text-align:center; color:#64748b; font-size:.68rem; margin-top:5px; }
         .student-info { background:#f8fafc; padding:16px; border-radius:10px; margin:18px 0 22px; text-align:left; }
         .student-info h4 { color:var(--primary-color); margin-bottom:10px; }
         .student-info label { display:block; font-size:.88rem; font-weight:600; margin:9px 0 4px; }
         .student-info input { width:100%; padding:11px; border:1px solid #cbd5e1; border-radius:7px; font-size:1rem; background:white; }
-        @media(max-width:600px) { .summary-grid { grid-template-columns:repeat(2,1fr); } .summary-card strong {font-size:1.35rem;} }
+        @media(max-width:600px) { .summary-grid { grid-template-columns:repeat(2,1fr); } .summary-card strong {font-size:1.05rem;} .summary-panel {padding:8px;} }
 
         .site-footer {
             background: #1e3a8a;
@@ -423,24 +424,31 @@
         let quizRecorded = false;
 
         async function readCounter(key, elementId) {
+            const output = document.getElementById(elementId);
             try {
-                const response = await fetch(`${COUNTER_BASE}/get/${key}`);
+                const response = await fetch(`${COUNTER_BASE}/get/${key}`, { cache: "no-store" });
+                // New counters return 404 until their first hit; display zero instead of a dash.
+                if (response.status === 404) { output.innerText = "0"; return true; }
                 if (!response.ok) throw new Error("Counter unavailable");
                 const data = await response.json();
-                document.getElementById(elementId).innerText = Number(data.value || 0).toLocaleString();
+                output.innerText = Number(data.value || 0).toLocaleString();
+                return true;
             } catch (error) {
-                document.getElementById(elementId).innerText = "—";
+                output.innerText = "0";
+                return false;
             }
         }
 
-        function loadPortalStats() {
-            Promise.all([
+        async function loadPortalStats() {
+            const results = await Promise.all([
                 readCounter(COUNTER_KEYS.schools, "total-schools"),
                 readCounter(COUNTER_KEYS.students, "total-students"),
                 readCounter(COUNTER_KEYS.tests, "tests-attempted"),
                 readCounter(COUNTER_KEYS.questions, "questions-attempted")
             ]);
-            document.getElementById("stats-status").innerText = "Shared live counters (same simple system as Pic Tool)";
+            document.getElementById("stats-status").innerText = results.every(Boolean)
+                ? "Live shared statistics"
+                : "Statistics service temporarily unavailable";
         }
 
         async function hitCounter(key) {
