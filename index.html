@@ -134,12 +134,12 @@
         <section class="summary-panel" aria-label="Portal statistics">
             <h3>Portal Statistics</h3>
             <div class="summary-grid">
-                <div class="summary-card"><strong id="total-schools">—</strong><span>Total Schools</span></div>
-                <div class="summary-card"><strong id="total-students">—</strong><span>Total Students</span></div>
+                <div class="summary-card"><strong id="total-schools">—</strong><span>School Entries</span></div>
+                <div class="summary-card"><strong id="total-students">—</strong><span>Student Entries</span></div>
                 <div class="summary-card"><strong id="tests-attempted">—</strong><span>Tests Attempted</span></div>
                 <div class="summary-card"><strong id="questions-attempted">—</strong><span>Questions Attempted</span></div>
             </div>
-            <p id="stats-status" class="stats-status">Connect the Google Sheets database to display live totals.</p>
+            <p id="stats-status" class="stats-status">Loading shared statistics...</p>
         </section>
 
             <div class="welcome-box">
@@ -412,64 +412,58 @@
         let currentQuestions = [];
         let userAnswers = [];
         let currentQuestionIndex = 0;
-        // Paste your deployed Google Apps Script Web App URL here.
-        const STATS_API_URL = "https://script.google.com/macros/s/AKfycbwqrByslz-XIgUnRPJh09iVFDoRqCmo5pZ78W1PQnLzg284oFHznFlH_xcZbDaLuuBakg/exec";
+        // Simple shared counters, using the same free counter service as Pic Tool.
+        const COUNTER_BASE = "https://countapi.mileshilliard.com/api/v1";
+        const COUNTER_KEYS = {
+            schools: "educational_helper_mcq_school_entries_v1",
+            students: "educational_helper_mcq_student_entries_v1",
+            tests: "educational_helper_mcq_tests_attempted_v1",
+            questions: "educational_helper_mcq_questions_attempted_v1"
+        };
         let quizRecorded = false;
 
-        function loadPortalStats() {
-            if (!STATS_API_URL.startsWith("https://script.google.com/macros/s/")) {
-                document.getElementById("stats-status").innerText = "Google Sheets connection setup is required for shared live totals.";
-                return;
-            }
-            const callback = "portalStatsCallback";
-            window[callback] = function(data) {
-                if (!data || !data.ok) return;
-                document.getElementById("total-schools").innerText = Number(data.totalSchools || 0).toLocaleString();
-                document.getElementById("total-students").innerText = Number(data.totalStudents || 0).toLocaleString();
-                document.getElementById("tests-attempted").innerText = Number(data.testsAttempted || 0).toLocaleString();
-                document.getElementById("questions-attempted").innerText = Number(data.questionsAttempted || 0).toLocaleString();
-                document.getElementById("stats-status").innerText = "Live totals from all submitted tests";
-                delete window[callback];
-                script.remove();
-            };
-            const script = document.createElement("script");
-            script.src = STATS_API_URL + "?callback=" + callback + "&t=" + Date.now();
-            script.onerror = () => { document.getElementById("stats-status").innerText = "Could not load shared statistics. Please check the database connection."; };
-            document.body.appendChild(script);
-        }
-
-        async function hashValue(value) {
-            const normalized = String(value || "").trim().toLocaleLowerCase();
-            if (!normalized || !window.crypto || !crypto.subtle) return "";
-            const bytes = new TextEncoder().encode(normalized);
-            const digest = await crypto.subtle.digest("SHA-256", bytes);
-            return Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, "0")).join("");
-        }
-
-        async function saveAttemptStats(total, answered, correct, wrong) {
-            if (quizRecorded || !STATS_API_URL.startsWith("https://script.google.com/macros/s/")) return;
-            quizRecorded = true;
+        async function readCounter(key, elementId) {
             try {
-                const school = await hashValue(document.getElementById("school-name").value);
-                const studentRaw = document.getElementById("student-name").value;
-                const student = studentRaw.trim() ? await hashValue((document.getElementById("school-name").value.trim().toLowerCase() + "|" + studentRaw.trim().toLowerCase())) : "";
-                const params = new URLSearchParams({
-                    action: "record", school, student,
-                    className: currentClass, subject: currentSubject,
-                    total: String(total), answered: String(answered),
-                    correct: String(correct), wrong: String(wrong)
-                });
-                const callback = "portalRecordCallback";
-                window[callback] = function() {
-                    delete window[callback];
-                    loadPortalStats();
-                };
-                const script = document.createElement("script");
-                script.src = STATS_API_URL + "?" + params.toString() + "&callback=" + callback + "&t=" + Date.now();
-                script.onerror = () => { quizRecorded = false; document.getElementById("stats-status").innerText = "Test result could not sync. Please try again later."; };
-                document.body.appendChild(script);
-            } catch (err) {
+                const response = await fetch(`${COUNTER_BASE}/get/${key}`);
+                if (!response.ok) throw new Error("Counter unavailable");
+                const data = await response.json();
+                document.getElementById(elementId).innerText = Number(data.value || 0).toLocaleString();
+            } catch (error) {
+                document.getElementById(elementId).innerText = "—";
+            }
+        }
+
+        function loadPortalStats() {
+            Promise.all([
+                readCounter(COUNTER_KEYS.schools, "total-schools"),
+                readCounter(COUNTER_KEYS.students, "total-students"),
+                readCounter(COUNTER_KEYS.tests, "tests-attempted"),
+                readCounter(COUNTER_KEYS.questions, "questions-attempted")
+            ]);
+            document.getElementById("stats-status").innerText = "Shared live counters (same simple system as Pic Tool)";
+        }
+
+        async function hitCounter(key) {
+            const response = await fetch(`${COUNTER_BASE}/hit/${key}`);
+            if (!response.ok) throw new Error("Counter update failed");
+            return response.json();
+        }
+
+        async function saveAttemptStats(total, answered) {
+            if (quizRecorded) return;
+            quizRecorded = true;
+            const schoolEntered = document.getElementById("school-name").value.trim().length > 0;
+            const studentEntered = document.getElementById("student-name").value.trim().length > 0;
+            try {
+                const updates = [hitCounter(COUNTER_KEYS.tests)];
+                if (schoolEntered) updates.push(hitCounter(COUNTER_KEYS.schools));
+                if (studentEntered) updates.push(hitCounter(COUNTER_KEYS.students));
+                for (let i = 0; i < answered; i++) updates.push(hitCounter(COUNTER_KEYS.questions));
+                await Promise.all(updates);
+                loadPortalStats();
+            } catch (error) {
                 quizRecorded = false;
+                document.getElementById("stats-status").innerText = "Stats could not sync right now. Please try again later.";
             }
         }
 
@@ -621,7 +615,7 @@
             const total = currentQuestions.length;
             const percentage = Math.round((correct / total) * 100);
             const answered = userAnswers.filter(a => a !== null).length;
-            saveAttemptStats(total, answered, correct, wrong);
+            saveAttemptStats(total, answered);
 
             document.getElementById('score-percentage').innerText = `${percentage}%`;
             document.getElementById('total-q').innerText = total;
