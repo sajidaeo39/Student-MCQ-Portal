@@ -91,6 +91,20 @@
             .nav-buttons .btn { width: 100%; } .stats-grid { grid-template-columns: 1fr; }
         }
 
+
+        .summary-panel { background: var(--card-bg); padding: 20px; border-radius: 14px; margin-bottom: 18px; box-shadow: 0 4px 12px rgba(0,0,0,.05); }
+        .summary-panel h3 { color: var(--primary-color); text-align: center; margin-bottom: 14px; font-size: 1.15rem; }
+        .summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+        .summary-card { background: #eff6ff; border-radius: 10px; padding: 15px 8px; text-align: center; display:flex; flex-direction:column; gap:5px; }
+        .summary-card strong { color: var(--primary-color); font-size: 1.65rem; }
+        .summary-card span { color: #475569; font-size: .82rem; font-weight: 600; }
+        .stats-status { text-align:center; color:#64748b; font-size:.78rem; margin-top:10px; }
+        .student-info { background:#f8fafc; padding:16px; border-radius:10px; margin:18px 0 22px; text-align:left; }
+        .student-info h4 { color:var(--primary-color); margin-bottom:10px; }
+        .student-info label { display:block; font-size:.88rem; font-weight:600; margin:9px 0 4px; }
+        .student-info input { width:100%; padding:11px; border:1px solid #cbd5e1; border-radius:7px; font-size:1rem; background:white; }
+        @media(max-width:600px) { .summary-grid { grid-template-columns:repeat(2,1fr); } .summary-card strong {font-size:1.35rem;} }
+
         .site-footer {
             background: #1e3a8a;
             color: #ffffff;
@@ -117,9 +131,27 @@
 
     <div class="container">
         <div id="welcome-screen" class="screen active">
+        <section class="summary-panel" aria-label="Portal statistics">
+            <h3>Portal Statistics</h3>
+            <div class="summary-grid">
+                <div class="summary-card"><strong id="total-schools">—</strong><span>Total Schools</span></div>
+                <div class="summary-card"><strong id="total-students">—</strong><span>Total Students</span></div>
+                <div class="summary-card"><strong id="tests-attempted">—</strong><span>Tests Attempted</span></div>
+                <div class="summary-card"><strong id="questions-attempted">—</strong><span>Questions Attempted</span></div>
+            </div>
+            <p id="stats-status" class="stats-status">Connect the Google Sheets database to display live totals.</p>
+        </section>
+
             <div class="welcome-box">
                 <h3>Student MCQ Practice Portal</h3>
                 <p>Learn, Practice and Prepare for Your Tests.</p>
+                <div class="student-info">
+                    <h4>Optional Student Information</h4>
+                    <label for="school-name">School Name (Optional)</label>
+                    <input id="school-name" type="text" maxlength="80" placeholder="Enter school name">
+                    <label for="student-name">Student Name (Optional)</label>
+                    <input id="student-name" type="text" maxlength="80" placeholder="Enter student name">
+                </div>
                 <button class="btn btn-primary" onclick="showScreen('class-screen')" style="font-size: 1.2rem; padding: 15px 40px;">Start Practice</button>
             </div>
         </div>
@@ -380,6 +412,66 @@
         let currentQuestions = [];
         let userAnswers = [];
         let currentQuestionIndex = 0;
+        // Paste your deployed Google Apps Script Web App URL here.
+        const STATS_API_URL = "PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE";
+        let quizRecorded = false;
+
+        function loadPortalStats() {
+            if (!STATS_API_URL.startsWith("https://script.google.com/macros/s/")) {
+                document.getElementById("stats-status").innerText = "Google Sheets connection setup is required for shared live totals.";
+                return;
+            }
+            const callback = "portalStatsCallback";
+            window[callback] = function(data) {
+                if (!data || !data.ok) return;
+                document.getElementById("total-schools").innerText = Number(data.totalSchools || 0).toLocaleString();
+                document.getElementById("total-students").innerText = Number(data.totalStudents || 0).toLocaleString();
+                document.getElementById("tests-attempted").innerText = Number(data.testsAttempted || 0).toLocaleString();
+                document.getElementById("questions-attempted").innerText = Number(data.questionsAttempted || 0).toLocaleString();
+                document.getElementById("stats-status").innerText = "Live totals from all submitted tests";
+                delete window[callback];
+                script.remove();
+            };
+            const script = document.createElement("script");
+            script.src = STATS_API_URL + "?callback=" + callback + "&t=" + Date.now();
+            script.onerror = () => { document.getElementById("stats-status").innerText = "Could not load shared statistics. Please check the database connection."; };
+            document.body.appendChild(script);
+        }
+
+        async function hashValue(value) {
+            const normalized = String(value || "").trim().toLocaleLowerCase();
+            if (!normalized || !window.crypto || !crypto.subtle) return "";
+            const bytes = new TextEncoder().encode(normalized);
+            const digest = await crypto.subtle.digest("SHA-256", bytes);
+            return Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, "0")).join("");
+        }
+
+        async function saveAttemptStats(total, answered, correct, wrong) {
+            if (quizRecorded || !STATS_API_URL.startsWith("https://script.google.com/macros/s/")) return;
+            quizRecorded = true;
+            try {
+                const school = await hashValue(document.getElementById("school-name").value);
+                const studentRaw = document.getElementById("student-name").value;
+                const student = studentRaw.trim() ? await hashValue((document.getElementById("school-name").value.trim().toLowerCase() + "|" + studentRaw.trim().toLowerCase())) : "";
+                const params = new URLSearchParams({
+                    action: "record", school, student,
+                    className: currentClass, subject: currentSubject,
+                    total: String(total), answered: String(answered),
+                    correct: String(correct), wrong: String(wrong)
+                });
+                const callback = "portalRecordCallback";
+                window[callback] = function() {
+                    delete window[callback];
+                    loadPortalStats();
+                };
+                const script = document.createElement("script");
+                script.src = STATS_API_URL + "?" + params.toString() + "&callback=" + callback + "&t=" + Date.now();
+                script.onerror = () => { quizRecorded = false; document.getElementById("stats-status").innerText = "Test result could not sync. Please try again later."; };
+                document.body.appendChild(script);
+            } catch (err) {
+                quizRecorded = false;
+            }
+        }
 
         // ==========================================
         // NAVIGATION FUNCTIONS
@@ -437,7 +529,7 @@
         // ==========================================
         // QUIZ LOGIC
         // ==========================================
-        function startQuiz() {
+        function startQuiz() {\n            quizRecorded = false;
             let rawQuestions = JSON.parse(JSON.stringify(questionBank[currentClass][currentSubject]));
             shuffleArray(rawQuestions);
             
@@ -526,7 +618,7 @@
             });
 
             const total = currentQuestions.length;
-            const percentage = Math.round((correct / total) * 100);
+            const percentage = Math.round((correct / total) * 100);\n            const answered = userAnswers.filter(a => a !== null).length;\n            saveAttemptStats(total, answered, correct, wrong);
 
             document.getElementById('score-percentage').innerText = `${percentage}%`;
             document.getElementById('total-q').innerText = total;
@@ -578,7 +670,7 @@
             }
         }
 
-        renderClasses();
+        renderClasses();\n        loadPortalStats();
     </script>
 </body>
 </html>
