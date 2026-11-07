@@ -17,13 +17,13 @@
             --text-color: #1f2937;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
-        body { background-color: var(--bg-color); color: var(--text-color); min-height: 100vh; display: flex; flex-direction: column; }
+        body { background-color: var(--bg-color); color: var(--text-color); min-height: 0; display: block; }
         
         header { background-color: var(--primary-color); color: white; padding: 20px 10px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
         h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px; }
         h2 { font-size: 1rem; font-weight: 400; color: #cbd5e1; }
 
-        .container { flex: 0 0 auto; max-width: 900px; margin: 12px auto 8px; padding: 0 15px; width: 100%; }
+        .container { flex: none; max-width: 900px; margin: 12px auto 18px; padding: 0 15px; width: 100%; }
         
         .screen { display: none; animation: fadeIn 0.4s ease-in-out; }
         .screen.active { display: block; }
@@ -104,7 +104,7 @@
         .student-info h4 { color:var(--primary-color); margin-bottom:8px; }
         .student-info label { display:block; font-size:.86rem; font-weight:600; margin:8px 0 4px; }
         .student-info input { width:100%; padding:10px; border:1px solid #cbd5e1; border-radius:8px; font-size:16px; background:white; }
-        .site-footer { background:#1e3a8a; color:#fff; text-align:center; padding:12px 12px; margin-top:4px; font-size:.82rem; }
+        .site-footer { background:#1e3a8a; color:#fff; text-align:center; padding:12px 12px; margin-top:0; font-size:.82rem; }
         .site-footer p { margin-bottom:6px; }
         .site-footer a { color:#fde68a; font-weight:700; text-decoration:none; }
         .site-footer a:hover { text-decoration:underline; }
@@ -112,7 +112,7 @@
             header { padding:10px 9px; }
             header h1 { font-size:1rem; letter-spacing:.3px; margin-bottom:3px; }
             header h2 { font-size:.7rem; line-height:1.3; }
-            .container { flex: 0 0 auto; margin:8px auto 4px; padding:0 9px; }
+            .container { flex:none; margin:8px auto 18px; padding:0 9px; }
             .summary-panel { padding:7px; margin-bottom:8px; border-radius:10px; }
             .summary-panel h3 { font-size:.84rem; margin-bottom:5px; }
             .summary-grid { grid-template-columns:repeat(4,minmax(0,1fr)); gap:4px; }
@@ -128,7 +128,7 @@
             .student-info label { font-size:.74rem; margin:5px 0 2px; }
             .student-info input { min-height:36px; padding:6px 9px; }
             #welcome-screen .welcome-box > .btn { width:100%; max-width:260px; min-height:44px; padding:8px 18px !important; font-size:.98rem !important; }
-            .site-footer { padding:8px 8px; margin-top:3px; font-size:.68rem; }
+            .site-footer { padding:9px 8px; margin-top:0; font-size:.68rem; }
             .site-footer p { margin-bottom:3px; }
         }
         @media (max-width:360px) {
@@ -421,6 +421,51 @@
             }
         };
 
+        // Additional grade-level questions used by the all-subject mixed tests.
+        const mixedSupplemental = {
+            "Class 5": {
+                "Urdu": [
+                    ["لفظ 'خوشی' کا متضاد کیا ہے؟", ["غم", "مسرت", "خوشحال", "ہنسی"], 0],
+                    ["'پاکستان ہمارا وطن ہے' میں اسم خاص کون سا ہے؟", ["وطن", "ہمارا", "پاکستان", "ہے"], 2],
+                    ["لفظ 'کتاب' کی جمع کیا ہے؟", ["کتابیں", "کتابچہ", "کتابی", "کتابدار"], 0],
+                    ["'محنت' کا مترادف کون سا ہے؟", ["کوشش", "آرام", "سستی", "غفلت"], 0],
+                    ["جملہ 'علی سکول جاتا ہے' میں فعل کون سا ہے؟", ["علی", "سکول", "جاتا ہے", "کوئی نہیں"], 2]
+                ]
+            },
+            "Class 6": {
+                "English": [
+                    ["Choose the correct plural of 'child'.", ["Childs", "Children", "Childes", "Childrens"], 1],
+                    ["Identify the adjective: 'The clever student solved the problem.'", ["Student", "Solved", "Clever", "Problem"], 2],
+                    ["Choose the correct past tense of 'go'.", ["Goed", "Gone", "Went", "Going"], 2],
+                    ["Select the correct article: 'He is ___ honest man.'", ["a", "an", "the", "no article"], 1],
+                    ["Choose the antonym of 'ancient'.", ["Old", "Modern", "Historic", "Past"], 1]
+                ],
+                "Urdu": [
+                    ["اسم کی درست مثال کون سی ہے؟", ["دوڑنا", "خوبصورت", "کتاب", "آہستہ"], 2],
+                    ["لفظ 'علم' کا متضاد کیا ہے؟", ["دانش", "جہالت", "شعور", "آگہی"], 1],
+                    ["'وہ سکول گیا' میں فعل کون سا ہے؟", ["وہ", "سکول", "گیا", "کوئی نہیں"], 2],
+                    ["لفظ 'استاد' کی جمع کیا ہے؟", ["استادوں", "استادی", "استادان", "استادہ"], 0],
+                    ["حرفِ ندا کی مثال کون سی ہے؟", ["اور", "کاش", "اے", "لیکن"], 2]
+                ]
+            },
+            "Class 7": {
+                "English": [
+                    ["Choose the correct passive voice: 'Ali writes a letter.'", ["A letter is written by Ali.", "A letter was wrote by Ali.", "Ali is written a letter.", "A letter writes Ali."], 0],
+                    ["Identify the adverb: 'She speaks politely.'", ["She", "Speaks", "Politely", "None"], 2],
+                    ["Choose the correct comparative form of 'good'.", ["Gooder", "Best", "More good", "Better"], 3],
+                    ["Select the correct conjunction: 'I was tired, ___ I finished my work.'", ["because", "but", "or", "so"], 1],
+                    ["Choose the synonym of 'brave'.", ["Cowardly", "Fearful", "Courageous", "Weak"], 2]
+                ],
+                "Urdu": [
+                    ["جملہ 'بچے کھیل رہے ہیں' میں فعل کون سا ہے؟", ["بچے", "کھیل رہے ہیں", "ہیں", "کوئی نہیں"], 1],
+                    ["لفظ 'آغاز' کا متضاد کیا ہے؟", ["ابتدا", "شروع", "انجام", "افتتاح"], 2],
+                    ["اسم صفت کی مثال کون سی ہے؟", ["لڑکا", "خوبصورت", "دوڑنا", "اور"], 1],
+                    ["'احمد نے خط لکھا' میں فاعل کون ہے؟", ["احمد", "خط", "لکھا", "نے"], 0],
+                    ["لفظ 'بہادر' کا مترادف کیا ہے؟", ["ڈرپوک", "دلیر", "کمزور", "خاموش"], 1]
+                ]
+            }
+        };
+
         // ==========================================
         // STATE MANAGEMENT
         // ==========================================
@@ -429,68 +474,57 @@
         let currentQuestions = [];
         let userAnswers = [];
         let currentQuestionIndex = 0;
-        // Simple shared counters, using the same free counter service as Pic Tool.
-        const COUNTER_BASE = "https://countapi.mileshilliard.com/api/v1";
-        const COUNTER_KEYS = {
-            schools: "educational_helper_mcq_school_entries_v1",
-            students: "educational_helper_mcq_student_entries_v1",
-            tests: "educational_helper_mcq_tests_attempted_v1",
-            questions: "educational_helper_mcq_questions_attempted_v1"
-        };
+        // Free public Abacus counters (CountAPI may be blocked on some mobile networks).
+        const COUNTER_BASE = "https://abacus.jasoncameron.dev";
+        const COUNTER_NAMESPACE = "student-mcq-portal-sajidaeo39";
+        const COUNTER_KEYS = { schools:"school_entries", students:"student_entries", tests:"tests_attempted", questions:"questions_attempted" };
+        // Carry forward the last visible totals from the old counter system.
+        const COUNTER_OFFSETS = { schools:1, students:1, tests:7, questions:14 };
         let quizRecorded = false;
 
         async function readCounter(key, elementId) {
             const output = document.getElementById(elementId);
             try {
-                const response = await fetch(`${COUNTER_BASE}/get/${key}?t=${Date.now()}`, { cache: "no-store" });
-                if (response.status === 404) {
-                    // Create a new counter at zero only when it does not exist.
-                    const init = await fetch(`${COUNTER_BASE}/set/${key}?value=0&t=${Date.now()}`, { cache: "no-store" });
-                    if (!init.ok) throw new Error("Could not initialize counter");
-                    output.innerText = "0";
-                    return true;
-                }
-                if (!response.ok) throw new Error(`Counter returned ${response.status}`);
+                const url = `${COUNTER_BASE}/get/${COUNTER_NAMESPACE}/${COUNTER_KEYS[key]}?t=${Date.now()}`;
+                const response = await fetch(url, { mode:"cors", cache:"no-store" });
+                if (response.status === 404) { output.innerText = COUNTER_OFFSETS[key].toLocaleString(); return true; }
+                if (!response.ok) throw new Error("Counter read failed: " + response.status);
                 const data = await response.json();
                 if (data.value === undefined) throw new Error("Counter value missing");
-                output.innerText = Number(data.value).toLocaleString();
+                output.innerText = (COUNTER_OFFSETS[key] + Number(data.value)).toLocaleString();
                 return true;
-            } catch (error) {
-                output.innerText = "—";
-                return false;
-            }
+            } catch (error) { output.innerText = "—"; return false; }
         }
 
         async function loadPortalStats() {
-            document.getElementById("stats-status").innerText = "Loading live totals...";
+            document.getElementById("stats-status").innerText = "Loading shared statistics...";
             const results = await Promise.all([
-                readCounter(COUNTER_KEYS.schools, "total-schools"),
-                readCounter(COUNTER_KEYS.students, "total-students"),
-                readCounter(COUNTER_KEYS.tests, "tests-attempted"),
-                readCounter(COUNTER_KEYS.questions, "questions-attempted")
+                readCounter("schools", "total-schools"),
+                readCounter("students", "total-students"),
+                readCounter("tests", "tests-attempted"),
+                readCounter("questions", "questions-attempted")
             ]);
             document.getElementById("stats-status").innerText = results.every(Boolean)
                 ? "Live shared statistics"
-                : "Counter service did not respond. Please refresh or try another network."; 
+                : "Statistics service unavailable. Please refresh or try another network.";
         }
 
-        function waitMs(ms) {
-            return new Promise(resolve => setTimeout(resolve, ms));
-        }
+        function waitMs(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
 
         async function hitCounter(key) {
-            const response = await fetch(`${COUNTER_BASE}/hit/${key}?t=${Date.now()}`, { cache: "no-store" });
+            const url = `${COUNTER_BASE}/hit/${COUNTER_NAMESPACE}/${COUNTER_KEYS[key]}?t=${Date.now()}`;
+            const response = await fetch(url, { mode:"cors", cache:"no-store" });
             if (!response.ok) throw new Error("Counter update failed: " + response.status);
             const data = await response.json();
             if (data.value === undefined) throw new Error("Counter value missing");
-            return Number(data.value);
+            return COUNTER_OFFSETS[key] + Number(data.value);
         }
 
         async function hitCounterWithRetry(key) {
             let lastError;
-            for (let attempt = 0; attempt < 3; attempt++) {
+            for (let attempt=0; attempt<3; attempt++) {
                 try { return await hitCounter(key); }
-                catch (error) { lastError = error; await waitMs(500 * (attempt + 1)); }
+                catch (error) { lastError=error; await waitMs(1100*(attempt+1)); }
             }
             throw lastError;
         }
@@ -502,22 +536,14 @@
             const studentEntered = document.getElementById("student-name").value.trim().length > 0;
             const questionOutput = document.getElementById("questions-attempted");
             try {
-                // Sequential requests prevent missed increments from a burst of parallel hits.
-                const testsValue = await hitCounterWithRetry(COUNTER_KEYS.tests);
+                const testsValue = await hitCounterWithRetry("tests");
                 document.getElementById("tests-attempted").innerText = testsValue.toLocaleString();
-                if (schoolEntered) {
-                    const value = await hitCounterWithRetry(COUNTER_KEYS.schools);
-                    document.getElementById("total-schools").innerText = value.toLocaleString();
-                }
-                if (studentEntered) {
-                    const value = await hitCounterWithRetry(COUNTER_KEYS.students);
-                    document.getElementById("total-students").innerText = value.toLocaleString();
-                }
-                let questionsValue = Number(questionOutput.innerText.replace(/,/g, "")) || 0;
-                for (let i = 0; i < answered; i++) {
-                    questionsValue = await hitCounterWithRetry(COUNTER_KEYS.questions);
-                    questionOutput.innerText = questionsValue.toLocaleString();
-                    if (i < answered - 1) await waitMs(250);
+                if (schoolEntered) document.getElementById("total-schools").innerText = (await hitCounterWithRetry("schools")).toLocaleString();
+                if (studentEntered) document.getElementById("total-students").innerText = (await hitCounterWithRetry("students")).toLocaleString();
+                for (let i=0; i<answered; i++) {
+                    const value = await hitCounterWithRetry("questions");
+                    questionOutput.innerText = value.toLocaleString();
+                    if (i<answered-1) await waitMs(350);
                 }
                 document.getElementById("stats-status").innerText = "Statistics updated successfully";
             } catch (error) {
@@ -564,12 +590,37 @@
                 card.innerHTML = `<h4>${sub}</h4>`;
                 subjectList.appendChild(card);
             });
+            const mixedCard = document.createElement('div');
+            mixedCard.className = 'card mixed-test-card';
+            mixedCard.style.border = '2px solid var(--secondary-color)';
+            mixedCard.style.background = '#eff6ff';
+            mixedCard.onclick = () => selectSubject('Mixed Test (10 Marks)');
+            mixedCard.innerHTML = '<h4>⭐ Mixed Test</h4><p style="margin-top:6px;font-size:.85rem;color:#475569;">English 3 • Urdu 3 • Math 4</p><strong style="display:block;margin-top:5px;color:var(--primary-color);">Total: 10 Marks</strong>';
+            subjectList.appendChild(mixedCard);
         }
 
         function selectSubject(subject) {
             currentSubject = subject;
             document.getElementById('quiz-title').innerText = `${currentClass} - ${currentSubject}`;
-            startQuiz();
+            startQuiz(subject === 'Mixed Test (10 Marks)');
+        }
+
+        function buildMixedTestQuestions() {
+            const bank = questionBank[currentClass];
+            const extras = mixedSupplemental[currentClass] || {};
+            const english = bank.English || extras.English || [];
+            const urdu = bank.Urdu || extras.Urdu || [];
+            const mathematics = bank.Mathematics || [];
+            if (english.length < 3 || urdu.length < 3 || mathematics.length < 4) {
+                alert('This class does not yet have enough questions for the mixed test.');
+                return null;
+            }
+            const pick = (arr, count) => {
+                const copy = JSON.parse(JSON.stringify(arr));
+                shuffleArray(copy);
+                return copy.slice(0, count);
+            };
+            return [...pick(english,3), ...pick(urdu,3), ...pick(mathematics,4)];
         }
 
         function quitQuiz() {
@@ -581,9 +632,11 @@
         // ==========================================
         // QUIZ LOGIC
         // ==========================================
-        function startQuiz() {
+        function startQuiz(isMixed = false) {
             quizRecorded = false;
-            let rawQuestions = JSON.parse(JSON.stringify(questionBank[currentClass][currentSubject]));
+            let rawQuestions = isMixed ? buildMixedTestQuestions() : JSON.parse(JSON.stringify(questionBank[currentClass][currentSubject]));
+            if (!rawQuestions) return;
+            if (isMixed) shuffleArray(rawQuestions);
             shuffleArray(rawQuestions);
             
             currentQuestions = rawQuestions.map(q => {
