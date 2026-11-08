@@ -1,0 +1,13 @@
+candidate_id,student_name_ocr,class_assignment,start_pdf_page,end_pdf_page,ocr_based_evidence,review_status
+C3-01,Arooj Fatima,3,44,46,9-question sequence,OCR only; visual verification required
+C3-02,Name not detected,3,47,49,Q1 restarts; likely separate paper,OCR only; visual verification required
+C3-03,Zain Ali,3,50,52,9-question sequence,OCR only; visual verification required
+C3-04,Name not detected,3,68,70,Class 3 header and likely 9-question sequence,OCR only; visual verification required
+C3-05,Alishba Afzal,3,71,73,9-question sequence,OCR only; visual verification required
+C3-06,Zahra Bibi,3,74,76,9-question sequence,OCR only; visual verification required
+C3-07,Niram Fatima,3,171,173,9-question sequence,OCR only; visual verification required
+C3-08,Muhammad Hassan,3,174,176,9-question sequence,OCR only; visual verification required
+C3-09,Name not detected,,177,180,12 questions including Science Q10-12 conflicts with Class 3 requirements,Quarantined; class label likely OCR error
+C3-10,Name not detected,3,199,201,9-question sequence,OCR only; visual verification required
+C3-11,Name not detected,3,202,204,9-question sequence,OCR only; visual verification required
+C3-12,Name not detected,,205,208,12 questions including Science Q10-12 conflicts with Class 3 requirements,Quarantined; class label likely OCR error
