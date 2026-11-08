@@ -2,9 +2,9 @@ grade,subject,required_questions,source_question_count,approved_question_count,s
 3,English,3,3,3,3,READY_PROVISIONAL_SLO,Verified source set; skill tags: subject-verb agreement; simple present tense; sentence punctuation. Official SLO code not independently confirmed.
 3,Urdu,3,3,3,3,READY_PROVISIONAL_SLO,Verified source set; skill tags: general knowledge/comprehension about dams; homophones; appropriate response/environmental awareness. Official SLO code not independently confirmed.
 3,Mathematics,3,3,3,3,READY_PROVISIONAL_SLO,Verified source set; skill tags: perimeter; division; metric capacity unit. Official SLO code not independently confirmed.
-4,English,3,,,,PENDING_VERIFICATION,Source transcription and independent answer verification not completed
-4,Urdu,3,,,,PENDING_VERIFICATION,Source transcription and independent answer verification not completed
-4,Mathematics,3,,,,PENDING_VERIFICATION,Source transcription and independent answer verification not completed
+4,English,3,3,3,3,READY_PROVISIONAL_SLO,3 visually transcribed and independently verified questions; skills mapped provisionally; exact official Class 4 SLO codes/source still require confirmation.
+4,Urdu,3,3,3,3,READY_PROVISIONAL_SLO,3 visually transcribed and independently verified questions; skills mapped provisionally; exact official Class 4 SLO codes/source still require confirmation.
+4,Mathematics,3,3,3,3,READY_PROVISIONAL_SLO,3 visually transcribed and independently verified questions; skills mapped provisionally; exact official Class 4 SLO codes/source still require confirmation.
 5,English,3,,,,PENDING_VERIFICATION,Source transcription and independent answer verification not completed
 5,Urdu,3,,,,PENDING_VERIFICATION,Source transcription and independent answer verification not completed
 5,Mathematics,3,,,,PENDING_VERIFICATION,Source transcription and independent answer verification not completed
