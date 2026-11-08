@@ -8,15 +8,15 @@ grade,subject,required_questions,source_question_count,approved_question_count,s
 5,English,3,3,3,3,READY_PROVISIONAL_SLO,"3 source questions transcribed and independently answer-checked; skill tags provisional; official Class 5 SLO codes not independently confirmed"
 5,Urdu,3,3,3,3,READY_PROVISIONAL_SLO,"3 source questions transcribed and independently answer-checked; skill tags provisional; official Class 5 SLO codes not independently confirmed"
 5,Mathematics,3,3,3,3,READY_PROVISIONAL_SLO,"3 source questions transcribed and independently answer-checked; skill tags provisional; official Class 5 SLO codes not independently confirmed"
-6,English,3,,,,PENDING_VERIFICATION,Source transcription and independent answer verification not completed
-6,Urdu,3,,,,PENDING_VERIFICATION,Source transcription and independent answer verification not completed
-6,Mathematics,3,,,,PENDING_VERIFICATION,Source transcription and independent answer verification not completed
-6,Science,3,,,,PENDING_VERIFICATION,Source transcription and independent answer verification not completed
-7,English,3,,,,PENDING_VERIFICATION,Source transcription and independent answer verification not completed
-7,Urdu,3,,,,PENDING_VERIFICATION,Source transcription and independent answer verification not completed
-7,Mathematics,3,,,,PENDING_VERIFICATION,Source transcription and independent answer verification not completed
-7,Science,3,,,,PENDING_VERIFICATION,Source transcription and independent answer verification not completed
-8,English,3,,,,PENDING_VERIFICATION,Source transcription and independent answer verification not completed
-8,Urdu,3,,,,PENDING_VERIFICATION,Source transcription and independent answer verification not completed
-8,Mathematics,3,,,,PENDING_VERIFICATION,Source transcription and independent answer verification not completed
-8,Science,3,,,,PENDING_VERIFICATION,Source transcription and independent answer verification not completed
+6,English,3,3,3,3,READY_PROVISIONAL_SLO,"3 source questions visually checked and answer-verified; skill tags provisional; official grade-specific SLO codes not independently confirmed"
+6,Urdu,3,3,3,3,READY_PROVISIONAL_SLO,"3 source questions visually checked and answer-verified; skill tags provisional; official grade-specific SLO codes not independently confirmed"
+6,Mathematics,3,3,3,3,READY_PROVISIONAL_SLO,"3 source questions visually checked and answer-verified; skill tags provisional; official grade-specific SLO codes not independently confirmed"
+6,Science,3,3,3,3,READY_PROVISIONAL_SLO,"3 source questions visually checked and answer-verified; skill tags provisional; official grade-specific SLO codes not independently confirmed"
+7,English,3,3,3,3,READY_PROVISIONAL_SLO,"3 source questions visually checked and answer-verified; skill tags provisional; official grade-specific SLO codes not independently confirmed"
+7,Urdu,3,3,3,3,READY_PROVISIONAL_SLO,"3 source questions visually checked and answer-verified; skill tags provisional; official grade-specific SLO codes not independently confirmed"
+7,Mathematics,3,3,3,3,READY_PROVISIONAL_SLO,"3 source questions visually checked and answer-verified; skill tags provisional; official grade-specific SLO codes not independently confirmed"
+7,Science,3,3,3,3,READY_PROVISIONAL_SLO,"3 source questions visually checked and answer-verified; skill tags provisional; official grade-specific SLO codes not independently confirmed"
+8,English,3,3,3,3,READY_PROVISIONAL_SLO,"3 source questions visually checked and answer-verified; skill tags provisional; official grade-specific SLO codes not independently confirmed"
+8,Urdu,3,3,3,3,READY_PROVISIONAL_SLO,"3 source questions visually checked and answer-verified; skill tags provisional; official grade-specific SLO codes not independently confirmed"
+8,Mathematics,3,3,3,3,READY_PROVISIONAL_SLO,"3 source questions visually checked and answer-verified; skill tags provisional; official grade-specific SLO codes not independently confirmed"
+8,Science,3,3,3,3,READY_PROVISIONAL_SLO,"3 source questions visually checked and answer-verified; skill tags provisional; official grade-specific SLO codes not independently confirmed"
