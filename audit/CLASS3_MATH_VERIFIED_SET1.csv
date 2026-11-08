@@ -1,4 +1,4 @@
 class,subject,question_no,source_student,source_pdf_page,question,option_A,option_B,option_C,option_D,correct_option,correct_answer,verification_status,notes
 3,Mathematics,7,Arooj Fatima,45,"If the length of a rectangle is 7cm and its width is 5cm then its perimeter will be:","12cm","17cm","24cm","35cm",C,"24cm",Visually transcribed and independently solved,"2 x (7 + 5) = 24"
 3,Mathematics,9,Arooj Fatima,45,"The solution of 9 ÷ 3 is:","1","3","6","9",B,"3",Visually transcribed and independently solved,
-3,Mathematics,7,Zain Ali,51,"The length of side of a square is 5cm. Its perimeter will be:","20cm","25cm","30cm","35cm",A,"20cm",Visually transcribed and independently solved,"4 x 5 = 20"
+3,Mathematics,8,Arooj Fatima,48,"The standard unit of capacity is:","kilogram","Meter","Litre","Kilometer",C,"Litre",Visually transcribed and independently verified,
