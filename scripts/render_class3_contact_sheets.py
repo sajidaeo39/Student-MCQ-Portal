@@ -52,3 +52,5 @@ for idx in range(0, len(thumbs), 4):
     encoding="utf-8"
 )
 print(f"Rendered {len(page_numbers)} original PDF pages into {len(list(SHEETS.glob('*.jpg')))} contact sheets.")
+
+# Re-run marker: render original source pages for manual Class 3 verification.
