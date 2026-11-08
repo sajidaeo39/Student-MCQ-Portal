@@ -1,0 +1,4 @@
+class,subject,question_no,question,option_a,option_b,option_c,option_d,correct_option,source_pages,skill_tag,slo_status,verification
+"8","Science","1","Hydrolysis of fats is a chemical process used in making:","Toothpaste","Bio-plastic","Soap","Preservatives","C","104","Chemical processes","Provisional; official code not confirmed","Saponification/hydrolysis of fats is used in soap making."
+"8","Science","2","The salts needed for proper functioning of the nervous system are:","Sodium and calcium","Sodium and potassium","Potassium and calcium","Calcium and ammonium","B","104","Minerals and nervous system","Provisional; official code not confirmed","Sodium and potassium are the intended pair."
+"8","Science","3","Cactus plants absorb water in the desert through:","Broad leaves","Thick cuticle","Deep roots","Shallow roots","C","104","Plant adaptations","Provisional; official code not confirmed","Deep roots reach water in arid environments."
