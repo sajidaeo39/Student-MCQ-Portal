@@ -1,0 +1,4 @@
+class,subject,question_no,question,option_a,option_b,option_c,option_d,correct_option,source_pages,skill_tag,slo_status,verification
+"8","Mathematics","1","If purchase price is Rs. 520 and selling price is Rs. 400, the discount is:","Rs. 100","Rs. 110","Rs. 120","Rs. 180","C","101","Discount","Provisional; official code not confirmed","520−400=120."
+"8","Mathematics","2","The line y=-7x passes through:","(0,7)","(7,0)","(0,0)","(7,7)","C","105","Linear relations / coordinates","Provisional; official code not confirmed","At x=0, y=0."
+"8","Mathematics","3","Standard form of 1.52 × 10⁶ is:","1520","15200","152000","1520000","D","101","Standard form / powers of ten","Provisional; official code not confirmed","1.52×1,000,000=1,520,000."
