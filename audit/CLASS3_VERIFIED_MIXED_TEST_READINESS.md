@@ -1,24 +1,40 @@
-# Class 3 — Verified Subject Set 1 and Mixed-Test Readiness
+# Class 3 — Verified 9-Mark Mixed Test Readiness (Revised)
 
-## Subject-wise verified selection
+## Verified subject-wise sample set
 
-| Subject | Questions verified | Source pages | Status |
-|---|---:|---|---|
-| English | 3 | 44 | Verified |
-| Urdu | 3 | 46 | Verified |
-| Mathematics | 3 | 45, 51 | Verified |
-| **Total** | **9** | **44–46, 51** | **9-mark mixed test can be assembled** |
+| Subject | Verified questions | Marks | Source pages |
+|---|---:|---:|---|
+| English | 3 | 3 | 44 |
+| Urdu | 3 | 3 | 46 |
+| Mathematics | 3 | 3 | 45, 48 |
+| **Total** | **9** | **9** | |
 
-## Mixed test composition
-- English: Q1–Q3 (3 marks)
-- Urdu: Q4–Q6 (3 marks)
-- Mathematics: three verified items selected from Arooj Fatima and Zain Ali submissions (3 marks)
-- Total: 9 questions, 9 marks, 1 mark each.
+Each item has four transcribed options and an independently checked answer in its subject review file.
 
-## Rejected / held items
-- Arooj Fatima Mathematics Q8 (PDF page 45): invalid options; correct subtraction result is missing.
-- Zain Ali Mathematics Q9 (PDF page 51): shaded diagram is not sufficiently visible to verify the intended fraction.
-- Other Class 3 papers have not yet been fully transcribed or duplicate-checked. The present 9-item selection is a first verified sample set, not a final audit of every Class 3 paper.
+## Confirmed defective items excluded
+- Page 45: 49 − 29 = 20, but 20 is absent from the options.
+- Page 48: 17 + 47 = 64, but 64 is absent from the printed options.
+- Page 48 clock-reading item: the required clock illustration was unavailable in the rendered page.
+- Page 51 shaded-fraction item: the diagram was not sufficiently legible to establish the answer.
 
-## Important
-The verified questions are stored in review files only. They have NOT been inserted into the live portal because its current question-bank data schema and validation rules have not yet been checked in this stage.
+## Duplicate screening
+Three English questions on pages 44 and 47 are exact repeats with matching options:
+- They ___ not make fun of others.
+- They ___ salad before lunch daily.
+- Identify the sentence with correct punctuation (“Ali sings a song.”)
+
+Retain one canonical copy of each. Other possible repeats are listed in `CLASS3_DUPLICATE_DEFECT_REVIEW.md` and require full source comparison.
+
+## Portal code update
+The portal's mixed-test logic has been updated:
+- Classes 3–5: 3 English + 3 Urdu + 3 Mathematics = 9 marks.
+- Classes 6–8: 3 English + 3 Urdu + 3 Mathematics + 3 Science = 12 marks.
+- The mixed-test card displays the correct distribution for the selected class.
+- Existing randomization, option shuffling, scoring, review and attempt-statistics logic remain in place.
+
+See `PORTAL_MIXED_TEST_FIX.md`.
+
+## Scope and outstanding work
+This is a verified first sample set, not a complete audit of every Class 3 paper or all classes. The remaining papers still need complete transcription, answer checking, exact/near-duplicate review and question-bank selection. The two 12-question submissions labelled Class 3 (Sania and Sidra) remain quarantined because they conflict with the required 9-question, three-subject format.
+
+The verified source questions are documented in audit files; the existing portal's subject-wise banks were not overwritten with partially audited source data.
