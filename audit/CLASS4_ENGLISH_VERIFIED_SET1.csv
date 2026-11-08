@@ -1,0 +1,4 @@
+class,subject,question_no,source_student,source_pdf_page,question,option_A,option_B,option_C,option_D,correct_option,correct_answer,verification_status,skill_tag,slo_status,notes
+4,English,1,M hassan,38,"Choose the correct 'Compound Word'.",Quickly,Happy,Sunlight,Singing,C,Sunlight,Visually transcribed and independently verified,Compound word formation,PROVISIONAL_NO_OFFICIAL_CODE,"Source page 38; sunlight is formed from sun + light"
+4,English,2,M hassan,38,"Identify the 'Plural' of 'Knife'.",Knifes,Knifez,Knives,Knivez,C,Knives,Visually transcribed and independently verified,Irregular plural nouns,PROVISIONAL_NO_OFFICIAL_CODE,"Source page 38"
+4,English,3,Anum aslam,232,"Select the correct 'Adjective' of the word 'care'.",Caring,Careful,Cared,Carefully,B,Careful,Visually transcribed and independently verified,Adjective formation and word class,PROVISIONAL_NO_OFFICIAL_CODE,"Source page 232"
