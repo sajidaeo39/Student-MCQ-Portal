@@ -1,67 +1,45 @@
-# SLO-Based Question Classification and Complete Subject Coverage
+# SLO-Based Practice Question Audit — Owner-Approved Scope
 
-## Owner's instruction
-Every grade must have all subjects represented in the source question bank. No subject that appears in the PDF may be omitted from extraction, SLO classification, subject practice or reporting. Additionally compare the PDF with the official curriculum so absent subjects are visible as gaps.
+## Purpose
+The supplied `Question bank.pdf` is a sample of the real test. Use it as a pattern/reference to prepare student practice tests so students can practise the expected skills and improve their real-test scores. It is not an instruction to reproduce every subject in the general school curriculum.
 
-## Official reference
-PECTAA Curriculum & Compliance / e-book list:
-https://pectaa.edu.pk/curriculum-compliance/
-The official listing distinguishes English Medium (EM), Urdu Medium (UM), compulsory subjects, and optional subjects. The grade/medium scheme must be checked before treating every curriculum title as applicable to a particular student.
+## Fixed subject scope — do not expand
+- Classes 3, 4 and 5: **English, Urdu, Mathematics only**.
+- Classes 6, 7 and 8: **English, Urdu, Mathematics and Science only**.
 
-English SNC I–V required standards and SLOs:
-https://pectaa.edu.pk/uploads/SNC-2022/SNC_-_English_-_Required_Standards_and_SLOs%281-8%29.pdf
+Do not add any other subject, curriculum inventory, SLO, MCQ, practice test, or subject menu. In particular, do not add General Knowledge, Islamiat, Quran, Social Studies, Computer Science, Geography, History, Arabic, or other subjects.
 
-PECTAA's curriculum page lists SNC 2020 primary frameworks for English I–V, General Knowledge I–III, General Science IV–V, Mathematics I–V, Urdu I–V and Social Studies IV–V. It also lists grade-specific e-books for classes III–VIII.
+## Practice-test structure
+- Select exactly 3 approved MCQs per subject for each class.
+- Classes 3–5: 9-question mixed test, 1 mark per question, total 9 marks.
+- Classes 6–8: 12-question mixed test, 1 mark per question, total 12 marks.
+- Provide separate subject-wise practice tests and one mixed test for each class.
+- Student name and school name remain optional.
+- Do not publish unverified questions or invent replacements to fill a shortfall.
 
-## Grade-wise curriculum subject checklist
-Use the applicable medium, religion/religious-education track and official scheme. This checklist is a coverage prompt, not a claim that every item is present in the supplied PDF.
+## SLO mapping
+For each selected question, identify the skill/concept actually assessed and map it only to the relevant grade- and subject-specific SLO/learning outcome within the approved subject scope. Use the supplied real-test sample's question style and content as a guide; the sample PDF is not itself an official SLO document.
 
-| Grade | Core subjects / curriculum titles listed by PECTAA |
-|---|---|
-| 3 | English, Urdu, Mathematics; Nazra Quran for Muslim students; Waqfiyat-e-Aama and Islamiat (UM); Akhlaqiat for religious minorities |
-| 4 | English, Urdu, Mathematics (EM), General Science (EM); Islamiat and Muasharti Uloom (UM); Nazra Quran; Akhlaqiat / religious education alternatives |
-| 5 | English, Urdu, Mathematics (EM), General Science (EM); Islamiat and Muasharti Uloom (UM); Nazra Quran; Akhlaqiat / religious education alternatives |
-| 6 | English, Urdu, Mathematics, General Science, Computer Science, Geography, History; Tarjuma-tul-Quran and Islamiat for Muslim students; Ethics/Akhlaqiat alternatives; Arabic and other scheme-specific options |
-| 7 | English, Urdu, Mathematics, General Science, Computer Science, Geography, History; Tarjuma-tul-Quran and Islamiat for Muslim students; Ethics/Akhlaqiat alternatives; Arabic and other scheme-specific options |
-| 8 | English, Urdu, Mathematics, General Science, Computer Science, Geography, History; Tarjuma-tul-Quran and Islamiat for Muslim students; Ethics/Akhlaqiat alternatives; Arabic and other scheme-specific options |
+Record:
+- grade and one of the approved subjects;
+- source PDF page and student/page-group attribution where identifiable;
+- exact stem and all options;
+- source-marked answer and independently verified correct answer;
+- relevant competency/strand and SLO statement/reference, where a defensible match exists;
+- cognitive demand (remembering, understanding, application, or HOTS) only where supported;
+- SLO-match confidence, duplicate status, and reviewer notes.
 
-## Two inventories must never be confused
-1. **Curriculum inventory:** all applicable subjects based on grade, medium and official scheme.
-2. **PDF inventory:** every subject actually appearing in the supplied Question bank.pdf for that grade.
+Never invent an official SLO code or statement. If the exact official SLO cannot be confirmed, record a transparent provisional skill mapping and mark it for verification. Do not map a question to an unrelated SLO merely to fill a field.
 
-Extract all PDF-present subjects. For curriculum subjects not represented in the PDF, mark `MISSING_FROM_SOURCE`. Never fabricate questions. If owner later supplies approved material for missing subjects, add it with its source and SLO references.
+## Verification and selection
+1. Confirm grade, student/page sequence, and subject.
+2. Transcribe the question and all four options from the original page image.
+3. Solve independently; compare with any answer marked in the sample.
+4. Flag unclear, incomplete, ambiguous, defective, or no-correct-option questions; do not guess.
+5. Detect exact and near duplicates across pages and classes.
+6. Select 3 valid questions per approved subject, preferring different skills/SLOs and avoiding repeats.
+7. Produce a grade × approved subject × SLO coverage matrix. Explicitly show any subject with fewer than 3 approved questions.
+8. Keep unapproved questions out of the live practice portal.
 
-## SLO fields required for each question
-- grade, subject, student_name, source_pdf_page
-- exact question text and all four options
-- source_marked_answer and independently verified_correct_answer
-- competency/strand, benchmark, SLO statement
-- official SLO reference URL and page/section
-- cognitive_level (Remembering, Understanding, Application, HOTS, only where supported)
-- SLO match confidence and reviewer notes
-- duplicate group/type and review status
-
-Never invent official SLO codes. If there is no official code, use a clearly labelled internal mapping ID.
-
-## Mapping workflow
-1. Confirm student grade, medium and page grouping.
-2. Determine actual subject from page heading/content.
-3. Transcribe stem and A–D options from original image.
-4. Solve independently; compare source-marked answer with correct answer.
-5. Identify exact skill being assessed.
-6. Map to the closest grade-specific official SLO, benchmark and competency.
-7. Record exact source/page/section. If no defensible match, mark `UNMAPPED` or `OUT_OF_GRADE`.
-8. Select final questions across different SLOs and cognitive levels where available.
-9. Count questions by grade × subject × SLO and identify gaps.
-
-## Completion and portal rules
-- Every subject appearing in the PDF must be extracted, audited and listed in the portal subject inventory for that class.
-- No subject is to be omitted just because an earlier draft assumed 3 or 4 subjects.
-- Subject-wise test selection must use approved questions only.
-- Mixed tests must include every source-present, approved subject for the grade; calculate total marks from actual selected question count, one mark per question.
-- If a subject is missing from the source or has too few approved items, display the exact shortfall and do not falsely label the grade complete.
-- Do not silently cap a grade to 9 or 12 marks if additional source-present subjects have been confirmed. First reconcile the agreed test design with the owner; preserve every subject.
-- Maintain a grade × subject × SLO coverage matrix.
-
-## Current evidence boundary
-OCR page grouping currently suggests the source PDF has English, Urdu and Mathematics for Grades 4–5 and English, Urdu, Mathematics and Science for Grades 6–8. This is preliminary OCR evidence only; verify every candidate page visually. Do not assume no additional subject exists merely because the first grouping pass did not detect it.
+## Final quality gate
+A class is ready only when every approved subject has 3 verified questions, all answers have been independently checked, SLO/skill mapping is defensible, and both subject-wise and mixed tests pass scoring and selection checks. Do not add any subject beyond the fixed scope above.
