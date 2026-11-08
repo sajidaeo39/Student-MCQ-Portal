@@ -2,6 +2,11 @@ name: Classes 4-8 Visual Contact Sheets
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - "Question bank.pdf"
+      - "scripts/render_classes4to8_contact_sheets.py"
+      - ".github/workflows/classes4to8-visual-review.yml"
 
 permissions:
   contents: read
