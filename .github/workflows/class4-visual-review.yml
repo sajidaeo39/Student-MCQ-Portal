@@ -1,0 +1,27 @@
+name: Class 4 Visual and OCR Review Pack
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  review-pack:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install OCR
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y tesseract-ocr tesseract-ocr-eng tesseract-ocr-urd
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install --upgrade pymupdf
+      - name: Build Class 4 review pack
+        run: python scripts/build_class4_review_pack.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: class4-visual-review-pack
+          path: class4-review/
+          if-no-files-found: error
+          retention-days: 30
