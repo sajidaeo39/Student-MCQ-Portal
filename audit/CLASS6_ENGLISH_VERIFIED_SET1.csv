@@ -1,0 +1,4 @@
+class,subject,question_no,question,option_a,option_b,option_c,option_d,correct_option,source_pages,skill_tag,slo_status,verification
+"6","English","1","My class fellow is ____ honest boy.","a","an","the","some","B","95","Articles: a/an","Provisional; official code not confirmed","An honest boy uses 'an' before the vowel sound."
+"6","English","2","Complete in Simple Present: The sun ____ every morning.","rises","rising","rose","risen","A","95","Simple present tense","Provisional; official code not confirmed","Third-person singular subject takes rises."
+"6","English","3","Choose the antonym of 'brilliant'.","Bright","Untalented","Vivid","Shining","B","95","Antonyms","Provisional; official code not confirmed","Untalented is the opposite in this context."
