@@ -1,0 +1,4 @@
+class,subject,question_no,source_student,source_pdf_page,question,option_A,option_B,option_C,option_D,correct_option,correct_answer,verification_status,notes
+3,English,1,Arooj Fatima,44,"They _____ not make fun of others.","do","does","done","doing",A,"do",Visually transcribed and independently solved,
+3,English,2,Arooj Fatima,44,"They _____ salad before lunch daily.","eat","eats","eaten","eating",A,"eat",Visually transcribed and independently solved,
+3,English,3,Arooj Fatima,44,"Identify the sentence with the correct punctuation.","Ali sings a song.","Ali sings a song?","Ali sings a song,","Ali sings a song!",A,"Ali sings a song.",Visually transcribed and independently solved,
