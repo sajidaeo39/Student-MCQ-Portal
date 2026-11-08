@@ -1,6 +1,11 @@
 name: Class 4 Visual and OCR Review Pack
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - 'Question bank.pdf'
+      - 'scripts/build_class4_review_pack.py'
+      - '.github/workflows/class4-visual-review.yml'
 permissions:
   contents: read
 jobs:
