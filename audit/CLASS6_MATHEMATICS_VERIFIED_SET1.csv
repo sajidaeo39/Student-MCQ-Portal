@@ -1,0 +1,4 @@
+class,subject,question_no,question,option_a,option_b,option_c,option_d,correct_option,source_pages,skill_tag,slo_status,verification
+"6","Mathematics","1","Identify a factor of 57:","3","5","7","12","A","129","Factors","Provisional; official code not confirmed","57 is divisible by 3 (5+7=12)."
+"6","Mathematics","2","Simplified form of 4(a+2b)-3a(1-b) is:","a+8b-3ab","a+8b+3ab","a-8b+3ab","a-8b-3ab","B","129","Algebraic simplification","Provisional; official code not confirmed","Expansion gives 4a+8b-3a+3ab=a+8b+3ab."
+"6","Mathematics","3","If 16y-16=0, then y is:","-1","0","1","2","C","129","Linear equations","Provisional; official code not confirmed","16y=16, so y=1."
