@@ -590,37 +590,47 @@
                 card.innerHTML = `<h4>${sub}</h4>`;
                 subjectList.appendChild(card);
             });
+            const isSenior = ['Class 6','Class 7','Class 8'].includes(currentClass);
+            const totalMarks = isSenior ? 12 : 9;
+            const distribution = isSenior
+                ? 'English 3 • Urdu 3 • Math 3 • Science 3'
+                : 'English 3 • Urdu 3 • Math 3';
             const mixedCard = document.createElement('div');
             mixedCard.className = 'card mixed-test-card';
             mixedCard.style.border = '2px solid var(--secondary-color)';
             mixedCard.style.background = '#eff6ff';
-            mixedCard.onclick = () => selectSubject('Mixed Test (10 Marks)');
-            mixedCard.innerHTML = '<h4>⭐ Mixed Test</h4><p style="margin-top:6px;font-size:.85rem;color:#475569;">English 3 • Urdu 3 • Math 4</p><strong style="display:block;margin-top:5px;color:var(--primary-color);">Total: 10 Marks</strong>';
+            mixedCard.onclick = () => selectSubject('Mixed Test');
+            mixedCard.innerHTML = `<h4>⭐ Mixed Test</h4><p style="margin-top:6px;font-size:.85rem;color:#475569;">${distribution}</p><strong style="display:block;margin-top:5px;color:var(--primary-color);">Total: ${totalMarks} Marks</strong>`;
             subjectList.appendChild(mixedCard);
         }
 
         function selectSubject(subject) {
             currentSubject = subject;
             document.getElementById('quiz-title').innerText = `${currentClass} - ${currentSubject}`;
-            startQuiz(subject === 'Mixed Test (10 Marks)');
+            startQuiz(subject === 'Mixed Test');
         }
 
         function buildMixedTestQuestions() {
             const bank = questionBank[currentClass];
             const extras = mixedSupplemental[currentClass] || {};
-            const english = bank.English || extras.English || [];
-            const urdu = bank.Urdu || extras.Urdu || [];
-            const mathematics = bank.Mathematics || [];
-            if (english.length < 3 || urdu.length < 3 || mathematics.length < 4) {
-                alert('This class does not yet have enough questions for the mixed test.');
-                return null;
-            }
             const pick = (arr, count) => {
-                const copy = JSON.parse(JSON.stringify(arr));
+                const copy = JSON.parse(JSON.stringify(arr || []));
                 shuffleArray(copy);
                 return copy.slice(0, count);
             };
-            return [...pick(english,3), ...pick(urdu,3), ...pick(mathematics,4)];
+            const subjects = ['English','Urdu','Mathematics'];
+            const isSenior = ['Class 6','Class 7','Class 8'].includes(currentClass);
+            if (isSenior) subjects.push('Science');
+            const selected = [];
+            for (const subject of subjects) {
+                const pool = [...(bank[subject] || []), ...(extras[subject] || [])];
+                if (pool.length < 3) {
+                    alert(currentClass + ' ' + subject + ' needs at least 3 questions for the mixed test.');
+                    return null;
+                }
+                selected.push(...pick(pool,3));
+            }
+            return selected;
         }
 
         function quitQuiz() {
