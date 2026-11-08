@@ -1,0 +1,4 @@
+class,subject,question_no,question,option_a,option_b,option_c,option_d,correct_option,source_pages,skill_tag,slo_status,verification
+5,Urdu,1,"تذکیر و تانیث کے مطابق درست فعل کے استعمال والا جملہ ہے:","بلی چوہا کھاتی ہے۔","بلی چوہا کھاتا ہے۔","بلی چوہا کھاتی ہیں۔","بلی چوہا کھاتیں ہیں۔",A,79,"تذکیر و تانیث اور فعل کی مطابقت","Provisional; official code not confirmed","Page image checked; subject-verb agreement"
+5,Urdu,2,"انعم ______ اپنی سہیلی ______ خط لکھا۔","کو، نے","نے، کو","نے، سے","کو، سے",B,140,"علامتِ فاعل و مفعول","Provisional; official code not confirmed","Sentence construction independently checked"
+5,Urdu,3,"درج بالا شعر میں ذکر ہے:","گھر کا","دکان کا","کھیتی کا","اسکول کا",C,140,"شعر کا مفہوم/فہم","Provisional; official code not confirmed","Verse explicitly refers to lush cultivation"
