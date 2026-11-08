@@ -1,0 +1,25 @@
+name: Classes 4-8 Visual Contact Sheets
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install --upgrade pymupdf pillow
+      - run: python scripts/render_classes4to8_contact_sheets.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: classes4to8-original-page-contact-sheets
+          path: classes4to8-visual-review/
+          if-no-files-found: error
+          retention-days: 30
