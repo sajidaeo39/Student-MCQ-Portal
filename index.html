@@ -421,49 +421,15 @@
             }
         };
 
-        // Additional grade-level questions used by the all-subject mixed tests.
-        const mixedSupplemental = {
-            "Class 5": {
-                "Urdu": [
-                    ["لفظ 'خوشی' کا متضاد کیا ہے؟", ["غم", "مسرت", "خوشحال", "ہنسی"], 0],
-                    ["'پاکستان ہمارا وطن ہے' میں اسم خاص کون سا ہے؟", ["وطن", "ہمارا", "پاکستان", "ہے"], 2],
-                    ["لفظ 'کتاب' کی جمع کیا ہے؟", ["کتابیں", "کتابچہ", "کتابی", "کتابدار"], 0],
-                    ["'محنت' کا مترادف کون سا ہے؟", ["کوشش", "آرام", "سستی", "غفلت"], 0],
-                    ["جملہ 'علی سکول جاتا ہے' میں فعل کون سا ہے؟", ["علی", "سکول", "جاتا ہے", "کوئی نہیں"], 2]
-                ]
-            },
-            "Class 6": {
-                "English": [
-                    ["Choose the correct plural of 'child'.", ["Childs", "Children", "Childes", "Childrens"], 1],
-                    ["Identify the adjective: 'The clever student solved the problem.'", ["Student", "Solved", "Clever", "Problem"], 2],
-                    ["Choose the correct past tense of 'go'.", ["Goed", "Gone", "Went", "Going"], 2],
-                    ["Select the correct article: 'He is ___ honest man.'", ["a", "an", "the", "no article"], 1],
-                    ["Choose the antonym of 'ancient'.", ["Old", "Modern", "Historic", "Past"], 1]
-                ],
-                "Urdu": [
-                    ["اسم کی درست مثال کون سی ہے؟", ["دوڑنا", "خوبصورت", "کتاب", "آہستہ"], 2],
-                    ["لفظ 'علم' کا متضاد کیا ہے؟", ["دانش", "جہالت", "شعور", "آگہی"], 1],
-                    ["'وہ سکول گیا' میں فعل کون سا ہے؟", ["وہ", "سکول", "گیا", "کوئی نہیں"], 2],
-                    ["لفظ 'استاد' کی جمع کیا ہے؟", ["استادوں", "استادی", "استادان", "استادہ"], 0],
-                    ["حرفِ ندا کی مثال کون سی ہے؟", ["اور", "کاش", "اے", "لیکن"], 2]
-                ]
-            },
-            "Class 7": {
-                "English": [
-                    ["Choose the correct passive voice: 'Ali writes a letter.'", ["A letter is written by Ali.", "A letter was wrote by Ali.", "Ali is written a letter.", "A letter writes Ali."], 0],
-                    ["Identify the adverb: 'She speaks politely.'", ["She", "Speaks", "Politely", "None"], 2],
-                    ["Choose the correct comparative form of 'good'.", ["Gooder", "Best", "More good", "Better"], 3],
-                    ["Select the correct conjunction: 'I was tired, ___ I finished my work.'", ["because", "but", "or", "so"], 1],
-                    ["Choose the synonym of 'brave'.", ["Cowardly", "Fearful", "Courageous", "Weak"], 2]
-                ],
-                "Urdu": [
-                    ["جملہ 'بچے کھیل رہے ہیں' میں فعل کون سا ہے؟", ["بچے", "کھیل رہے ہیں", "ہیں", "کوئی نہیں"], 1],
-                    ["لفظ 'آغاز' کا متضاد کیا ہے؟", ["ابتدا", "شروع", "انجام", "افتتاح"], 2],
-                    ["اسم صفت کی مثال کون سی ہے؟", ["لڑکا", "خوبصورت", "دوڑنا", "اور"], 1],
-                    ["'احمد نے خط لکھا' میں فاعل کون ہے؟", ["احمد", "خط", "لکھا", "نے"], 0],
-                    ["لفظ 'بہادر' کا مترادف کیا ہے؟", ["ڈرپوک", "دلیر", "کمزور", "خاموش"], 1]
-                ]
-            }
+        // Practice-test scope is fixed by the owner. No supplemental/unverified
+        // questions are permitted in subject-wise or mixed practice.
+        const approvedSubjects = {
+            "Class 3": ["English", "Urdu", "Mathematics"],
+            "Class 4": ["English", "Urdu", "Mathematics"],
+            "Class 5": ["English", "Urdu", "Mathematics"],
+            "Class 6": ["English", "Urdu", "Mathematics", "Science"],
+            "Class 7": ["English", "Urdu", "Mathematics", "Science"],
+            "Class 8": ["English", "Urdu", "Mathematics", "Science"]
         };
 
         // ==========================================
@@ -563,7 +529,7 @@
         function renderClasses() {
             const classList = document.getElementById('class-list');
             classList.innerHTML = '';
-            Object.keys(questionBank).forEach(cls => {
+            Object.keys(approvedSubjects).forEach(cls => {
                 const card = document.createElement('div');
                 card.className = 'card';
                 card.onclick = () => selectClass(cls);
@@ -582,12 +548,22 @@
         function renderSubjects() {
             const subjectList = document.getElementById('subject-list');
             subjectList.innerHTML = '';
-            const subjects = Object.keys(questionBank[currentClass]);
+            const subjects = approvedSubjects[currentClass] || [];
             subjects.forEach(sub => {
+                const pool = questionBank[currentClass]?.[sub] || [];
+                const ready = pool.length >= 3;
                 const card = document.createElement('div');
                 card.className = 'card';
-                card.onclick = () => selectSubject(sub);
-                card.innerHTML = `<h4>${sub}</h4>`;
+                card.style.opacity = ready ? '1' : '.58';
+                card.style.cursor = ready ? 'pointer' : 'not-allowed';
+                card.onclick = () => {
+                    if (!ready) {
+                        alert(`${currentClass} - ${sub}: verified practice questions are not available yet. This subject is retained in the class list and will open after at least 3 questions are verified.`);
+                        return;
+                    }
+                    selectSubject(sub);
+                };
+                card.innerHTML = `<h4>${sub}</h4><p style="margin-top:6px;font-size:.8rem;color:#64748b;">${ready ? 'Practice test • 3 questions selected' : 'Question set under verification'}</p>`;
                 subjectList.appendChild(card);
             });
             const isSenior = ['Class 6','Class 7','Class 8'].includes(currentClass);
@@ -611,24 +587,18 @@
         }
 
         function buildMixedTestQuestions() {
-            const bank = questionBank[currentClass];
-            const extras = mixedSupplemental[currentClass] || {};
-            const pick = (arr, count) => {
-                const copy = JSON.parse(JSON.stringify(arr || []));
-                shuffleArray(copy);
-                return copy.slice(0, count);
-            };
-            const subjects = ['English','Urdu','Mathematics'];
-            const isSenior = ['Class 6','Class 7','Class 8'].includes(currentClass);
-            if (isSenior) subjects.push('Science');
+            const bank = questionBank[currentClass] || {};
+            const subjects = approvedSubjects[currentClass] || [];
+            const missing = subjects.filter(subject => (bank[subject] || []).length < 3);
+            if (missing.length) {
+                alert('Mixed Test is not ready. These required subjects need at least 3 verified questions each: ' + missing.join(', ') + '.');
+                return null;
+            }
             const selected = [];
             for (const subject of subjects) {
-                const pool = [...(bank[subject] || []), ...(extras[subject] || [])];
-                if (pool.length < 3) {
-                    alert(currentClass + ' ' + subject + ' needs at least 3 questions for the mixed test.');
-                    return null;
-                }
-                selected.push(...pick(pool,3));
+                const copy = JSON.parse(JSON.stringify(bank[subject]));
+                shuffleArray(copy);
+                selected.push(...copy.slice(0, 3));
             }
             return selected;
         }
@@ -644,9 +614,20 @@
         // ==========================================
         function startQuiz(isMixed = false) {
             quizRecorded = false;
-            let rawQuestions = isMixed ? buildMixedTestQuestions() : JSON.parse(JSON.stringify(questionBank[currentClass][currentSubject]));
+            let rawQuestions;
+            if (isMixed) {
+                rawQuestions = buildMixedTestQuestions();
+            } else {
+                const pool = questionBank[currentClass]?.[currentSubject] || [];
+                if (pool.length < 3) {
+                    alert(currentClass + ' - ' + currentSubject + ': at least 3 questions are required before this practice test can start.');
+                    return;
+                }
+                const copy = JSON.parse(JSON.stringify(pool));
+                shuffleArray(copy);
+                rawQuestions = copy.slice(0, 3);
+            }
             if (!rawQuestions) return;
-            if (isMixed) shuffleArray(rawQuestions);
             shuffleArray(rawQuestions);
             
             currentQuestions = rawQuestions.map(q => {
