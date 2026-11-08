@@ -5,9 +5,9 @@ grade,subject,required_questions,source_question_count,approved_question_count,s
 4,English,3,3,3,3,READY_PROVISIONAL_SLO,3 visually transcribed and independently verified questions; skills mapped provisionally; exact official Class 4 SLO codes/source still require confirmation.
 4,Urdu,3,3,3,3,READY_PROVISIONAL_SLO,3 visually transcribed and independently verified questions; skills mapped provisionally; exact official Class 4 SLO codes/source still require confirmation.
 4,Mathematics,3,3,3,3,READY_PROVISIONAL_SLO,3 visually transcribed and independently verified questions; skills mapped provisionally; exact official Class 4 SLO codes/source still require confirmation.
-5,English,3,,,,PENDING_VERIFICATION,Source transcription and independent answer verification not completed
-5,Urdu,3,,,,PENDING_VERIFICATION,Source transcription and independent answer verification not completed
-5,Mathematics,3,,,,PENDING_VERIFICATION,Source transcription and independent answer verification not completed
+5,English,3,3,3,3,READY_PROVISIONAL_SLO,"3 source questions transcribed and independently answer-checked; skill tags provisional; official Class 5 SLO codes not independently confirmed"
+5,Urdu,3,3,3,3,READY_PROVISIONAL_SLO,"3 source questions transcribed and independently answer-checked; skill tags provisional; official Class 5 SLO codes not independently confirmed"
+5,Mathematics,3,3,3,3,READY_PROVISIONAL_SLO,"3 source questions transcribed and independently answer-checked; skill tags provisional; official Class 5 SLO codes not independently confirmed"
 6,English,3,,,,PENDING_VERIFICATION,Source transcription and independent answer verification not completed
 6,Urdu,3,,,,PENDING_VERIFICATION,Source transcription and independent answer verification not completed
 6,Mathematics,3,,,,PENDING_VERIFICATION,Source transcription and independent answer verification not completed
