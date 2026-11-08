@@ -1,0 +1,4 @@
+class,subject,question_no,question,option_a,option_b,option_c,option_d,correct_option,source_pages,skill_tag,slo_status,verification
+"7","Urdu","1","حق خودارادیت کی جنگ لڑ رہے ہیں:","کشمیر کے لوگ","پاکستان کے لوگ","بھارت کے لوگ","چین کے لوگ","A","184","فہمِ عبارت / معلومات","Provisional; official code not confirmed","The page question explicitly refers to the people of Kashmir."
+"7","Urdu","2","فعلِ مستقبل کے استعمال والا جملہ ہے:","میں آج اسلام آباد جاؤں گا۔","میں اسلام آباد جا رہا ہوں۔","میں کل اسلام آباد گیا تھا۔","میں اسلام آباد جا چکا ہوں۔","A","67","فعلِ مستقبل","Provisional; official code not confirmed","'جاؤں گا' indicates future tense."
+"7","Urdu","3","حروفِ ندائیہ کے استعمال والا جملہ ہے:","میں نے آپ کا کیا بگاڑا ہے؟","افسوس! ہم میچ نہ جیت سکے۔","لاحول ولا قوۃ! آپ کیسی بات کر رہے ہیں؟","مبین! کیا آپ مجھے گھر چھوڑ دیں گے؟","D","118","حروفِ ندائیہ","Provisional; official code not confirmed","مبین! is direct address; افسوس is exclamatory, not vocative."
