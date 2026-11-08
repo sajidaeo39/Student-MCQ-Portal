@@ -1,0 +1,4 @@
+class,subject,question_no,source_student,source_pdf_page,question,option_A,option_B,option_C,option_D,correct_option,correct_answer,verification_status,skill_tag,slo_status,notes
+4,Mathematics,7,M hassan,39,"If the length of a rectangle is 7cm and its width is 5cm then its perimeter will be:",12cm,17cm,24cm,35cm,C,24cm,Visually transcribed and independently solved,Perimeter of rectangle,PROVISIONAL_NO_OFFICIAL_CODE,"2 x (7 + 5) = 24 cm"
+4,Mathematics,8,Anum aslam,233,"Millilitres in 9.7 litres are:",97 ml,907 ml,970 ml,9700 ml,D,9700 ml,Visually transcribed and independently solved,Metric capacity conversion,PROVISIONAL_NO_OFFICIAL_CODE,"9.7 x 1000 = 9700 ml"
+4,Mathematics,8,Mahnoor,239,"If the weight of a sugar packet is 2.25 kg, then the weight of such 11 packets will be:",2.475 kg,24.75 kg,247.5 kg,2475 kg,B,24.75 kg,Visually transcribed and independently solved,Multiplication of decimal quantities,PROVISIONAL_NO_OFFICIAL_CODE,"2.25 x 11 = 24.75 kg"
