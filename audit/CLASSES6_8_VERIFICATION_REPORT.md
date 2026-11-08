@@ -26,7 +26,7 @@ Questions were selected from the original PDF page groups listed in `audit/CLASS
 ### Class 8
 - English: phrase usage, direct command, future perfect.
 - Urdu: flood mitigation comprehension, Hingol National Park location, idiom comprehension.
-- Mathematics: discount, coordinate point on a line, standard form.
+- Mathematics: closed mathematical sentence, coordinate point on a line, standard form.
 - Science: soap manufacture, salts for nervous system, cactus adaptation.
 
 ## Important SLO qualification
