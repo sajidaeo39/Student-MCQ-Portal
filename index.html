@@ -421,6 +421,12 @@
             }
         };
 
+        // Only these source sets have been individually transcribed and answer-verified.
+        // Other class/subject sets remain visible but locked until their audit is complete.
+        const verifiedPracticeSets = {
+            "Class 3": ["English", "Urdu", "Mathematics"]
+        };
+
         // Practice-test scope is fixed by the owner. No supplemental/unverified
         // questions are permitted in subject-wise or mixed practice.
         const approvedSubjects = {
@@ -551,7 +557,7 @@
             const subjects = approvedSubjects[currentClass] || [];
             subjects.forEach(sub => {
                 const pool = questionBank[currentClass]?.[sub] || [];
-                const ready = pool.length >= 3;
+                const ready = (verifiedPracticeSets[currentClass] || []).includes(sub) && pool.length >= 3;
                 const card = document.createElement('div');
                 card.className = 'card';
                 card.style.opacity = ready ? '1' : '.58';
@@ -589,7 +595,7 @@
         function buildMixedTestQuestions() {
             const bank = questionBank[currentClass] || {};
             const subjects = approvedSubjects[currentClass] || [];
-            const missing = subjects.filter(subject => (bank[subject] || []).length < 3);
+            const missing = subjects.filter(subject => !(verifiedPracticeSets[currentClass] || []).includes(subject) || (bank[subject] || []).length < 3);
             if (missing.length) {
                 alert('Mixed Test is not ready. These required subjects need at least 3 verified questions each: ' + missing.join(', ') + '.');
                 return null;
@@ -619,7 +625,7 @@
                 rawQuestions = buildMixedTestQuestions();
             } else {
                 const pool = questionBank[currentClass]?.[currentSubject] || [];
-                if (pool.length < 3) {
+                if (!(verifiedPracticeSets[currentClass] || []).includes(currentSubject) || pool.length < 3) {
                     alert(currentClass + ' - ' + currentSubject + ': at least 3 questions are required before this practice test can start.');
                     return;
                 }
