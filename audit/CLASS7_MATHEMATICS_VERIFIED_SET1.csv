@@ -1,0 +1,4 @@
+class,subject,question_no,question,option_a,option_b,option_c,option_d,correct_option,source_pages,skill_tag,slo_status,verification
+"7","Mathematics","1","If A={a,e,i,o,u} and B={i,o,u}, then A∩B is:","{a,e,i,o,u}","{i,o,u}","{a,e}","{o,u}","B","183","Intersection of sets","Provisional; official code not confirmed","Common elements are i, o, u."
+"7","Mathematics","2","The number of all possible subsets of {0,1,2} is:","2","4","6","8","D","183","Power set","Provisional; official code not confirmed","A 3-element set has 2³=8 subsets."
+"7","Mathematics","3","The sum of (2x²+5x-3) and (4x²-9x+7) is:","6x²-4x+4","6x²+4x+4","6x²-4x-4","6x²-4x+10","A","59","Addition of polynomials","Provisional; official code not confirmed","Combine like terms to get 6x²-4x+4."
