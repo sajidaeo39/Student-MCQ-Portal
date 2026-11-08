@@ -1,13 +1,13 @@
-candidate_id,student_name_ocr,class_assignment,start_pdf_page,end_pdf_page,ocr_based_evidence,review_status
-C3-01,Arooj Fatima,3,44,46,9-question sequence,OCR only; visual verification required
-C3-02,Name not detected,3,47,49,Q1 restarts; likely separate paper,OCR only; visual verification required
-C3-03,Zain Ali,3,50,52,9-question sequence,OCR only; visual verification required
-C3-04,Name not detected,3,68,70,Class 3 header and likely 9-question sequence,OCR only; visual verification required
-C3-05,Alishba Afzal,3,71,73,9-question sequence,OCR only; visual verification required
-C3-06,Zahra Bibi,3,74,76,9-question sequence,OCR only; visual verification required
-C3-07,Niram Fatima,3,171,173,9-question sequence,OCR only; visual verification required
-C3-08,Muhammad Hassan,3,174,176,9-question sequence,OCR only; visual verification required
-C3-09,Name not detected,,177,180,12 questions including Science Q10-12 conflicts with Class 3 requirements,Quarantined; class label likely OCR error
-C3-10,Name not detected,3,199,201,9-question sequence,OCR only; visual verification required
-C3-11,Name not detected,3,202,204,9-question sequence,OCR only; visual verification required
-C3-12,Name not detected,,205,208,12 questions including Science Q10-12 conflicts with Class 3 requirements,Quarantined; class label likely OCR error
+candidate_id,student_name_visual,class_header_visual,question_order_pdf_pages,subject_sequence,question_count_visual,review_status
+C3-01,Arooj Fatima,Class 3,44;46;45,English Q1-3 / Urdu Q4-6 / Mathematics Q7-9,9,Visual page sequence checked; answer/content audit pending
+C3-02,Arooj Fatima,Class 3,47;49;48,English Q1-3 / Urdu Q4-6 / Mathematics Q7-9,9,Separate submission with same student name; questions differ; answer/content audit pending
+C3-03,Zain Ali,Class 3,50;52;51,English Q1-3 / Urdu Q4-6 / Mathematics Q7-9,9,Visual page sequence checked; answer/content audit pending
+C3-04,Sajad Ali,Class 3,68;70;69,English Q1-3 / Urdu Q4-6 / Mathematics Q7-9,9,Name recovered from original image; answer/content audit pending
+C3-05,Alishba Afzal,Class 3,71;73;72,English Q1-3 / Urdu Q4-6 / Mathematics Q7-9,9,Visual page sequence checked; answer/content audit pending
+C3-06,Zahra Bibi,Class 3,74;76;75,English Q1-3 / Urdu Q4-6 / Mathematics Q7-9,9,Visual page sequence checked; answer/content audit pending
+C3-07,Niram Fatima,Class 3,171;173;172,English Q1-3 / Urdu Q4-6 / Mathematics Q7-9,9,Visual page sequence checked; answer/content audit pending
+C3-08,Muhammad Hassan,Class 3,174;176;175,English Q1-3 / Urdu Q4-6 / Mathematics Q7-9,9,Visual page sequence checked; answer/content audit pending
+C3-09,Sania,Class 3 header,177;180;179;178,English Q1-3 / Urdu Q4-6 / Mathematics Q7-9 / Science Q10-12,12,Quarantined: header says Class 3 but 12-question Science content conflicts with required Class 3 structure
+C3-10,Amna,Class 3,199;201;200,English Q1-3 / Urdu Q4-6 / Mathematics Q7-9,9,Visual page sequence checked; answer/content audit pending
+C3-11,Muhammad Ahmed,Class 3,202;204;203,English Q1-3 / Urdu Q4-6 / Mathematics Q7-9,9,Name recovered from original image; answer/content audit pending
+C3-12,Sidra,Class 3 header,205;208;207;206,English Q1-3 / Urdu Q4-6 / Mathematics Q7-9 / Science Q10-12,12,Quarantined: header says Class 3 but 12-question Science content conflicts with required Class 3 structure
