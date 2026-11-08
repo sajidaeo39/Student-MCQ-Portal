@@ -1,0 +1,54 @@
+name: Question Bank PDF OCR Audit
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "Question bank.pdf"
+      - ".github/workflows/question-bank-audit.yml"
+      - "scripts/run_question_bank_ocr.py"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: question-bank-pdf-audit
+  cancel-in-progress: false
+
+jobs:
+  ocr-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install OCR tools and language data
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y tesseract-ocr tesseract-ocr-eng tesseract-ocr-urd
+          tesseract --list-langs
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install PDF processing library
+        run: python -m pip install --upgrade pymupdf
+
+      - name: Check source PDF
+        run: |
+          test -s "Question bank.pdf"
+          pdfinfo "Question bank.pdf" | head -20
+
+      - name: Run page-by-page OCR
+        run: python scripts/run_question_bank_ocr.py
+
+      - name: Upload OCR output and preliminary report
+        uses: actions/upload-artifact@v4
+        with:
+          name: question-bank-ocr-audit
+          path: audit-output/
+          if-no-files-found: error
+          retention-days: 30
