@@ -1,0 +1,4 @@
+class,subject,question_no,question,option_a,option_b,option_c,option_d,correct_option,source_pages,skill_tag,slo_status,verification
+"7","Science","1","In Fahrenheit scale, the interval between two fixed points is divided into how many parts?","100","150","180","210","C","186","Temperature scales","Provisional; official code not confirmed","212−32=180 divisions."
+"7","Science","2","Which characteristic of sound differentiates a shrill sound from a grave one?","Pitch","Frequency","Intensity","Loudness","A","116","Characteristics of sound","Provisional; official code not confirmed","The perceived distinction is pitch, which depends on frequency."
+"7","Science","3","When it is summer in the Northern Hemisphere, the season in the Southern Hemisphere is:","Autumn","Spring","Summer","Winter","D","186","Seasons and hemispheres","Provisional; official code not confirmed","Opposite hemispheres experience opposite seasons."
