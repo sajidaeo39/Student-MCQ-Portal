@@ -132,3 +132,14 @@ Also create a readable audit report containing:
 - Required final distribution: Classes 3–5 have 3 approved questions in each of English, Urdu, Mathematics; Classes 6–8 have 3 approved questions in each of English, Urdu, Mathematics, Science.
 - If any class/subject has fewer than 3 approved unique questions, report the shortfall and request a decision; never fabricate questions.
 - Keep the complete audit dataset separate from the smaller selected practice dataset.
+
+
+## Owner clarification — fixed practice-test scope (2026-11-08)
+This is an explicit owner-approved constraint and overrides any broader curriculum/subject inventory elsewhere in old notes:
+- Classes 3–5: English, Urdu, Mathematics only.
+- Classes 6–8: English, Urdu, Mathematics, Science only.
+- Do not audit, map SLOs for, create MCQs for, or add tests/menus for any other subject.
+- The supplied real-test PDF is only a sample/reference for practice-test style and expected content. It is not a request to reproduce a full curriculum or create a real examination.
+- SLO mapping must be done only for questions in the approved subjects above, using the relevant class/subject learning outcomes. If an exact SLO cannot be substantiated, mark it provisional/unverified rather than inventing a code.
+- Keep exactly 3 verified questions per approved subject. Mixed test: 9 marks for Classes 3–5; 12 marks for Classes 6–8. Do not fabricate questions to fill gaps.
+- The grade-subject matrix must contain exactly 21 rows (3 subjects × 3 classes plus 4 subjects × 3 classes).
