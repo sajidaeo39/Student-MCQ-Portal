@@ -3,7 +3,7 @@
 Status: 9 questions selected (3 per approved subject); portal set published.
 
 - English: 3 questions — irregular verb, vowel sound, irregular plural.
-- Urdu: 3 questions — gender/verb agreement, subject/object markers, verse comprehension.
+- Urdu: 3 questions — gender/verb agreement, subject/object markers, standalone question about cultivation/agriculture.
 - Mathematics: 3 questions — multiplication, number pattern, percentage-to-decimal conversion.
 - Subject-wise tests: 3 marks each. Mixed test: 9 marks (3+3+3).
 - Source pages: 29, 77, 147; 29, 138; 79; 140; 139, 245.
