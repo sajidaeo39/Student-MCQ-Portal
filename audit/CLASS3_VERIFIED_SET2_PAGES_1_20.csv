@@ -1,0 +1,19 @@
+class,subject,source_pdf_page,question,option_A,option_B,option_C,option_D,correct_option,correct_answer,verification_status,verification_note,duplicate_status
+3,English,4,"'Aqeela is a doctor. _____ arranges a free medical camp on every Sunday.'",We,They,She,You,C,She,Verified,"Aqeela is singular feminine; the matching pronoun is She.",Unique against current Class 3 bank
+3,English,5,"Choose the correct syllable division of the word 'Afternoon'.",Aft-er-noon,Af-ter-noon,Af-tern-oon,Aft-ern-oon,B,Af-ter-noon,Verified,"Afternoon is divided into af-ter-noon.",Unique against current Class 3 bank
+3,English,5,"Identify the word with a soft sound of 'C'.",Comb,Cold,City,Corn,C,City,Verified,"C before i represents the soft /s/ sound in city.",Unique against current Class 3 bank
+3,English,6,"The solution of 71 hours - 36 hours is:",34 hours,35 hours,44 hours,45 hours,B,35 hours,Verified,"71 - 36 = 35.",Unique against current Class 3 bank
+3,English,9,"Choose the Present Indefinite form: 'She never _____ water.'",waste,wastes,wasted,wasting,B,wastes,Verified,"Third-person singular subject 'She' takes the verb form wastes.",Unique against current Class 3 bank
+3,English,10,"Select the feminine gender of the word 'Landlord'.",Woman,Landlady,Female,Lady,B,Landlady,Verified,"The feminine counterpart of landlord is landlady.",Unique against current Class 3 bank
+3,English,15,"Identify the correct sentence structure.",The gardener waters the plants.,The gardener the plants waters.,Waters the plants the gardener.,The plants the gardener waters.,A,The gardener waters the plants.,Verified,"Correct English subject-verb-object order.",Unique against current Class 3 bank
+3,English,15,"Complete the sentence: 'The sun _____ in the west.'",set,sets,Setting,Setter,B,sets,Verified,"Simple present with singular subject 'The sun' takes sets.",Unique against current Class 3 bank
+3,Urdu,8,"کمپیوٹر نے ہمارے بہت سے کام کر دیے:",آسان,مشکل,مکمل,غلط,A,آسان,Verified,"جملے کا درست مفہوم یہ ہے کہ کمپیوٹر نے کام آسان کر دیے۔",Unique against current Class 3 bank
+3,Urdu,13,"'ایک ڈبی میں بتیس دانے، بوجھنے والے بڑے سیانے' اس پہیلی کی بجھارت ہے:",دانت,ماچس,جیومیٹری,انار,A,دانت,Verified,"پہیلی میں ڈبی منہ اور بتیس دانے دانتوں کی طرف اشارہ کرتے ہیں۔",Unique against current Class 3 bank
+3,Urdu,14,"آپ کا دوست موبائل فون کا زیادہ استعمال کرتا ہے۔ آپ اسے تلقین کریں گے:",یہ بینائی متاثر کرتا ہے۔,یہ بینائی کو تیز کرتا ہے۔,یہ وقت کی بچت کرتا ہے۔,یہ صحت مند بناتا ہے۔,A,یہ بینائی متاثر کرتا ہے۔,Verified,"زیادہ اسکرین استعمال سے بینائی/آنکھوں پر اثر پڑ سکتا ہے؛ باقی اختیارات اس سیاق میں درست تلقین نہیں۔",Unique against current Class 3 bank
+3,Mathematics,2,"The solution of 25h - 13h is:",12h,13h,35h,38h,A,12h,Verified,"25h - 13h = 12h.",Unique against current Class 3 bank
+3,Mathematics,6,"In Roman numerals, 2 can be written as:",i,ii,iii,iv,B,ii,Verified,"Roman numeral II represents 2.",Unique against current Class 3 bank
+3,Mathematics,7,"Number of sides in a quadrilateral is:",1,2,3,4,D,4,Verified,"A quadrilateral has four sides.",Unique against current Class 3 bank
+3,Mathematics,11,"The solution of 25h + 16h is:",31h,32h,41h,42h,C,41h,Verified,"25h + 16h = 41h.",Unique against current Class 3 bank
+3,Mathematics,11,"Place value of 2 in 2750 is:",20,200,2000,20000,B,200,Verified,"The digit 2 is in the hundreds place: 2 × 100 = 200.",Unique against current Class 3 bank
+3,Mathematics,16,"If there is 175 ml milk in a packet and 320 ml milk in a bottle, the total quantity is:",395 ml,495 ml,549 ml,945 ml,B,495 ml,Verified,"175 + 320 = 495 ml.",Unique against current Class 3 bank
+3,Mathematics,16,"The solution of 225 + 705 is:",820,830,920,930,D,930,Verified,"225 + 705 = 930.",Unique against current Class 3 bank
