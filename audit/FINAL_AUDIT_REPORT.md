@@ -1,39 +1,37 @@
-# Final Structural Audit — Student MCQ Portal
+# Final Question Bank Content Audit — Classes 3–8
 
-Audit date: 10 November 2026
-Repository: https://github.com/sajidaeo39/Student-MCQ-Portal
-Source of inventory: current `index.html` questionBank (commit checked before this report).
+Audit scope: current `questionBank` in `index.html`.
+Audit date: 10 November 2026.
 
-## Executive result
-- Total records in portal bank: **380**
-- Invalid record structures (question/options/correct-index): **0**
-- Unapproved subject placements: **0**
-- Exact normalized duplicate stems within the same class and subject: **0**
-- Records tagged as PDF-sourced: **254**
-- Records tagged as generated/concept-based: **126**
+## Outcome
+- Active questions after audit: **373**
+- All active entries have a question, exactly four options and a valid correct-answer index (0–3).
+- Approved subject allocation checked; no out-of-scope subjects.
+- One semantic duplicate removed from Class 3 Urdu.
+- Ambiguous / invalid-option questions: **7** placed in pending register and excluded from active practice.
+- Corrected Class 8 Mathematics: `9:m = m:81`; positive value is **27** (option C), not 9.
 
-## Class-wise inventory
+## Class-wise active bank
 | Class | English | Urdu | Mathematics | Science | Total |
 |---|---:|---:|---:|---:|---:|
-| 3 | 25 | 18 | 22 | 0 | 65 |
-| 4 | 23 | 15 | 23 | 0 | 61 |
-| 5 | 18 | 13 | 24 | 0 | 55 |
-| 6 | 16 | 16 | 22 | 20 | 74 |
-| 7 | 16 | 9 | 18 | 18 | 61 |
-| 8 | 18 | 9 | 18 | 19 | 64 |
-| **Total** | **116** | **80** | **127** | **57** | **380** |
+| 3 | 25 | 17 | 22 | 0 | **64** |
+| 4 | 23 | 15 | 23 | 0 | **61** |
+| 5 | 17 | 11 | 24 | 0 | **52** |
+| 6 | 16 | 14 | 22 | 20 | **72** |
+| 7 | 15 | 9 | 18 | 18 | **60** |
+| 8 | 18 | 9 | 18 | 19 | **64** |
+| **Total** | **114** | **75** | **127** | **57** | **373** |
 
-## Checks completed
-1. Every bank entry has a non-empty question, exactly four options, and an integer correct-answer index from 0 to 3.
-2. Every subject belongs to the approved class-subject scheme: Classes 3–5 (English, Urdu, Mathematics); Classes 6–8 (English, Urdu, Mathematics, Science).
-3. No exact normalized duplicate question stem was found within the same class and subject.
-4. Full inventory exported to `MCQ_Master.csv`, preserving current option order and answer index.
+## Actions performed
+1. Checked all active entries for four-option structure and valid answer index.
+2. Reviewed answer keys in English, Urdu, Mathematics and Science.
+3. Corrected Class 8 Mathematics proportion answer to 27.
+4. Removed ambiguous or defective items and recorded them in `Pending_Questions.csv`.
+5. Removed a semantically duplicated Class 3 Urdu question.
+6. Preserved portal quiz logic and all remaining records.
 
-## Important limitations — do not treat this as full content verification
-- The current portal bank stores only question, four options, correct-option index and a source label. It does **not** store original PDF page numbers, official SLO codes, SLO descriptions, topic/subtopic, difficulty, or individual answer-verification notes.
-- The source labels indicate 254 PDF-tagged records and 126 generated/concept-based records. These labels alone do not prove that every answer was independently verified against the original PDF.
-- Therefore this audit verifies the live bank's structure, approved subjects, counts and exact within-class/subject duplicate stems. It does **not** certify the factual correctness of all 380 answer keys, nor can it certify PDF page-by-page completeness or SLO alignment.
-- No question has been silently deleted or changed as part of this audit.
+## SLO mapping
+SLO/topic codes are intentionally not assigned until the user supplies SLO source data. No SLO has been invented.
 
-## Required next phase for a fully certified question bank
-Re-open each of the six source PDFs, map every PDF-tagged MCQ to its exact page, independently solve/check the answer, assign SLO/topic, identify visual-dependent and ambiguous questions, then produce the answer-verification, duplicate and pending-question registers. Missing metadata is deliberately marked "Not recorded" in the master export rather than guessed.
+## Scope limitation
+This is a structural and answer-key review of the active portal bank. It is not a claim that every item has been exhaustively compared with its original PDF source. PDF page numbers were omitted as requested. Existing source labels are retained.
