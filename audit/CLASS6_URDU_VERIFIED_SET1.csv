@@ -1,4 +1,4 @@
 class,subject,question_no,question,option_a,option_b,option_c,option_d,correct_option,source_pages,skill_tag,slo_status,verification
-"6","Urdu","1","اخباری خبر کے مطابق سمندری طوفان کی وجہ سے بعض علاقوں میں فراہمی بند کی جا سکتی ہے:","خوراک","بجلی","تیل","پانی","B","130","فہمِ عبارت","Provisional; official code not confirmed","Page image option text checked; electricity supply is the intended answer."
+"6","Urdu","1","سمندری طوفان کے باعث بعض علاقوں میں کون سی فراہمی بند کی جا سکتی ہے؟","خوراک","بجلی","تیل","پانی","B","130","فہمِ عبارت","Provisional; official code not confirmed","Standalone stem; electricity supply is the intended answer from the source item."
 "6","Urdu","2","'لوہار نے ہتھوڑا پکڑا'۔ اس جملے میں 'ہتھوڑا' ہے:","اسمِ صوت","اسمِ ذات","اسمِ آلہ","اسمِ مصغر","C","130","اسمِ آلہ","Provisional; official code not confirmed","Hammer is a tool/instrument."
 "6","Urdu","3","مرکب جملہ ہے:","تم سکول گئے۔","آپ کھیلنے نہیں گئے۔","ہم نے کھانا کھایا اور نماز ادا کی۔","ہم سب کو مل جل کر رہنا چاہیے۔","C","130","مرکب جملہ","Provisional; official code not confirmed","Two clauses/actions are joined by اور."
