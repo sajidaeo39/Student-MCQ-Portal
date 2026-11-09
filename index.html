@@ -366,6 +366,74 @@
             *,*::before,*::after { animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important; }
         }
 
+
+        /* Compact welcome panel */
+        #welcome-screen .welcome-box {
+            padding:18px 20px;
+            border-radius:16px;
+        }
+        #welcome-screen .welcome-box h3 {
+            font-size:1.3rem;
+            line-height:1.25;
+            margin-bottom:3px;
+        }
+        #welcome-screen .welcome-box > p {
+            font-size:.82rem;
+            line-height:1.2;
+            margin-bottom:9px;
+        }
+        #welcome-screen .student-info {
+            display:grid;
+            grid-template-columns:145px minmax(0,1fr);
+            align-items:center;
+            gap:6px 10px;
+            padding:10px 13px;
+            margin:9px 0 10px;
+        }
+        #welcome-screen .student-info h4,
+        #welcome-screen .student-info .timer-setting {
+            grid-column:1 / -1;
+        }
+        #welcome-screen .student-info h4 {
+            margin:0 0 1px;
+            font-size:.82rem;
+        }
+        #welcome-screen .student-info label {
+            margin:0;
+            font-size:.76rem;
+        }
+        #welcome-screen .student-info input {
+            min-width:0;
+            min-height:36px;
+            height:36px;
+            padding:5px 9px;
+            font-size:14px;
+        }
+        #welcome-screen .student-info .timer-setting {
+            margin-top:2px !important;
+            font-size:.75rem !important;
+        }
+        #welcome-screen .welcome-box > .btn {
+            min-height:39px;
+            padding:8px 24px !important;
+            font-size:.92rem !important;
+        }
+        @media(max-width:600px) {
+            #welcome-screen .welcome-box { padding:13px 11px; }
+            #welcome-screen .welcome-box h3 { font-size:1.08rem; }
+            #welcome-screen .welcome-box > p { font-size:.72rem;margin-bottom:6px; }
+            #welcome-screen .student-info {
+                grid-template-columns:112px minmax(0,1fr);
+                gap:5px 7px;
+                padding:8px;
+                margin:6px 0 7px;
+            }
+            #welcome-screen .student-info h4 { font-size:.76rem; }
+            #welcome-screen .student-info label { font-size:.68rem; }
+            #welcome-screen .student-info input { min-height:33px;height:33px;padding:4px 7px;font-size:14px; }
+            #welcome-screen .student-info .timer-setting { font-size:.68rem !important; }
+            #welcome-screen .welcome-box > .btn { min-height:37px;padding:7px 18px !important;font-size:.86rem !important; }
+        }
     </style>
 </head>
 <body>
