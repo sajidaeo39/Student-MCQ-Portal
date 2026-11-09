@@ -394,7 +394,6 @@
                 <div class="group-mix-grid">
                     <button class="group-mix-button" onclick="startGroupMixedTest('junior')"><strong>Classes 3–5 Mix</strong><span>9 Questions · 3 subjects</span></button>
                     <button class="group-mix-button" onclick="startGroupMixedTest('middle')"><strong>Classes 6–8 Mix</strong><span>12 Questions · 4 subjects</span></button>
-                    <button class="group-mix-button overall" onclick="startGroupMixedTest('overall')"><strong>Overall Mix · Classes 3–8</strong><span>12 Questions · All six classes</span></button>
                 </div>
             </section>
             <div class="grid-container" id="class-list"></div>
@@ -1849,19 +1848,19 @@
             const subjects = approvedSubjects[currentClass] || [];
             subjects.forEach(sub => {
                 const pool = questionBank[currentClass]?.[sub] || [];
-                const ready = (verifiedPracticeSets[currentClass] || []).includes(sub) && pool.length === 3;
+                const ready = (verifiedPracticeSets[currentClass] || []).includes(sub) && pool.length === 9;
                 const card = document.createElement('div');
                 card.className = 'card';
                 card.style.opacity = ready ? '1' : '.58';
                 card.style.cursor = ready ? 'pointer' : 'not-allowed';
                 card.onclick = () => {
                     if (!ready) {
-                        alert(`${currentClass} - ${sub}: verified practice questions are not available yet. This subject is retained in the class list and will open after exactly 3 questions are verified.`);
+                        alert(`${currentClass} - ${sub}: verified practice questions are not available yet. This subject is retained in the class list and will open after exactly 9 questions are verified.`);
                         return;
                     }
                     selectSubject(sub);
                 };
-                card.innerHTML = `<h4>${sub}</h4><p style="margin-top:6px;font-size:.8rem;color:#64748b;">${ready ? 'Practice test • 3 questions selected' : 'Question set under verification'}</p>`;
+                card.innerHTML = `<h4>${sub}</h4><p style="margin-top:6px;font-size:.8rem;color:#64748b;">${ready ? 'Practice test • 9 questions' : 'Question set under verification'}</p>`;
                 subjectList.appendChild(card);
             });
             const isSenior = ['Class 6','Class 7','Class 8'].includes(currentClass);
@@ -1904,18 +1903,11 @@
         function startGroupMixedTest(group) {
             const classes = group === 'junior'
                 ? ['Class 3', 'Class 4', 'Class 5']
-                : group === 'middle'
-                    ? ['Class 6', 'Class 7', 'Class 8']
-                    : ['Class 3', 'Class 4', 'Class 5', 'Class 6', 'Class 7', 'Class 8'];
+                : ['Class 6', 'Class 7', 'Class 8'];
             const missing = [];
             const selected = [];
             classes.forEach(cls => {
-                let subjects = [...(approvedSubjects[cls] || [])];
-                if (group === 'overall') {
-                    // Overall test: exactly 12 questions, two questions per class from two distinct subjects.
-                    shuffleArray(subjects);
-                    subjects = subjects.slice(0, 2);
-                }
+                const subjects = [...(approvedSubjects[cls] || [])];
                 subjects.forEach(subject => {
                     const pool = questionBank[cls]?.[subject] || [];
                     if (!(verifiedPracticeSets[cls] || []).includes(subject) || pool.length !== 3) {
@@ -1934,11 +1926,7 @@
                 alert('This group test is not ready. Missing question sets: ' + missing.join(', '));
                 return;
             }
-            if (group === 'overall' && selected.length !== 12) {
-                alert('Overall Mixed Test requires exactly 12 questions. Please check the class-wise question bank.');
-                return;
-            }
-            currentClass = group === 'junior' ? 'Classes 3–5' : group === 'middle' ? 'Classes 6–8' : 'Overall Classes 3–8';
+            currentClass = group === 'junior' ? 'Classes 3–5' : 'Classes 6–8';
             currentSubject = 'Group Mixed Test';
             document.getElementById('quiz-title').innerText = currentClass + ' - Mixed Test';
             startQuiz(false, selected);
@@ -2001,13 +1989,13 @@
                 rawQuestions = buildMixedTestQuestions();
             } else {
                 const pool = questionBank[currentClass]?.[currentSubject] || [];
-                if (!(verifiedPracticeSets[currentClass] || []).includes(currentSubject) || pool.length !== 3) {
-                    alert(currentClass + ' - ' + currentSubject + ': exactly 3 questions are required before this practice test can start.');
+                if (!(verifiedPracticeSets[currentClass] || []).includes(currentSubject) || pool.length !== 9) {
+                    alert(currentClass + ' - ' + currentSubject + ': exactly 9 questions are required before this subject practice test can start.');
                     return;
                 }
                 const copy = JSON.parse(JSON.stringify(pool));
                 shuffleArray(copy);
-                rawQuestions = copy.slice(0, 3);
+                rawQuestions = copy.slice(0, 9);
             }
             if (!rawQuestions) return;
             shuffleArray(rawQuestions);
