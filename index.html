@@ -54,6 +54,17 @@
         .quiz-header { display: flex; justify-content: space-between; align-items: center; background: var(--card-bg); padding: 15px 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
         .progress-text { font-weight: 600; color: var(--secondary-color); }
         .timer-pill { display:inline-flex;align-items:center;gap:7px;padding:7px 12px;border-radius:999px;background:#edf5f8;color:#174c66;font-weight:700;font-variant-numeric:tabular-nums; }
+        .group-mix-panel { margin:0 0 22px;padding:18px;border:1px solid #dce8ee;border-radius:17px;background:#fff;box-shadow:0 7px 20px rgba(25,57,83,.05); }
+        .group-mix-panel h3 { color:#173b66;font-size:1.02rem;margin:0 0 5px; }
+        .group-mix-panel p { color:#66798a;font-size:.82rem;margin:0 0 13px; }
+        .group-mix-grid { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px; }
+        .group-mix-button { display:flex;flex-direction:column;gap:6px;align-items:flex-start;text-align:left;padding:15px;border:1px solid #d8e6ed;border-radius:12px;background:linear-gradient(135deg,#f5f9fc,#edf6f7);color:#173b66;cursor:pointer;font:inherit; }
+        .group-mix-button strong { font-size:.9rem; }
+        .group-mix-button span { color:#61788a;font-size:.75rem; }
+        .group-mix-button.overall { background:linear-gradient(120deg,#173b66,#087e8b);border-color:#087e8b;color:#fff; }
+        .group-mix-button.overall span { color:#e1f2f3; }
+        .group-mix-button:hover { transform:translateY(-2px);box-shadow:0 8px 16px rgba(25,57,83,.10); }
+        @media(max-width:700px){.group-mix-grid{grid-template-columns:1fr}.group-mix-button{padding:13px}}
         .timer-pill.warning { background:#fff1e8;color:#b45309; }
         .timer-pill.expired { background:#fee2e2;color:#b91c1c; }
         .timer-setting { display:block;margin-top:12px; }
@@ -366,14 +377,7 @@
                     <input id="school-name" type="text" maxlength="80" placeholder="Enter school name">
                     <label for="student-name">Student Name (Optional)</label>
                     <input id="student-name" type="text" maxlength="80" placeholder="Enter student name">
-                    <label class="timer-setting" for="timer-per-question">Test Timer</label>
-                    <select id="timer-per-question" aria-label="Choose time allowed per question">
-                        <option value="0">No time limit</option>
-                        <option value="30">30 seconds per question</option>
-                        <option value="45">45 seconds per question</option>
-                        <option value="60" selected>1 minute per question</option>
-                        <option value="90">90 seconds per question</option>
-                    </select>
+                    <div class="timer-setting" style="color:#31536b;font-size:.88rem;font-weight:600;">⏱ Fixed test duration: 5 minutes</div>
                 </div>
                 <button class="btn btn-primary" onclick="showScreen('class-screen')" style="font-size: 1.2rem; padding: 15px 40px;">Start Practice</button>
             </div>
@@ -384,6 +388,15 @@
                 <h2>Select Your Class</h2>
                 <button class="btn btn-outline" onclick="showScreen('welcome-screen')">Home</button>
             </div>
+            <section class="group-mix-panel">
+                <h3>Group Mixed Practice Tests</h3>
+                <p>One question from each class and every approved subject.</p>
+                <div class="group-mix-grid">
+                    <button class="group-mix-button" onclick="startGroupMixedTest('junior')"><strong>Classes 3–5 Mix</strong><span>9 Questions · 3 subjects</span></button>
+                    <button class="group-mix-button" onclick="startGroupMixedTest('middle')"><strong>Classes 6–8 Mix</strong><span>12 Questions · 4 subjects</span></button>
+                    <button class="group-mix-button overall" onclick="startGroupMixedTest('overall')"><strong>Overall Mix · Classes 3–8</strong><span>21 Questions · All approved subjects</span></button>
+                </div>
+            </section>
             <div class="grid-container" id="class-list"></div>
         </div>
 
@@ -472,112 +485,154 @@
                 "Urdu": [
                     ["ڈیم بنائے جاتے ہیں:", ["سمندروں پر", "دریاؤں پر", "نہروں پر", "تالابوں پر"], 1],
                     ["لفظ \"جال\" کے ہم آواز الفاظ والا گروہ ہے:", ["بال، تاک، تال", "بال، تاب، تال", "مال، بال، آس", "مال، بال، سال"], 3],
-                    ["آپ اپنے دوستوں کے ساتھ پارک میں گئے ہیں۔ وہاں بچے پھول توڑ رہے ہیں۔ آپ ان کو سمجھائیں گے:", ["صفائی کا خیال نہ رکھیں۔", "پھول پارک کی زینت ہیں۔", "جھولوں کا رنگ خراب کریں۔", "کچرا کوڑا دان میں نہ ڈالیں۔"], 1]
+                    ["آپ اپنے دوستوں کے ساتھ پارک میں گئے ہیں۔ وہاں بچے پھول توڑ رہے ہیں۔ آپ ان کو سمجھائیں گے:", ["صفائی کا خیال نہ رکھیں۔", "پھول پارک کی زینت ہیں۔", "جھولوں کا رنگ خراب کریں۔", "کچرا کوڑا دان میں نہ ڈالیں۔"], 1],
+                    ["لفظ \"روشنی\" کا متضاد ہے:", ["اجالا", "چمک", "اندھیرا", "نور"], 2],
+                    ["درست جملہ منتخب کریں:", ["بچے کھیل رہا ہے۔", "بچے کھیل رہے ہیں۔", "بچے کھیل رہی ہے۔", "بچے کھیلتے ہے۔"], 1]
                 ],
                 "Mathematics": [
                     ["If the length of a rectangle is 7cm and its width is 5cm then its perimeter will be:", ["12cm", "17cm", "24cm", "35cm"], 2],
                     ["The solution of 9 ÷ 3 is:", ["1", "3", "6", "9"], 1],
-                    ["The standard unit of capacity is:", ["kilogram", "Meter", "Litre", "Kilometer"], 2]
+                    ["The standard unit of capacity is:", ["kilogram", "Meter", "Litre", "Kilometer"], 2],
+                    ["What is 245 + 132?", ["367", "377", "357", "387"], 1],
+                    ["What is 8 × 6?", ["42", "46", "48", "54"], 2],
+                    ["Identify the correct pronoun: Sara and I are friends. ___ play together.", ["We", "They", "She", "He"], 0],
+                    ["Choose the correctly capitalized sentence.", ["my school is in okara.", "My school is in Okara.", "My School is in okara.", "my School is in Okara."], 1]
                 ]
             },
             "Class 4": {
                 "English": [
                     ["Choose the correct 'Compound Word'.", ["Quickly", "Happy", "Sunlight", "Singing"], 2],
                     ["Identify the 'Plural' of 'Knife'.", ["Knifes", "Knifez", "Knives", "Knivez"], 2],
-                    ["Select the correct 'Adjective' of the word 'care'.", ["Caring", "Careful", "Cared", "Carefully"], 1]
+                    ["Select the correct 'Adjective' of the word 'care'.", ["Caring", "Careful", "Cared", "Carefully"], 1],
+                    ["Choose the correct past tense of 'go'.", ["goed", "gone", "went", "going"], 2],
+                    ["Choose the correct preposition: The book is ___ the table.", ["in", "on", "at", "by"], 1]
                 ],
                 "Urdu": [
                     ["لفظ \"اندر\" کے متضاد والا درست جملہ ہے:", ["احمد گھر کے اوپر ہے۔", "احمد گھر کے اندر ہے۔", "احمد گھر کے پاس ہے۔", "احمد گھر کے باہر ہے۔"], 3],
                     ["سکول میں آپ کے دوست کی دوسرے بچوں کے ساتھ لڑائی ہو گئی ہے۔ اس صورت حال میں آپ کا ردعمل ہوگا:", ["لڑائی کروانا", "شور مچانا", "صلح کروانا", "شکایت کرنا"], 2],
-                    ["آپ نے موبائل پر عالمی یوم اساتذہ کے بارے میں جانا۔ آپ اپنے ہم جماعت دوستوں کو بتائیں گے:", ["استاد کی معاشرے میں کوئی اہمیت نہیں۔", "استاد کا تعلیمی عمل میں کوئی کردار نہیں۔", "استاد قوم کی ترقی میں اہم کردار ادا کرتا ہے۔", "استاد کا نہ ہونا معاشرے کے لیے مفید ہے۔"], 2]
+                    ["آپ نے موبائل پر عالمی یوم اساتذہ کے بارے میں جانا۔ آپ اپنے ہم جماعت دوستوں کو بتائیں گے:", ["استاد کی معاشرے میں کوئی اہمیت نہیں۔", "استاد کا تعلیمی عمل میں کوئی کردار نہیں۔", "استاد قوم کی ترقی میں اہم کردار ادا کرتا ہے۔", "استاد کا نہ ہونا معاشرے کے لیے مفید ہے۔"], 2],
+                    ["لفظ \"خوشی\" کا متضاد ہے:", ["مسرت", "غم", "شادمانی", "راحت"], 1],
+                    ["درست املا والا لفظ منتخب کریں:", ["ذمہ داری", "زمداری", "ذماداری", "زمہ داری"], 0]
                 ],
                 "Mathematics": [
                     ["If the length of a rectangle is 7cm and its width is 5cm then its perimeter will be:", ["12cm", "17cm", "24cm", "35cm"], 2],
                     ["Millilitres in 9.7 litres are:", ["97 ml", "907 ml", "970 ml", "9700 ml"], 3],
-                    ["If the weight of a sugar packet is 2.25 kg, then the weight of such 11 packets will be:", ["2.475 kg", "24.75 kg", "247.5 kg", "2475 kg"], 1]
+                    ["If the weight of a sugar packet is 2.25 kg, then the weight of such 11 packets will be:", ["2.475 kg", "24.75 kg", "247.5 kg", "2475 kg"], 1],
+                    ["Find the area of a rectangle with length 8 cm and width 3 cm.", ["11 cm²", "22 cm²", "24 cm²", "16 cm²"], 2],
+                    ["Divide 144 by 12.", ["10", "11", "12", "14"], 2]
                 ]
             },
             "Class 5": {
                 "English": [
                     ["Point out an 'Irregular Verb'.", ["Bring-Brought", "Wash-Washed", "Jump-Jumped", "Close-Closed"], 0],
                     ["Choose the bird name that starts from a 'Vowel Sound'.", ["Falcon", "Peacock", "Flamingo", "Oriole"], 3],
-                    ["Which of the following nouns does not take -s in its plural form?", ["Sheep", "Duck", "Sparrow", "Elephant"], 0]
+                    ["Which of the following nouns does not take -s in its plural form?", ["Sheep", "Duck", "Sparrow", "Elephant"], 0],
+                    ["Choose the correct verb: She ___ to school every day.", ["go", "goes", "going", "gone"], 1],
+                    ["Which punctuation mark is used at the end of a direct question?", ["Full stop", "Comma", "Question mark", "Apostrophe"], 2]
                 ],
                 "Urdu": [
                     ["تذکیر و تانیث کے مطابق درست فعل کے استعمال والا جملہ ہے:", ["بلی چوہا کھاتی ہے۔", "بلی چوہا کھاتا ہے۔", "بلی چوہا کھاتی ہیں۔", "بلی چوہا کھاتیں ہیں۔"], 0],
                     ["علامتِ فاعل اور علامتِ مفعول کا استعمال کرتے ہوئے جملہ مکمل کریں: انعم ______ اپنی سہیلی ______ خط لکھا۔", ["کو، نے", "نے، کو", "نے، سے", "کو، سے"], 1],
-                    ["زمین میں فصلیں اگانے کے کام کا تعلق کس سے ہے؟", ["گھر کا", "دکان کا", "کھیتی کا", "اسکول کا"], 2]
+                    ["زمین میں فصلیں اگانے کے کام کا تعلق کس سے ہے؟", ["گھر کا", "دکان کا", "کھیتی کا", "اسکول کا"], 2],
+                    ["لفظ \"کتاب\" کی جمع ہے:", ["کتابیں", "کتابا", "کتابات", "کتابی"], 0],
+                    ["محاورہ \"ہاتھ بٹانا\" کا مطلب ہے:", ["لڑائی کرنا", "مدد کرنا", "ہاتھ دھونا", "کام چھوڑنا"], 1]
                 ],
                 "Mathematics": [
                     ["The solution of 59264 × 436 is:", ["25839604", "25739404", "25839104", "25839184"], 2],
                     ["The next term of pattern 6, 11, 17, ... is:", ["22", "23", "24", "25"], 2],
-                    ["78% in decimals is:", ["0.078", "0.78", "7.8", "0.780"], 1]
+                    ["78% in decimals is:", ["0.078", "0.78", "7.8", "0.780"], 1],
+                    ["What is 3/4 of 20?", ["5", "10", "15", "16"], 2],
+                    ["What is 25% of 200?", ["25", "40", "50", "75"], 2]
                 ]
             },
             "Class 6": {
                 "English": [
                     ["My class fellow is ____ honest boy.", ["a", "an", "the", "some"], 1],
                     ["Complete the sentence in Simple Present Tense: The sun ____ every morning.", ["rises", "rising", "rose", "risen"], 0],
-                    ["Choose the antonym of 'brilliant' in the sentence: Karim Benzema is a brilliant footballer.", ["Bright", "Untalented", "Vivid", "Shining"], 1]
+                    ["Choose the antonym of 'brilliant' in the sentence: Karim Benzema is a brilliant footballer.", ["Bright", "Untalented", "Vivid", "Shining"], 1],
+                    ["Choose the correct conjunction: I was tired, ___ I finished my homework.", ["but", "because", "or", "if"], 0],
+                    ["Choose the correct comparative form of 'good'.", ["gooder", "best", "better", "more good"], 2]
                 ],
                 "Urdu": [
                     ["سمندری طوفان کے باعث بعض علاقوں میں کون سی فراہمی بند کی جا سکتی ہے؟", ["خوراک", "بجلی", "تیل", "پانی"], 1],
                     ["'لوہار نے ہتھوڑا پکڑا'۔ اس جملے میں 'ہتھوڑا' ہے:", ["اسم صوت", "اسم ذات", "اسم آلہ", "اسم مصغر"], 2],
-                    ["مرکب جملہ ہے:", ["تم سکول گئے۔", "آپ کھیلنے نہیں گئے۔", "ہم نے کھانا کھایا اور نماز ادا کی۔", "ہم سب کو مل جل کر رہنا چاہیے۔"], 2]
+                    ["مرکب جملہ ہے:", ["تم سکول گئے۔", "آپ کھیلنے نہیں گئے۔", "ہم نے کھانا کھایا اور نماز ادا کی۔", "ہم سب کو مل جل کر رہنا چاہیے۔"], 2],
+                    ["جملہ \"وہ کل لاہور جائے گا\" میں فعل کس زمانے کا ہے؟", ["ماضی", "حال", "مستقبل", "امر"], 2],
+                    ["لفظ \"خوبصورت\" کس قسم کا لفظ ہے؟", ["اسم", "فعل", "صفت", "حرف"], 2]
                 ],
                 "Mathematics": [
                     ["Identify a factor of 57:", ["3", "5", "7", "12"], 0],
                     ["Simplified form of 4(a+2b)-3a(1-b) is:", ["a+8b-3ab", "a+8b+3ab", "a-8b+3ab", "a-8b-3ab"], 1],
-                    ["If 16y-16=0, then the value of y is:", ["-1", "0", "1", "2"], 2]
+                    ["If 16y-16=0, then the value of y is:", ["-1", "0", "1", "2"], 2],
+                    ["Which of these is a prime number?", ["21", "27", "29", "33"], 2],
+                    ["Simplify the fraction 3/6.", ["1/3", "1/2", "2/3", "3/2"], 1]
                 ],
                 "Science": [
                     ["A circuit in which there is more than one path for the flow of electric current is called:", ["Series circuit", "Parallel circuit", "Closed circuit", "Open circuit"], 1],
                     ["German silver is made from a mixture of:", ["Iron, carbon and silicon", "Gold, copper and iron", "Copper, zinc and nickel", "Iron, chromium and nickel"], 2],
-                    ["When clouds rub against the air, huge charges are gathered because of:", ["Positive charges", "Moving charges", "Negative charges", "Static charges"], 3]
+                    ["When clouds rub against the air, huge charges are gathered because of:", ["Positive charges", "Moving charges", "Negative charges", "Static charges"], 3],
+                    ["Which part of a plant mainly absorbs water from the soil?", ["Flower", "Root", "Leaf", "Fruit"], 1],
+                    ["The change of liquid water into water vapour is called:", ["Freezing", "Condensation", "Evaporation", "Melting"], 2]
                 ]
             },
             "Class 7": {
                 "English": [
                     ["Choose the sentence with the correct use of apostrophe:", ["Pakistan's national drink is sugarcane juice.", "Pakistan national drink is sugarcanes' juice.", "Pakistan national drink's is sugarcane juice.", "Pakistans national's drink is sugarcane juice."], 0],
                     ["What does the phrase 'Their mystery, the night will keep' mean in the context of the poem?", ["The secret of the garden remains hidden in the night.", "The garden reveals its mystery during the day.", "The flowers talk to each other at night.", "The plants stop swaying after midnight."], 0],
-                    ["Choose the correct syllable division of 'Accommodate':", ["Ac-com-mo-date", "Acc-o-m-modate", "Acc-ommrodate", "A-ccom-mo-date"], 0]
+                    ["Choose the correct syllable division of 'Accommodate':", ["Ac-com-mo-date", "Acc-o-m-modate", "Acc-ommrodate", "A-ccom-mo-date"], 0],
+                    ["Choose the correct passive voice of 'The boy kicked the ball.'", ["The ball is kicked by the boy.", "The ball was kicked by the boy.", "The ball kicked the boy.", "The boy was kicked by the ball."], 1],
+                    ["Which word is an adverb in 'She speaks softly'?", ["She", "speaks", "softly", "none"], 2]
                 ],
                 "Urdu": [
                     ["حق خودارادیت کی جنگ لڑ رہے ہیں:", ["کشمیر کے لوگ", "پاکستان کے لوگ", "بھارت کے لوگ", "چین کے لوگ"], 0],
                     ["حروفِ ندائیہ کے استعمال والا جملہ ہے:", ["میں نے آپ کا کیا بگاڑا ہے؟", "افسوس! ہم میچ نہ جیت سکے۔", "لاحول ولا قوۃ! آپ کیسی بات کر رہے ہیں؟", "مبین! کیا آپ مجھے گھر چھوڑ دیں گے؟"], 3],
-                    ["فعلِ مستقبل کے استعمال والا جملہ ہے:", ["میں آج اسلام آباد جاؤں گا۔", "میں اسلام آباد جا رہا ہوں۔", "میں کل اسلام آباد گیا تھا۔", "میں اسلام آباد جا چکا ہوں۔"], 0]
+                    ["فعلِ مستقبل کے استعمال والا جملہ ہے:", ["میں آج اسلام آباد جاؤں گا۔", "میں اسلام آباد جا رہا ہوں۔", "میں کل اسلام آباد گیا تھا۔", "میں اسلام آباد جا چکا ہوں۔"], 0],
+                    ["جملہ \"علی نے خط لکھا\" میں فعل کس زمانے کا ہے؟", ["ماضی", "حال", "مستقبل", "امر"], 0],
+                    ["لفظ \"بہادر\" کا مترادف ہے:", ["کمزور", "دلیر", "خاموش", "سست"], 1]
                 ],
                 "Mathematics": [
                     ["If A={a,e,i,o,u} and B={i,o,u}, then A intersection B is:", ["a,e,i,o,u", "i,o,u", "a,e", "o,u"], 1],
                     ["The number of all possible subsets of the set {0,1,2} is:", ["2", "4", "6", "8"], 3],
-                    ["The sum of (2x²+5x-3) and (4x²-9x+7) is:", ["6x²-4x+4", "6x²+4x+4", "6x²-4x-4", "6x²-4x+10"], 0]
+                    ["The sum of (2x²+5x-3) and (4x²-9x+7) is:", ["6x²-4x+4", "6x²+4x+4", "6x²-4x-4", "6x²-4x+10"], 0],
+                    ["If 3 pencils cost Rs 30, what is the cost of 5 pencils at the same rate?", ["Rs 40", "Rs 45", "Rs 50", "Rs 60"], 2],
+                    ["What is -4 + 9?", ["-13", "-5", "5", "13"], 2]
                 ],
                 "Science": [
                     ["In the Fahrenheit scale, the interval between two fixed points is divided into how many parts?", ["100", "150", "180", "210"], 2],
                     ["Which characteristic of sound differentiates a shrill sound from a grave one?", ["Pitch", "Frequency", "Intensity", "Loudness"], 0],
-                    ["When it is summer in the Northern Hemisphere, what is the season in the Southern Hemisphere?", ["Autumn", "Spring", "Summer", "Winter"], 3]
+                    ["When it is summer in the Northern Hemisphere, what is the season in the Southern Hemisphere?", ["Autumn", "Spring", "Summer", "Winter"], 3],
+                    ["Which gas is used by green plants during photosynthesis?", ["Oxygen", "Nitrogen", "Carbon dioxide", "Hydrogen"], 2],
+                    ["The change of liquid water into solid ice is called:", ["Evaporation", "Condensation", "Freezing", "Melting"], 2]
                 ]
             },
             "Class 8": {
                 "English": [
                     ["The passengers choose to travel by bus ____ airplane.", ["Despite of", "Inside of", "Instead of", "Aside from"], 2],
                     ["Identify the direct command in the sentence: 'Close the door.'", ["Close", "The", "Door", "All of the above"], 0],
-                    ["Which sentence is an example of the Future Perfect tense?", ["By the time I arrive, they will finish their project.", "By the time I arrive, they will have finished their project.", "By the time I arrive, they finish their project.", "By the time I arrive, they finished their project."], 1]
+                    ["Which sentence is an example of the Future Perfect tense?", ["By the time I arrive, they will finish their project.", "By the time I arrive, they will have finished their project.", "By the time I arrive, they finish their project.", "By the time I arrive, they finished their project."], 1],
+                    ["Choose the correct passive voice of 'They clean the classroom.'", ["The classroom is cleaned by them.", "The classroom was cleaned by them.", "The classroom cleans them.", "They are cleaned by the classroom."], 0],
+                    ["Choose the correct completion: If it rains, we ___ at home.", ["stay", "will stay", "stayed", "staying"], 1]
                 ],
                 "Urdu": [
                     ["سیلاب سے ہونے والے نقصانات کو ہم کم کر سکتے ہیں:", ["درختوں کو کاٹ کے", "نئی عمارتیں تعمیر کر کے", "نئے ڈیم اور بیراج بنا کے", "نقل مکانی کر کے"], 2],
                     ["ہنگول نیشنل پارک واقع ہے صوبہ:", ["پنجاب", "بلوچستان", "سندھ", "خیبر پختونخوا"], 1],
-                    ["کلاس میں بہت شور مچانے کے لیے درست محاورہ کون سا ہے؟", ["آسمان سر پر اٹھانا", "تن بدن میں آگ لگنا", "دن میں تارے نظر آنا", "آسمان سے باتیں کرنا"], 0]
+                    ["کلاس میں بہت شور مچانے کے لیے درست محاورہ کون سا ہے؟", ["آسمان سر پر اٹھانا", "تن بدن میں آگ لگنا", "دن میں تارے نظر آنا", "آسمان سے باتیں کرنا"], 0],
+                    ["لفظ \"سچ\" کا متضاد ہے:", ["حق", "جھوٹ", "درست", "واقعی"], 1],
+                    ["جملہ \"احمد کتاب پڑھ رہا ہے\" میں فعل کس زمانے کا ہے؟", ["ماضی", "حال جاری", "مستقبل", "امر"], 1]
                 ],
                 "Mathematics": [
                     ["The closed sentence is:", ["3x+4=1", "5×4=20", "5y+7=y", "x-y=0"], 1],
                     ["The line y=-7x passes through:", ["(0,7)", "(7,0)", "(0,0)", "(7,7)"], 2],
-                    ["Standard form of 1.52 × 10⁶ is:", ["1520", "15200", "152000", "1520000"], 3]
+                    ["Standard form of 1.52 × 10⁶ is:", ["1520", "15200", "152000", "1520000"], 3],
+                    ["Solve the equation: 3x + 5 = 20.", ["3", "4", "5", "6"], 2],
+                    ["A shirt costs Rs 800. What is a 10% discount?", ["Rs 40", "Rs 60", "Rs 80", "Rs 100"], 2]
                 ],
                 "Science": [
                     ["Hydrolysis of fats is a chemical process used in making:", ["Toothpaste", "Bio-plastic", "Soap", "Preservatives"], 2],
                     ["The salts needed for proper functioning of the nervous system are:", ["Sodium and calcium", "Sodium and potassium", "Potassium and calcium", "Calcium and ammonium"], 1],
-                    ["Cactus plants absorb water in the desert through:", ["Broad leaves", "Thick cuticle", "Deep roots", "Shallow roots"], 2]
+                    ["Cactus plants absorb water in the desert through:", ["Broad leaves", "Thick cuticle", "Deep roots", "Shallow roots"], 2],
+                    ["Which force pulls objects towards the Earth?", ["Magnetic force", "Friction", "Gravity", "Muscular force"], 2],
+                    ["The basic structural and functional unit of life is the:", ["Tissue", "Organ", "Cell", "System"], 2]
                 ]
             }
         };
@@ -768,7 +823,7 @@
             const subjects = approvedSubjects[currentClass] || [];
             const missing = subjects.filter(subject => !(verifiedPracticeSets[currentClass] || []).includes(subject) || (bank[subject] || []).length < 3);
             if (missing.length) {
-                alert('Mixed Test is not ready. These required subjects need at least 3 verified questions each: ' + missing.join(', ') + '.');
+                alert('Mixed Test is not ready. These required subjects need at least 3 questions each: ' + missing.join(', ') + '.');
                 return null;
             }
             const selected = [];
@@ -778,6 +833,39 @@
                 copy.slice(0, 3).forEach(question => { question._subject = subject; selected.push(question); });
             }
             return selected;
+        }
+
+        function startGroupMixedTest(group) {
+            const classes = group === 'junior'
+                ? ['Class 3', 'Class 4', 'Class 5']
+                : group === 'middle'
+                    ? ['Class 6', 'Class 7', 'Class 8']
+                    : ['Class 3', 'Class 4', 'Class 5', 'Class 6', 'Class 7', 'Class 8'];
+            const missing = [];
+            const selected = [];
+            classes.forEach(cls => {
+                (approvedSubjects[cls] || []).forEach(subject => {
+                    const pool = questionBank[cls]?.[subject] || [];
+                    if (!(verifiedPracticeSets[cls] || []).includes(subject) || pool.length < 3) {
+                        missing.push(cls + ' ' + subject);
+                        return;
+                    }
+                    const copy = JSON.parse(JSON.stringify(pool));
+                    shuffleArray(copy);
+                    const question = copy[0];
+                    question._subject = subject;
+                    question._grade = cls;
+                    selected.push(question);
+                });
+            });
+            if (missing.length) {
+                alert('This group test is not ready. Missing question sets: ' + missing.join(', '));
+                return;
+            }
+            currentClass = group === 'junior' ? 'Classes 3–5' : group === 'middle' ? 'Classes 6–8' : 'Overall Classes 3–8';
+            currentSubject = 'Group Mixed Test';
+            document.getElementById('quiz-title').innerText = currentClass + ' - Mixed Test';
+            startQuiz(false, selected);
         }
 
         function stopQuizTimer() {
@@ -800,8 +888,7 @@
 
         function startQuizTimer() {
             stopQuizTimer();
-            const secondsPerQuestion = Number(document.getElementById('timer-per-question')?.value || 0);
-            quizTimeLimit = secondsPerQuestion * currentQuestions.length;
+            quizTimeLimit = 5 * 60;
             quizTimeRemaining = quizTimeLimit;
             quizStartedAt = Date.now();
             quizAutoSubmitted = false;
@@ -831,10 +918,12 @@
         // ==========================================
         // QUIZ LOGIC
         // ==========================================
-        function startQuiz(isMixed = false) {
+        function startQuiz(isMixed = false, suppliedQuestions = null) {
             quizRecorded = false;
             let rawQuestions;
-            if (isMixed) {
+            if (suppliedQuestions) {
+                rawQuestions = JSON.parse(JSON.stringify(suppliedQuestions));
+            } else if (isMixed) {
                 rawQuestions = buildMixedTestQuestions();
             } else {
                 const pool = questionBank[currentClass]?.[currentSubject] || [];
