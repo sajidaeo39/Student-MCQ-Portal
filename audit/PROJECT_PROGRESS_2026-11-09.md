@@ -2,11 +2,14 @@
 Updated: 2026-11-09
 
 ## Current snapshot
-- Live question-bank source in `index.html`: **117 MCQs**.
-- Independently verified first set documented by the later class-wise verification reports: **63 MCQs**.
-- Additional current-bank entries awaiting source/answer confirmation: **54 MCQs** (117 minus 63).
-- Current verified share of the 117 live entries: **53.85%**.
-- This ratio is a project-tracking measure, not a claim that 54% of the 247-page source PDF has been fully audited.
+- Live question-bank source in `index.html`: **189 MCQs** across 21 approved class-subject sets.
+- **63 PDF-source MCQs** belong to the documented visually reviewed and answer-checked first set (3 per approved class-subject set).
+- **126 additional MCQs** are explicitly labelled `Generated • Concept Based`; they are not presented as PDF transcriptions.
+- All 21 class-subject sets now contain **9 questions**, so all individual subject-practice cards can open.
+- Classes 3–5: 3 approved subjects × 9 questions = 27 per class.
+- Classes 6–8: 4 approved subjects × 9 questions = 36 per class, including Science.
+- Class Mix remains 9 questions for Classes 3–5 and 12 questions for Classes 6–8.
+- Fresh-question selection and local rotation history are implemented for subject, class-mix and group-mix selection. Because individual subject practice currently uses all 9 items in a 9-item pool, it cannot yet provide a completely new 9-question set on every repeat attempt; expand each pool beyond 9 for that guarantee.
 
 ## OCR work already completed
 The Stage 2 OCR report records:
@@ -35,9 +38,9 @@ The later verification reports document a 63-question first set across 21 class-
 3. Review the 21 duplicate candidate groups and near-duplicates; do not deduplicate on OCR text alone.
 4. Resolve page-order anomalies and quarantined/unclear student groups in Classes 3–8.
 5. Confirm official PECTAA SLO codes. Existing skill tags are provisional, not certified official codes.
-6. Review the 54 current portal entries that are not included in the documented 63-question verified set.
-7. Expand the bank with additional source-verified questions and clearly label generated concept-based variants separately.
-8. Add question rotation so repeated attempts draw fresh questions where the available pool permits; never repeat a question within a single test.
+6. Keep the 126 generated concept-based questions distinct from the 63 PDF-source verified MCQs; review generated answers and difficulty before formal endorsement.
+7. Expand the pools beyond 9 items per subject if every repeated individual practice attempt must contain 9 entirely unseen questions.
+8. Complete rotation testing in a real browser, including localStorage persistence and wrap-around after the unused pool is exhausted.
 9. Complete end-to-end portal testing after deployment.
 
 ## Fixed subject scope
@@ -45,4 +48,4 @@ The later verification reports document a 63-question first set across 21 class-
 - Classes 6–8: English, Urdu, Mathematics, Science only.
 
 ## Interpretation note
-The Stage 2 OCR report was an intermediate checkpoint and says no questions had yet been promoted at that stage. Later class-wise verification reports document a 63-question verified first set. The current live bank was subsequently expanded to 117. This progress file reconciles those different dates/stages; it does not upgrade OCR-only candidates to verified questions.
+The Stage 2 OCR report was an intermediate checkpoint and says no questions had yet been promoted at that stage. Later class-wise verification reports document a 63-question verified first set. The current live bank was subsequently expanded to 189 (63 PDF-source verified + 126 generated concept-based). This progress file reconciles those different dates/stages; it does not upgrade OCR-only candidates to verified questions.
