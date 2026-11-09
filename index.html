@@ -212,6 +212,10 @@
         header:after { width:180px;height:180px;left:-65px;bottom:-125px; }
         header h1 { position:relative;font-size:1.35rem;letter-spacing:1.4px;margin-bottom:7px; }
         header h2 { position:relative;color:#dcebf3;font-size:.86rem;letter-spacing:.15px; }
+        .header-credit { position:relative;margin:9px auto 5px;color:#e6f1f6;font-size:.76rem;line-height:1.5; }
+        .header-support { position:relative;display:inline-block;margin-top:3px;padding:6px 12px;border:1px solid rgba(255,255,255,.35);border-radius:999px;color:#fff;text-decoration:none;font-size:.76rem;font-weight:700;background:rgba(255,255,255,.10); }
+        .header-support:hover { background:rgba(255,255,255,.2);text-decoration:underline; }
+        @media(max-width:600px){.header-credit{font-size:.65rem;padding:0 4px}.header-support{font-size:.67rem;padding:5px 10px}}
         .container { max-width:1000px;margin:24px auto 28px;padding:0 18px; }
         .screen.active { animation:fadeIn .24s ease-out; }
         .summary-panel {
@@ -369,6 +373,9 @@
     <header>
         <h1>PECTAA SMART PRACTICE PORTAL</h1>
         <h2>THE EDUCATIONAL HELPER | Learn • Practice • Improve</h2>
+        <p class="header-credit"><strong>Developed by: M.Sajid (A.E.O)</strong> · Markaz Amli Moti, Tehsil Depalpur, District Okara</p>
+        <a class="header-support" href="https://youtube.com/@sajideducationalhelper?si=3M_-Z2XMd42oh3mB"
+           target="_blank" rel="noopener noreferrer">▶ YouTube Channel for Support &amp; Updates</a>
     </header>
 
     <div class="container">
@@ -398,31 +405,7 @@
                 <button class="btn btn-primary" onclick="showScreen('class-screen')" style="font-size: 1.2rem; padding: 15px 40px;">Start Practice</button>
             </div>
 
-            <section class="project-progress" aria-label="Question bank project progress">
-                <h3>Question Bank Development Progress</h3>
-                <p class="progress-note">Progress is based on the saved OCR and verification reports. OCR processing is complete for all PDF pages; manual review and final approval are still in progress.</p>
-                <div class="progress-metrics">
-                    <div class="progress-metric"><strong>247/247</strong><span>PDF Pages OCR-Processed</span></div>
-                    <div class="progress-metric"><strong>410</strong><span>OCR Review Chunks</span></div>
-                    <div class="progress-metric"><strong>189</strong><span>Questions in Current Portal</span></div>
-                    <div class="progress-metric"><strong>63</strong><span>PDF-Verified Source MCQs</span></div>
-                </div>
-                <div class="progress-track" role="img" aria-label="All 21 class-subject sets have at least 9 questions"><span></span></div>
-                <div class="progress-caption"><span>63 PDF-verified · 126 concept-based</span><strong>21/21 sets have 9 questions</strong></div>
-                <details class="progress-details">
-                    <summary>View completed and remaining work</summary>
-                    <ul>
-                        <li><strong>Completed:</strong> OCR run across all 247 pages; 125,728 OCR characters captured; 649 question-heading occurrences detected.</li>
-                        <li><strong>Completed:</strong> OCR candidate grouping and subject inventory for Classes 3–8; saved class-wise review sheets and verified question sets.</li>
-                        <li><strong>Verified set:</strong> 63 questions across 21 class-subject sets (3 per approved subject).</li>
-                        <li><strong>Current bank:</strong> 117 questions are present in the portal; 126 additional entries are generated concept-based practice questions, clearly labelled and not represented as PDF transcriptions.</li>
-                        <li class="pending"><strong>Remaining:</strong> Resolve unclear student/page groups, inspect OCR candidates against source pages, verify remaining answers, and complete duplicate review.</li>
-                        <li class="pending"><strong>Remaining:</strong> Confirm official PECTAA SLO codes; add more verified and concept-based questions; test fresh-question rotation across attempts.</li>
-                        <li><strong>Subject scope:</strong> Classes 3–5: English, Urdu, Mathematics. Classes 6–8: English, Urdu, Mathematics, Science.</li>
-                    </ul>
-                    <p class="progress-note" style="margin:9px 0 0">Important: OCR output is a review draft, not an approved answer key. Skill tags are provisional and are not certified official PECTAA SLO codes.</p>
-                </details>
-            </section>
+
         </div>
 
         <div id="class-screen" class="screen">
@@ -503,14 +486,7 @@
         </div>
     </div>
 
-    <footer class="site-footer">
-        <p><strong>Developed by: M.Sajid (A.E.O)</strong><br>Markaz Amli Moti, Tehsil Depalpur, District Okara</p>
-        <a href="https://youtube.com/@sajideducationalhelper?si=3M_-Z2XMd42oh3mB"
-           target="_blank" rel="noopener noreferrer"
-           aria-label="Visit The Educational Helper YouTube channel">
-           ▶ YouTube Channel for Support & Updates
-        </a>
-    </footer>
+
 
     <script>
         // ==========================================
