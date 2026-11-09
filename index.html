@@ -893,7 +893,6 @@
             quizStartedAt = Date.now();
             quizAutoSubmitted = false;
             const pill = document.getElementById('quiz-timer');
-            if (!secondsPerQuestion) { pill.style.display = 'none'; return; }
             pill.style.display = 'inline-flex';
             updateQuizTimerDisplay();
             quizTimerInterval = setInterval(() => {
