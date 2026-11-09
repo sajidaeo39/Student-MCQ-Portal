@@ -7,16 +7,18 @@ Live site: https://sajidaeo39.github.io/Student-MCQ-Portal/
 Continue the existing Student MCQ Portal. Preserve its current working design and features unless a change is required for the requested question-bank update. The owner has granted GitHub access to the connected ChatGPT GitHub integration; inspect the repository before editing.
 
 ## Required question-bank structure
-- Classes 3, 4, 5: English, Urdu, Mathematics; exactly 3 questions per subject; 9 questions per class.
-- Classes 6, 7, 8: English, Urdu, Mathematics, Science; exactly 3 questions per subject; 12 questions per class.
-- Each class must have its own correct subject list and class-specific practice tests.
-- A mixed test for each class must contain all required subjects and exactly 9 or 12 questions as specified above.
-- Keep the three group-mix options: Classes 3–5 = 9 questions; Classes 6–8 = 12 questions; Overall Classes 3–8 = exactly 12 questions, with two questions per class from two distinct approved subjects.
+- Classes 3, 4, 5: English, Urdu, Mathematics only.
+- Classes 6, 7, 8: English, Urdu, Mathematics, Science only.
+- Individual subject practice must contain exactly 9 MCQs from the selected class and subject.
+- Each class-specific mixed test selects exactly 3 MCQs from every approved subject: Classes 3–5 = 9 total; Classes 6–8 = 12 total.
+- Group Mix options: Classes 3–5 = 9 questions; Classes 6–8 = 12 questions.
+- **Do not include an Overall Mix test for Classes 3–8. It was explicitly removed.**
+- Do not enable individual subject practice when its bank contains fewer than 9 questions. Do not fabricate questions to fill a quota.
 
 ## Source PDF and verification rules
-The owner previously attached a 247-page file named **Question bank.pdf** in a different ChatGPT conversation. The pages contain student names, class information, and each student's questions on following pages. The correct class must be determined from the student's name/class heading and the pages belonging to that student—not by guessing from a question's difficulty or an isolated page heading.
+The repository root contains **Question bank.pdf** (247 scanned pages). The owner has also uploaded an accessible copy in the current work session. Do not ask the owner to upload it again while the repository copy or current-session file is available. The PDF is image/scanned content; text extraction may return empty, so render pages and visually inspect them. The visible forms contain student names, class headings, and subject-wise MCQs on following pages. Determine class from the student heading and its page sequence—not from question difficulty.
 
-Important file-access limitation: an attachment in another ChatGPT conversation/account is not automatically available in this repository or a new ChatGPT account. First inspect the repository for the source PDF and any extracted question-bank data. If the PDF is not present, do not claim to have reviewed it and do not invent questions or answers. Ask the owner for a way to make the source file accessible. Do not ask them to re-upload it if a valid copy is already present in the repository or another accessible source.
+Current source review is partial only. Sampled pages showed Classes 3, 4, 5, and 8; this does not prove that Classes 6 or 7 are absent from the full PDF. Sampled answer circles were unselected, so do not assume the PDF provides a marked answer key. Track source page, student name, class, subject, exact question, options, answer mark (if any), and confidence. Independently verify each answer. The current audit report records the verified scope and remaining work.
 
 ## Required audit before updating live data
 1. Inspect all existing source files, data structures, test logic, and deployment workflow. Identify the current question-bank source of truth.
@@ -26,7 +28,7 @@ Important file-access limitation: an attachment in another ChatGPT conversation/
 5. Identify exact duplicates and near-duplicates across the whole PDF. Report counts separately. Do not silently discard a question that differs meaningfully; retain class/subject attribution. Avoid duplicate entries in the final practice bank where they are genuinely the same question.
 6. Where the source is unclear, incomplete, or has no defensible correct answer, flag it for review rather than guessing.
 7. Produce an audit report: total source questions, unique questions, exact duplicates, near-duplicates, class-wise counts, subject-wise counts, corrected answers, and unresolved items.
-8. Confirm the final data has exactly 3 questions per required subject for each class. If there are more eligible verified questions, select a transparent set of 3 per subject (prefer distinct concepts and avoid repeats). Do not fabricate missing questions to fill a quota; report any shortfall.
+8. Confirm the final data has at least 9 independently verified questions in every required class-subject set before enabling 9-question individual practice. Class-specific mixed tests still use exactly 3 questions per subject. Do not fabricate missing questions to fill a quota; report any shortfall.
 
 ## Portal requirements
 - Keep the existing portal's functionality, responsive/mobile layout, branding, and current working features.
