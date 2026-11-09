@@ -11,6 +11,7 @@ Continue the existing Student MCQ Portal. Preserve its current working design an
 - Classes 6, 7, 8: English, Urdu, Mathematics, Science; exactly 3 questions per subject; 12 questions per class.
 - Each class must have its own correct subject list and class-specific practice tests.
 - A mixed test for each class must contain all required subjects and exactly 9 or 12 questions as specified above.
+- Keep the three group-mix options: Classes 3–5 = 9 questions; Classes 6–8 = 12 questions; Overall Classes 3–8 = exactly 12 questions, with two questions per class from two distinct approved subjects.
 
 ## Source PDF and verification rules
 The owner previously attached a 247-page file named **Question bank.pdf** in a different ChatGPT conversation. The pages contain student names, class information, and each student's questions on following pages. The correct class must be determined from the student's name/class heading and the pages belonging to that student—not by guessing from a question's difficulty or an isolated page heading.
