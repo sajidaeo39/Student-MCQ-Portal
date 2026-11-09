@@ -37,3 +37,6 @@ Live portal: https://sajidaeo39.github.io/Student-MCQ-Portal/
 
 ## Acceptance summary
 The configured class/subject structure and question counts meet the requested 63-question layout. The portal is suitable for a supervised review run, but should not be described as a fully certified question bank until official SLO mapping, full-PDF duplicate analysis, and end-to-end browser testing are completed.
+
+## Deployment
+The final source changes are committed. The Pages deployment is being triggered by the final audit commit; verify the latest Actions run before treating the public site as refreshed.
