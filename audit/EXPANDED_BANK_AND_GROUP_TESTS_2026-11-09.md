@@ -4,21 +4,28 @@ Updated: 2026-11-09
 
 ## Current bank inventory
 
-The current portal bank has **117 MCQs across 21 class-subject sets**.
+The current portal bank has **189 MCQs across 21 class-subject sets**.
 
-| Class | Approved subjects | Questions per subject currently in bank | Total in class | Individual subject practice |
+| Class | Approved subjects | Questions per subject | Total in class | Individual subject practice |
 |---|---|---:|---:|---|
 | Class 3 | English, Urdu, Mathematics | 9 each | 27 | Available |
 | Class 4 | English, Urdu, Mathematics | 9 each | 27 | Available |
 | Class 5 | English, Urdu, Mathematics | 9 each | 27 | Available |
-| Class 6 | English, Urdu, Mathematics, Science | 3 each | 12 | Locked until each set reaches 9 |
-| Class 7 | English, Urdu, Mathematics, Science | 3 each | 12 | Locked until each set reaches 9 |
-| Class 8 | English, Urdu, Mathematics, Science | 3 each | 12 | Locked until each set reaches 9 |
-| **Total** | **21 class-subject sets** | — | **117** | **9 sets ready; 12 pending** |
+| Class 6 | English, Urdu, Mathematics, Science | 9 each | 36 | Available |
+| Class 7 | English, Urdu, Mathematics, Science | 9 each | 36 | Available |
+| Class 8 | English, Urdu, Mathematics, Science | 9 each | 36 | Available |
+| **Total** | **21 class-subject sets** | — | **189** | **21 sets ready** |
 
-Classes 3–5 contain 81 questions (9 sets × 9). Classes 6–8 contain 36 questions (12 sets × 3). The bank must not be described as fully complete: 12 middle-class subject sets still need six additional verified questions each to support 9-question individual subject practice.
+**Provenance split:** 63 questions are the documented PDF-source verified first set (3 per class-subject set). The remaining 126 are labelled `Generated • Concept Based`. Generated variants are supplemental practice, not verbatim PDF questions and not independently certified against official PECTAA SLO codes.
 
-The 6-question expansions in Classes 3–5 are present in the code, but their full page-by-page provenance against the 247-page scanned PDF and their official SLO mapping have not yet been completed. Do not describe those additions as verbatim PDF transcriptions or officially SLO-verified until that audit is finished.
+The generated additions bring every approved subject set to the 9-question threshold. Classes 6–8 Science now has 9 questions per class, with the original 3 source-verified items and 6 generated concept-based items.
+
+Individual subject practice currently displays 9 questions. Since each pool currently contains exactly 9, a repeated subject attempt will necessarily reuse the same question set (although order/options are shuffled). To guarantee a fully fresh 9-question set on every attempt, each subject pool must be expanded beyond 9—ideally to 18 or more.
+
+## Question provenance labels
+- `PDF • Verified Set 1`: one of the 63 visually checked source questions with independently checked answers, as recorded in the class-wise audit files.
+- `Generated • Concept Based`: newly authored practice item aligned to the broad topic/skill; not claimed to be from the PDF.
+- The quiz displays this provenance label with each question.
 
 ## Approved subjects
 
@@ -31,7 +38,7 @@ The 6-question expansions in Classes 3–5 are present in the code, but their fu
 | Test mode | Question rule | Total |
 |---|---|---:|
 | Individual subject practice, Classes 3–5 | 9 questions from the selected class and subject | 9 |
-| Individual subject practice, Classes 6–8 | Opens only after 9 questions are available in the selected class-subject set | 9 |
+| Individual subject practice, Classes 6–8 | 9 questions from the selected class-subject pool (now 9 items per set) | 9 |
 | Class-specific Mix, Classes 3–5 | 3 English + 3 Urdu + 3 Mathematics | 9 |
 | Class-specific Mix, Classes 6–8 | 3 English + 3 Urdu + 3 Mathematics + 3 Science | 12 |
 | Group Mix, Classes 3–5 | One question from every class-subject set (3 classes × 3 subjects) | 9 |
@@ -73,7 +80,7 @@ Pending:
 - Full 247-page PDF page ledger and transcription.
 - Independent answer verification and duplicate/near-duplicate audit.
 - Official SLO mapping and grouping.
-- Add six additional verified questions to each of the 12 Classes 6–8 subject sets.
+- All 21 approved sets now reach 9 questions; add further items to each set to ensure repeated 9-question subject tests can be entirely fresh.
 - Verify GitHub Pages deployment and test the live portal after the current deployment run completes.
 
 Do not claim full source audit or full portal completion until the pending items are resolved.
