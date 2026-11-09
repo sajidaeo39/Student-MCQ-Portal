@@ -53,6 +53,19 @@
 
         .quiz-header { display: flex; justify-content: space-between; align-items: center; background: var(--card-bg); padding: 15px 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
         .progress-text { font-weight: 600; color: var(--secondary-color); }
+        .timer-pill { display:inline-flex;align-items:center;gap:7px;padding:7px 12px;border-radius:999px;background:#edf5f8;color:#174c66;font-weight:700;font-variant-numeric:tabular-nums; }
+        .timer-pill.warning { background:#fff1e8;color:#b45309; }
+        .timer-pill.expired { background:#fee2e2;color:#b91c1c; }
+        .timer-setting { display:block;margin-top:12px; }
+        .timer-setting select { width:100%;min-height:42px;padding:9px 11px;border:1px solid #cbd5e1;border-radius:9px;background:#fff;font-size:15px;color:#243b53; }
+        .subject-performance { margin:22px 0 24px;text-align:left;background:#f7fafc;border:1px solid #e2eaf0;border-radius:15px;padding:17px; }
+        .subject-performance h3 { color:#173b66;font-size:1rem;margin-bottom:13px; }
+        .subject-performance-row { margin:0 0 13px; }
+        .subject-performance-row:last-child { margin-bottom:0; }
+        .subject-performance-head { display:flex;justify-content:space-between;gap:10px;font-size:.84rem;font-weight:600;margin-bottom:6px;color:#304b61; }
+        .subject-performance-track { height:9px;background:#e4edf2;border-radius:99px;overflow:hidden; }
+        .subject-performance-fill { height:100%;border-radius:99px;background:linear-gradient(90deg,#173b66,#0b8990); }
+        .subject-performance-meta { color:#6b7f90;font-size:.73rem;margin-top:4px; }
 
         .question-box { background: var(--card-bg); padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 20px; }
         .question-text { font-size: 1.2rem; font-weight: 600; margin-bottom: 25px; line-height: 1.5; }
@@ -353,6 +366,14 @@
                     <input id="school-name" type="text" maxlength="80" placeholder="Enter school name">
                     <label for="student-name">Student Name (Optional)</label>
                     <input id="student-name" type="text" maxlength="80" placeholder="Enter student name">
+                    <label class="timer-setting" for="timer-per-question">Test Timer</label>
+                    <select id="timer-per-question" aria-label="Choose time allowed per question">
+                        <option value="0">No time limit</option>
+                        <option value="30">30 seconds per question</option>
+                        <option value="45">45 seconds per question</option>
+                        <option value="60" selected>1 minute per question</option>
+                        <option value="90">90 seconds per question</option>
+                    </select>
                 </div>
                 <button class="btn btn-primary" onclick="showScreen('class-screen')" style="font-size: 1.2rem; padding: 15px 40px;">Start Practice</button>
             </div>
@@ -381,6 +402,7 @@
             </div>
             <div class="quiz-header">
                 <span class="progress-text" id="question-progress">Question 1 of 10</span>
+                <span class="timer-pill" id="quiz-timer" aria-live="polite" style="display:none;">⏱ <span id="timer-display">00:00</span></span>
             </div>
             <div class="question-box">
                 <div class="question-text" id="question-text"></div>
@@ -406,6 +428,10 @@
                     <div class="stat-item"><h3 id="wrong-q" style="color: var(--danger-color);">0</h3><p>Incorrect</p></div>
                 </div>
                 <p class="performance-msg" id="performance-msg"></p>
+                <section class="subject-performance" id="subject-performance" aria-live="polite">
+                    <h3>Subject-wise Performance</h3>
+                    <div id="subject-performance-list"></div>
+                </section>
                 <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
                     <button class="btn btn-secondary" onclick="reviewQuiz()">Review Answers</button>
                     <button class="btn btn-primary" onclick="showScreen('class-screen')">Take Another Test</button>
@@ -586,6 +612,11 @@
         let currentQuestions = [];
         let userAnswers = [];
         let currentQuestionIndex = 0;
+        let quizTimerInterval = null;
+        let quizTimeRemaining = 0;
+        let quizStartedAt = null;
+        let quizTimeLimit = 0;
+        let quizAutoSubmitted = false;
         // Free public Abacus counters (CountAPI may be blocked on some mobile networks).
         const COUNTER_BASE = "https://abacus.jasoncameron.dev";
         const COUNTER_NAMESPACE = "student-mcq-portal-sajidaeo39";
@@ -744,13 +775,55 @@
             for (const subject of subjects) {
                 const copy = JSON.parse(JSON.stringify(bank[subject]));
                 shuffleArray(copy);
-                selected.push(...copy.slice(0, 3));
+                copy.slice(0, 3).forEach(question => { question._subject = subject; selected.push(question); });
             }
             return selected;
         }
 
+        function stopQuizTimer() {
+            if (quizTimerInterval) { clearInterval(quizTimerInterval); quizTimerInterval = null; }
+        }
+
+        function formatTimer(seconds) {
+            const safe = Math.max(0, seconds);
+            return String(Math.floor(safe / 60)).padStart(2, '0') + ':' + String(safe % 60).padStart(2, '0');
+        }
+
+        function updateQuizTimerDisplay() {
+            const pill = document.getElementById('quiz-timer');
+            const display = document.getElementById('timer-display');
+            if (!pill || !display) return;
+            display.textContent = formatTimer(quizTimeRemaining);
+            pill.classList.toggle('warning', quizTimeRemaining <= 60 && quizTimeRemaining > 0);
+            pill.classList.toggle('expired', quizTimeRemaining <= 0);
+        }
+
+        function startQuizTimer() {
+            stopQuizTimer();
+            const secondsPerQuestion = Number(document.getElementById('timer-per-question')?.value || 0);
+            quizTimeLimit = secondsPerQuestion * currentQuestions.length;
+            quizTimeRemaining = quizTimeLimit;
+            quizStartedAt = Date.now();
+            quizAutoSubmitted = false;
+            const pill = document.getElementById('quiz-timer');
+            if (!secondsPerQuestion) { pill.style.display = 'none'; return; }
+            pill.style.display = 'inline-flex';
+            updateQuizTimerDisplay();
+            quizTimerInterval = setInterval(() => {
+                quizTimeRemaining = Math.max(0, Math.ceil((quizTimeLimit * 1000 - (Date.now() - quizStartedAt)) / 1000));
+                updateQuizTimerDisplay();
+                if (quizTimeRemaining <= 0 && !quizAutoSubmitted) {
+                    quizAutoSubmitted = true;
+                    stopQuizTimer();
+                    alert('Time is up! Your test will be submitted automatically.');
+                    submitQuiz(true);
+                }
+            }, 250);
+        }
+
         function quitQuiz() {
             if (confirm("Are you sure you want to quit the quiz? Your progress will be lost.")) {
+                stopQuizTimer();
                 showScreen('subject-screen');
             }
         }
@@ -785,7 +858,8 @@
                 return {
                     q: q[0],
                     options: optionsArray.map(o => o.text),
-                    ans: newAnsIndex
+                    ans: newAnsIndex,
+                    subject: q._subject || currentSubject
                 };
             });
 
@@ -793,6 +867,7 @@
             currentQuestionIndex = 0;
             showScreen('quiz-screen');
             loadQuestion();
+            startQuizTimer();
         }
 
         function loadQuestion() {
@@ -849,9 +924,10 @@
             }
         }
 
-        function submitQuiz() {
+        function submitQuiz(autoSubmit = false) {
             let unanswered = userAnswers.filter(a => a === null).length;
-            if (unanswered > 0 && !confirm(`You have left ${unanswered} question(s) unanswered. Are you sure you want to submit?`)) return;
+            if (!autoSubmit && unanswered > 0 && !confirm(`You have left ${unanswered} question(s) unanswered. Are you sure you want to submit?`)) return;
+            stopQuizTimer();
 
             let correct = 0;
             let wrong = 0;
@@ -864,6 +940,9 @@
             const percentage = Math.round((correct / total) * 100);
             const answered = userAnswers.filter(a => a !== null).length;
             saveAttemptStats(total, answered);
+            renderSubjectPerformance();
+            const timerPill = document.getElementById('quiz-timer');
+            if (timerPill) timerPill.style.display = 'none';
 
             document.getElementById('score-percentage').innerText = `${percentage}%`;
             document.getElementById('total-q').innerText = total;
@@ -876,6 +955,30 @@
             else { msgEl.innerText = "📚 Don't worry, keep practicing. You can do it!"; msgEl.style.color = "var(--danger-color)"; }
 
             showScreen('result-screen');
+        }
+
+        function renderSubjectPerformance() {
+            const container = document.getElementById('subject-performance-list');
+            const section = document.getElementById('subject-performance');
+            if (!container || !section) return;
+            const results = {};
+            currentQuestions.forEach((question, index) => {
+                const subject = question.subject || currentSubject || 'Subject';
+                if (!results[subject]) results[subject] = { total:0, correct:0, answered:0 };
+                results[subject].total++;
+                if (userAnswers[index] !== null) results[subject].answered++;
+                if (userAnswers[index] === question.ans) results[subject].correct++;
+            });
+            const entries = Object.entries(results);
+            section.style.display = entries.length ? 'block' : 'none';
+            container.innerHTML = entries.map(([subject, data]) => {
+                const percentage = Math.round((data.correct / data.total) * 100);
+                return `<div class="subject-performance-row">
+                    <div class="subject-performance-head"><span>${subject}</span><span>${data.correct}/${data.total} · ${percentage}%</span></div>
+                    <div class="subject-performance-track"><div class="subject-performance-fill" style="width:${percentage}%"></div></div>
+                    <div class="subject-performance-meta">${data.answered} answered · ${data.total - data.answered} unanswered</div>
+                </div>`;
+            }).join('');
         }
 
         function reviewQuiz() {
