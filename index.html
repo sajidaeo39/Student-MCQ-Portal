@@ -1461,7 +1461,7 @@
                 rawQuestions = buildMixedTestQuestions();
             } else {
                 const pool = questionBank[currentClass]?.[currentSubject] || [];
-                if (!(verifiedPracticeSets[currentClass] || []).includes(currentSubject) || pool.length < 3) {
+                if (!(verifiedPracticeSets[currentClass] || []).includes(currentSubject) || pool.length !== 3) {
                     alert(currentClass + ' - ' + currentSubject + ': exactly 3 questions are required before this practice test can start.');
                     return;
                 }
