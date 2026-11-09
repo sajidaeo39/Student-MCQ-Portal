@@ -93,6 +93,7 @@
         .progress-details ul {padding-left:18px;margin:8px 0 0;color:#52677a;font-size:.76rem;line-height:1.55}
         .progress-details .pending {color:#9a5b0b;font-weight:600}
         @media(max-width:600px){.project-progress{padding:11px}.progress-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.progress-metric{padding:8px 4px}.progress-metric strong{font-size:1.1rem}}
+        .question-source {display:inline-block;margin:7px 0 2px;padding:4px 8px;border-radius:999px;background:#eef4f8;color:#496174;font-size:.68rem;font-weight:700}
         .question-box { background: var(--card-bg); padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 20px; }
         .question-text { font-size: 1.2rem; font-weight: 600; margin-bottom: 25px; line-height: 1.5; }
         
@@ -459,6 +460,7 @@
             </div>
             <div class="question-box">
                 <div class="question-text" id="question-text"></div>
+                <div class="question-source" id="question-source" aria-live="polite"></div>
                 <div class="options-container" id="options-container"></div>
             </div>
             <div class="nav-buttons">
@@ -517,1230 +519,2139 @@
         // ==========================================
         const questionBank =
 {
-          "Class 3": {
-                    "English": [
-                              [
-                                        "They _____ not make fun of others.",
-                                        [
-                                                  "do",
-                                                  "does",
-                                                  "done",
-                                                  "doing"
-                                        ],
-                                        0
-                              ],
-                              [
-                                        "They _____ salad before lunch daily.",
-                                        [
-                                                  "eat",
-                                                  "eats",
-                                                  "eaten",
-                                                  "eating"
-                                        ],
-                                        0
-                              ],
-                              [
-                                        "Identify the sentence with the correct punctuation.",
-                                        [
-                                                  "Ali sings a song.",
-                                                  "Ali sings a song?",
-                                                  "Ali sings a song,",
-                                                  "Ali sings a song!"
-                                        ],
-                                        0
-                              ],
-                              [
-                                        "Choose the correct word: She _____ to school every day.",
-                                        [
-                                                  "go",
-                                                  "goes",
-                                                  "going",
-                                                  "gone"
-                                        ],
-                                        1
-                              ],
-                              [
-                                        "Choose the correct pronoun: Ali is my friend. _____ is kind.",
-                                        [
-                                                  "He",
-                                                  "She",
-                                                  "It",
-                                                  "They"
-                                        ],
-                                        0
-                              ],
-                              [
-                                        "Which word is a noun?",
-                                        [
-                                                  "quickly",
-                                                  "beautiful",
-                                                  "garden",
-                                                  "run"
-                                        ],
-                                        2
-                              ],
-                              [
-                                        "Complete the sentence: I _____ a new pencil.",
-                                        [
-                                                  "has",
-                                                  "have",
-                                                  "having",
-                                                  "had been"
-                                        ],
-                                        1
-                              ],
-                              [
-                                        "Choose the correct article: _____ apple is red.",
-                                        [
-                                                  "A",
-                                                  "An",
-                                                  "Thee",
-                                                  "No article"
-                                        ],
-                                        1
-                              ],
-                              [
-                                        "Choose the correctly punctuated sentence.",
-                                        [
-                                                  "where are you going.",
-                                                  "Where are you going?",
-                                                  "Where are you going,",
-                                                  "where are you going!"
-                                        ],
-                                        1
-                              ]
-                    ],
-                    "Urdu": [
-                              [
-                                        "ڈیم بنائے جاتے ہیں:",
-                                        [
-                                                  "سمندروں پر",
-                                                  "دریاؤں پر",
-                                                  "نہروں پر",
-                                                  "تالابوں پر"
-                                        ],
-                                        1
-                              ],
-                              [
-                                        "لفظ \"جال\" کے ہم آواز الفاظ والا گروہ ہے:",
-                                        [
-                                                  "بال، تاک، تال",
-                                                  "بال، تاب، تال",
-                                                  "مال، بال، آس",
-                                                  "مال، بال، سال"
-                                        ],
-                                        3
-                              ],
-                              [
-                                        "آپ اپنے دوستوں کے ساتھ پارک میں گئے ہیں۔ وہاں بچے پھول توڑ رہے ہیں۔ آپ ان کو سمجھائیں گے:",
-                                        [
-                                                  "صفائی کا خیال نہ رکھیں۔",
-                                                  "پھول پارک کی زینت ہیں۔",
-                                                  "جھولوں کا رنگ خراب کریں۔",
-                                                  "کچرا کوڑا دان میں نہ ڈالیں۔"
-                                        ],
-                                        1
-                              ],
-                              [
-                                        "لفظ ”دن“ کا متضاد کیا ہے؟",
-                                        [
-                                                  "رات",
-                                                  "صبح",
-                                                  "شام",
-                                                  "دوپہر"
-                                        ],
-                                        0
-                              ],
-                              [
-                                        "درست جمع منتخب کریں: کتاب",
-                                        [
-                                                  "کتابیں",
-                                                  "کتابوں",
-                                                  "کتابی",
-                                                  "کتابان"
-                                        ],
-                                        0
-                              ],
-                              [
-                                        "”خوش“ کا ہم معنی لفظ ہے:",
-                                        [
-                                                  "غمگین",
-                                                  "مسرت",
-                                                  "اداس",
-                                                  "ناراض"
-                                        ],
-                                        1
-                              ],
-                              [
-                                        "درست جملہ منتخب کریں:",
-                                        [
-                                                  "بچے کھیلتا ہے۔",
-                                                  "بچے کھیلتے ہیں۔",
-                                                  "بچے کھیلتی ہے۔",
-                                                  "بچے کھیلتا ہیں۔"
-                                        ],
-                                        1
-                              ],
-                              [
-                                        "”باغ“ کس چیز کا نام ہے؟",
-                                        [
-                                                  "اسم",
-                                                  "فعل",
-                                                  "حرف",
-                                                  "ضمیر"
-                                        ],
-                                        0
-                              ],
-                              [
-                                        "خالی جگہ پُر کریں: پرندے آسمان میں _____ ہیں۔",
-                                        [
-                                                  "اڑتا",
-                                                  "اڑتی",
-                                                  "اڑتے",
-                                                  "اڑنا"
-                                        ],
-                                        2
-                              ]
-                    ],
-                    "Mathematics": [
-                              [
-                                        "If the length of a rectangle is 7cm and its width is 5cm then its perimeter will be:",
-                                        [
-                                                  "12cm",
-                                                  "17cm",
-                                                  "24cm",
-                                                  "35cm"
-                                        ],
-                                        2
-                              ],
-                              [
-                                        "The solution of 9 ÷ 3 is:",
-                                        [
-                                                  "1",
-                                                  "3",
-                                                  "6",
-                                                  "9"
-                                        ],
-                                        1
-                              ],
-                              [
-                                        "The standard unit of capacity is:",
-                                        [
-                                                  "kilogram",
-                                                  "Meter",
-                                                  "Litre",
-                                                  "Kilometer"
-                                        ],
-                                        2
-                              ],
-                              [
-                                        "The sum of 245 and 132 is:",
-                                        [
-                                                  "367",
-                                                  "377",
-                                                  "387",
-                                                  "357"
-                                        ],
-                                        1
-                              ],
-                              [
-                                        "The product of 8 and 6 is:",
-                                        [
-                                                  "42",
-                                                  "46",
-                                                  "48",
-                                                  "56"
-                                        ],
-                                        2
-                              ],
-                              [
-                                        "The value of 72 ÷ 8 is:",
-                                        [
-                                                  "7",
-                                                  "8",
-                                                  "9",
-                                                  "10"
-                                        ],
-                                        2
-                              ],
-                              [
-                                        "A triangle has how many sides?",
-                                        [
-                                                  "2",
-                                                  "3",
-                                                  "4",
-                                                  "5"
-                                        ],
-                                        1
-                              ],
-                              [
-                                        "What is the place value of 5 in 352?",
-                                        [
-                                                  "5",
-                                                  "50",
-                                                  "500",
-                                                  "35"
-                                        ],
-                                        1
-                              ],
-                              [
-                                        "A shopkeeper has 20 apples and sells 7. How many are left?",
-                                        [
-                                                  "11",
-                                                  "12",
-                                                  "13",
-                                                  "14"
-                                        ],
-                                        2
-                              ]
-                    ]
-          },
-          "Class 4": {
-                    "English": [
-                              [
-                                        "Choose the correct 'Compound Word'.",
-                                        [
-                                                  "Quickly",
-                                                  "Happy",
-                                                  "Sunlight",
-                                                  "Singing"
-                                        ],
-                                        2
-                              ],
-                              [
-                                        "Identify the 'Plural' of 'Knife'.",
-                                        [
-                                                  "Knifes",
-                                                  "Knifez",
-                                                  "Knives",
-                                                  "Knivez"
-                                        ],
-                                        2
-                              ],
-                              [
-                                        "Select the correct 'Adjective' of the word 'care'.",
-                                        [
-                                                  "Caring",
-                                                  "Careful",
-                                                  "Cared",
-                                                  "Carefully"
-                                        ],
-                                        1
-                              ],
-                              [
-                                        "Choose the correct plural of 'tooth'.",
-                                        [
-                                                  "tooths",
-                                                  "teeth",
-                                                  "toothes",
-                                                  "toothes"
-                                        ],
-                                        1
-                              ],
-                              [
-                                        "Which word is an adjective?",
-                                        [
-                                                  "slowly",
-                                                  "beauty",
-                                                  "bright",
-                                                  "swim"
-                                        ],
-                                        2
-                              ],
-                              [
-                                        "Choose the compound word.",
-                                        [
-                                                  "rainbow",
-                                                  "running",
-                                                  "careful",
-                                                  "softly"
-                                        ],
-                                        0
-                              ],
-                              [
-                                        "Select the correct preposition: The book is _____ the table.",
-                                        [
-                                                  "at",
-                                                  "on",
-                                                  "by",
-                                                  "from"
-                                        ],
-                                        1
-                              ],
-                              [
-                                        "Choose the correct past form of 'teach'.",
-                                        [
-                                                  "teached",
-                                                  "teaches",
-                                                  "taught",
-                                                  "teaching"
-                                        ],
-                                        2
-                              ],
-                              [
-                                        "Which word has the /ɪd/ ending sound?",
-                                        [
-                                                  "washed",
-                                                  "played",
-                                                  "wanted",
-                                                  "jumped"
-                                        ],
-                                        2
-                              ]
-                    ],
-                    "Urdu": [
-                              [
-                                        "لفظ \"اندر\" کے متضاد والا درست جملہ ہے:",
-                                        [
-                                                  "احمد گھر کے اوپر ہے۔",
-                                                  "احمد گھر کے اندر ہے۔",
-                                                  "احمد گھر کے پاس ہے۔",
-                                                  "احمد گھر کے باہر ہے۔"
-                                        ],
-                                        3
-                              ],
-                              [
-                                        "سکول میں آپ کے دوست کی دوسرے بچوں کے ساتھ لڑائی ہو گئی ہے۔ اس صورت حال میں آپ کا ردعمل ہوگا:",
-                                        [
-                                                  "لڑائی کروانا",
-                                                  "شور مچانا",
-                                                  "صلح کروانا",
-                                                  "شکایت کرنا"
-                                        ],
-                                        2
-                              ],
-                              [
-                                        "آپ نے موبائل پر عالمی یوم اساتذہ کے بارے میں جانا۔ آپ اپنے ہم جماعت دوستوں کو بتائیں گے:",
-                                        [
-                                                  "استاد کی معاشرے میں کوئی اہمیت نہیں۔",
-                                                  "استاد کا تعلیمی عمل میں کوئی کردار نہیں۔",
-                                                  "استاد قوم کی ترقی میں اہم کردار ادا کرتا ہے۔",
-                                                  "استاد کا نہ ہونا معاشرے کے لیے مفید ہے۔"
-                                        ],
-                                        2
-                              ],
-                              [
-                                        "لفظ ”باہر“ کا متضاد ہے:",
-                                        [
-                                                  "اوپر",
-                                                  "اندر",
-                                                  "آگے",
-                                                  "قریب"
-                                        ],
-                                        1
-                              ],
-                              [
-                                        "درست مؤنث منتخب کریں: بادشاہ",
-                                        [
-                                                  "بادشاہی",
-                                                  "ملکہ",
-                                                  "شہزادی",
-                                                  "بیگم"
-                                        ],
-                                        1
-                              ],
-                              [
-                                        "محاورہ ”آسمان سر پر اٹھانا“ کا مطلب ہے:",
-                                        [
-                                                  "بہت شور مچانا",
-                                                  "خوش ہونا",
-                                                  "خاموش رہنا",
-                                                  "تیز دوڑنا"
-                                        ],
-                                        0
-                              ],
-                              [
-                                        "درست فعل والا جملہ ہے:",
-                                        [
-                                                  "لڑکیاں پڑھتا ہیں۔",
-                                                  "لڑکیاں پڑھتی ہیں۔",
-                                                  "لڑکیاں پڑھتا ہے۔",
-                                                  "لڑکیاں پڑھتے ہے۔"
-                                        ],
-                                        1
-                              ],
-                              [
-                                        "لفظ ”محنت“ کا متضاد ہے:",
-                                        [
-                                                  "کوشش",
-                                                  "کاہلی",
-                                                  "لگن",
-                                                  "مشقت"
-                                        ],
-                                        1
-                              ],
-                              [
-                                        "سوالیہ جملے کے آخر میں کون سی علامت آتی ہے؟",
-                                        [
-                                                  "۔",
-                                                  "،",
-                                                  "؟",
-                                                  "!"
-                                        ],
-                                        2
-                              ]
-                    ],
-                    "Mathematics": [
-                              [
-                                        "If the length of a rectangle is 7cm and its width is 5cm then its perimeter will be:",
-                                        [
-                                                  "12cm",
-                                                  "17cm",
-                                                  "24cm",
-                                                  "35cm"
-                                        ],
-                                        2
-                              ],
-                              [
-                                        "Millilitres in 9.7 litres are:",
-                                        [
-                                                  "97 ml",
-                                                  "907 ml",
-                                                  "970 ml",
-                                                  "9700 ml"
-                                        ],
-                                        3
-                              ],
-                              [
-                                        "If the weight of a sugar packet is 2.25 kg, then the weight of such 11 packets will be:",
-                                        [
-                                                  "2.475 kg",
-                                                  "24.75 kg",
-                                                  "247.5 kg",
-                                                  "2475 kg"
-                                        ],
-                                        1
-                              ],
-                              [
-                                        "The perimeter of a square with side 6 cm is:",
-                                        [
-                                                  "12 cm",
-                                                  "18 cm",
-                                                  "24 cm",
-                                                  "36 cm"
-                                        ],
-                                        2
-                              ],
-                              [
-                                        "How many millilitres are there in 3 litres?",
-                                        [
-                                                  "30",
-                                                  "300",
-                                                  "3000",
-                                                  "30000"
-                                        ],
-                                        2
-                              ],
-                              [
-                                        "The product of 125 and 4 is:",
-                                        [
-                                                  "400",
-                                                  "450",
-                                                  "500",
-                                                  "550"
-                                        ],
-                                        2
-                              ],
-                              [
-                                        "What is one half of 48?",
-                                        [
-                                                  "12",
-                                                  "18",
-                                                  "24",
-                                                  "28"
-                                        ],
-                                        2
-                              ],
-                              [
-                                        "A bag weighs 2.5 kg. What is the weight of 4 such bags?",
-                                        [
-                                                  "7 kg",
-                                                  "8 kg",
-                                                  "9 kg",
-                                                  "10 kg"
-                                        ],
-                                        3
-                              ],
-                              [
-                                        "Which fraction is equal to 1/2?",
-                                        [
-                                                  "2/3",
-                                                  "2/4",
-                                                  "3/4",
-                                                  "1/3"
-                                        ],
-                                        1
-                              ]
-                    ]
-          },
-          "Class 5": {
-                    "English": [
-                              [
-                                        "Point out an 'Irregular Verb'.",
-                                        [
-                                                  "Bring-Brought",
-                                                  "Wash-Washed",
-                                                  "Jump-Jumped",
-                                                  "Close-Closed"
-                                        ],
-                                        0
-                              ],
-                              [
-                                        "Choose the bird name that starts from a 'Vowel Sound'.",
-                                        [
-                                                  "Falcon",
-                                                  "Peacock",
-                                                  "Flamingo",
-                                                  "Oriole"
-                                        ],
-                                        3
-                              ],
-                              [
-                                        "Which of the following nouns does not take -s in its plural form?",
-                                        [
-                                                  "Sheep",
-                                                  "Duck",
-                                                  "Sparrow",
-                                                  "Elephant"
-                                        ],
-                                        0
-                              ],
-                              [
-                                        "Choose the past tense of 'bring'.",
-                                        [
-                                                  "bringed",
-                                                  "brought",
-                                                  "brings",
-                                                  "bringing"
-                                        ],
-                                        1
-                              ],
-                              [
-                                        "Which word begins with a vowel sound?",
-                                        [
-                                                  "university",
-                                                  "one",
-                                                  "hour",
-                                                  "uniform"
-                                        ],
-                                        2
-                              ],
-                              [
-                                        "Choose the correct plural of 'child'.",
-                                        [
-                                                  "childs",
-                                                  "childes",
-                                                  "children",
-                                                  "childrens"
-                                        ],
-                                        2
-                              ],
-                              [
-                                        "Identify the adverb in: 'The bird sings sweetly.'",
-                                        [
-                                                  "bird",
-                                                  "sings",
-                                                  "sweetly",
-                                                  "the"
-                                        ],
-                                        2
-                              ],
-                              [
-                                        "Choose the correct comparative form of 'good'.",
-                                        [
-                                                  "gooder",
-                                                  "best",
-                                                  "better",
-                                                  "more good"
-                                        ],
-                                        2
-                              ],
-                              [
-                                        "Which is a neuter gender noun?",
-                                        [
-                                                  "mother",
-                                                  "king",
-                                                  "table",
-                                                  "uncle"
-                                        ],
-                                        2
-                              ]
-                    ],
-                    "Urdu": [
-                              [
-                                        "تذکیر و تانیث کے مطابق درست فعل کے استعمال والا جملہ ہے:",
-                                        [
-                                                  "بلی چوہا کھاتی ہے۔",
-                                                  "بلی چوہا کھاتا ہے۔",
-                                                  "بلی چوہا کھاتی ہیں۔",
-                                                  "بلی چوہا کھاتیں ہیں۔"
-                                        ],
-                                        0
-                              ],
-                              [
-                                        "علامتِ فاعل اور علامتِ مفعول کا استعمال کرتے ہوئے جملہ مکمل کریں: انعم ______ اپنی سہیلی ______ خط لکھا۔",
-                                        [
-                                                  "کو، نے",
-                                                  "نے، کو",
-                                                  "نے، سے",
-                                                  "کو، سے"
-                                        ],
-                                        1
-                              ],
-                              [
-                                        "زمین میں فصلیں اگانے کے کام کا تعلق کس سے ہے؟",
-                                        [
-                                                  "گھر کا",
-                                                  "دکان کا",
-                                                  "کھیتی کا",
-                                                  "اسکول کا"
-                                        ],
-                                        2
-                              ],
-                              [
-                                        "لفظ ”لڑکا“ کی مؤنث ہے:",
-                                        [
-                                                  "لڑکی",
-                                                  "لڑکے",
-                                                  "بچیوں",
-                                                  "لڑکپن"
-                                        ],
-                                        0
-                              ],
-                              [
-                                        "درست جملے میں فاعل کی علامت منتخب کریں: احمد _____ خط لکھا۔",
-                                        [
-                                                  "کو",
-                                                  "نے",
-                                                  "سے",
-                                                  "پر"
-                                        ],
-                                        1
-                              ],
-                              [
-                                        "”کھیتی“ کا تعلق کس پیشے سے ہے؟",
-                                        [
-                                                  "تجارت",
-                                                  "زراعت",
-                                                  "طب",
-                                                  "تعلیم"
-                                        ],
-                                        1
-                              ],
-                              [
-                                        "لفظ ”سچ“ کا متضاد ہے:",
-                                        [
-                                                  "حق",
-                                                  "جھوٹ",
-                                                  "درست",
-                                                  "ایمان"
-                                        ],
-                                        1
-                              ],
-                              [
-                                        "درست جمع منتخب کریں: درخت",
-                                        [
-                                                  "درختیں",
-                                                  "درختوں",
-                                                  "درختا",
-                                                  "درختات"
-                                        ],
-                                        1
-                              ],
-                              [
-                                        "جملے میں فعل کی نشاندہی کریں: بچے میدان میں کھیل رہے ہیں۔",
-                                        [
-                                                  "بچے",
-                                                  "میدان",
-                                                  "کھیل رہے ہیں",
-                                                  "میں"
-                                        ],
-                                        2
-                              ]
-                    ],
-                    "Mathematics": [
-                              [
-                                        "The solution of 59264 × 436 is:",
-                                        [
-                                                  "25839604",
-                                                  "25739404",
-                                                  "25839104",
-                                                  "25839184"
-                                        ],
-                                        2
-                              ],
-                              [
-                                        "The next term of pattern 6, 11, 17, ... is:",
-                                        [
-                                                  "22",
-                                                  "23",
-                                                  "24",
-                                                  "25"
-                                        ],
-                                        2
-                              ],
-                              [
-                                        "78% in decimals is:",
-                                        [
-                                                  "0.078",
-                                                  "0.78",
-                                                  "7.8",
-                                                  "0.780"
-                                        ],
-                                        1
-                              ],
-                              [
-                                        "The value of 125 × 24 is:",
-                                        [
-                                                  "2000",
-                                                  "2500",
-                                                  "3000",
-                                                  "3500"
-                                        ],
-                                        2
-                              ],
-                              [
-                                        "What is 35% of 200?",
-                                        [
-                                                  "50",
-                                                  "60",
-                                                  "70",
-                                                  "80"
-                                        ],
-                                        2
-                              ],
-                              [
-                                        "The next number in the pattern 4, 8, 12, 16, ... is:",
-                                        [
-                                                  "18",
-                                                  "20",
-                                                  "22",
-                                                  "24"
-                                        ],
-                                        1
-                              ],
-                              [
-                                        "Write 0.6 as a fraction in simplest form.",
-                                        [
-                                                  "1/6",
-                                                  "3/5",
-                                                  "2/3",
-                                                  "6/10"
-                                        ],
-                                        1
-                              ],
-                              [
-                                        "The area of a rectangle 9 cm long and 4 cm wide is:",
-                                        [
-                                                  "13 cm²",
-                                                  "26 cm²",
-                                                  "36 cm²",
-                                                  "40 cm²"
-                                        ],
-                                        2
-                              ],
-                              [
-                                        "Which is the largest decimal?",
-                                        [
-                                                  "0.45",
-                                                  "0.5",
-                                                  "0.405",
-                                                  "0.49"
-                                        ],
-                                        1
-                              ]
-                    ]
-          },
-          "Class 6": {
-                    "English": [
-                              [
-                                        "My class fellow is ____ honest boy.",
-                                        [
-                                                  "a",
-                                                  "an",
-                                                  "the",
-                                                  "some"
-                                        ],
-                                        1
-                              ],
-                              [
-                                        "Complete the sentence in Simple Present Tense: The sun ____ every morning.",
-                                        [
-                                                  "rises",
-                                                  "rising",
-                                                  "rose",
-                                                  "risen"
-                                        ],
-                                        0
-                              ],
-                              [
-                                        "Choose the antonym of 'brilliant' in the sentence: Karim Benzema is a brilliant footballer.",
-                                        [
-                                                  "Bright",
-                                                  "Untalented",
-                                                  "Vivid",
-                                                  "Shining"
-                                        ],
-                                        1
-                              ]
-                    ],
-                    "Urdu": [
-                              [
-                                        "سمندری طوفان کے باعث بعض علاقوں میں کون سی فراہمی بند کی جا سکتی ہے؟",
-                                        [
-                                                  "خوراک",
-                                                  "بجلی",
-                                                  "تیل",
-                                                  "پانی"
-                                        ],
-                                        1
-                              ],
-                              [
-                                        "'لوہار نے ہتھوڑا پکڑا'۔ اس جملے میں 'ہتھوڑا' ہے:",
-                                        [
-                                                  "اسم صوت",
-                                                  "اسم ذات",
-                                                  "اسم آلہ",
-                                                  "اسم مصغر"
-                                        ],
-                                        2
-                              ],
-                              [
-                                        "مرکب جملہ ہے:",
-                                        [
-                                                  "تم سکول گئے۔",
-                                                  "آپ کھیلنے نہیں گئے۔",
-                                                  "ہم نے کھانا کھایا اور نماز ادا کی۔",
-                                                  "ہم سب کو مل جل کر رہنا چاہیے۔"
-                                        ],
-                                        2
-                              ]
-                    ],
-                    "Mathematics": [
-                              [
-                                        "Identify a factor of 57:",
-                                        [
-                                                  "3",
-                                                  "5",
-                                                  "7",
-                                                  "12"
-                                        ],
-                                        0
-                              ],
-                              [
-                                        "Simplified form of 4(a+2b)-3a(1-b) is:",
-                                        [
-                                                  "a+8b-3ab",
-                                                  "a+8b+3ab",
-                                                  "a-8b+3ab",
-                                                  "a-8b-3ab"
-                                        ],
-                                        1
-                              ],
-                              [
-                                        "If 16y-16=0, then the value of y is:",
-                                        [
-                                                  "-1",
-                                                  "0",
-                                                  "1",
-                                                  "2"
-                                        ],
-                                        2
-                              ]
-                    ],
-                    "Science": [
-                              [
-                                        "A circuit in which there is more than one path for the flow of electric current is called:",
-                                        [
-                                                  "Series circuit",
-                                                  "Parallel circuit",
-                                                  "Closed circuit",
-                                                  "Open circuit"
-                                        ],
-                                        1
-                              ],
-                              [
-                                        "German silver is made from a mixture of:",
-                                        [
-                                                  "Iron, carbon and silicon",
-                                                  "Gold, copper and iron",
-                                                  "Copper, zinc and nickel",
-                                                  "Iron, chromium and nickel"
-                                        ],
-                                        2
-                              ],
-                              [
-                                        "When clouds rub against the air, huge charges are gathered because of:",
-                                        [
-                                                  "Positive charges",
-                                                  "Moving charges",
-                                                  "Negative charges",
-                                                  "Static charges"
-                                        ],
-                                        3
-                              ]
-                    ]
-          },
-          "Class 7": {
-                    "English": [
-                              [
-                                        "Choose the sentence with the correct use of apostrophe:",
-                                        [
-                                                  "Pakistan's national drink is sugarcane juice.",
-                                                  "Pakistan national drink is sugarcanes' juice.",
-                                                  "Pakistan national drink's is sugarcane juice.",
-                                                  "Pakistans national's drink is sugarcane juice."
-                                        ],
-                                        0
-                              ],
-                              [
-                                        "What does the phrase 'Their mystery, the night will keep' mean in the context of the poem?",
-                                        [
-                                                  "The secret of the garden remains hidden in the night.",
-                                                  "The garden reveals its mystery during the day.",
-                                                  "The flowers talk to each other at night.",
-                                                  "The plants stop swaying after midnight."
-                                        ],
-                                        0
-                              ],
-                              [
-                                        "Choose the correct syllable division of 'Accommodate':",
-                                        [
-                                                  "Ac-com-mo-date",
-                                                  "Acc-o-m-modate",
-                                                  "Acc-ommrodate",
-                                                  "A-ccom-mo-date"
-                                        ],
-                                        0
-                              ]
-                    ],
-                    "Urdu": [
-                              [
-                                        "حق خودارادیت کی جنگ لڑ رہے ہیں:",
-                                        [
-                                                  "کشمیر کے لوگ",
-                                                  "پاکستان کے لوگ",
-                                                  "بھارت کے لوگ",
-                                                  "چین کے لوگ"
-                                        ],
-                                        0
-                              ],
-                              [
-                                        "حروفِ ندائیہ کے استعمال والا جملہ ہے:",
-                                        [
-                                                  "میں نے آپ کا کیا بگاڑا ہے؟",
-                                                  "افسوس! ہم میچ نہ جیت سکے۔",
-                                                  "لاحول ولا قوۃ! آپ کیسی بات کر رہے ہیں؟",
-                                                  "مبین! کیا آپ مجھے گھر چھوڑ دیں گے؟"
-                                        ],
-                                        3
-                              ],
-                              [
-                                        "فعلِ مستقبل کے استعمال والا جملہ ہے:",
-                                        [
-                                                  "میں آج اسلام آباد جاؤں گا۔",
-                                                  "میں اسلام آباد جا رہا ہوں۔",
-                                                  "میں کل اسلام آباد گیا تھا۔",
-                                                  "میں اسلام آباد جا چکا ہوں۔"
-                                        ],
-                                        0
-                              ]
-                    ],
-                    "Mathematics": [
-                              [
-                                        "If A={a,e,i,o,u} and B={i,o,u}, then A intersection B is:",
-                                        [
-                                                  "a,e,i,o,u",
-                                                  "i,o,u",
-                                                  "a,e",
-                                                  "o,u"
-                                        ],
-                                        1
-                              ],
-                              [
-                                        "The number of all possible subsets of the set {0,1,2} is:",
-                                        [
-                                                  "2",
-                                                  "4",
-                                                  "6",
-                                                  "8"
-                                        ],
-                                        3
-                              ],
-                              [
-                                        "The sum of (2x²+5x-3) and (4x²-9x+7) is:",
-                                        [
-                                                  "6x²-4x+4",
-                                                  "6x²+4x+4",
-                                                  "6x²-4x-4",
-                                                  "6x²-4x+10"
-                                        ],
-                                        0
-                              ]
-                    ],
-                    "Science": [
-                              [
-                                        "In the Fahrenheit scale, the interval between two fixed points is divided into how many parts?",
-                                        [
-                                                  "100",
-                                                  "150",
-                                                  "180",
-                                                  "210"
-                                        ],
-                                        2
-                              ],
-                              [
-                                        "Which characteristic of sound differentiates a shrill sound from a grave one?",
-                                        [
-                                                  "Pitch",
-                                                  "Frequency",
-                                                  "Intensity",
-                                                  "Loudness"
-                                        ],
-                                        0
-                              ],
-                              [
-                                        "When it is summer in the Northern Hemisphere, what is the season in the Southern Hemisphere?",
-                                        [
-                                                  "Autumn",
-                                                  "Spring",
-                                                  "Summer",
-                                                  "Winter"
-                                        ],
-                                        3
-                              ]
-                    ]
-          },
-          "Class 8": {
-                    "English": [
-                              [
-                                        "The passengers choose to travel by bus ____ airplane.",
-                                        [
-                                                  "Despite of",
-                                                  "Inside of",
-                                                  "Instead of",
-                                                  "Aside from"
-                                        ],
-                                        2
-                              ],
-                              [
-                                        "Identify the direct command in the sentence: 'Close the door.'",
-                                        [
-                                                  "Close",
-                                                  "The",
-                                                  "Door",
-                                                  "All of the above"
-                                        ],
-                                        0
-                              ],
-                              [
-                                        "Which sentence is an example of the Future Perfect tense?",
-                                        [
-                                                  "By the time I arrive, they will finish their project.",
-                                                  "By the time I arrive, they will have finished their project.",
-                                                  "By the time I arrive, they finish their project.",
-                                                  "By the time I arrive, they finished their project."
-                                        ],
-                                        1
-                              ]
-                    ],
-                    "Urdu": [
-                              [
-                                        "سیلاب سے ہونے والے نقصانات کو ہم کم کر سکتے ہیں:",
-                                        [
-                                                  "درختوں کو کاٹ کے",
-                                                  "نئی عمارتیں تعمیر کر کے",
-                                                  "نئے ڈیم اور بیراج بنا کے",
-                                                  "نقل مکانی کر کے"
-                                        ],
-                                        2
-                              ],
-                              [
-                                        "ہنگول نیشنل پارک واقع ہے صوبہ:",
-                                        [
-                                                  "پنجاب",
-                                                  "بلوچستان",
-                                                  "سندھ",
-                                                  "خیبر پختونخوا"
-                                        ],
-                                        1
-                              ],
-                              [
-                                        "کلاس میں بہت شور مچانے کے لیے درست محاورہ کون سا ہے؟",
-                                        [
-                                                  "آسمان سر پر اٹھانا",
-                                                  "تن بدن میں آگ لگنا",
-                                                  "دن میں تارے نظر آنا",
-                                                  "آسمان سے باتیں کرنا"
-                                        ],
-                                        0
-                              ]
-                    ],
-                    "Mathematics": [
-                              [
-                                        "The closed sentence is:",
-                                        [
-                                                  "3x+4=1",
-                                                  "5×4=20",
-                                                  "5y+7=y",
-                                                  "x-y=0"
-                                        ],
-                                        1
-                              ],
-                              [
-                                        "The line y=-7x passes through:",
-                                        [
-                                                  "(0,7)",
-                                                  "(7,0)",
-                                                  "(0,0)",
-                                                  "(7,7)"
-                                        ],
-                                        2
-                              ],
-                              [
-                                        "Standard form of 1.52 × 10⁶ is:",
-                                        [
-                                                  "1520",
-                                                  "15200",
-                                                  "152000",
-                                                  "1520000"
-                                        ],
-                                        3
-                              ]
-                    ],
-                    "Science": [
-                              [
-                                        "Hydrolysis of fats is a chemical process used in making:",
-                                        [
-                                                  "Toothpaste",
-                                                  "Bio-plastic",
-                                                  "Soap",
-                                                  "Preservatives"
-                                        ],
-                                        2
-                              ],
-                              [
-                                        "The salts needed for proper functioning of the nervous system are:",
-                                        [
-                                                  "Sodium and calcium",
-                                                  "Sodium and potassium",
-                                                  "Potassium and calcium",
-                                                  "Calcium and ammonium"
-                                        ],
-                                        1
-                              ],
-                              [
-                                        "Cactus plants absorb water in the desert through:",
-                                        [
-                                                  "Broad leaves",
-                                                  "Thick cuticle",
-                                                  "Deep roots",
-                                                  "Shallow roots"
-                                        ],
-                                        2
-                              ]
-                    ]
-          }
+  "Class 3": {
+    "English": [
+      [
+        "They _____ not make fun of others.",
+        [
+          "do",
+          "does",
+          "done",
+          "doing"
+        ],
+        0,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "They _____ salad before lunch daily.",
+        [
+          "eat",
+          "eats",
+          "eaten",
+          "eating"
+        ],
+        0,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "Identify the sentence with the correct punctuation.",
+        [
+          "Ali sings a song.",
+          "Ali sings a song?",
+          "Ali sings a song,",
+          "Ali sings a song!"
+        ],
+        0,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "Choose the correct word: She _____ to school every day.",
+        [
+          "go",
+          "goes",
+          "going",
+          "gone"
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "Choose the correct pronoun: Ali is my friend. _____ is kind.",
+        [
+          "He",
+          "She",
+          "It",
+          "They"
+        ],
+        0,
+        "Generated • Concept Based"
+      ],
+      [
+        "Which word is a noun?",
+        [
+          "quickly",
+          "beautiful",
+          "garden",
+          "run"
+        ],
+        2,
+        "Generated • Concept Based"
+      ],
+      [
+        "Complete the sentence: I _____ a new pencil.",
+        [
+          "has",
+          "have",
+          "having",
+          "had been"
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "Choose the correct article: _____ apple is red.",
+        [
+          "A",
+          "An",
+          "Thee",
+          "No article"
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "Choose the correctly punctuated sentence.",
+        [
+          "where are you going.",
+          "Where are you going?",
+          "Where are you going,",
+          "where are you going!"
+        ],
+        1,
+        "Generated • Concept Based"
+      ]
+    ],
+    "Urdu": [
+      [
+        "ڈیم بنائے جاتے ہیں:",
+        [
+          "سمندروں پر",
+          "دریاؤں پر",
+          "نہروں پر",
+          "تالابوں پر"
+        ],
+        1,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "لفظ \"جال\" کے ہم آواز الفاظ والا گروہ ہے:",
+        [
+          "بال، تاک، تال",
+          "بال، تاب، تال",
+          "مال، بال، آس",
+          "مال، بال، سال"
+        ],
+        3,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "آپ اپنے دوستوں کے ساتھ پارک میں گئے ہیں۔ وہاں بچے پھول توڑ رہے ہیں۔ آپ ان کو سمجھائیں گے:",
+        [
+          "صفائی کا خیال نہ رکھیں۔",
+          "پھول پارک کی زینت ہیں۔",
+          "جھولوں کا رنگ خراب کریں۔",
+          "کچرا کوڑا دان میں نہ ڈالیں۔"
+        ],
+        1,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "لفظ ”دن“ کا متضاد کیا ہے؟",
+        [
+          "رات",
+          "صبح",
+          "شام",
+          "دوپہر"
+        ],
+        0,
+        "Generated • Concept Based"
+      ],
+      [
+        "درست جمع منتخب کریں: کتاب",
+        [
+          "کتابیں",
+          "کتابوں",
+          "کتابی",
+          "کتابان"
+        ],
+        0,
+        "Generated • Concept Based"
+      ],
+      [
+        "”خوش“ کا ہم معنی لفظ ہے:",
+        [
+          "غمگین",
+          "مسرت",
+          "اداس",
+          "ناراض"
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "درست جملہ منتخب کریں:",
+        [
+          "بچے کھیلتا ہے۔",
+          "بچے کھیلتے ہیں۔",
+          "بچے کھیلتی ہے۔",
+          "بچے کھیلتا ہیں۔"
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "”باغ“ کس چیز کا نام ہے؟",
+        [
+          "اسم",
+          "فعل",
+          "حرف",
+          "ضمیر"
+        ],
+        0,
+        "Generated • Concept Based"
+      ],
+      [
+        "خالی جگہ پُر کریں: پرندے آسمان میں _____ ہیں۔",
+        [
+          "اڑتا",
+          "اڑتی",
+          "اڑتے",
+          "اڑنا"
+        ],
+        2,
+        "Generated • Concept Based"
+      ]
+    ],
+    "Mathematics": [
+      [
+        "If the length of a rectangle is 7cm and its width is 5cm then its perimeter will be:",
+        [
+          "12cm",
+          "17cm",
+          "24cm",
+          "35cm"
+        ],
+        2,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "The solution of 9 ÷ 3 is:",
+        [
+          "1",
+          "3",
+          "6",
+          "9"
+        ],
+        1,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "The standard unit of capacity is:",
+        [
+          "kilogram",
+          "Meter",
+          "Litre",
+          "Kilometer"
+        ],
+        2,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "The sum of 245 and 132 is:",
+        [
+          "367",
+          "377",
+          "387",
+          "357"
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "The product of 8 and 6 is:",
+        [
+          "42",
+          "46",
+          "48",
+          "56"
+        ],
+        2,
+        "Generated • Concept Based"
+      ],
+      [
+        "The value of 72 ÷ 8 is:",
+        [
+          "7",
+          "8",
+          "9",
+          "10"
+        ],
+        2,
+        "Generated • Concept Based"
+      ],
+      [
+        "A triangle has how many sides?",
+        [
+          "2",
+          "3",
+          "4",
+          "5"
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "What is the place value of 5 in 352?",
+        [
+          "5",
+          "50",
+          "500",
+          "35"
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "A shopkeeper has 20 apples and sells 7. How many are left?",
+        [
+          "11",
+          "12",
+          "13",
+          "14"
+        ],
+        2,
+        "Generated • Concept Based"
+      ]
+    ]
+  },
+  "Class 4": {
+    "English": [
+      [
+        "Choose the correct 'Compound Word'.",
+        [
+          "Quickly",
+          "Happy",
+          "Sunlight",
+          "Singing"
+        ],
+        2,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "Identify the 'Plural' of 'Knife'.",
+        [
+          "Knifes",
+          "Knifez",
+          "Knives",
+          "Knivez"
+        ],
+        2,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "Select the correct 'Adjective' of the word 'care'.",
+        [
+          "Caring",
+          "Careful",
+          "Cared",
+          "Carefully"
+        ],
+        1,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "Choose the correct plural of 'tooth'.",
+        [
+          "tooths",
+          "teeth",
+          "toothes",
+          "toothes"
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "Which word is an adjective?",
+        [
+          "slowly",
+          "beauty",
+          "bright",
+          "swim"
+        ],
+        2,
+        "Generated • Concept Based"
+      ],
+      [
+        "Choose the compound word.",
+        [
+          "rainbow",
+          "running",
+          "careful",
+          "softly"
+        ],
+        0,
+        "Generated • Concept Based"
+      ],
+      [
+        "Select the correct preposition: The book is _____ the table.",
+        [
+          "at",
+          "on",
+          "by",
+          "from"
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "Choose the correct past form of 'teach'.",
+        [
+          "teached",
+          "teaches",
+          "taught",
+          "teaching"
+        ],
+        2,
+        "Generated • Concept Based"
+      ],
+      [
+        "Which word has the /ɪd/ ending sound?",
+        [
+          "washed",
+          "played",
+          "wanted",
+          "jumped"
+        ],
+        2,
+        "Generated • Concept Based"
+      ]
+    ],
+    "Urdu": [
+      [
+        "لفظ \"اندر\" کے متضاد والا درست جملہ ہے:",
+        [
+          "احمد گھر کے اوپر ہے۔",
+          "احمد گھر کے اندر ہے۔",
+          "احمد گھر کے پاس ہے۔",
+          "احمد گھر کے باہر ہے۔"
+        ],
+        3,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "سکول میں آپ کے دوست کی دوسرے بچوں کے ساتھ لڑائی ہو گئی ہے۔ اس صورت حال میں آپ کا ردعمل ہوگا:",
+        [
+          "لڑائی کروانا",
+          "شور مچانا",
+          "صلح کروانا",
+          "شکایت کرنا"
+        ],
+        2,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "آپ نے موبائل پر عالمی یوم اساتذہ کے بارے میں جانا۔ آپ اپنے ہم جماعت دوستوں کو بتائیں گے:",
+        [
+          "استاد کی معاشرے میں کوئی اہمیت نہیں۔",
+          "استاد کا تعلیمی عمل میں کوئی کردار نہیں۔",
+          "استاد قوم کی ترقی میں اہم کردار ادا کرتا ہے۔",
+          "استاد کا نہ ہونا معاشرے کے لیے مفید ہے۔"
+        ],
+        2,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "لفظ ”باہر“ کا متضاد ہے:",
+        [
+          "اوپر",
+          "اندر",
+          "آگے",
+          "قریب"
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "درست مؤنث منتخب کریں: بادشاہ",
+        [
+          "بادشاہی",
+          "ملکہ",
+          "شہزادی",
+          "بیگم"
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "محاورہ ”آسمان سر پر اٹھانا“ کا مطلب ہے:",
+        [
+          "بہت شور مچانا",
+          "خوش ہونا",
+          "خاموش رہنا",
+          "تیز دوڑنا"
+        ],
+        0,
+        "Generated • Concept Based"
+      ],
+      [
+        "درست فعل والا جملہ ہے:",
+        [
+          "لڑکیاں پڑھتا ہیں۔",
+          "لڑکیاں پڑھتی ہیں۔",
+          "لڑکیاں پڑھتا ہے۔",
+          "لڑکیاں پڑھتے ہے۔"
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "لفظ ”محنت“ کا متضاد ہے:",
+        [
+          "کوشش",
+          "کاہلی",
+          "لگن",
+          "مشقت"
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "سوالیہ جملے کے آخر میں کون سی علامت آتی ہے؟",
+        [
+          "۔",
+          "،",
+          "؟",
+          "!"
+        ],
+        2,
+        "Generated • Concept Based"
+      ]
+    ],
+    "Mathematics": [
+      [
+        "If the length of a rectangle is 7cm and its width is 5cm then its perimeter will be:",
+        [
+          "12cm",
+          "17cm",
+          "24cm",
+          "35cm"
+        ],
+        2,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "Millilitres in 9.7 litres are:",
+        [
+          "97 ml",
+          "907 ml",
+          "970 ml",
+          "9700 ml"
+        ],
+        3,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "If the weight of a sugar packet is 2.25 kg, then the weight of such 11 packets will be:",
+        [
+          "2.475 kg",
+          "24.75 kg",
+          "247.5 kg",
+          "2475 kg"
+        ],
+        1,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "The perimeter of a square with side 6 cm is:",
+        [
+          "12 cm",
+          "18 cm",
+          "24 cm",
+          "36 cm"
+        ],
+        2,
+        "Generated • Concept Based"
+      ],
+      [
+        "How many millilitres are there in 3 litres?",
+        [
+          "30",
+          "300",
+          "3000",
+          "30000"
+        ],
+        2,
+        "Generated • Concept Based"
+      ],
+      [
+        "The product of 125 and 4 is:",
+        [
+          "400",
+          "450",
+          "500",
+          "550"
+        ],
+        2,
+        "Generated • Concept Based"
+      ],
+      [
+        "What is one half of 48?",
+        [
+          "12",
+          "18",
+          "24",
+          "28"
+        ],
+        2,
+        "Generated • Concept Based"
+      ],
+      [
+        "A bag weighs 2.5 kg. What is the weight of 4 such bags?",
+        [
+          "7 kg",
+          "8 kg",
+          "9 kg",
+          "10 kg"
+        ],
+        3,
+        "Generated • Concept Based"
+      ],
+      [
+        "Which fraction is equal to 1/2?",
+        [
+          "2/3",
+          "2/4",
+          "3/4",
+          "1/3"
+        ],
+        1,
+        "Generated • Concept Based"
+      ]
+    ]
+  },
+  "Class 5": {
+    "English": [
+      [
+        "Point out an 'Irregular Verb'.",
+        [
+          "Bring-Brought",
+          "Wash-Washed",
+          "Jump-Jumped",
+          "Close-Closed"
+        ],
+        0,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "Choose the bird name that starts from a 'Vowel Sound'.",
+        [
+          "Falcon",
+          "Peacock",
+          "Flamingo",
+          "Oriole"
+        ],
+        3,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "Which of the following nouns does not take -s in its plural form?",
+        [
+          "Sheep",
+          "Duck",
+          "Sparrow",
+          "Elephant"
+        ],
+        0,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "Choose the past tense of 'bring'.",
+        [
+          "bringed",
+          "brought",
+          "brings",
+          "bringing"
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "Which word begins with a vowel sound?",
+        [
+          "university",
+          "one",
+          "hour",
+          "uniform"
+        ],
+        2,
+        "Generated • Concept Based"
+      ],
+      [
+        "Choose the correct plural of 'child'.",
+        [
+          "childs",
+          "childes",
+          "children",
+          "childrens"
+        ],
+        2,
+        "Generated • Concept Based"
+      ],
+      [
+        "Identify the adverb in: 'The bird sings sweetly.'",
+        [
+          "bird",
+          "sings",
+          "sweetly",
+          "the"
+        ],
+        2,
+        "Generated • Concept Based"
+      ],
+      [
+        "Choose the correct comparative form of 'good'.",
+        [
+          "gooder",
+          "best",
+          "better",
+          "more good"
+        ],
+        2,
+        "Generated • Concept Based"
+      ],
+      [
+        "Which is a neuter gender noun?",
+        [
+          "mother",
+          "king",
+          "table",
+          "uncle"
+        ],
+        2,
+        "Generated • Concept Based"
+      ]
+    ],
+    "Urdu": [
+      [
+        "تذکیر و تانیث کے مطابق درست فعل کے استعمال والا جملہ ہے:",
+        [
+          "بلی چوہا کھاتی ہے۔",
+          "بلی چوہا کھاتا ہے۔",
+          "بلی چوہا کھاتی ہیں۔",
+          "بلی چوہا کھاتیں ہیں۔"
+        ],
+        0,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "علامتِ فاعل اور علامتِ مفعول کا استعمال کرتے ہوئے جملہ مکمل کریں: انعم ______ اپنی سہیلی ______ خط لکھا۔",
+        [
+          "کو، نے",
+          "نے، کو",
+          "نے، سے",
+          "کو، سے"
+        ],
+        1,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "زمین میں فصلیں اگانے کے کام کا تعلق کس سے ہے؟",
+        [
+          "گھر کا",
+          "دکان کا",
+          "کھیتی کا",
+          "اسکول کا"
+        ],
+        2,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "لفظ ”لڑکا“ کی مؤنث ہے:",
+        [
+          "لڑکی",
+          "لڑکے",
+          "بچیوں",
+          "لڑکپن"
+        ],
+        0,
+        "Generated • Concept Based"
+      ],
+      [
+        "درست جملے میں فاعل کی علامت منتخب کریں: احمد _____ خط لکھا۔",
+        [
+          "کو",
+          "نے",
+          "سے",
+          "پر"
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "”کھیتی“ کا تعلق کس پیشے سے ہے؟",
+        [
+          "تجارت",
+          "زراعت",
+          "طب",
+          "تعلیم"
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "لفظ ”سچ“ کا متضاد ہے:",
+        [
+          "حق",
+          "جھوٹ",
+          "درست",
+          "ایمان"
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "درست جمع منتخب کریں: درخت",
+        [
+          "درختیں",
+          "درختوں",
+          "درختا",
+          "درختات"
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "جملے میں فعل کی نشاندہی کریں: بچے میدان میں کھیل رہے ہیں۔",
+        [
+          "بچے",
+          "میدان",
+          "کھیل رہے ہیں",
+          "میں"
+        ],
+        2,
+        "Generated • Concept Based"
+      ]
+    ],
+    "Mathematics": [
+      [
+        "The solution of 59264 × 436 is:",
+        [
+          "25839604",
+          "25739404",
+          "25839104",
+          "25839184"
+        ],
+        2,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "The next term of pattern 6, 11, 17, ... is:",
+        [
+          "22",
+          "23",
+          "24",
+          "25"
+        ],
+        2,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "78% in decimals is:",
+        [
+          "0.078",
+          "0.78",
+          "7.8",
+          "0.780"
+        ],
+        1,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "The value of 125 × 24 is:",
+        [
+          "2000",
+          "2500",
+          "3000",
+          "3500"
+        ],
+        2,
+        "Generated • Concept Based"
+      ],
+      [
+        "What is 35% of 200?",
+        [
+          "50",
+          "60",
+          "70",
+          "80"
+        ],
+        2,
+        "Generated • Concept Based"
+      ],
+      [
+        "The next number in the pattern 4, 8, 12, 16, ... is:",
+        [
+          "18",
+          "20",
+          "22",
+          "24"
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "Write 0.6 as a fraction in simplest form.",
+        [
+          "1/6",
+          "3/5",
+          "2/3",
+          "6/10"
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "The area of a rectangle 9 cm long and 4 cm wide is:",
+        [
+          "13 cm²",
+          "26 cm²",
+          "36 cm²",
+          "40 cm²"
+        ],
+        2,
+        "Generated • Concept Based"
+      ],
+      [
+        "Which is the largest decimal?",
+        [
+          "0.45",
+          "0.5",
+          "0.405",
+          "0.49"
+        ],
+        1,
+        "Generated • Concept Based"
+      ]
+    ]
+  },
+  "Class 6": {
+    "English": [
+      [
+        "My class fellow is ____ honest boy.",
+        [
+          "a",
+          "an",
+          "the",
+          "some"
+        ],
+        1,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "Complete the sentence in Simple Present Tense: The sun ____ every morning.",
+        [
+          "rises",
+          "rising",
+          "rose",
+          "risen"
+        ],
+        0,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "Choose the antonym of 'brilliant' in the sentence: Karim Benzema is a brilliant footballer.",
+        [
+          "Bright",
+          "Untalented",
+          "Vivid",
+          "Shining"
+        ],
+        1,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "We _____ the museum yesterday.",
+        [
+          "visit",
+          "visited",
+          "visiting",
+          "visits"
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "The book is _____ the table.",
+        [
+          "in",
+          "at",
+          "on",
+          "by"
+        ],
+        2,
+        "Generated • Concept Based"
+      ],
+      [
+        "Which word is an adjective?",
+        [
+          "happily",
+          "beauty",
+          "beautiful",
+          "beautify"
+        ],
+        2,
+        "Generated • Concept Based"
+      ],
+      [
+        "Sara and I are friends. _____ study together.",
+        [
+          "We",
+          "They",
+          "She",
+          "Us"
+        ],
+        0,
+        "Generated • Concept Based"
+      ],
+      [
+        "I was tired, _____ I finished my work.",
+        [
+          "because",
+          "but",
+          "or",
+          "so that"
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "Choose the comparative of 'tall'.",
+        [
+          "tallest",
+          "more tall",
+          "taller",
+          "most tall"
+        ],
+        2,
+        "Generated • Concept Based"
+      ]
+    ],
+    "Urdu": [
+      [
+        "سمندری طوفان کے باعث بعض علاقوں میں کون سی فراہمی بند کی جا سکتی ہے؟",
+        [
+          "خوراک",
+          "بجلی",
+          "تیل",
+          "پانی"
+        ],
+        1,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "'لوہار نے ہتھوڑا پکڑا'۔ اس جملے میں 'ہتھوڑا' ہے:",
+        [
+          "اسم صوت",
+          "اسم ذات",
+          "اسم آلہ",
+          "اسم مصغر"
+        ],
+        2,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "مرکب جملہ ہے:",
+        [
+          "تم سکول گئے۔",
+          "آپ کھیلنے نہیں گئے۔",
+          "ہم نے کھانا کھایا اور نماز ادا کی۔",
+          "ہم سب کو مل جل کر رہنا چاہیے۔"
+        ],
+        2,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "لفظ 'بہادر' کا متضاد ہے:",
+        [
+          "دلیر",
+          "بزدل",
+          "نڈر",
+          "جری"
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "'لڑکا' کی جمع ہے:",
+        [
+          "لڑکی",
+          "لڑکے",
+          "لڑکپن",
+          "لڑکوں نے"
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "لفظ 'خوشی' کا ہم معنی ہے:",
+        [
+          "مسرت",
+          "غم",
+          "نفرت",
+          "تکلیف"
+        ],
+        0,
+        "Generated • Concept Based"
+      ],
+      [
+        "جملے میں فعل بتائیں: 'بچے کھیلتے ہیں۔'",
+        [
+          "بچے",
+          "کھیلتے ہیں",
+          "میدان",
+          "میں"
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "'کے، کی، کا' کس کی مثالیں ہیں؟",
+        [
+          "حروفِ جار",
+          "حروفِ عطف",
+          "اسماء",
+          "افعال"
+        ],
+        0,
+        "Generated • Concept Based"
+      ],
+      [
+        "درست املا منتخب کریں:",
+        [
+          "ذمہ داری",
+          "زمہ داری",
+          "ذمداری",
+          "ذمہدارئ"
+        ],
+        0,
+        "Generated • Concept Based"
+      ]
+    ],
+    "Mathematics": [
+      [
+        "Identify a factor of 57:",
+        [
+          "3",
+          "5",
+          "7",
+          "12"
+        ],
+        0,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "Simplified form of 4(a+2b)-3a(1-b) is:",
+        [
+          "a+8b-3ab",
+          "a+8b+3ab",
+          "a-8b+3ab",
+          "a-8b-3ab"
+        ],
+        1,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "If 16y-16=0, then the value of y is:",
+        [
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        2,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "What is 3/4 of 20?",
+        [
+          "10",
+          "12",
+          "15",
+          "16"
+        ],
+        2,
+        "Generated • Concept Based"
+      ],
+      [
+        "Simplify the ratio 12:18.",
+        [
+          "2:3",
+          "3:2",
+          "4:9",
+          "6:5"
+        ],
+        0,
+        "Generated • Concept Based"
+      ],
+      [
+        "Perimeter of a rectangle: length 8 cm, width 5 cm.",
+        [
+          "13 cm",
+          "26 cm",
+          "40 cm",
+          "80 cm"
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "What is 25% of 80?",
+        [
+          "10",
+          "15",
+          "20",
+          "25"
+        ],
+        2,
+        "Generated • Concept Based"
+      ],
+      [
+        "Evaluate: -6 + 14.",
+        [
+          "-20",
+          "-8",
+          "8",
+          "20"
+        ],
+        2,
+        "Generated • Concept Based"
+      ],
+      [
+        "Find the LCM of 4 and 6.",
+        [
+          "8",
+          "10",
+          "12",
+          "24"
+        ],
+        2,
+        "Generated • Concept Based"
+      ]
+    ],
+    "Science": [
+      [
+        "A circuit in which there is more than one path for the flow of electric current is called:",
+        [
+          "Series circuit",
+          "Parallel circuit",
+          "Closed circuit",
+          "Open circuit"
+        ],
+        1,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "German silver is made from a mixture of:",
+        [
+          "Iron, carbon and silicon",
+          "Gold, copper and iron",
+          "Copper, zinc and nickel",
+          "Iron, chromium and nickel"
+        ],
+        2,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "When clouds rub against the air, huge charges are gathered because of:",
+        [
+          "Positive charges",
+          "Moving charges",
+          "Negative charges",
+          "Static charges"
+        ],
+        3,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "Which gas do green plants take in during photosynthesis?",
+        [
+          "Oxygen",
+          "Nitrogen",
+          "Carbon dioxide",
+          "Hydrogen"
+        ],
+        2,
+        "Generated • Concept Based"
+      ],
+      [
+        "Liquid water changing into water vapour is:",
+        [
+          "Freezing",
+          "Condensation",
+          "Evaporation",
+          "Melting"
+        ],
+        2,
+        "Generated • Concept Based"
+      ],
+      [
+        "A push or pull on an object is called:",
+        [
+          "Energy",
+          "Force",
+          "Mass",
+          "Volume"
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "Which organ pumps blood around the body?",
+        [
+          "Lungs",
+          "Brain",
+          "Heart",
+          "Kidney"
+        ],
+        2,
+        "Generated • Concept Based"
+      ],
+      [
+        "Which material is strongly attracted by a magnet?",
+        [
+          "Wood",
+          "Plastic",
+          "Iron",
+          "Glass"
+        ],
+        2,
+        "Generated • Concept Based"
+      ],
+      [
+        "The movement of water between Earth and atmosphere is the:",
+        [
+          "Rock cycle",
+          "Water cycle",
+          "Food chain",
+          "Carbon store"
+        ],
+        1,
+        "Generated • Concept Based"
+      ]
+    ]
+  },
+  "Class 7": {
+    "English": [
+      [
+        "Choose the sentence with the correct use of apostrophe:",
+        [
+          "Pakistan's national drink is sugarcane juice.",
+          "Pakistan national drink is sugarcanes' juice.",
+          "Pakistan national drink's is sugarcane juice.",
+          "Pakistans national's drink is sugarcane juice."
+        ],
+        0,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "What does the phrase 'Their mystery, the night will keep' mean in the context of the poem?",
+        [
+          "The secret of the garden remains hidden in the night.",
+          "The garden reveals its mystery during the day.",
+          "The flowers talk to each other at night.",
+          "The plants stop swaying after midnight."
+        ],
+        0,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "Choose the correct syllable division of 'Accommodate':",
+        [
+          "Ac-com-mo-date",
+          "Acc-o-m-modate",
+          "Acc-ommrodate",
+          "A-ccom-mo-date"
+        ],
+        0,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "Passive voice of 'The boy kicked the ball.'",
+        [
+          "The ball kicked the boy.",
+          "The ball was kicked by the boy.",
+          "The ball is kicking the boy.",
+          "The boy was kicked by the ball."
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "Choose the adverb: 'She spoke softly.'",
+        [
+          "She",
+          "spoke",
+          "softly",
+          "sentence"
+        ],
+        2,
+        "Generated • Concept Based"
+      ],
+      [
+        "Synonym of 'rapid'.",
+        [
+          "Slow",
+          "Quick",
+          "Weak",
+          "Late"
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "Select the correct punctuation.",
+        [
+          "where is my bag?",
+          "Where is my bag?",
+          "Where is my bag.",
+          "where is my bag."
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "If it rains, we _____ at home.",
+        [
+          "stay",
+          "stayed",
+          "will stay",
+          "staying"
+        ],
+        2,
+        "Generated • Concept Based"
+      ],
+      [
+        "Neither of the boys _____ absent.",
+        [
+          "are",
+          "were",
+          "is",
+          "be"
+        ],
+        2,
+        "Generated • Concept Based"
+      ]
+    ],
+    "Urdu": [
+      [
+        "حق خودارادیت کی جنگ لڑ رہے ہیں:",
+        [
+          "کشمیر کے لوگ",
+          "پاکستان کے لوگ",
+          "بھارت کے لوگ",
+          "چین کے لوگ"
+        ],
+        0,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "حروفِ ندائیہ کے استعمال والا جملہ ہے:",
+        [
+          "میں نے آپ کا کیا بگاڑا ہے؟",
+          "افسوس! ہم میچ نہ جیت سکے۔",
+          "لاحول ولا قوۃ! آپ کیسی بات کر رہے ہیں؟",
+          "مبین! کیا آپ مجھے گھر چھوڑ دیں گے؟"
+        ],
+        3,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "فعلِ مستقبل کے استعمال والا جملہ ہے:",
+        [
+          "میں آج اسلام آباد جاؤں گا۔",
+          "میں اسلام آباد جا رہا ہوں۔",
+          "میں کل اسلام آباد گیا تھا۔",
+          "میں اسلام آباد جا چکا ہوں۔"
+        ],
+        0,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "'چاند سا چہرہ' میں کون سی صنعت ہے؟",
+        [
+          "استعارہ",
+          "تشبیہ",
+          "مبالغہ",
+          "تضاد"
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "'استاد' کی مؤنث ہے:",
+        [
+          "استادی",
+          "استانی",
+          "استادہ",
+          "استادیں"
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "لفظ 'ناامید' میں سابقہ ہے:",
+        [
+          "امید",
+          "نا",
+          "ید",
+          "ناام"
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "جس فعل کو مفعول کی ضرورت نہ ہو اسے کہتے ہیں:",
+        [
+          "فعل متعدی",
+          "فعل لازم",
+          "فعل ناقص",
+          "فعل امر"
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "'اونٹ کے منہ میں زیرہ' کا مطلب ہے:",
+        [
+          "بہت زیادہ",
+          "ضرورت کے مقابلے میں بہت کم",
+          "آسان کام",
+          "بے فائدہ سفر"
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "درست جملہ منتخب کریں:",
+        [
+          "ہم کل بازار جائیں گے۔",
+          "ہم کل بازار جاتا ہے۔",
+          "ہم کل بازار گئی۔",
+          "ہم کل بازار جاتے تھا۔"
+        ],
+        0,
+        "Generated • Concept Based"
+      ]
+    ],
+    "Mathematics": [
+      [
+        "If A={a,e,i,o,u} and B={i,o,u}, then A intersection B is:",
+        [
+          "a,e,i,o,u",
+          "i,o,u",
+          "a,e",
+          "o,u"
+        ],
+        1,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "The number of all possible subsets of the set {0,1,2} is:",
+        [
+          "2",
+          "4",
+          "6",
+          "8"
+        ],
+        3,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "The sum of (2x²+5x-3) and (4x²-9x+7) is:",
+        [
+          "6x²-4x+4",
+          "6x²+4x+4",
+          "6x²-4x-4",
+          "6x²-4x+10"
+        ],
+        0,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "What is (-8) × 3?",
+        [
+          "-24",
+          "-11",
+          "11",
+          "24"
+        ],
+        0,
+        "Generated • Concept Based"
+      ],
+      [
+        "Rs. 800 after a 10% discount is:",
+        [
+          "Rs. 700",
+          "Rs. 720",
+          "Rs. 760",
+          "Rs. 790"
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "Simplify: 5x + 3x - 2x.",
+        [
+          "6x",
+          "8x",
+          "10x",
+          "x"
+        ],
+        0,
+        "Generated • Concept Based"
+      ],
+      [
+        "An angle of 90° is called:",
+        [
+          "Acute",
+          "Obtuse",
+          "Right",
+          "Straight"
+        ],
+        2,
+        "Generated • Concept Based"
+      ],
+      [
+        "Convert 0.75 into simplest fraction.",
+        [
+          "1/2",
+          "2/3",
+          "3/4",
+          "4/5"
+        ],
+        2,
+        "Generated • Concept Based"
+      ],
+      [
+        "Mean of 4, 6 and 8 is:",
+        [
+          "5",
+          "6",
+          "7",
+          "8"
+        ],
+        1,
+        "Generated • Concept Based"
+      ]
+    ],
+    "Science": [
+      [
+        "In the Fahrenheit scale, the interval between two fixed points is divided into how many parts?",
+        [
+          "100",
+          "150",
+          "180",
+          "210"
+        ],
+        2,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "Which characteristic of sound differentiates a shrill sound from a grave one?",
+        [
+          "Pitch",
+          "Frequency",
+          "Intensity",
+          "Loudness"
+        ],
+        0,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "When it is summer in the Northern Hemisphere, what is the season in the Southern Hemisphere?",
+        [
+          "Autumn",
+          "Spring",
+          "Summer",
+          "Winter"
+        ],
+        3,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "The basic structural and functional unit of life is:",
+        [
+          "Tissue",
+          "Organ",
+          "Cell",
+          "Organ system"
+        ],
+        2,
+        "Generated • Concept Based"
+      ],
+      [
+        "Which process releases energy from food in cells?",
+        [
+          "Photosynthesis",
+          "Respiration",
+          "Transpiration",
+          "Pollination"
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "Pressure equals force divided by:",
+        [
+          "Area",
+          "Volume",
+          "Time",
+          "Distance"
+        ],
+        0,
+        "Generated • Concept Based"
+      ],
+      [
+        "Heat transfer by direct contact is:",
+        [
+          "Convection",
+          "Radiation",
+          "Conduction",
+          "Reflection"
+        ],
+        2,
+        "Generated • Concept Based"
+      ],
+      [
+        "Organisms that make their own food are:",
+        [
+          "Consumers",
+          "Producers",
+          "Decomposers",
+          "Predators"
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "The bouncing back of light is:",
+        [
+          "Refraction",
+          "Reflection",
+          "Absorption",
+          "Dispersion"
+        ],
+        1,
+        "Generated • Concept Based"
+      ]
+    ]
+  },
+  "Class 8": {
+    "English": [
+      [
+        "The passengers choose to travel by bus ____ airplane.",
+        [
+          "Despite of",
+          "Inside of",
+          "Instead of",
+          "Aside from"
+        ],
+        2,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "Identify the direct command in the sentence: 'Close the door.'",
+        [
+          "Close",
+          "The",
+          "Door",
+          "All of the above"
+        ],
+        0,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "Which sentence is an example of the Future Perfect tense?",
+        [
+          "By the time I arrive, they will finish their project.",
+          "By the time I arrive, they will have finished their project.",
+          "By the time I arrive, they finish their project.",
+          "By the time I arrive, they finished their project."
+        ],
+        1,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "Indirect speech: He said, 'I am busy.'",
+        [
+          "He said that I am busy.",
+          "He said that he was busy.",
+          "He says he was busy.",
+          "He told that he is busy."
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "Passive form of 'They make cars here.'",
+        [
+          "Cars made here.",
+          "Cars are made here.",
+          "Cars were making here.",
+          "Cars have make here."
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "Work hard _____ you may succeed.",
+        [
+          "so that",
+          "although",
+          "unless",
+          "whereas"
+        ],
+        0,
+        "Generated • Concept Based"
+      ],
+      [
+        "If I had known, I _____ you.",
+        [
+          "will help",
+          "would help",
+          "would have helped",
+          "help"
+        ],
+        2,
+        "Generated • Concept Based"
+      ],
+      [
+        "Antonym of 'scarce'.",
+        [
+          "Rare",
+          "Limited",
+          "Abundant",
+          "Insufficient"
+        ],
+        2,
+        "Generated • Concept Based"
+      ],
+      [
+        "Identify the noun clause: 'I know what he wants.'",
+        [
+          "I know",
+          "what he wants",
+          "he wants",
+          "wants"
+        ],
+        1,
+        "Generated • Concept Based"
+      ]
+    ],
+    "Urdu": [
+      [
+        "سیلاب سے ہونے والے نقصانات کو ہم کم کر سکتے ہیں:",
+        [
+          "درختوں کو کاٹ کے",
+          "نئی عمارتیں تعمیر کر کے",
+          "نئے ڈیم اور بیراج بنا کے",
+          "نقل مکانی کر کے"
+        ],
+        2,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "ہنگول نیشنل پارک واقع ہے صوبہ:",
+        [
+          "پنجاب",
+          "بلوچستان",
+          "سندھ",
+          "خیبر پختونخوا"
+        ],
+        1,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "کلاس میں بہت شور مچانے کے لیے درست محاورہ کون سا ہے؟",
+        [
+          "آسمان سر پر اٹھانا",
+          "تن بدن میں آگ لگنا",
+          "دن میں تارے نظر آنا",
+          "آسمان سے باتیں کرنا"
+        ],
+        0,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "'نیک آدمی' میں 'نیک' کیا ہے؟",
+        [
+          "اسم",
+          "صفت",
+          "فعل",
+          "حرف"
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "محاورہ 'ہاتھ پاؤں پھولنا' کا مطلب ہے:",
+        [
+          "خوش ہونا",
+          "گھبرا جانا",
+          "تیز دوڑنا",
+          "طاقتور ہونا"
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "'کتابِ علم' کس ترکیب کی مثال ہے؟",
+        [
+          "ترکیبِ وصفی",
+          "ترکیبِ اضافی",
+          "ترکیبِ عطفی",
+          "ترکیبِ فعلی"
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "'وہ کل لاہور گیا تھا' میں فعل کا زمانہ ہے:",
+        [
+          "حال",
+          "ماضی",
+          "مستقبل",
+          "امر"
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "لفظ 'مسئلہ' کی جمع ہے:",
+        [
+          "مسئلات",
+          "مسئلے",
+          "مسئلوں نے",
+          "مسائل"
+        ],
+        3,
+        "Generated • Concept Based"
+      ],
+      [
+        "'شیر' بہادری کی علامت ہو تو یہ ہے:",
+        [
+          "تشبیہ",
+          "استعارہ",
+          "تضاد",
+          "مراعات النظیر"
+        ],
+        1,
+        "Generated • Concept Based"
+      ]
+    ],
+    "Mathematics": [
+      [
+        "The closed sentence is:",
+        [
+          "3x+4=1",
+          "5×4=20",
+          "5y+7=y",
+          "x-y=0"
+        ],
+        1,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "The line y=-7x passes through:",
+        [
+          "(0,7)",
+          "(7,0)",
+          "(0,0)",
+          "(7,7)"
+        ],
+        2,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "Standard form of 1.52 × 10⁶ is:",
+        [
+          "1520",
+          "15200",
+          "152000",
+          "1520000"
+        ],
+        3,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "Solve: 3x + 5 = 20.",
+        [
+          "3",
+          "5",
+          "7",
+          "15"
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "Square root of 144 is:",
+        [
+          "10",
+          "11",
+          "12",
+          "14"
+        ],
+        2,
+        "Generated • Concept Based"
+      ],
+      [
+        "Area of triangle: base 10 cm, height 6 cm.",
+        [
+          "16 cm²",
+          "30 cm²",
+          "60 cm²",
+          "120 cm²"
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "Factorize x² - 9.",
+        [
+          "(x-9)(x+1)",
+          "(x-3)(x+3)",
+          "(x-3)²",
+          "(x+9)(x-1)"
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "If 2 pens cost Rs. 30, 5 pens cost:",
+        [
+          "Rs. 60",
+          "Rs. 65",
+          "Rs. 75",
+          "Rs. 90"
+        ],
+        2,
+        "Generated • Concept Based"
+      ],
+      [
+        "Probability of head on one fair coin toss:",
+        [
+          "0",
+          "1/4",
+          "1/2",
+          "1"
+        ],
+        2,
+        "Generated • Concept Based"
+      ]
+    ],
+    "Science": [
+      [
+        "Hydrolysis of fats is a chemical process used in making:",
+        [
+          "Toothpaste",
+          "Bio-plastic",
+          "Soap",
+          "Preservatives"
+        ],
+        2,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "The salts needed for proper functioning of the nervous system are:",
+        [
+          "Sodium and calcium",
+          "Sodium and potassium",
+          "Potassium and calcium",
+          "Calcium and ammonium"
+        ],
+        1,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "Cactus plants absorb water in the desert through:",
+        [
+          "Broad leaves",
+          "Thick cuticle",
+          "Deep roots",
+          "Shallow roots"
+        ],
+        2,
+        "PDF • Verified Set 1"
+      ],
+      [
+        "Smallest unit of an element retaining its chemical properties:",
+        [
+          "Cell",
+          "Atom",
+          "Molecule",
+          "Tissue"
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "SI unit of electric current is:",
+        [
+          "Volt",
+          "Ohm",
+          "Ampere",
+          "Watt"
+        ],
+        2,
+        "Generated • Concept Based"
+      ],
+      [
+        "A substance with pH less than 7 is:",
+        [
+          "Acidic",
+          "Basic",
+          "Neutral",
+          "Always a salt"
+        ],
+        0,
+        "Generated • Concept Based"
+      ],
+      [
+        "Which mirror is used as a vehicle rear-view mirror?",
+        [
+          "Plane",
+          "Concave",
+          "Convex",
+          "None"
+        ],
+        2,
+        "Generated • Concept Based"
+      ],
+      [
+        "Force opposing motion between surfaces is:",
+        [
+          "Gravity",
+          "Friction",
+          "Magnetism",
+          "Buoyancy"
+        ],
+        1,
+        "Generated • Concept Based"
+      ],
+      [
+        "Fungi commonly act as _____ in a food chain.",
+        [
+          "Producers",
+          "Consumers only",
+          "Decomposers",
+          "Sunlight sources"
+        ],
+        2,
+        "Generated • Concept Based"
+      ]
+    ]
+  }
 };
 
         // Only these source sets have been individually transcribed and answer-verified.
@@ -1889,7 +2800,7 @@
             const subjects = approvedSubjects[currentClass] || [];
             subjects.forEach(sub => {
                 const pool = questionBank[currentClass]?.[sub] || [];
-                const ready = (verifiedPracticeSets[currentClass] || []).includes(sub) && pool.length === 9;
+                const ready = (verifiedPracticeSets[currentClass] || []).includes(sub) && pool.length >= 9;
                 const card = document.createElement('div');
                 card.className = 'card';
                 card.style.opacity = ready ? '1' : '.58';
@@ -1927,15 +2838,14 @@
         function buildMixedTestQuestions() {
             const bank = questionBank[currentClass] || {};
             const subjects = approvedSubjects[currentClass] || [];
-            const missing = subjects.filter(subject => !(verifiedPracticeSets[currentClass] || []).includes(subject) || (bank[subject] || []).length !== 3);
+            const missing = subjects.filter(subject => !(verifiedPracticeSets[currentClass] || []).includes(subject) || (bank[subject] || []).length < 3);
             if (missing.length) {
                 alert('Mixed Test is not ready. These required subjects need at least 3 questions each: ' + missing.join(', ') + '.');
                 return null;
             }
             const selected = [];
             for (const subject of subjects) {
-                const copy = JSON.parse(JSON.stringify(bank[subject]));
-                shuffleArray(copy);
+                const copy = selectFreshQuestions(bank[subject], 3, currentClass + '::' + subject + '::classmix');
                 copy.forEach(question => { question._subject = subject; selected.push(question); });
             }
             return selected;
@@ -1951,12 +2861,11 @@
                 const subjects = [...(approvedSubjects[cls] || [])];
                 subjects.forEach(subject => {
                     const pool = questionBank[cls]?.[subject] || [];
-                    if (!(verifiedPracticeSets[cls] || []).includes(subject) || pool.length !== 3) {
+                    if (!(verifiedPracticeSets[cls] || []).includes(subject) || pool.length < 3) {
                         missing.push(cls + ' ' + subject);
                         return;
                     }
-                    const copy = JSON.parse(JSON.stringify(pool));
-                    shuffleArray(copy);
+                    const copy = selectFreshQuestions(pool, 1, cls + '::' + subject + '::groupmix');
                     const question = copy[0];
                     question._subject = subject;
                     question._grade = cls;
@@ -2021,6 +2930,20 @@
         // ==========================================
         // QUIZ LOGIC
         // ==========================================
+        function selectFreshQuestions(pool, count, rotationKey) {
+            const source = Array.isArray(pool) ? pool : [];
+            const fingerprint = q => String(q[0] || '').trim().toLowerCase();
+            let seen = [];
+            try { seen = JSON.parse(localStorage.getItem('mcq_seen_' + rotationKey) || '[]'); } catch (_) { seen = []; }
+            let fresh = source.filter(q => !seen.includes(fingerprint(q)));
+            if (fresh.length < count) { seen = []; fresh = source.slice(); }
+            shuffleArray(fresh);
+            const selected = fresh.slice(0, Math.min(count, fresh.length));
+            const updated = [...seen, ...selected.map(fingerprint)].slice(-Math.max(source.length - count, 0));
+            try { localStorage.setItem('mcq_seen_' + rotationKey, JSON.stringify(updated)); } catch (_) {}
+            return JSON.parse(JSON.stringify(selected));
+        }
+
         function startQuiz(isMixed = false, suppliedQuestions = null) {
             quizRecorded = false;
             let rawQuestions;
@@ -2030,13 +2953,11 @@
                 rawQuestions = buildMixedTestQuestions();
             } else {
                 const pool = questionBank[currentClass]?.[currentSubject] || [];
-                if (!(verifiedPracticeSets[currentClass] || []).includes(currentSubject) || pool.length !== 9) {
+                if (!(verifiedPracticeSets[currentClass] || []).includes(currentSubject) || pool.length < 9) {
                     alert(currentClass + ' - ' + currentSubject + ': exactly 9 questions are required before this subject practice test can start.');
                     return;
                 }
-                const copy = JSON.parse(JSON.stringify(pool));
-                shuffleArray(copy);
-                rawQuestions = copy.slice(0, 9);
+                rawQuestions = selectFreshQuestions(pool, 9, currentClass + '::' + currentSubject + '::subject');
             }
             if (!rawQuestions) return;
             shuffleArray(rawQuestions);
@@ -2051,7 +2972,8 @@
                     q: q[0],
                     options: optionsArray.map(o => o.text),
                     ans: newAnsIndex,
-                    subject: q._subject || currentSubject
+                    subject: q._subject || currentSubject,
+                    source: q[3] || 'Source status not recorded'
                 };
             });
 
@@ -2068,6 +2990,8 @@
             
             const qText = document.getElementById('question-text');
             qText.innerText = `${currentQuestionIndex + 1}. ${q.q}`;
+            const sourceEl = document.getElementById('question-source');
+            if (sourceEl) { sourceEl.textContent = q.source || ''; sourceEl.style.display = q.source ? 'inline-block' : 'none'; }
             if (/[\u0600-\u06FF]/.test(q.q)) qText.classList.add('rtl-text');
             else qText.classList.remove('rtl-text');
 
