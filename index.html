@@ -78,6 +78,21 @@
         .subject-performance-fill { height:100%;border-radius:99px;background:linear-gradient(90deg,#173b66,#0b8990); }
         .subject-performance-meta { color:#6b7f90;font-size:.73rem;margin-top:4px; }
 
+        .project-progress { margin-top:14px;background:#fff;border:1px solid #dbe6ef;border-radius:14px;padding:16px;text-align:left;box-shadow:0 4px 12px rgba(15,23,42,.04); }
+        .project-progress h3 { color:#173b66;font-size:1rem;margin-bottom:5px; }
+        .project-progress .progress-note { color:#64748b;font-size:.78rem;line-height:1.5;margin-bottom:12px; }
+        .progress-metrics { display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px; }
+        .progress-metric { background:#f1f6fa;border-radius:9px;padding:10px 5px;text-align:center; }
+        .progress-metric strong { display:block;color:#173b66;font-size:1.25rem;line-height:1.2; }
+        .progress-metric span { display:block;color:#52677a;font-size:.68rem;font-weight:600;margin-top:3px; }
+        .progress-track {height:10px;background:#e7edf2;border-radius:99px;overflow:hidden;margin:12px 0 5px}
+        .progress-track span {display:block;width:53.85%;height:100%;background:linear-gradient(90deg,#16856b,#3b82f6);border-radius:99px}
+        .progress-caption {display:flex;justify-content:space-between;gap:8px;color:#64748b;font-size:.7rem}
+        .progress-details {margin-top:12px;border-top:1px solid #e5edf2;padding-top:10px}
+        .progress-details summary {cursor:pointer;color:#1e3a8a;font-weight:700;font-size:.82rem}
+        .progress-details ul {padding-left:18px;margin:8px 0 0;color:#52677a;font-size:.76rem;line-height:1.55}
+        .progress-details .pending {color:#9a5b0b;font-weight:600}
+        @media(max-width:600px){.project-progress{padding:11px}.progress-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.progress-metric{padding:8px 4px}.progress-metric strong{font-size:1.1rem}}
         .question-box { background: var(--card-bg); padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 20px; }
         .question-text { font-size: 1.2rem; font-weight: 600; margin-bottom: 25px; line-height: 1.5; }
         
@@ -381,6 +396,32 @@
                 </div>
                 <button class="btn btn-primary" onclick="showScreen('class-screen')" style="font-size: 1.2rem; padding: 15px 40px;">Start Practice</button>
             </div>
+
+            <section class="project-progress" aria-label="Question bank project progress">
+                <h3>Question Bank Development Progress</h3>
+                <p class="progress-note">Progress is based on the saved OCR and verification reports. OCR processing is complete for all PDF pages; manual review and final approval are still in progress.</p>
+                <div class="progress-metrics">
+                    <div class="progress-metric"><strong>247/247</strong><span>PDF Pages OCR-Processed</span></div>
+                    <div class="progress-metric"><strong>410</strong><span>OCR Review Chunks</span></div>
+                    <div class="progress-metric"><strong>117</strong><span>Questions in Current Portal</span></div>
+                    <div class="progress-metric"><strong>63</strong><span>Independently Verified</span></div>
+                </div>
+                <div class="progress-track" role="img" aria-label="63 of 117 current portal questions verified"><span></span></div>
+                <div class="progress-caption"><span>63 of 117 questions verified</span><strong>54% verified</strong></div>
+                <details class="progress-details">
+                    <summary>View completed and remaining work</summary>
+                    <ul>
+                        <li><strong>Completed:</strong> OCR run across all 247 pages; 125,728 OCR characters captured; 649 question-heading occurrences detected.</li>
+                        <li><strong>Completed:</strong> OCR candidate grouping and subject inventory for Classes 3–8; saved class-wise review sheets and verified question sets.</li>
+                        <li><strong>Verified set:</strong> 63 questions across 21 class-subject sets (3 per approved subject).</li>
+                        <li><strong>Current bank:</strong> 117 questions are present in the portal; 54 additional entries still require source/answer review before being labelled verified.</li>
+                        <li class="pending"><strong>Remaining:</strong> Resolve unclear student/page groups, inspect OCR candidates against source pages, verify remaining answers, and complete duplicate review.</li>
+                        <li class="pending"><strong>Remaining:</strong> Confirm official PECTAA SLO codes; add more verified and concept-based questions; test fresh-question rotation across attempts.</li>
+                        <li><strong>Subject scope:</strong> Classes 3–5: English, Urdu, Mathematics. Classes 6–8: English, Urdu, Mathematics, Science.</li>
+                    </ul>
+                    <p class="progress-note" style="margin:9px 0 0">Important: OCR output is a review draft, not an approved answer key. Skill tags are provisional and are not certified official PECTAA SLO codes.</p>
+                </details>
+            </section>
         </div>
 
         <div id="class-screen" class="screen">
