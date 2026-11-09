@@ -1,0 +1,15 @@
+class,subject,source_pdf_page,question,option_A,option_B,option_C,option_D,correct_option,correct_answer,verification_status,verification_note,duplicate_status
+3,English,24,"Select the feminine gender of the word 'Prince'.",Princess,Queen,Lady,Mistress,A,Princess,Verified,"The feminine counterpart is princess.",Unique
+3,English,24,"What is origami?",A paper,An art,An invention,A game,B,An art,Verified,"Origami is the art of paper folding.",Unique
+3,English,26,"Select the division of syllables of the word 'Active'.",Activ-e,Acti-ve,Ac-tive,Act-ive,D,Act-ive,Verified,"Syllable division: ac-tive.",Unique
+3,English,27,"'Amna eats ___ egg for breakfast every day'.",a,an,any,the,B,an,Verified,"Egg begins with a vowel sound; use an.",Unique
+3,English,27,"Identify the option which shows 'Dislike'.",I hate playing hockey.,We enjoy reading.,I like spicy food.,He is good at learning.,A,I hate playing hockey.,Verified,"Hate expresses dislike.",Unique
+3,English,22,"Report the feminine gender from the given words.",Chair,Bitch,Cat,Dog,B,Bitch,Verified,"Bitch is the feminine term for a dog; the other listed nouns are not feminine counterparts.",Unique
+3,Urdu,22,"درست استعجابیہ جملہ ہے:", "ماشاء اللہ! کتنا پیارا بچہ ہے۔","کاش! میں بھی کھیلتا۔","علی بہت نیک لڑکا ہے۔","آج بہت گرمی ہے۔",A,"ماشاء اللہ! کتنا پیارا بچہ ہے۔",Verified,"ماشاء اللہ تعجب/تحسین کے اظہار کے لیے ہے۔",Unique
+3,Urdu,22,"'واحد' والے جملے کی نشاندہی کریں:", "پرندے اُڑ رہے ہیں۔","سورج نکل چکا ہے۔","تارے چمک رہے ہیں۔","استاد بچے کو پڑھا رہے ہیں۔",B,"سورج نکل چکا ہے۔",Verified,"سورج واحد ہے؛ باقی جملوں کے بنیادی فاعل جمع ہیں۔",Unique
+3,Urdu,26,"زیرِ زمین حرکت سے آنے والی قدرتی آفت ہے:",قحط,سیلاب,آندھی,زلزلہ,D,زلزلہ,Verified,"زلزلہ زیرِ زمین ارضی حرکت کے باعث آتا ہے۔",Unique
+3,Mathematics,22,"The number of edges in a cube is:",12,8,6,4,A,12,Verified,"A cube has 12 edges.",Unique
+3,Mathematics,21,"Jamil's mass was 22 kg. After one year it is 33 kg. The difference is:",11 kg,22 kg,33 kg,55 kg,A,11 kg,Verified,"33 - 22 = 11 kg.",Unique
+3,Mathematics,25,"Solution of 42 kg - 20 kg is:",20 kg,22 kg,30 kg,32 kg,B,22 kg,Verified,"42 - 20 = 22 kg.",Unique
+3,Mathematics,25,"A three-dimensional shape is:",Circle,Square,Cube,Triangle,C,Cube,Verified,"A cube is three-dimensional; the other options are plane figures.",Unique
+3,Mathematics,26,"Maira has 63 m of ribbon. She cuts 42 m from it. How much ribbon is left?",22 m,21 m,20 m,23 m,B,21 m,Verified,"63 - 42 = 21 m.",Unique
