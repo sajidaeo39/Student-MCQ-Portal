@@ -3360,7 +3360,7 @@
             }
             const selected = [];
             for (const subject of subjects) {
-                const copy = selectFreshQuestions(bank[subject], 3, currentClass + '::' + subject + '::classmix');
+                const copy = selectFreshQuestions(bank[subject], 3, currentClass + '::' + subject + '::subject');
                 copy.forEach(question => { question._subject = subject; selected.push(question); });
             }
             return selected;
@@ -3417,15 +3417,31 @@
         // ==========================================
         function selectFreshQuestions(pool, count, rotationKey) {
             const source = Array.isArray(pool) ? pool : [];
-            const fingerprint = q => String(q[0] || '').trim().toLowerCase();
+            if (!source.length || count <= 0) return [];
+            const fingerprint = q => String(q[0] || '').trim().toLowerCase().replace(/\s+/g, ' ');
+            const storageKey = 'mcq_seen_v2_' + rotationKey;
             let seen = [];
-            try { seen = JSON.parse(localStorage.getItem('mcq_seen_' + rotationKey) || '[]'); } catch (_) { seen = []; }
+            try {
+                seen = JSON.parse(localStorage.getItem(storageKey) || '[]');
+                if (!Array.isArray(seen)) seen = [];
+            } catch (_) { seen = []; }
+            const legacyKeys = ['mcq_seen_' + rotationKey];
+            if (rotationKey.endsWith('::classmix')) legacyKeys.push('mcq_seen_' + rotationKey.replace('::classmix', '::subject'));
+            else if (rotationKey.endsWith('::subject')) legacyKeys.push('mcq_seen_' + rotationKey.replace('::subject', '::classmix'));
+            legacyKeys.forEach(key => {
+                try {
+                    const prior = JSON.parse(localStorage.getItem(key) || '[]');
+                    if (Array.isArray(prior)) seen = [...seen, ...prior];
+                } catch (_) {}
+            });
+            seen = [...new Set(seen)];
             let fresh = source.filter(q => !seen.includes(fingerprint(q)));
+            // Begin a new cycle only when fewer than the requested number remain.
+            // The same question is never selected twice within one test.
             if (fresh.length < count) { seen = []; fresh = source.slice(); }
             shuffleArray(fresh);
             const selected = fresh.slice(0, Math.min(count, fresh.length));
-            const updated = [...seen, ...selected.map(fingerprint)].slice(-Math.max(source.length - count, 0));
-            try { localStorage.setItem('mcq_seen_' + rotationKey, JSON.stringify(updated)); } catch (_) {}
+            try { localStorage.setItem(storageKey, JSON.stringify([...new Set([...seen, ...selected.map(fingerprint)])])); } catch (_) {}
             return JSON.parse(JSON.stringify(selected));
         }
 
