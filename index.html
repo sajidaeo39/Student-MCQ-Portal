@@ -87,6 +87,10 @@
         .question-text { font-size: 1.2rem; font-weight: 600; margin-bottom: 25px; line-height: 1.5; }
         
         .rtl-text { direction: rtl; text-align: right; font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; font-size: 1.4rem; }
+        .bilingual-urdu { direction:rtl;text-align:right;font-family:'Jameel Noori Nastaleeq','Noto Nastaliq Urdu',serif;font-size:1.18rem;line-height:1.9;color:#174c66;margin-top:7px;padding:5px 10px;border-right:3px solid #0b8990;background:#f0f8fa;border-radius:7px; }
+        .bilingual-urdu.loading { color:#718096;font-size:.95rem;border-right-color:#cbd5e1; }
+        .option-btn .bilingual-urdu { display:block;flex-basis:100%;width:100%;margin-top:5px;font-size:1.05rem; }
+        .option-btn { flex-wrap:wrap; }
 
         .options-container { display: flex; flex-direction: column; gap: 15px; }
         .option-btn { background: #f8fafc; border: 2px solid #e2e8f0; padding: 15px 20px; border-radius: 8px; font-size: 1rem; text-align: left; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; }
@@ -5081,6 +5085,8 @@
                     options: optionsArray.map(o => o.text),
                     ans: newAnsIndex,
                     subject: q._subject || currentSubject,
+                    className: currentClass,
+                    bilingual: ['Mathematics','Science'].includes(q._subject || currentSubject),
                     source: q[3] || 'Source status not recorded'
                 };
             });
@@ -5092,16 +5098,55 @@
             startQuizTimer();
         }
 
+        const urduTranslationCache = {};
+        async function translateToUrdu(text) {
+            const source = String(text || '').trim();
+            if (!source || !/[A-Za-z]/.test(source)) return '';
+            const key = 'mcq_urdu_translation_v1_' + source;
+            if (urduTranslationCache[source]) return urduTranslationCache[source];
+            try {
+                const saved = localStorage.getItem(key);
+                if (saved) { urduTranslationCache[source] = saved; return saved; }
+            } catch (_) {}
+            const url = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=ur&dt=t&q=' + encodeURIComponent(source);
+            const response = await fetch(url);
+            if (!response.ok) throw new Error('Translation service unavailable');
+            const data = await response.json();
+            const translated = Array.isArray(data[0]) ? data[0].map(part => part[0] || '').join('') : '';
+            if (!translated) throw new Error('Empty translation');
+            urduTranslationCache[source] = translated;
+            try { localStorage.setItem(key, translated); } catch (_) {}
+            return translated;
+        }
+
+        function addUrduTranslation(container, source) {
+            const line = document.createElement('div');
+            line.className = 'bilingual-urdu loading';
+            line.textContent = 'اردو ترجمہ لوڈ ہو رہا ہے…';
+            container.appendChild(line);
+            translateToUrdu(source).then(value => {
+                if (!line.isConnected) return;
+                line.textContent = value || source;
+                line.classList.remove('loading');
+            }).catch(() => {
+                if (!line.isConnected) return;
+                line.textContent = 'اردو ترجمہ فی الحال دستیاب نہیں';
+            });
+        }
+
         function loadQuestion() {
             const q = currentQuestions[currentQuestionIndex];
             document.getElementById('question-progress').innerText = `Question ${currentQuestionIndex + 1} of ${currentQuestions.length}`;
             
             const qText = document.getElementById('question-text');
-            qText.innerText = `${currentQuestionIndex + 1}. ${q.q}`;
+            qText.innerHTML = '';
+            const englishQuestion = document.createElement('div');
+            englishQuestion.textContent = `${currentQuestionIndex + 1}. ${q.q}`;
+            qText.appendChild(englishQuestion);
+            qText.classList.remove('rtl-text');
+            if (q.bilingual) addUrduTranslation(qText, q.q);
             const sourceEl = document.getElementById('question-source');
             if (sourceEl) { sourceEl.textContent = q.source || ''; sourceEl.style.display = q.source ? 'inline-block' : 'none'; }
-            if (/[\u0600-\u06FF]/.test(q.q)) qText.classList.add('rtl-text');
-            else qText.classList.remove('rtl-text');
 
             const optContainer = document.getElementById('options-container');
             optContainer.innerHTML = '';
@@ -5109,8 +5154,13 @@
                 const btn = document.createElement('button');
                 btn.className = 'option-btn';
                 if (userAnswers[currentQuestionIndex] === index) btn.classList.add('selected');
-                if (/[\u0600-\u06FF]/.test(opt)) btn.classList.add('rtl-text');
-                btn.innerHTML = `<span class="option-label">${String.fromCharCode(65 + index)}.</span> ${opt}`;
+                const label = document.createElement('span');
+                label.className = 'option-label';
+                label.textContent = String.fromCharCode(65 + index) + '.';
+                const englishOption = document.createElement('span');
+                englishOption.textContent = opt;
+                btn.append(label, englishOption);
+                if (q.bilingual) addUrduTranslation(btn, opt);
                 btn.onclick = () => selectOption(index);
                 optContainer.appendChild(btn);
             });
@@ -5214,22 +5264,18 @@
                 const itemDiv = document.createElement('div');
                 itemDiv.className = `review-item ${isCorrect ? 'correct' : 'incorrect'}`;
                 
-                let html = `<div class="review-q">${index + 1}. ${q.q}</div>`;
+                const questionLine = document.createElement('div');
+                questionLine.className = 'review-q';
+                questionLine.textContent = `${index + 1}. ${q.q}`;
+                itemDiv.appendChild(questionLine);
+                if (q.bilingual) addUrduTranslation(itemDiv, q.q);
                 q.options.forEach((opt, optIdx) => {
-                    let optClass = 'review-opt';
-                    let prefix = String.fromCharCode(65 + optIdx) + '. ';
-                    if (optIdx === q.ans) {
-                        optClass += ' correct-ans';
-                        html += `<div class="${optClass}">${prefix} ${opt} (Correct Answer)</div>`;
-                    } else if (optIdx === userAnswer && !isCorrect) {
-                        optClass += ' wrong-ans';
-                        html += `<div class="${optClass}">${prefix} ${opt} (Your Answer)</div>`;
-                    } else {
-                        html += `<div class="${optClass}">${prefix} ${opt}</div>`;
-                    }
+                    const optionLine = document.createElement('div');
+                    optionLine.className = 'review-opt' + (optIdx === q.ans ? ' correct-ans' : (optIdx === userAnswer && !isCorrect ? ' wrong-ans' : ''));
+                    optionLine.textContent = String.fromCharCode(65 + optIdx) + '. ' + opt + (optIdx === q.ans ? ' (Correct Answer)' : (optIdx === userAnswer && !isCorrect ? ' (Your Answer)' : ''));
+                    itemDiv.appendChild(optionLine);
+                    if (q.bilingual) addUrduTranslation(itemDiv, opt);
                 });
-                if (/[\u0600-\u06FF]/.test(q.q)) itemDiv.classList.add('rtl-text');
-                itemDiv.innerHTML = html;
                 reviewList.appendChild(itemDiv);
             });
             showScreen('review-screen');
