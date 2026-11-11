@@ -554,6 +554,81 @@
             .summary-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
         }
 
+    
+        /* Compact, distinctive, mobile-first dashboard layout */
+        header{padding:17px 14px 16px}
+        header h1{font-size:clamp(1.08rem,2.4vw,1.42rem);line-height:1.22;letter-spacing:.8px;margin-bottom:5px}
+        header h2{font-size:.78rem;line-height:1.2}
+        .header-credit{margin:6px auto 2px;font-size:.72rem;line-height:1.25}
+        .header-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;max-width:540px;margin:9px auto 0;padding:0 8px}
+        .header-support{display:flex;min-width:0;min-height:38px;flex-direction:column;align-items:center;justify-content:center;gap:1px;margin:0;padding:5px 6px;border:1px solid rgba(255,255,255,.28);border-radius:10px;background:rgba(255,255,255,.13);color:#fff;text-align:center;text-decoration:none;font-size:.66rem;font-weight:700;line-height:1.2;white-space:normal;overflow-wrap:anywhere}
+        .header-support span{display:block}
+        .whatsapp-channel-link{background:#e8fff2;color:#12643e;border-color:#b9f0d0}
+        .header-support:hover{transform:translateY(-1px);background:rgba(255,255,255,.22)}
+        .whatsapp-channel-link:hover{background:#d6f8e5}
+        .container{max-width:940px;margin:10px auto 14px;padding:0 12px}
+        #welcome-screen .summary-panel{margin-bottom:10px;padding:10px 12px;border:1px solid #e2eaf1;border-radius:13px;box-shadow:0 5px 16px rgba(23,59,102,.055)}
+        #welcome-screen .summary-panel h3{margin-bottom:7px;font-size:.9rem}
+        #welcome-screen .summary-grid{gap:7px}
+        #welcome-screen .summary-card{padding:8px 5px;border:1px solid #e1edf3;background:linear-gradient(145deg,#f5faff,#edf7f8);border-radius:10px}
+        #welcome-screen .summary-card strong{font-size:1.12rem}
+        #welcome-screen .summary-card span{font-size:.66rem}
+        #welcome-screen .stats-status{margin-top:4px;font-size:.62rem}
+        #welcome-screen .welcome-box{padding:19px 20px;border:1px solid #e5edf3;border-radius:16px;background:linear-gradient(145deg,#fff 0%,#f8fcff 100%);box-shadow:0 8px 24px rgba(23,59,102,.065)}
+        #welcome-screen .welcome-eyebrow{margin-bottom:7px;padding:4px 10px;font-size:.6rem}
+        #welcome-screen .welcome-box h3{font-size:clamp(1.25rem,3vw,1.65rem);margin-bottom:5px}
+        #welcome-screen .welcome-box>p{margin-bottom:11px;font-size:.83rem;line-height:1.4}
+        #welcome-screen .student-info{display:grid;grid-template-columns:1fr 1fr;column-gap:12px;row-gap:4px;max-width:600px;margin:10px auto;padding:11px 13px;border:1px solid #e5edf3;border-radius:11px;background:#f7fafc}
+        #welcome-screen .student-info h4,#welcome-screen .student-info .timer-setting{grid-column:1/-1}
+        #welcome-screen .student-info h4{margin-bottom:3px;font-size:.84rem}
+        #welcome-screen .student-info label{margin:3px 0 1px;font-size:.7rem}
+        #welcome-screen .student-info input{min-width:0;min-height:36px;padding:6px 9px;font-size:16px}
+        #welcome-screen .student-info .timer-setting{font-size:.72rem!important;margin-top:4px}
+        #welcome-screen .welcome-box>.btn{min-width:210px;min-height:44px;padding:10px 24px!important;border-radius:11px;font-size:.92rem!important}
+        .grid-container{gap:12px}
+        .card{border-radius:13px}
+        @media(max-width:600px){
+            header{padding:12px 8px 11px}
+            header h1{font-size:1.02rem;line-height:1.22;letter-spacing:.45px;margin-bottom:3px}
+            header h2{font-size:.68rem}
+            .header-credit{font-size:.64rem;margin:4px auto 1px}
+            .header-links{gap:5px;margin:7px auto 0;padding:0 3px;max-width:390px}
+            .header-support{min-height:35px;padding:4px 3px;border-radius:8px;font-size:.59rem;line-height:1.18}
+            .container{margin:7px auto 10px;padding:0 8px}
+            #welcome-screen .summary-panel{padding:7px 8px;margin-bottom:7px;border-radius:10px}
+            #welcome-screen .summary-panel h3{font-size:.78rem;margin-bottom:5px}
+            #welcome-screen .summary-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:4px}
+            #welcome-screen .summary-card{padding:6px 2px;border-radius:7px}
+            #welcome-screen .summary-card strong{font-size:.92rem}
+            #welcome-screen .summary-card span{font-size:.54rem;line-height:1.12}
+            #welcome-screen .stats-status{font-size:.56rem;margin-top:3px}
+            #welcome-screen .welcome-box{padding:13px 10px;border-radius:12px}
+            #welcome-screen .welcome-eyebrow{font-size:.54rem;padding:3px 8px;margin-bottom:5px}
+            #welcome-screen .welcome-box h3{font-size:1.08rem;line-height:1.2;margin-bottom:4px}
+            #welcome-screen .welcome-box>p{font-size:.72rem;line-height:1.3;margin-bottom:7px}
+            #welcome-screen .student-info{margin:7px auto;padding:7px 8px;column-gap:8px;row-gap:2px}
+            #welcome-screen .student-info h4{font-size:.78rem;margin-bottom:2px}
+            #welcome-screen .student-info label{font-size:.64rem;margin:2px 0 0}
+            #welcome-screen .student-info input{min-height:33px;padding:5px 7px}
+            #welcome-screen .student-info .timer-setting{font-size:.64rem!important;margin-top:3px}
+            #welcome-screen .welcome-box>.btn{width:100%;max-width:260px;min-height:40px;padding:8px 15px!important;font-size:.86rem!important}
+            .grid-container{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:12px}
+            .card{min-height:82px;padding:13px 7px;border-radius:10px}
+            .card h4{font-size:.86rem}
+            .site-footer{padding:7px 6px;font-size:.62rem}
+        }
+        @media(max-width:370px){
+            header h1{font-size:.94rem}
+            .header-links{gap:3px}
+            .header-support{font-size:.53rem;padding:4px 2px}
+            #welcome-screen .summary-card span{font-size:.49rem}
+            #welcome-screen .student-info{column-gap:6px;padding:6px}
+        }
+        @media(min-width:601px) and (max-width:850px){
+            .container{max-width:760px}
+            #welcome-screen .welcome-box{padding:23px 18px}
+        }
+
     </style>
 </head>
 <body>
@@ -562,11 +637,11 @@
         <h1>PECTAA Class Wise<br>MCQs Practice Portal</h1>
         <h2>Learn • Practice • Improve</h2>
         <p class="header-credit"><strong>Developed by: M.Sajid (A.E.O) | The Educational Helper</strong></p>
-        <p class="header-credit">Markaz Amli Moti • Tehsil Depalpur • District Okara</p>
+        <p class="header-credit">Okara</p>
         <div class="header-links">
-            <a class="header-support whatsapp-channel-link" href="https://whatsapp.com/channel/0029VaoMfR3C6ZvYxRXWod3G" target="_blank" rel="noopener noreferrer">🟢 Follow WhatsApp Channel</a>
-            <a class="header-support" href="https://wa.me/923496027086" target="_blank" rel="noopener noreferrer">💬 WhatsApp Support: 0349 6027086</a>
-            <a class="header-support" href="https://youtube.com/@sajideducationalhelper?si=3M_-Z2XMd42oh3mB" target="_blank" rel="noopener noreferrer">▶ YouTube Updates</a>
+            <a class="header-support whatsapp-channel-link" href="https://whatsapp.com/channel/0029VaoMfR3C6ZvYxRXWod3G" target="_blank" rel="noopener noreferrer"><span>🟢 Follow</span><span>WhatsApp Channel</span></a>
+            <a class="header-support" href="https://wa.me/923496027086" target="_blank" rel="noopener noreferrer"><span>💬 WhatsApp Support</span><span>0349 6027086</span></a>
+            <a class="header-support" href="https://youtube.com/@sajideducationalhelper?si=3M_-Z2XMd42oh3mB" target="_blank" rel="noopener noreferrer"><span>▶ YouTube</span><span>Updates</span></a>
         </div>
     </header>
 
