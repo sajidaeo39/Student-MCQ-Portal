@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#173b66">
+    <link rel="manifest" href="./manifest.webmanifest">
     <title>PECTAA Smart Practice Portal | The Educational Helper</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
@@ -505,6 +507,9 @@
     <header>
         <h1>PECTAA Class Wise<br>MCQs Practice Portal</h1>
         <h2>Learn • Practice • Improve</h2>
+        <p class="header-credit">For more educational updates, follow my WhatsApp Channel</p>
+        <a class="header-support" href="https://whatsapp.com/channel/0029VaoMfR3C6ZvYxRXWod3G" target="_blank" rel="noopener noreferrer">🟢 Follow WhatsApp Channel</a>
+        <p class="header-credit">For queries and support: <a href="https://wa.me/923496027086" style="color:#fde68a;font-weight:700;text-decoration:underline">WhatsApp 0349 6027086</a></p>
         <p class="header-credit"><strong>Developed by: M.Sajid (A.E.O) The Educational Helper</strong></p>
         <p class="header-credit">Markaz Amli Moti, Tehsil Depalpur, District Okara</p>
         <a class="header-support" href="https://youtube.com/@sajideducationalhelper?si=3M_-Z2XMd42oh3mB"
@@ -612,6 +617,12 @@
     </div>
 
 
+
+    <footer class="site-footer">
+        <p>For more educational updates, follow my <a href="https://whatsapp.com/channel/0029VaoMfR3C6ZvYxRXWod3G" target="_blank" rel="noopener noreferrer">WhatsApp Channel</a>.</p>
+        <p>For query and support, contact on WhatsApp: <a href="https://wa.me/923496027086" target="_blank" rel="noopener noreferrer">0349 6027086</a></p>
+        <p>© The Educational Helper • PECTAA MCQs Practice Portal</p>
+    </footer>
 
     <script>
         // ==========================================
@@ -5290,6 +5301,18 @@
 
         renderClasses();
         loadPortalStats();
-    </script>
+    
+        // Progressive Web App: cache the portal for offline practice.
+        if ('serviceWorker' in navigator && location.protocol === 'https:') {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => {
+                        reg.update().catch(() => {});
+                        window.addEventListener('online', () => reg.update().catch(() => {}));
+                    })
+                    .catch(err => console.warn('Offline support unavailable:', err));
+            });
+        }
+</script>
 </body>
 </html>
