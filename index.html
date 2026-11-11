@@ -3802,6 +3802,39 @@
         ],
         0,
         "Generated • Concept Based"
+      ],
+      [
+        "لفظ 'شجاعت' کا مترادف کون سا ہے؟",
+        [
+          "بہادری",
+          "خاموشی",
+          "سخاوت",
+          "دانائی"
+        ],
+        0,
+        "Generated • New Concept Practice"
+      ],
+      [
+        "'لڑکا' کی جمع کیا ہے؟",
+        [
+          "لڑکیاں",
+          "لڑکے",
+          "لڑکوں نے",
+          "لڑکپن"
+        ],
+        1,
+        "Generated • New Concept Practice"
+      ],
+      [
+        "جملہ 'دروازہ بند کرو' کس قسم کا جملہ ہے؟",
+        [
+          "خبریہ",
+          "سوالیہ",
+          "حکمیہ",
+          "تعجبیہ"
+        ],
+        2,
+        "Generated • New Concept Practice"
       ]
     ],
     "Mathematics": [
@@ -5464,7 +5497,8 @@
             const subjects = approvedSubjects[currentClass] || [];
             subjects.forEach(sub => {
                 const pool = questionBank[currentClass]?.[sub] || [];
-                const ready = (verifiedPracticeSets[currentClass] || []).includes(sub) && pool.length >= 9;
+                const requiredSubjectQuestions = ['Class 6','Class 7','Class 8'].includes(currentClass) ? 12 : 9;
+                const ready = (verifiedPracticeSets[currentClass] || []).includes(sub) && pool.length >= requiredSubjectQuestions;
                 const card = document.createElement('div');
                 card.className = 'card';
                 card.style.opacity = ready ? '1' : '.58';
@@ -5476,7 +5510,7 @@
                     }
                     selectSubject(sub);
                 };
-                card.innerHTML = `<h4>${sub}</h4><p style="margin-top:6px;font-size:.8rem;color:#64748b;">${ready ? 'Practice test • 9 questions' : 'Question set under verification'}</p>`;
+                card.innerHTML = `<h4>${sub}</h4><p style="margin-top:6px;font-size:.8rem;color:#64748b;">${ready ? `Practice test • ${requiredSubjectQuestions} questions` : 'Question set under verification'}</p>`;
                 subjectList.appendChild(card);
             });
             const isSenior = ['Class 6','Class 7','Class 8'].includes(currentClass);
@@ -5509,10 +5543,11 @@
             }
             const selected = [];
             for (const subject of subjects) {
-                const copy = selectFreshQuestions(bank[subject], 3, currentClass + '::' + subject + '::subject');
+                const copy = selectFreshQuestions(bank[subject], 3, currentClass + '::' + subject + '::mixed');
+                if (!copy || copy.length !== 3) return null;
                 copy.forEach(question => { question._subject = subject; selected.push(question); });
             }
-            return selected;
+            return selected.length === subjects.length * 3 ? selected : null;
         }
 
         function stopQuizTimer() {
@@ -5585,9 +5620,12 @@
             });
             seen = [...new Set(seen)];
             let fresh = source.filter(q => !seen.includes(fingerprint(q)));
-            // Begin a new cycle only when fewer than the requested number remain.
-            // The same question is never selected twice within one test.
-            if (fresh.length < count) { seen = []; fresh = source.slice(); }
+            // Never recycle a question automatically. If fewer than the requested
+            // number remain, stop and ask for new verified questions to be added.
+            if (fresh.length < count) {
+                alert(`This question bank has only ${fresh.length} new question(s) left, but ${count} are required. No questions have been repeated. Please add more verified questions before starting another test.`);
+                return null;
+            }
             shuffleArray(fresh);
             const selected = fresh.slice(0, Math.min(count, fresh.length));
             try { localStorage.setItem(storageKey, JSON.stringify([...new Set([...seen, ...selected.map(fingerprint)])])); } catch (_) {}
@@ -5603,11 +5641,12 @@
                 rawQuestions = buildMixedTestQuestions();
             } else {
                 const pool = questionBank[currentClass]?.[currentSubject] || [];
-                if (!(verifiedPracticeSets[currentClass] || []).includes(currentSubject) || pool.length < 9) {
-                    alert(currentClass + ' - ' + currentSubject + ': exactly 9 questions are required before this subject practice test can start.');
+                const requiredCount = ['Class 6','Class 7','Class 8'].includes(currentClass) ? 12 : 9;
+                if (!(verifiedPracticeSets[currentClass] || []).includes(currentSubject) || pool.length < requiredCount) {
+                    alert(currentClass + ' - ' + currentSubject + ': at least ' + requiredCount + ' verified questions are required before this subject practice test can start.');
                     return;
                 }
-                rawQuestions = selectFreshQuestions(pool, 9, currentClass + '::' + currentSubject + '::subject');
+                rawQuestions = selectFreshQuestions(pool, requiredCount, currentClass + '::' + currentSubject + '::subject');
             }
             if (!rawQuestions) return;
             shuffleArray(rawQuestions);
