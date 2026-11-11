@@ -731,7 +731,8 @@
                     <div id="subject-performance-list"></div>
                 </section>
                 <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-                    <button class="btn btn-secondary" onclick="reviewQuiz()">Review Answers</button>
+                    <button class="btn btn-secondary" onclick="reviewQuiz()">Subject-wise Questions & Answers</button>
+                    <button class="btn btn-success" onclick="downloadQuizReport()">Download Quiz PDF</button>
                     <button class="btn btn-primary" onclick="showScreen('class-screen')">Take Another Test</button>
                 </div>
             </div>
@@ -1380,7 +1381,7 @@
           "2000",
           "20000"
         ],
-        1,
+        2,
         "PDF • Verified Set 2"
       ],
       [
@@ -5396,30 +5397,131 @@
             }).join('');
         }
 
+        function escapeReportHtml(value) {
+            return String(value ?? '').replace(/[&<>"']/g, ch => ({
+                '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'
+            }[ch]));
+        }
+
         function reviewQuiz() {
             const reviewList = document.getElementById('review-list');
             reviewList.innerHTML = '';
+            const grouped = {};
             currentQuestions.forEach((q, index) => {
-                const userAnswer = userAnswers[index];
-                const isCorrect = userAnswer === q.ans;
-                const itemDiv = document.createElement('div');
-                itemDiv.className = `review-item ${isCorrect ? 'correct' : 'incorrect'}`;
-                
-                const questionLine = document.createElement('div');
-                questionLine.className = 'review-q';
-                questionLine.textContent = `${index + 1}. ${q.q}`;
-                itemDiv.appendChild(questionLine);
-                if (q.bilingual) addUrduTranslation(itemDiv, q.q);
-                q.options.forEach((opt, optIdx) => {
-                    const optionLine = document.createElement('div');
-                    optionLine.className = 'review-opt' + (optIdx === q.ans ? ' correct-ans' : (optIdx === userAnswer && !isCorrect ? ' wrong-ans' : ''));
-                    optionLine.textContent = String.fromCharCode(65 + optIdx) + '. ' + opt + (optIdx === q.ans ? ' (Correct Answer)' : (optIdx === userAnswer && !isCorrect ? ' (Your Answer)' : ''));
-                    itemDiv.appendChild(optionLine);
-                    if (q.bilingual) addUrduTranslation(itemDiv, opt);
+                const subject = q.subject || currentSubject || 'Subject';
+                if (!grouped[subject]) grouped[subject] = [];
+                grouped[subject].push({ q, index });
+            });
+
+            Object.entries(grouped).forEach(([subject, items]) => {
+                const heading = document.createElement('h3');
+                heading.className = 'subject-review-heading';
+                heading.textContent = subject + ' • ' + items.length + ' Questions';
+                reviewList.appendChild(heading);
+
+                items.forEach(({q, index}) => {
+                    const userAnswer = userAnswers[index];
+                    const isCorrect = userAnswer === q.ans;
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = `review-item ${isCorrect ? 'correct' : 'incorrect'}`;
+
+                    const questionLine = document.createElement('div');
+                    questionLine.className = 'review-q';
+                    questionLine.textContent = `${index + 1}. ${q.q}`;
+                    itemDiv.appendChild(questionLine);
+                    if (q.bilingual) addUrduTranslation(itemDiv, q.q);
+                    q.options.forEach((opt, optIdx) => {
+                        const optionLine = document.createElement('div');
+                        optionLine.className = 'review-opt' + (optIdx === q.ans ? ' correct-ans' : (optIdx === userAnswer && !isCorrect ? ' wrong-ans' : ''));
+                        optionLine.textContent = String.fromCharCode(65 + optIdx) + '. ' + opt + (optIdx === q.ans ? ' (Correct Answer)' : (optIdx === userAnswer && !isCorrect ? ' (Your Answer)' : ''));
+                        itemDiv.appendChild(optionLine);
+                        if (q.bilingual) addUrduTranslation(itemDiv, opt);
+                    });
+                    reviewList.appendChild(itemDiv);
                 });
-                reviewList.appendChild(itemDiv);
             });
             showScreen('review-screen');
+        }
+
+        function downloadQuizReport() {
+            if (!currentQuestions.length) return;
+            const correct = currentQuestions.reduce((n, q, i) => n + (userAnswers[i] === q.ans ? 1 : 0), 0);
+            const wrong = currentQuestions.reduce((n, q, i) => n + (userAnswers[i] !== null && userAnswers[i] !== q.ans ? 1 : 0), 0);
+            const skipped = currentQuestions.length - correct - wrong;
+            const percentage = Math.round(correct / currentQuestions.length * 100);
+            const grouped = {};
+            currentQuestions.forEach((q, i) => {
+                const subject = q.subject || currentSubject || 'Subject';
+                if (!grouped[subject]) grouped[subject] = [];
+                grouped[subject].push({q, i});
+            });
+
+            const subjectSummary = Object.entries(grouped).map(([subject, items]) => {
+                const subjectCorrect = items.filter(({q, i}) => userAnswers[i] === q.ans).length;
+                const subjectWrong = items.filter(({q, i}) => userAnswers[i] !== null && userAnswers[i] !== q.ans).length;
+                const subjectSkipped = items.length - subjectCorrect - subjectWrong;
+                const pct = Math.round(subjectCorrect / items.length * 100);
+                return `<tr><td>${escapeReportHtml(subject)}</td><td>${items.length}</td><td>${subjectCorrect}</td><td>${subjectWrong}</td><td>${subjectSkipped}</td><td>${pct}%</td></tr>`;
+            }).join('');
+
+            const questionSections = Object.entries(grouped).map(([subject, items]) => `
+                <section class="subject">
+                    <h2>${escapeReportHtml(subject)}</h2>
+                    ${items.map(({q, i}, n) => {
+                        const chosen = userAnswers[i];
+                        const ok = chosen === q.ans;
+                        const options = q.options.map((opt, oi) => {
+                            const flags = [oi === q.ans ? 'Correct answer' : '', oi === chosen ? 'Your answer' : ''].filter(Boolean).join(' · ');
+                            return `<li class="${oi === q.ans ? 'correct' : (oi === chosen ? 'wrong' : '')}">${String.fromCharCode(65 + oi)}. ${escapeReportHtml(opt)} ${flags ? '<small>— ' + flags + '</small>' : ''}</li>`;
+                        }).join('');
+                        return `<article class="question">
+                            <p><b>${n + 1}. ${escapeReportHtml(q.q)}</b></p>
+                            <ul>${options}</ul>
+                            <p class="status ${ok ? 'good' : (chosen === null ? 'skip' : 'bad')}">${chosen === null ? 'Not answered' : (ok ? 'Correct' : 'Incorrect')} · Your answer: ${chosen === null ? '—' : escapeReportHtml(q.options[chosen])} · Correct answer: ${escapeReportHtml(q.options[q.ans])}</p>
+                        </article>`;
+                    }).join('')}
+                </section>`).join('');
+
+            const student = document.getElementById('student-name')?.value.trim() || '—';
+            const school = document.getElementById('school-name')?.value.trim() || '—';
+            const reportWindow = window.open('', '_blank');
+            if (!reportWindow) {
+                alert('Please allow pop-ups for this portal to create your PDF report.');
+                return;
+            }
+            const report = `<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+                <title>${escapeReportHtml(currentClass)} ${escapeReportHtml(currentSubject)} Quiz Report</title>
+                <style>
+                    *{box-sizing:border-box}body{font-family:Arial,sans-serif;color:#1e293b;margin:24px;line-height:1.45}
+                    header{text-align:center;border-bottom:3px solid #087e8b;padding-bottom:12px;margin-bottom:18px}
+                    h1{font-size:22px;color:#173b66;margin:0 0 5px}header p{margin:3px;color:#64748b}
+                    .meta{display:flex;gap:18px;flex-wrap:wrap;margin:12px 0;font-size:13px}
+                    .score{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 0}
+                    .score div{background:#f1f6fa;padding:10px;text-align:center;border-radius:8px}
+                    .score b{display:block;font-size:20px;color:#173b66}
+                    table{width:100%;border-collapse:collapse;margin:12px 0 22px;font-size:12px}
+                    th,td{border:1px solid #d7e0e8;padding:7px;text-align:left}th{background:#eaf2f6}
+                    .subject{break-before:page}.subject:first-of-type{break-before:auto}
+                    h2{font-size:17px;color:#087e8b;border-bottom:1px solid #cbd5e1;padding-bottom:6px}
+                    .question{border:1px solid #e2e8f0;border-radius:7px;padding:10px;margin:10px 0;break-inside:avoid}
+                    .question p{margin:3px 0 7px;font-size:13px}.question ul{margin:5px 0;padding-left:24px;font-size:12px}
+                    li{padding:3px}.correct{color:#087443;font-weight:bold}.wrong{color:#b42318;text-decoration:line-through}
+                    small{font-weight:normal;text-decoration:none}.status{font-size:11px!important;font-weight:bold;margin-top:8px!important}
+                    .good{color:#087443}.bad{color:#b42318}.skip{color:#a16207}
+                    footer{margin-top:20px;border-top:1px solid #ddd;padding-top:8px;text-align:center;font-size:10px;color:#64748b}
+                    @page{size:A4;margin:14mm}@media print{body{margin:0}}
+                </style></head><body>
+                <header><h1>PECTAA SMART PRACTICE PORTAL</h1><p>Quiz Result & Subject-wise Question Report</p></header>
+                <div class="meta"><span><b>Class:</b> ${escapeReportHtml(currentClass)}</span><span><b>Quiz:</b> ${escapeReportHtml(currentSubject)}</span><span><b>Date:</b> ${new Date().toLocaleString()}</span></div>
+                <div class="meta"><span><b>Student:</b> ${escapeReportHtml(student)}</span><span><b>School:</b> ${escapeReportHtml(school)}</span></div>
+                <div class="score"><div><b>${percentage}%</b>Score</div><div><b>${correct}</b>Correct</div><div><b>${wrong}</b>Incorrect</div><div><b>${skipped}</b>Unanswered</div></div>
+                <h2>Subject-wise Result</h2><table><thead><tr><th>Subject</th><th>Total</th><th>Correct</th><th>Incorrect</th><th>Unanswered</th><th>Score</th></tr></thead><tbody>${subjectSummary}</tbody></table>
+                <h2>Subject-wise Questions & Answer Review</h2>${questionSections}
+                <footer>The Educational Helper • PECTAA Class Wise MCQs Practice Portal</footer>
+                <script>window.onload=()=>setTimeout(()=>window.print(),350);<\/script></body></html>`;
+            reportWindow.document.open();
+            reportWindow.document.write(report);
+            reportWindow.document.close();
         }
 
         function shuffleArray(array) {
