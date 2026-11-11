@@ -5497,20 +5497,19 @@
             const subjects = approvedSubjects[currentClass] || [];
             subjects.forEach(sub => {
                 const pool = questionBank[currentClass]?.[sub] || [];
-                const requiredSubjectQuestions = ['Class 6','Class 7','Class 8'].includes(currentClass) ? 12 : 9;
-                const ready = (verifiedPracticeSets[currentClass] || []).includes(sub) && pool.length >= requiredSubjectQuestions;
+                const ready = (verifiedPracticeSets[currentClass] || []).includes(sub) && pool.length > 0;
                 const card = document.createElement('div');
                 card.className = 'card';
                 card.style.opacity = ready ? '1' : '.58';
                 card.style.cursor = ready ? 'pointer' : 'not-allowed';
                 card.onclick = () => {
                     if (!ready) {
-                        alert(`${currentClass} - ${sub}: verified practice questions are not available yet. This subject is retained in the class list and will open after exactly 9 questions are verified.`);
+                        alert(`${currentClass} - ${sub}: no verified practice questions are available yet.`);
                         return;
                     }
                     selectSubject(sub);
                 };
-                card.innerHTML = `<h4>${sub}</h4><p style="margin-top:6px;font-size:.8rem;color:#64748b;">${ready ? `Practice test • ${requiredSubjectQuestions} questions` : 'Question set under verification'}</p>`;
+                card.innerHTML = `<h4>${sub}</h4><p style="margin-top:6px;font-size:.8rem;color:#64748b;">${ready ? `Practice test • ${pool.length} questions in bank` : 'Question set under verification'}</p>`;
                 subjectList.appendChild(card);
             });
             const isSenior = ['Class 6','Class 7','Class 8'].includes(currentClass);
@@ -5620,10 +5619,11 @@
             });
             seen = [...new Set(seen)];
             let fresh = source.filter(q => !seen.includes(fingerprint(q)));
-            // Never recycle a question automatically. If fewer than the requested
-            // number remain, stop and ask for new verified questions to be added.
-            if (fresh.length < count) {
-                alert(`This question bank has only ${fresh.length} new question(s) left, but ${count} are required. No questions have been repeated. Please add more verified questions before starting another test.`);
+            // Never recycle questions. Use as many unseen questions as requested;
+            // subject-wise tests pass the full bank size, so every remaining new
+            // question is included even when fewer than the original bank remain.
+            if (!fresh.length) {
+                alert('All questions in this subject have already been attempted on this browser. No questions will be repeated. Add new questions to continue.');
                 return null;
             }
             shuffleArray(fresh);
@@ -5641,12 +5641,11 @@
                 rawQuestions = buildMixedTestQuestions();
             } else {
                 const pool = questionBank[currentClass]?.[currentSubject] || [];
-                const requiredCount = ['Class 6','Class 7','Class 8'].includes(currentClass) ? 12 : 9;
-                if (!(verifiedPracticeSets[currentClass] || []).includes(currentSubject) || pool.length < requiredCount) {
-                    alert(currentClass + ' - ' + currentSubject + ': at least ' + requiredCount + ' verified questions are required before this subject practice test can start.');
+                if (!(verifiedPracticeSets[currentClass] || []).includes(currentSubject) || !pool.length) {
+                    alert(currentClass + ' - ' + currentSubject + ': no verified questions are available yet.');
                     return;
                 }
-                rawQuestions = selectFreshQuestions(pool, requiredCount, currentClass + '::' + currentSubject + '::subject');
+                rawQuestions = selectFreshQuestions(pool, pool.length, currentClass + '::' + currentSubject + '::subject');
             }
             if (!rawQuestions) return;
             shuffleArray(rawQuestions);
