@@ -500,6 +500,60 @@
             #welcome-screen .welcome-box > p { font-size:.69rem;margin-bottom:5px; }
             #welcome-screen .student-info { margin:5px auto 6px; }
         }
+    
+        /* Clean, student-friendly home screen refinement */
+        .header-links{position:relative;display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:9px;margin:12px auto 0;max-width:760px}
+        .header-support{margin:0;padding:8px 14px;font-size:.78rem;transition:transform .18s,background .18s}
+        .header-support:hover{transform:translateY(-1px)}
+        .whatsapp-channel-link{background:#e8fff2;color:#12643e;border-color:#b9f0d0}
+        .whatsapp-channel-link:hover{background:#d6f8e5}
+        .header-credit{margin:7px auto 3px}
+        .welcome-box{padding:38px 34px;text-align:center}
+        .welcome-eyebrow{display:inline-block;position:relative;margin-bottom:12px;padding:6px 12px;border-radius:999px;background:#e8f4f5;color:#087e8b;font-size:.69rem;font-weight:800;letter-spacing:1px}
+        .welcome-box h3{max-width:650px;margin:0 auto 10px;font-size:clamp(1.5rem,3vw,2.05rem)}
+        .welcome-box>p{max-width:600px;margin:0 auto 20px;line-height:1.65}
+        .student-info{max-width:590px;margin:22px auto;padding:19px 20px;text-align:left}
+        .student-info h4{display:flex;align-items:center;justify-content:space-between;gap:10px}
+        .optional-note{font-size:.68rem;color:#718395;font-weight:600;background:#e8eef3;padding:4px 8px;border-radius:999px}
+        #welcome-screen .welcome-box>.btn{min-width:220px;min-height:50px;font-size:1rem!important;box-shadow:0 7px 16px rgba(8,126,139,.2)}
+        .summary-panel h3{display:flex;align-items:center;gap:8px}
+        .summary-panel h3:before{content:"";width:4px;height:16px;border-radius:9px;background:#087e8b}
+        .summary-card{transition:transform .18s,box-shadow .18s}
+        .summary-card:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(23,59,102,.07)}
+        .card{cursor:pointer}
+        .card:active,#welcome-screen .btn:active{transform:scale(.985)}
+        input,button{font:inherit}
+        @media(max-width:600px){
+            header{padding:18px 10px 20px}
+            header h1{font-size:1.08rem;line-height:1.45;letter-spacing:.5px}
+            header h2{font-size:.76rem}
+            .header-credit{font-size:.67rem;margin:6px auto 3px}
+            .header-links{gap:6px;margin-top:10px}
+            .header-support{font-size:.68rem;padding:7px 10px}
+            .container{margin:12px auto 20px;padding:0 10px}
+            .summary-panel{padding:12px 10px}
+            .summary-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+            .summary-card{padding:10px 6px}
+            .summary-card strong{font-size:1.18rem}
+            .summary-card span{font-size:.66rem}
+            .stats-status{font-size:.65rem}
+            .welcome-box{padding:23px 13px;border-radius:16px}
+            .welcome-eyebrow{font-size:.61rem;margin-bottom:9px}
+            .welcome-box h3{font-size:1.35rem}
+            .welcome-box>p{font-size:.83rem;line-height:1.5;margin-bottom:13px}
+            .student-info{padding:13px 12px;margin:15px 0}
+            .student-info h4{font-size:.88rem}
+            #welcome-screen .welcome-box>.btn{width:100%;max-width:340px}
+            .grid-container{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+            .card{min-height:96px;padding:19px 9px}
+            .card h4{font-size:.94rem}
+        }
+        @media(max-width:360px){
+            .header-support{font-size:.62rem;padding:6px 8px}
+            .grid-container{grid-template-columns:1fr 1fr}
+            .summary-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+        }
+
     </style>
 </head>
 <body>
@@ -507,15 +561,13 @@
     <header>
         <h1>PECTAA Class Wise<br>MCQs Practice Portal</h1>
         <h2>Learn • Practice • Improve</h2>
-        <p id="pwa-status" class="header-credit" role="status" aria-live="polite">Checking connection…</p>
-        <button id="pwa-install" class="header-support" type="button" hidden>＋ Install Portal</button>
-        <p class="header-credit">For more educational updates, follow my WhatsApp Channel</p>
-        <a class="header-support" href="https://whatsapp.com/channel/0029VaoMfR3C6ZvYxRXWod3G" target="_blank" rel="noopener noreferrer">🟢 Follow WhatsApp Channel</a>
-        <p class="header-credit">For queries and support: <a href="https://wa.me/923496027086" style="color:#fde68a;font-weight:700;text-decoration:underline">WhatsApp 0349 6027086</a></p>
-        <p class="header-credit"><strong>Developed by: M.Sajid (A.E.O) The Educational Helper</strong></p>
-        <p class="header-credit">Markaz Amli Moti, Tehsil Depalpur, District Okara</p>
-        <a class="header-support" href="https://youtube.com/@sajideducationalhelper?si=3M_-Z2XMd42oh3mB"
-           target="_blank" rel="noopener noreferrer">▶ YouTube Channel for Support &amp; Updates</a>
+        <p class="header-credit"><strong>Developed by: M.Sajid (A.E.O) | The Educational Helper</strong></p>
+        <p class="header-credit">Markaz Amli Moti • Tehsil Depalpur • District Okara</p>
+        <div class="header-links">
+            <a class="header-support whatsapp-channel-link" href="https://whatsapp.com/channel/0029VaoMfR3C6ZvYxRXWod3G" target="_blank" rel="noopener noreferrer">🟢 Follow WhatsApp Channel</a>
+            <a class="header-support" href="https://wa.me/923496027086" target="_blank" rel="noopener noreferrer">💬 WhatsApp Support: 0349 6027086</a>
+            <a class="header-support" href="https://youtube.com/@sajideducationalhelper?si=3M_-Z2XMd42oh3mB" target="_blank" rel="noopener noreferrer">▶ YouTube Updates</a>
+        </div>
     </header>
 
     <div class="container">
@@ -532,17 +584,18 @@
         </section>
 
             <div class="welcome-box">
-                <h3>Welcome to PECTAA Smart Practice Portal</h3>
-                <p>Learn • Practice • Improve</p>
+                <span class="welcome-eyebrow">YOUR FREE STUDENT LEARNING SPACE</span>
+                <h3>Learn • Practice • Improve</h3>
+                <p>Build confidence with class-wise MCQs, subject practice and mixed tests.</p>
                 <div class="student-info">
-                    <h4>Optional Student Information</h4>
+                    <h4>👤 Student Information <span class="optional-note">Optional</span></h4>
                     <label for="school-name">School Name (Optional)</label>
                     <input id="school-name" type="text" maxlength="80" placeholder="Enter school name">
                     <label for="student-name">Student Name (Optional)</label>
                     <input id="student-name" type="text" maxlength="80" placeholder="Enter student name">
                     <div class="timer-setting" style="color:#31536b;font-size:.88rem;font-weight:600;">⏱ Fixed test duration: 5 minutes</div>
                 </div>
-                <button class="btn btn-primary" onclick="showScreen('class-screen')" style="font-size: 1.2rem; padding: 15px 40px;">Start Practice</button>
+                <button class="btn btn-primary" onclick="showScreen('class-screen')" style="font-size: 1.2rem; padding: 15px 40px;">🚀 Start Practice</button>
             </div>
 
 
@@ -5300,32 +5353,6 @@
                 [array[i], array[j]] = [array[j], array[i]];
             }
         }
-
-
-        function updatePwaStatus() {
-            const el = document.getElementById('pwa-status');
-            if (el) el.textContent = navigator.onLine
-                ? '🟢 Online • Latest portal version will load automatically'
-                : '🟠 Offline • Practising with saved MCQs';
-        }
-        window.addEventListener('online', updatePwaStatus);
-        window.addEventListener('offline', updatePwaStatus);
-        updatePwaStatus();
-
-        let pendingInstall = null;
-        window.addEventListener('beforeinstallprompt', event => {
-            event.preventDefault();
-            pendingInstall = event;
-            const btn = document.getElementById('pwa-install');
-            if (btn) btn.hidden = false;
-        });
-        document.getElementById('pwa-install')?.addEventListener('click', async () => {
-            if (!pendingInstall) return;
-            pendingInstall.prompt();
-            await pendingInstall.userChoice;
-            pendingInstall = null;
-            document.getElementById('pwa-install').hidden = true;
-        });
 
         renderClasses();
         loadPortalStats();
