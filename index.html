@@ -5510,7 +5510,18 @@
                     .good{color:#087443}.bad{color:#b42318}.skip{color:#a16207}
                     footer{margin-top:20px;border-top:1px solid #ddd;padding-top:8px;text-align:center;font-size:10px;color:#64748b}
                     @page{size:A4;margin:14mm}@media print{body{margin:0}}
-                </style></head><body>
+                
+        /* PECTAA_BASIC_CONTENT_GUARD: casual-copy deterrence only; not data security */
+        .question-box .question-text,
+        .question-box .options-container,
+        #review-list,
+        #question-source {
+            -webkit-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+        }
+
+    </style></head><body>
                 <header><h1>PECTAA SMART PRACTICE PORTAL</h1><p>Quiz Result & Subject-wise Question Report</p></header>
                 <div class="meta"><span><b>Class:</b> ${escapeReportHtml(currentClass)}</span><span><b>Quiz:</b> ${escapeReportHtml(currentSubject)}</span><span><b>Date:</b> ${new Date().toLocaleString()}</span></div>
                 <div class="meta"><span><b>Student:</b> ${escapeReportHtml(student)}</span><span><b>School:</b> ${escapeReportHtml(school)}</span></div>
@@ -5545,6 +5556,37 @@
                     .catch(err => console.warn('Offline support unavailable:', err));
             });
         }
-</script>
+
+        // PECTAA_BASIC_CONTENT_GUARD
+        // This discourages casual copying; client-side content can never be made secret.
+        (() => {
+            const isEditable = (el) => !!(el && (el.isContentEditable ||
+                el.closest('input, textarea, select, [contenteditable="true"]')));
+            document.addEventListener('contextmenu', (event) => {
+                if (!isEditable(event.target)) event.preventDefault();
+            });
+            document.addEventListener('copy', (event) => {
+                if (!isEditable(event.target)) {
+                    event.preventDefault();
+                    event.clipboardData?.setData('text/plain', 'PECTAA SMART PRACTICE PORTAL — Content protected');
+                }
+            });
+            document.addEventListener('cut', (event) => {
+                if (!isEditable(event.target)) event.preventDefault();
+            });
+            document.addEventListener('keydown', (event) => {
+                if (isEditable(event.target)) return;
+                const key = String(event.key || '').toLowerCase();
+                const mod = event.ctrlKey || event.metaKey;
+                if ((mod && ['c','x','u','s','a'].includes(key)) ||
+                    (event.key === 'F12') ||
+                    (mod && event.shiftKey && ['i','j','c'].includes(key))) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+            }, true);
+        })();
+
+    </script>
 </body>
 </html>
