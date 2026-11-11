@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pectaa-mcqs-v4';
+const CACHE_NAME = 'pectaa-mcqs-v5';
 const APP_SHELL = [
   './',
   './index.html',
