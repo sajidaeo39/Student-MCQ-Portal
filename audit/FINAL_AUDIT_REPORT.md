@@ -35,3 +35,10 @@ SLO/topic codes are intentionally not assigned until the user supplies SLO sourc
 
 ## Scope limitation
 This is a structural and answer-key review of the active portal bank. It is not a claim that every item has been exhaustively compared with its original PDF source. PDF page numbers were omitted as requested. Existing source labels are retained.
+
+## Follow-up reconciliation — 11 November 2026
+- Compared all **373 active question entries** in the live source file with all 373 rows in `Answer_Verification_Report.csv`.
+- Found one stale audit-record mismatch: Class 3 Mathematics, “Place value of 2 in 2750 is”. The active question bank had already been corrected to option C (2000), while the verification CSV still recorded option B (200).
+- Independently confirmed the place value: 2 is in the thousands place, so 2 × 1,000 = **2,000**.
+- Updated the verification CSV to option C / index 2. No other active-bank vs verification-CSV answer-index mismatches were found in this comparison.
+- This reconciliation checks answer-key consistency and independently recalculates this identified item; it does **not** constitute a fresh visual re-audit of every scanned source page or a proof that every language/science fact has been checked against an external authority.
