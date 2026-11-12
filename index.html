@@ -1341,6 +1341,12 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
                 <button class="btn btn-primary" onclick="showScreen('class-screen')" style="font-size: 1.2rem; padding: 15px 40px;">🎓 Select Class & Start Test</button>
             </div>
 
+            <section class="home-benefits" aria-label="Portal benefits">
+                <article class="home-benefit practice"><span class="benefit-icon" aria-hidden="true">◎</span><div><strong>Practice</strong><small>Practice MCQs anytime, anywhere.</small></div></article>
+                <article class="home-benefit improve"><span class="benefit-icon" aria-hidden="true">↗</span><div><strong>Improve</strong><small>Track your progress and improve results.</small></div></article>
+                <article class="home-benefit reliable"><span class="benefit-icon" aria-hidden="true">✓</span><div><strong>Reliable</strong><small>Learn with structured practice questions.</small></div></article>
+                <article class="home-benefit succeed"><span class="benefit-icon" aria-hidden="true">★</span><div><strong>Succeed</strong><small>Build confidence through regular practice.</small></div></article>
+            </section>
 
         </div>
 
@@ -34620,7 +34626,166 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
                 <h2>Subject-wise Result</h2><table><thead><tr><th>Subject</th><th>Total</th><th>Correct</th><th>Incorrect</th><th>Unanswered</th><th>Score</th></tr></thead><tbody>${subjectSummary}</tbody></table>
                 <h2>Subject-wise Questions & Answer Review</h2>${questionSections}
                 <footer>The Educational Helper • PECTAA (Unofficial) Class Wise MCQs Practice Portal</footer>
-                <script>window.onload=()=>setTimeout(()=>window.print(),350);<\/script></body></html>`;
+                <script>window.onload=()=>setTimeout(()=>window.print(),350);<\/script>
+<style id="pectaa-professional-home-refresh-2026">
+/* Home-screen visual refresh only. Existing IDs, quiz logic and controls remain unchanged. */
+:root{
+  --primary-color:#123b60;
+  --secondary-color:#087f83;
+  --accent-color:#efa52f;
+  --bg-color:#f0f5fa;
+  --card-bg:#fff;
+  --text-color:#203247;
+}
+body{
+  background:radial-gradient(circle at 8% 5%,rgba(8,127,131,.09),transparent 28rem),
+             linear-gradient(180deg,#f6f9fc 0%,#edf3f8 100%);
+}
+.site-header{
+  padding:25px 16px 24px!important;
+  background:linear-gradient(118deg,#082d4b 0%,#104b68 54%,#087f83 100%)!important;
+  box-shadow:0 9px 26px rgba(12,43,68,.18)!important;
+}
+.site-header h1{
+  max-width:900px;margin:0 auto 7px!important;
+  font-size:clamp(1.25rem,2.5vw,2rem)!important;
+  line-height:1.28!important;letter-spacing:.25px!important;
+}
+.site-header h2{font-size:clamp(.82rem,1.5vw,1.05rem)!important;color:#d9eef0!important}
+.site-header .header-credit{font-size:.82rem!important;margin:8px auto 12px!important}
+.site-header .header-links{
+  width:min(calc(100% - 12px),960px)!important;max-width:960px!important;
+  gap:12px!important;margin:15px auto 0!important;
+}
+.site-header .header-links .header-support{
+  height:76px!important;min-height:76px!important;border-radius:15px!important;
+  box-shadow:0 5px 15px rgba(0,0,0,.10)!important;
+}
+.site-header .header-links .header-support span:first-child{font-size:.84rem!important}
+.site-header .header-links .header-support span+span{font-size:.74rem!important}
+.container{max-width:1040px!important;margin:22px auto 26px!important;padding:0 18px!important}
+.summary-panel{
+  padding:19px 20px 14px!important;border:1px solid #dce7ef!important;
+  border-radius:20px!important;background:rgba(255,255,255,.96)!important;
+  box-shadow:0 9px 25px rgba(20,52,78,.07)!important;
+}
+.summary-panel h3{
+  color:#173b60!important;font-size:1rem!important;letter-spacing:.45px!important;
+  display:flex;align-items:center;gap:9px!important;margin-bottom:14px!important;
+}
+.summary-panel h3:before{
+  content:"";display:inline-block;width:6px;height:25px;border-radius:8px;
+  background:linear-gradient(180deg,#0b9a91,#145078);
+}
+.summary-grid{gap:12px!important}
+.summary-card{
+  min-height:88px;padding:14px 8px!important;border:1px solid #e0eaf1!important;
+  border-radius:15px!important;background:linear-gradient(145deg,#f8fbfd,#edf5f8)!important;
+  box-shadow:0 3px 10px rgba(20,52,78,.035);
+}
+.summary-card strong{font-size:clamp(1.15rem,2vw,1.55rem)!important;color:#173f68!important}
+.summary-card span{font-size:.75rem!important;color:#5c7183!important}
+.stats-status{font-size:.72rem!important;margin-top:9px!important}
+.welcome-box{
+  padding:30px 28px!important;border:1px solid #dce7ef!important;
+  border-radius:21px!important;background:linear-gradient(140deg,#fff 0%,#fbfdff 72%,#eff8f7 100%)!important;
+  box-shadow:0 11px 30px rgba(20,52,78,.07)!important;
+}
+.welcome-box h3{font-size:clamp(1.45rem,2.8vw,2rem)!important;color:#123b60!important}
+.welcome-box>p{color:#62788a!important}
+.welcome-eyebrow{
+  display:inline-block!important;padding:7px 17px!important;border-radius:999px!important;
+  background:#e6f5f2!important;border:1px solid #c9e9e2!important;
+  color:#087365!important;font-size:.76rem!important;font-weight:800!important;
+  letter-spacing:.7px!important;
+}
+.student-info{
+  max-width:100%!important;padding:18px 20px!important;border-radius:17px!important;
+  border:1px solid #dce7ef!important;background:rgba(245,249,252,.92)!important;
+}
+.student-info h4{font-size:1.02rem!important;color:#173f68!important}
+.student-info label{font-size:.82rem!important;color:#40596e!important}
+.student-info input{
+  border-radius:11px!important;border:1px solid #cedce7!important;
+  background:#fff!important;min-height:44px!important;
+}
+#welcome-screen .welcome-box>.btn{
+  width:min(100%,620px)!important;min-height:58px!important;
+  border-radius:15px!important;font-size:1.12rem!important;
+  font-weight:750!important;letter-spacing:.1px;
+  background:linear-gradient(110deg,#123b60,#087f83)!important;
+  box-shadow:0 8px 20px rgba(8,91,105,.18)!important;
+}
+#welcome-screen .welcome-box>.btn:hover{transform:translateY(-1px);filter:brightness(1.04)}
+.home-benefits{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;
+  margin:15px 0 2px;
+}
+.home-benefit{
+  display:flex;align-items:center;gap:12px;min-width:0;
+  padding:16px 13px;border:1px solid #e0eaf1;border-radius:16px;
+  background:#fff;box-shadow:0 5px 16px rgba(20,52,78,.045);
+}
+.home-benefit .benefit-icon{
+  flex:0 0 43px;width:43px;height:43px;border-radius:13px;
+  display:grid;place-items:center;font-size:1.65rem;font-weight:800;
+  background:#e8f7f1;color:#0b8a68;
+}
+.home-benefit strong{display:block;font-size:.91rem;color:#174b3d;line-height:1.3}
+.home-benefit small{display:block;margin-top:4px;color:#64788a;font-size:.67rem;line-height:1.45}
+.home-benefit.improve{background:#f8f6ff}.home-benefit.improve .benefit-icon{background:#eee9ff;color:#6846c8}.home-benefit.improve strong{color:#4e3a9b}
+.home-benefit.reliable{background:#f4f9ff}.home-benefit.reliable .benefit-icon{background:#e4f0ff;color:#176bc2}.home-benefit.reliable strong{color:#17528e}
+.home-benefit.succeed{background:#fff9f0}.home-benefit.succeed .benefit-icon{background:#fff0d7;color:#d78212}.home-benefit.succeed strong{color:#a95e08}
+.site-footer{
+  margin-top:20px!important;padding:18px 14px!important;
+  background:linear-gradient(110deg,#102f50,#15566b)!important;
+  color:#e8f1f7!important;font-size:.8rem!important;line-height:1.65;
+}
+.site-footer a{color:#8fe3d0!important}
+@media(max-width:700px){
+  .site-header{padding:17px 10px 16px!important}
+  .site-header h1{font-size:1.12rem!important;line-height:1.3!important}
+  .site-header h2{font-size:.76rem!important}
+  .site-header .header-credit{font-size:.64rem!important;margin:6px auto 9px!important}
+  .site-header .header-links{width:100%!important;gap:7px!important;margin-top:10px!important}
+  .site-header .header-links .header-support{height:64px!important;min-height:64px!important;padding:6px 4px!important;border-radius:11px!important}
+  .site-header .header-links .header-support span:first-child{font-size:.66rem!important;gap:3px!important}
+  .site-header .header-links .header-support span+span{font-size:.59rem!important}
+  .site-header .header-links .social-card-icon{width:14px!important;height:14px!important;min-width:14px!important;flex-basis:14px!important}
+  .container{margin:12px auto 18px!important;padding:0 10px!important}
+  .summary-panel{padding:12px 11px 10px!important;border-radius:15px!important;margin-bottom:12px!important}
+  .summary-panel h3{font-size:.85rem!important;margin-bottom:9px!important}
+  .summary-panel h3:before{height:20px}
+  .summary-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important}
+  .summary-card{min-height:70px;padding:10px 5px!important;border-radius:11px!important}
+  .summary-card strong{font-size:1.12rem!important}
+  .summary-card span{font-size:.65rem!important}
+  .stats-status{font-size:.64rem!important;margin-top:7px!important}
+  .welcome-box{padding:19px 12px!important;border-radius:17px!important}
+  .welcome-box h3{font-size:1.2rem!important;margin:7px 0 8px!important}
+  .welcome-eyebrow{font-size:.59rem!important;padding:6px 11px!important}
+  .student-info{padding:12px 11px!important;margin:12px 0!important;gap:5px!important}
+  .student-info h4{font-size:.86rem!important}
+  .student-info label{font-size:.7rem!important}
+  .student-info input{min-height:39px!important;height:39px!important;font-size:16px!important}
+  #welcome-screen .welcome-box>.btn{min-height:51px!important;font-size:.96rem!important;padding:10px 12px!important}
+  #welcome-screen .class-first-note{white-space:normal!important;font-size:.68rem!important;line-height:1.45!important}
+  .home-benefits{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:11px}
+  .home-benefit{padding:11px 9px;gap:8px;border-radius:12px}
+  .home-benefit .benefit-icon{flex-basis:34px;width:34px;height:34px;font-size:1.3rem;border-radius:10px}
+  .home-benefit strong{font-size:.78rem}
+  .home-benefit small{font-size:.59rem}
+  .site-footer{margin-top:12px!important;padding:13px 9px!important;font-size:.68rem!important}
+}
+@media(max-width:360px){
+  .site-header .header-links .header-support span:first-child{font-size:.59rem!important}
+  .site-header .header-links .header-support span+span{font-size:.53rem!important}
+  .home-benefit{padding:9px 7px}
+  .home-benefit small{font-size:.55rem}
+}
+</style>
+
+</body></html>`;
             reportWindow.document.open();
             reportWindow.document.write(report);
             reportWindow.document.close();
