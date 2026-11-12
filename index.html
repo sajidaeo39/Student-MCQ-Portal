@@ -1224,6 +1224,62 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
   #result-screen .result-box>div[style*="display: flex"] .btn{font-size:.65rem!important}
 }
 </style>
+
+<style id="pectaa-score-panel-final-fix">
+/* Final cascade fix: keep header visible while quiz is active */
+@media(max-width:600px){
+  body:has(#quiz-screen.active) .site-header{display:block!important}
+  body:has(#quiz-screen.active) .site-footer{display:none!important}
+}
+/* Replace the cramped circular percentage badge with a balanced score tile */
+#result-screen .score-circle{
+  box-sizing:border-box!important;
+  width:176px!important;
+  height:92px!important;
+  min-width:0!important;
+  border:0!important;
+  border-radius:17px!important;
+  margin:0 auto 12px!important;
+  padding:9px 16px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:1px!important;
+  background:linear-gradient(135deg,#173b66 0%,#087e8b 100%)!important;
+  color:#fff!important;
+  box-shadow:0 7px 18px rgba(8,75,103,.18)!important;
+}
+#result-screen .score-circle h1{
+  margin:0!important;
+  padding:0!important;
+  color:#fff!important;
+  font-size:2.25rem!important;
+  line-height:1!important;
+  font-weight:850!important;
+  letter-spacing:-1px!important;
+}
+#result-screen .score-circle span{
+  display:block!important;
+  color:rgba(255,255,255,.9)!important;
+  font-size:.68rem!important;
+  line-height:1.15!important;
+  font-weight:700!important;
+  letter-spacing:1.2px!important;
+  text-transform:uppercase!important;
+}
+@media(max-width:600px){
+  #result-screen .score-circle{
+    width:148px!important;
+    height:76px!important;
+    border-radius:14px!important;
+    margin-bottom:8px!important;
+    padding:7px 12px!important;
+  }
+  #result-screen .score-circle h1{font-size:1.9rem!important}
+  #result-screen .score-circle span{font-size:.61rem!important}
+}
+</style>
 </head>
 <body>
 
