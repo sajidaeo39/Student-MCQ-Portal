@@ -1523,7 +1523,6 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
                     <input id="student-name" type="text" maxlength="80" placeholder="Enter student name">
                     <div class="timer-setting" style="color:#31536b;font-size:.88rem;font-weight:600;">⏱ Fixed test duration: 5 minutes</div>
                 </div>
-                <p class="class-first-note" style="margin:7px auto 9px;color:#587084;font-size:.78rem;font-weight:600;">First select your class, then choose a subject or Mixed Test.</p>
                 <button class="btn btn-primary" onclick="showScreen('class-screen')" style="font-size: 1.2rem; padding: 15px 40px;">🎓 Select Class & Start Test</button>
             </div>
 
@@ -35185,6 +35184,35 @@ header.site-header{padding:25px 16px 24px!important;background:linear-gradient(1
 }
 .site-header,.site-header *,.container,.container *{box-sizing:border-box}
 img,video,iframe{max-width:100%}
+</style>
+<style id="desktop-header-stats-footer-refinement">
+/* Desktop refinement: centered statistics title, compact header, wider student fields. */
+@media(min-width:701px){
+  header.site-header{padding:13px 18px 14px!important}
+  .site-header h1{font-size:clamp(1.12rem,1.65vw,1.55rem)!important;line-height:1.16!important;margin:0 auto 3px!important;max-width:1100px!important}
+  .site-header h2{font-size:.78rem!important;line-height:1.15!important;margin:2px auto!important}
+  .site-header .header-credit{font-size:.68rem!important;margin:4px auto 6px!important}
+  .site-header .header-links{margin-top:7px!important;gap:9px!important}
+  .site-header .header-links .header-support{height:56px!important;min-height:56px!important;padding:5px 8px!important}
+  .site-header .header-links .header-support span:first-child{font-size:.72rem!important}
+  .site-header .header-links .header-support span+span{font-size:.62rem!important}
+  .summary-panel h3{display:block!important;width:100%!important;text-align:center!important;margin:0 0 9px!important;font-size:.82rem!important;line-height:1.25!important}
+  .summary-panel h3:before{display:none!important;content:none!important}
+  .homepage-panels-grid .student-info input{width:min(88%,720px)!important;max-width:720px!important}
+  .homepage-panels-grid .student-info{padding:17px 22px!important}
+  .site-footer{display:flex!important;align-items:center!important;justify-content:center!important;flex-wrap:nowrap!important;gap:0!important;padding:11px 18px!important;font-size:.70rem!important;line-height:1.35!important;white-space:nowrap!important}
+  .site-footer p{display:inline!important;margin:0!important;padding:0 12px!important}
+  .site-footer p+p{border-left:1px solid rgba(232,241,247,.35)!important}
+}
+@media(min-width:701px) and (max-width:1050px){
+  .site-footer{white-space:normal!important;flex-wrap:wrap!important;row-gap:5px!important}
+  .site-footer p{padding:0 8px!important}
+}
+@media(max-width:700px){
+  .summary-panel h3{display:block!important;text-align:center!important}
+  .summary-panel h3:before{display:none!important;content:none!important}
+  .homepage-panels-grid .student-info input{width:78%!important;max-width:100%!important}
+}
 </style>
     <footer class="site-footer">
         <p>For more educational updates, follow my <a href="https://whatsapp.com/channel/0029VaoMfR3C6ZvYxRXWod3G" target="_blank" rel="noopener noreferrer">WhatsApp Channel</a>.</p>
