@@ -34863,37 +34863,7 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
 }
 </style>
 
-<script id="tutorial-share-actions">
-function sharePortalResource(type){
-    const isVideo = type === 'video';
-    const url = isVideo
-        ? 'https://youtu.be/w_VPF52IpeY'
-        : 'https://sajidaeo39.github.io/Student-MCQ-Portal/';
-    const title = isVideo
-        ? 'PECTAA (Unofficial) MCQs Portal Tutorial'
-        : 'PECTAA (Unofficial) MCQs Practice Portal';
-    const text = isVideo
-        ? 'پورٹل استعمال کرنے کا طریقہ سیکھنے کے لیے یہ ویڈیو دیکھیں۔ ماہانہ TAB Test کی تیاری کے لیے طلبہ اور اساتذہ کے ساتھ شیئر کریں۔'
-        : 'ماہانہ TAB Test کی تیاری کے لیے PECTAA (Unofficial) MCQs Practice Portal پر آن لائن پریکٹس کریں۔';
-    if (navigator.share) {
-        navigator.share({title, text, url}).catch(error => {
-            if (error && error.name !== 'AbortError') copyTutorialShareLink(url);
-        });
-    } else {
-        copyTutorialShareLink(url);
-    }
-}
-function copyTutorialShareLink(url){
-    if (navigator.clipboard && window.isSecureContext) {
-        navigator.clipboard.writeText(url).then(
-            () => alert('لنک کاپی ہو گیا ہے۔ اب آپ اسے WhatsApp یا کسی اور جگہ شیئر کر سکتے ہیں۔'),
-            () => window.prompt('یہ لنک کاپی کرکے شیئر کریں:', url)
-        );
-    } else {
-        window.prompt('یہ لنک کاپی کرکے شیئر کریں:', url);
-    }
-}
-</script>
+
 
 </body></html>`;
             reportWindow.document.open();
@@ -34954,6 +34924,38 @@ function copyTutorialShareLink(url){
         })();
 
     </script>
+
+<script id="tutorial-share-actions">
+function sharePortalResource(type){
+    const isVideo = type === 'video';
+    const url = isVideo
+        ? 'https://youtu.be/w_VPF52IpeY'
+        : 'https://sajidaeo39.github.io/Student-MCQ-Portal/';
+    const title = isVideo
+        ? 'PECTAA (Unofficial) MCQs Portal Tutorial'
+        : 'PECTAA (Unofficial) MCQs Practice Portal';
+    const text = isVideo
+        ? 'پورٹل استعمال کرنے کا طریقہ سیکھنے کے لیے یہ ویڈیو دیکھیں۔ ماہانہ TAB Test کی تیاری کے لیے طلبہ اور اساتذہ کے ساتھ شیئر کریں۔'
+        : 'ماہانہ TAB Test کی تیاری کے لیے PECTAA (Unofficial) MCQs Practice Portal پر آن لائن پریکٹس کریں۔';
+    if (navigator.share) {
+        navigator.share({title, text, url}).catch(error => {
+            if (error && error.name !== 'AbortError') copyTutorialShareLink(url);
+        });
+    } else {
+        copyTutorialShareLink(url);
+    }
+}
+function copyTutorialShareLink(url){
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(url).then(
+            () => alert('لنک کاپی ہو گیا ہے۔ اب آپ اسے WhatsApp یا کسی اور جگہ شیئر کر سکتے ہیں۔'),
+            () => window.prompt('یہ لنک کاپی کرکے شیئر کریں:', url)
+        );
+    } else {
+        window.prompt('یہ لنک کاپی کرکے شیئر کریں:', url);
+    }
+}
+</script>
 
 <style id="pectaa-reference-layout-refresh">
 /* Reference-inspired portal presentation. Quiz behaviour and existing element IDs are untouched. */
