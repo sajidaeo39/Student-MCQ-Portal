@@ -1822,6 +1822,79 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
 }
 </style>
 
+
+<style id="mobile-header-youtube-hide-compact-social">
+@media (max-width: 700px) {
+  /* Keep the YouTube channel promotion off the mobile header only. */
+  header .header-credit a,
+  header .header-links > a.youtube-link {
+    display: none !important;
+  }
+  /* Two compact social cards, side by side. */
+  header .header-links {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 5px !important;
+    width: 100% !important;
+    max-width: 420px !important;
+    margin: 6px auto 0 !important;
+    padding: 0 2px !important;
+  }
+  header .header-links > a.header-support {
+    box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 4px !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 32px !important;
+    height: 32px !important;
+    padding: 3px 4px !important;
+    border-radius: 7px !important;
+    font-size: .57rem !important;
+    line-height: 1.05 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+  }
+  header .header-links > a.header-support > span {
+    display: inline-flex !important;
+    flex: 0 1 auto !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 3px !important;
+    width: auto !important;
+    min-width: 0 !important;
+    font-size: inherit !important;
+    line-height: inherit !important;
+    white-space: nowrap !important;
+  }
+  header .header-links .social-card-icon {
+    width: 12px !important;
+    height: 12px !important;
+    min-width: 12px !important;
+    flex: 0 0 12px !important;
+  }
+}
+@media (max-width: 370px) {
+  header .header-links { gap: 4px !important; }
+  header .header-links > a.header-support {
+    gap: 3px !important;
+    padding: 3px 2px !important;
+    font-size: .51rem !important;
+  }
+  header .header-links .social-card-icon {
+    width: 11px !important;
+    height: 11px !important;
+    min-width: 11px !important;
+    flex-basis: 11px !important;
+  }
+}
+</style>
+
 </head>
 <body>
 
