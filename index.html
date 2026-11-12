@@ -1626,6 +1626,107 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
  .test-availability-note span{font-size:.65rem!important;line-height:1.4!important}
 }
 </style>
+
+<style id="requested-final-desktop-social-heading-panel-fix">
+/* Desktop: keep each social card's icon, label and detail on one horizontal line. */
+@media (min-width:701px){
+  .site-header .header-links{
+    display:grid!important;
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    width:min(calc(100% - 32px),1120px)!important;
+    max-width:1120px!important;
+    gap:10px!important;
+    align-items:stretch!important;
+  }
+  .site-header .header-links .header-support{
+    display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;
+    align-items:center!important;justify-content:center!important;
+    gap:5px!important;width:100%!important;min-width:0!important;
+    height:48px!important;min-height:48px!important;padding:5px 6px!important;
+    white-space:nowrap!important;overflow:hidden!important;
+  }
+  .site-header .header-links .header-support span{
+    display:inline-flex!important;flex:0 1 auto!important;align-items:center!important;
+    justify-content:center!important;width:auto!important;min-width:0!important;
+    max-width:none!important;white-space:nowrap!important;overflow:hidden!important;
+    text-overflow:clip!important;overflow-wrap:normal!important;
+  }
+  .site-header .header-links .header-support span:first-child{
+    gap:4px!important;font-size:clamp(.48rem,.8vw,.72rem)!important;
+  }
+  .site-header .header-links .header-support span+span{
+    font-size:clamp(.46rem,.7vw,.64rem)!important;line-height:1.1!important;
+  }
+  .site-header .header-links .social-card-icon{
+    display:inline-block!important;flex:0 0 14px!important;
+    width:14px!important;height:14px!important;min-width:14px!important;
+  }
+
+  /* Tutorial title appears first; monthly TAB-test explanation follows it. */
+  .tutorial-video-heading{
+    display:flex!important;flex-direction:row!important;
+    align-items:baseline!important;justify-content:flex-start!important;
+    flex-wrap:wrap!important;gap:5px 12px!important;text-align:right!important;
+    margin-bottom:9px!important;
+  }
+  .tutorial-video-heading h3{
+    display:inline!important;flex:0 0 auto!important;white-space:nowrap!important;
+    margin:0!important;font-size:1rem!important;
+  }
+  .tutorial-video-heading p{
+    display:inline!important;flex:1 1 280px!important;min-width:0!important;
+    white-space:normal!important;text-align:right!important;
+    margin:0!important;font-size:.76rem!important;line-height:1.5!important;
+  }
+
+  /* Make the student-information card fill the complete height of its panel. */
+  .homepage-panels-grid{align-items:stretch!important}
+  .homepage-panels-grid>.welcome-box,
+  .homepage-panels-grid>.tutorial-video-panel{
+    height:100%!important;min-height:390px!important;
+    box-sizing:border-box!important;
+  }
+  .homepage-panels-grid>.welcome-box{
+    display:flex!important;flex-direction:column!important;
+    align-items:stretch!important;justify-content:flex-start!important;
+  }
+  .homepage-panels-grid>.welcome-box>.student-info{
+    display:flex!important;flex:1 1 auto!important;flex-direction:column!important;
+    justify-content:center!important;align-items:stretch!important;
+    width:100%!important;max-width:none!important;min-height:0!important;
+    height:auto!important;box-sizing:border-box!important;margin:0 0 13px!important;
+  }
+  .homepage-panels-grid>.welcome-box>.student-info input{
+    display:block!important;width:100%!important;max-width:none!important;
+    box-sizing:border-box!important;
+  }
+  .homepage-panels-grid>.welcome-box>.btn{
+    display:block!important;flex:0 0 auto!important;width:100%!important;
+    max-width:none!important;margin-top:auto!important;
+  }
+
+  /* Make the share invitation more visible and readable. */
+  .tutorial-share-message{
+    font-size:1rem!important;font-weight:800!important;line-height:1.7!important;
+    padding:10px 12px!important;margin:10px auto 7px!important;
+  }
+}
+@media (min-width:701px) and (max-width:900px){
+  .site-header .header-links{gap:5px!important}
+  .site-header .header-links .header-support{gap:3px!important;padding:4px 3px!important}
+  .site-header .header-links .header-support span:first-child{font-size:.49rem!important}
+  .site-header .header-links .header-support span+span{font-size:.46rem!important}
+  .site-header .header-links .social-card-icon{flex-basis:12px!important;width:12px!important;height:12px!important;min-width:12px!important}
+}
+@media(max-width:700px){
+  /* Preserve the existing mobile card arrangement and compact share controls. */
+  .homepage-panels-grid>.welcome-box,
+  .homepage-panels-grid>.tutorial-video-panel{height:auto!important;min-height:0!important}
+  .homepage-panels-grid>.welcome-box>.student-info{width:100%!important;max-width:none!important}
+  .homepage-panels-grid>.welcome-box>.student-info input{width:100%!important;max-width:none!important}
+}
+</style>
+
 </head>
 <body>
 
