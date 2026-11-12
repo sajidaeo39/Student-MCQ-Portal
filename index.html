@@ -1282,40 +1282,50 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
 </style>
 
 <style id="homepage-tutorial-video">
+/* Compact, balanced tutorial card for desktop and mobile. */
 .tutorial-video-panel{
-  margin:0 0 18px;padding:20px;background:#fff;border:1px solid #dce7ef;
-  border-radius:18px;box-shadow:0 9px 24px rgba(20,52,78,.07);
+  width:100%;max-width:760px;margin:0 auto 14px;padding:13px 15px;
+  background:#fff;border:1px solid #dce7ef;border-radius:14px;
+  box-shadow:0 4px 14px rgba(20,52,78,.055);
 }
-.tutorial-video-heading{text-align:center;margin-bottom:14px}
-.tutorial-video-kicker{display:inline-block;padding:5px 11px;border-radius:999px;
-  background:#e8f4f5;color:#087f83;font-size:.68rem;font-weight:800;letter-spacing:1px}
-.tutorial-video-heading h3{margin:8px 0 5px;color:#173b66;font-size:1.35rem;
-  font-family:'Jameel Noori Nastaleeq','Noto Nastaliq Urdu',serif;line-height:1.8}
-.tutorial-video-heading p{color:#526b7d;font-size:.9rem;line-height:1.8;
+.tutorial-video-heading{text-align:center;margin-bottom:9px}
+.tutorial-video-kicker{display:inline-block;padding:3px 9px;border-radius:999px;
+  background:#e8f4f5;color:#087f83;font-size:.61rem;font-weight:800;letter-spacing:.7px}
+.tutorial-video-heading h3{margin:4px 0 1px;color:#173b66;font-size:1.02rem;
+  font-family:'Jameel Noori Nastaleeq','Noto Nastaliq Urdu',serif;line-height:1.55}
+.tutorial-video-heading p{color:#526b7d;font-size:.76rem;line-height:1.6;
   font-family:'Jameel Noori Nastaleeq','Noto Nastaliq Urdu',serif}
-.tutorial-video-frame{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;
-  border-radius:13px;background:#0b1d32}
+.tutorial-video-frame{position:relative;width:100%;max-width:660px;margin:0 auto;
+  aspect-ratio:16/9;overflow:hidden;border-radius:10px;background:#0b1d32}
 .tutorial-video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.tutorial-video-link{display:block;width:fit-content;max-width:100%;margin:13px auto 0;
-  padding:9px 17px;border-radius:9px;background:#fff0f0;color:#b4232c;
-  border:1px solid #efc0c3;text-decoration:none;font-size:.82rem;font-weight:750;text-align:center}
+.tutorial-video-link{display:block;width:fit-content;max-width:100%;margin:8px auto 0;
+  padding:6px 13px;border-radius:8px;background:#fff0f0;color:#b4232c;
+  border:1px solid #efc0c3;text-decoration:none;font-size:.73rem;font-weight:750;text-align:center}
 .tutorial-video-link:hover{filter:brightness(.97)}
-.tutorial-share-message{margin:15px auto 10px;max-width:760px;color:#38556c;font-size:.91rem;line-height:1.9;text-align:center;font-family:'Jameel Noori Nastaleeq','Noto Nastaliq Urdu',serif}
-.tutorial-share-actions{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-top:10px}
-.tutorial-share-btn{border:0;border-radius:10px;padding:11px 19px;min-height:43px;font-size:.82rem;font-weight:750;cursor:pointer}
+.tutorial-share-message{margin:9px auto 6px;max-width:660px;color:#38556c;
+  font-size:.78rem;line-height:1.65;text-align:center;
+  font-family:'Jameel Noori Nastaleeq','Noto Nastaliq Urdu',serif}
+.tutorial-share-actions{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-top:6px}
+.tutorial-share-btn{border:0;border-radius:8px;padding:8px 14px;min-height:36px;
+  font-size:.74rem;font-weight:750;cursor:pointer}
 .tutorial-share-site{background:#e8f5ef;color:#12643e;border:1px solid #b8dfc9}
 .tutorial-share-video{background:#fff0f0;color:#b4232c;border:1px solid #efc0c3}
 .tutorial-share-btn:hover{filter:brightness(.97);transform:translateY(-1px)}
 @media(max-width:600px){
- .tutorial-video-panel{margin:0 0 12px;padding:12px 10px;border-radius:14px}
- .tutorial-video-heading{margin-bottom:9px}
- .tutorial-video-heading h3{font-size:1.12rem;margin:5px 0 2px}
- .tutorial-video-heading p{font-size:.78rem;line-height:1.7}
- .tutorial-video-frame{border-radius:9px}
- .tutorial-video-link{width:100%;margin-top:9px;padding:9px 12px;font-size:.76rem}
- .tutorial-share-message{font-size:.79rem;line-height:1.85;margin:11px auto 8px}
- .tutorial-share-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px}
- .tutorial-share-btn{padding:10px 5px;font-size:.72rem;min-width:0}
+ .tutorial-video-panel{max-width:none;margin:0 0 10px;padding:10px 9px;border-radius:11px}
+ .tutorial-video-heading{margin-bottom:7px}
+ .tutorial-video-kicker{font-size:.56rem;padding:3px 8px}
+ .tutorial-video-heading h3{font-size:.94rem;margin:3px 0 0;line-height:1.5}
+ .tutorial-video-heading p{font-size:.70rem;line-height:1.5}
+ .tutorial-video-frame{max-width:100%;border-radius:8px}
+ .tutorial-video-link{width:fit-content;margin-top:7px;padding:6px 11px;font-size:.69rem}
+ .tutorial-share-message{font-size:.70rem;line-height:1.6;margin:7px auto 5px}
+ .tutorial-share-actions{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:5px}
+ .tutorial-share-btn{padding:7px 4px;font-size:.66rem;min-height:34px}
+}
+@media(min-width:601px) and (max-width:850px){
+ .tutorial-video-panel{max-width:700px;padding:12px}
+ .tutorial-video-frame{max-width:620px}
 }
 </style>
 
