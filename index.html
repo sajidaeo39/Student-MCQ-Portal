@@ -34241,16 +34241,17 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
         function selectFreshQuestions(pool, count, rotationKey) {
             const source = Array.isArray(pool) ? pool : [];
             if (!source.length || count <= 0) return [];
-            const fingerprint = q => String(q[0] || '').trim().toLowerCase().replace(/\s+/g, ' ');
-            const storageKey = 'mcq_seen_v2_' + rotationKey;
+            const fingerprint = q => String(q[0] || '').trim().toLowerCase().replace(/\\s+/g, ' ');
+            const storageKey = 'mcq_seen_v3_' + rotationKey;
             let seen = [];
             try {
                 seen = JSON.parse(localStorage.getItem(storageKey) || '[]');
                 if (!Array.isArray(seen)) seen = [];
             } catch (_) { seen = []; }
-            const legacyKeys = ['mcq_seen_' + rotationKey];
-            if (rotationKey.endsWith('::classmix')) legacyKeys.push('mcq_seen_' + rotationKey.replace('::classmix', '::subject'));
-            else if (rotationKey.endsWith('::subject')) legacyKeys.push('mcq_seen_' + rotationKey.replace('::subject', '::classmix'));
+
+            // Migrate prior usage records so an update does not unexpectedly
+            // restart a learner's current question cycle.
+            const legacyKeys = ['mcq_seen_v2_' + rotationKey, 'mcq_seen_' + rotationKey];
             legacyKeys.forEach(key => {
                 try {
                     const prior = JSON.parse(localStorage.getItem(key) || '[]');
@@ -34258,17 +34259,33 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
                 } catch (_) {}
             });
             seen = [...new Set(seen)];
+
             let fresh = source.filter(q => !seen.includes(fingerprint(q)));
-            // Never recycle questions. Use as many unseen questions as requested;
-            // subject-wise tests pass the full bank size, so every remaining new
-            // question is included even when fewer than the original bank remain.
+            // Start a new round only after every question in this pool has
+            // appeared in the current round.
             if (!fresh.length) {
-                alert('All questions in this subject have already been attempted on this browser. No questions will be repeated. Add new questions to continue.');
-                return null;
+                seen = [];
+                fresh = source.slice();
             }
+
             shuffleArray(fresh);
-            const selected = fresh.slice(0, Math.min(count, fresh.length));
-            try { localStorage.setItem(storageKey, JSON.stringify([...new Set([...seen, ...selected.map(fingerprint)])])); } catch (_) {}
+            let selected = fresh.slice(0, Math.min(count, fresh.length));
+
+            // Mixed tests need a fixed number of questions per subject. If
+            // fewer than requested remain in this round, use all remaining
+            // questions first, then top up from the pool without duplicating
+            // a question inside this same test.
+            if (selected.length < count) {
+                const selectedKeys = new Set(selected.map(fingerprint));
+                const topUp = source.filter(q => !selectedKeys.has(fingerprint(q)));
+                shuffleArray(topUp);
+                selected = selected.concat(topUp.slice(0, count - selected.length));
+            }
+
+            const selectedKeys = selected.map(fingerprint);
+            try {
+                localStorage.setItem(storageKey, JSON.stringify([...new Set([...seen, ...selectedKeys])]));
+            } catch (_) {}
             return JSON.parse(JSON.stringify(selected));
         }
 
