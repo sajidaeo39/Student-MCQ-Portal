@@ -1901,7 +1901,7 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
     <header class="site-header">
         <h1>PECTAA (Unofficial) Class Wise and Subject Wise Practice Portal</h1>
         <h2>Learn • Practice • Improve</h2>
-        <p class="header-credit"><strong>Developed by: M.Sajid (A.E.O), Markaz Amli Moti, Okara | YouTube Channel: <a href="https://youtube.com/@sajideducationalhelper" target="_blank" rel="noopener noreferrer">The Educational Helper</a></strong></p>
+        <p class="header-credit"><strong>Developed by: M.Sajid (A.E.O), Markaz Amli Moti, Okara <span class="desktop-youtube-credit">| YouTube Channel: <a href="https://youtube.com/@sajideducationalhelper" target="_blank" rel="noopener noreferrer">The Educational Helper</a></span></strong></p>
         <div class="header-links" aria-label="Social media links">
           <a class="header-support whatsapp-channel-link" href="https://whatsapp.com/channel/0029VaoMfR3C6ZvYxRXWod3G" target="_blank" rel="noopener noreferrer">
             <span><svg class="social-card-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12.04 2a9.9 9.9 0 0 0-8.5 15l-1.3 4.7 4.8-1.26A10 10 0 1 0 12.04 2Zm0 18.1a8.1 8.1 0 0 1-4.13-1.13l-.3-.18-2.85.75.76-2.78-.2-.3A8.1 8.1 0 1 1 12.04 20.1Zm4.45-6.07c-.24-.12-1.42-.7-1.64-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06-.24-.12-1.02-.38-1.94-1.2-.72-.64-1.2-1.43-1.34-1.67-.14-.24-.02-.37.1-.49.1-.1.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.2-.46-.4-.4-.54-.4h-.46c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.12 3.64.58.25 1.03.4 1.38.51.58.18 1.1.16 1.52.1.46-.07 1.42-.58 1.62-1.14.2-.56.2-1.04.14-1.14-.06-.1-.22-.16-.46-.28Z"/></svg>Educational Helper</span><span>WhatsApp Channel</span>
@@ -1924,6 +1924,77 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
           .site-header .header-links .whatsapp-channel-link{background:#f0fff6!important;color:#12643e!important;border-color:#b9e8ce!important}
           .site-header .header-links .youtube-link{background:#fff1f1!important;color:#a51f27!important;border-color:#f0c6c8!important}
           @media(max-width:520px){.site-header .header-links{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:5px!important;width:calc(100% - 12px)!important;margin:9px auto 0!important}.site-header .header-links .header-support{height:54px!important;min-height:54px!important;padding:4px 2px!important;gap:4px!important;border-radius:8px!important}.site-header .header-links .header-support span:first-child{font-size:clamp(.48rem,2.1vw,.65rem)!important}.site-header .header-links .header-support span+span{font-size:clamp(.43rem,1.85vw,.58rem)!important}}
+        </style>
+
+        <style id="mobile-header-final-override">
+        @media (max-width: 700px) {
+          .site-header .desktop-youtube-credit { display:none !important; }
+          .site-header .header-links {
+            display:grid !important;
+            grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+            gap:6px !important;
+            width:100% !important;
+            max-width:390px !important;
+            margin:7px auto 0 !important;
+            padding:0 4px !important;
+          }
+          .site-header .header-links > a.header-support.youtube-link { display:none !important; }
+          .site-header .header-links > a.header-support {
+            box-sizing:border-box !important;
+            display:flex !important;
+            flex-direction:row !important;
+            flex-wrap:nowrap !important;
+            justify-content:center !important;
+            align-items:center !important;
+            gap:6px !important;
+            width:100% !important;
+            min-width:0 !important;
+            height:34px !important;
+            min-height:34px !important;
+            padding:4px 6px !important;
+            border-radius:8px !important;
+            white-space:nowrap !important;
+            overflow:hidden !important;
+          }
+          .site-header .header-links > a.header-support > span:first-child {
+            display:inline-flex !important;
+            flex:0 0 auto !important;
+            width:auto !important;
+            max-width:none !important;
+            font-size:0 !important;
+            line-height:0 !important;
+            gap:0 !important;
+            white-space:nowrap !important;
+          }
+          .site-header .header-links > a.header-support > span:first-child .social-card-icon {
+            display:block !important;
+            width:14px !important;
+            height:14px !important;
+            min-width:14px !important;
+            flex:0 0 14px !important;
+          }
+          .site-header .header-links > a.header-support > span+span {
+            display:inline-block !important;
+            flex:0 1 auto !important;
+            width:auto !important;
+            max-width:100% !important;
+            margin:0 !important;
+            font-size:.68rem !important;
+            line-height:1.05 !important;
+            font-weight:700 !important;
+            text-align:left !important;
+            white-space:nowrap !important;
+            overflow:hidden !important;
+            text-overflow:ellipsis !important;
+            overflow-wrap:normal !important;
+          }
+        }
+        @media (max-width:370px) {
+          .site-header .header-links { gap:4px !important; padding:0 2px !important; }
+          .site-header .header-links > a.header-support { height:31px !important; min-height:31px !important; padding:3px 3px !important; gap:4px !important; }
+          .site-header .header-links > a.header-support > span+span { font-size:.60rem !important; }
+          .site-header .header-links > a.header-support > span:first-child .social-card-icon { width:12px !important;height:12px !important;min-width:12px !important;flex-basis:12px !important; }
+        }
         </style>
     </header>
 
