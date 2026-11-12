@@ -2191,6 +2191,33 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
 }
 </style>
 
+
+<style id="force-urdu-youtube-watch-label">
+.tutorial-share-actions .tutorial-share-youtube{
+  direction:rtl!important;
+  font-family:"Noto Nastaliq Urdu","Jameel Noori Nastaleeq",serif!important;
+  text-align:center!important;
+}
+@media(max-width:700px){
+  .tutorial-share-actions .tutorial-share-youtube{
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    width:100%!important;
+    min-width:0!important;
+    max-width:100%!important;
+    box-sizing:border-box!important;
+    white-space:nowrap!important;
+    overflow:hidden!important;
+    text-overflow:clip!important;
+    padding:5px 1px!important;
+    font-size:clamp(8px,2.5vw,10.5px)!important;
+    line-height:2!important;
+    letter-spacing:-.35px!important;
+  }
+}
+</style>
+
 </head>
 <body>
 
@@ -2336,7 +2363,7 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
             </div>
             <p class="tutorial-share-message" lang="ur" dir="rtl">اگر آپ کو یہ ویڈیو اور پورٹل اچھا لگے تو دوسروں کے ساتھ ضرور شیئر کریں۔</p>
             <div class="tutorial-share-actions" aria-label="Video and portal sharing">
-                <a class="tutorial-share-btn tutorial-share-youtube" href="https://youtu.be/w_VPF52IpeY" target="_blank" rel="noopener noreferrer">▶ YouTube پر ویڈیو دیکھیں</a>
+                <a class="tutorial-share-btn tutorial-share-youtube" href="https://youtu.be/w_VPF52IpeY" target="_blank" rel="noopener noreferrer">یوٹیوب پر ویڈیو دیکھیں</a>
                 <button type="button" class="tutorial-share-btn tutorial-share-video" onclick="sharePortalResource('video')">↗ ویڈیو شیئر کریں</button>
                 <button type="button" class="tutorial-share-btn tutorial-share-site" onclick="sharePortalResource('site')">↗ پورٹل شیئر کریں</button>
             </div>
