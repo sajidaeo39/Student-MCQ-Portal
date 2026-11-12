@@ -34207,9 +34207,13 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
             pill.classList.toggle('expired', quizTimeRemaining <= 0);
         }
 
-        function startQuizTimer() {
+        function startQuizTimer(isMixed = false) {
             stopQuizTimer();
-            quizTimeLimit = 300; // Fixed five minutes for both Mixed and subject-wise batches.
+            // Mixed Test is always fixed at five minutes. Mathematics practice gets
+            // one minute per question; English, Urdu and Science remain five minutes.
+            const isMathPractice = !isMixed && currentQuestions.length > 0 &&
+                currentQuestions.every(q => (q.subject || currentSubject) === 'Mathematics');
+            quizTimeLimit = isMixed ? 300 : (isMathPractice ? currentQuestions.length * 60 : 300);
             quizTimeRemaining = quizTimeLimit;
             quizStartedAt = Date.now();
             quizAutoSubmitted = false;
@@ -34329,7 +34333,7 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
             currentQuestionIndex = 0;
             showScreen('quiz-screen');
             loadQuestion();
-            startQuizTimer();
+            startQuizTimer(isMixed);
         }
 
         const urduTranslationCache = {};
