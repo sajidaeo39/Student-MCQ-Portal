@@ -1351,6 +1351,38 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
 }
 </style>
 
+<style id="desktop-wide-compact-polish">
+/* Wider, cleaner desktop dashboard while preserving mobile layout. */
+@media (min-width: 701px){
+  .container{width:min(100% - 56px, 1420px)!important;max-width:1420px!important;margin:20px auto 28px!important;padding:0 12px!important}
+  .summary-panel{padding:12px 16px 11px!important;margin-bottom:14px!important;border-radius:14px!important}
+  .summary-panel h3{ text-align:center!important;font-size:.82rem!important;letter-spacing:.35px!important;margin:0 0 9px!important}
+  .summary-grid{gap:12px!important}
+  .summary-card{padding:10px 8px!important}
+  .summary-card strong{font-size:1.28rem!important}
+  .homepage-panels-grid{gap:18px!important}
+  .homepage-panels-grid>.welcome-box,
+  .homepage-panels-grid>.tutorial-video-panel{min-height:310px!important}
+  .homepage-panels-grid>.welcome-box{padding:22px 24px!important}
+  .homepage-panels-grid>.tutorial-video-panel{padding:14px 16px!important}
+  .homepage-panels-grid .student-info{padding:14px 16px!important;margin:0 0 10px!important}
+  .homepage-panels-grid .student-info h4{font-size:.88rem!important;margin-bottom:7px!important}
+  .homepage-panels-grid .student-info label{font-size:.76rem!important;margin:6px 0 3px!important}
+  .homepage-panels-grid .student-info input{min-height:39px!important;padding:8px 11px!important}
+  .homepage-panels-grid .tutorial-video-heading h3{font-size:.92rem!important;margin:2px 0!important}
+  .homepage-panels-grid .tutorial-video-heading p{font-size:.70rem!important;margin:0 0 7px!important}
+  .homepage-panels-grid .tutorial-video-frame{max-width:570px!important}
+}
+@media (min-width:1200px){
+  .container{width:min(100% - 72px,1500px)!important;max-width:1500px!important}
+  .homepage-panels-grid{gap:22px!important}
+  .homepage-panels-grid>.welcome-box,
+  .homepage-panels-grid>.tutorial-video-panel{min-height:330px!important}
+  .homepage-panels-grid .tutorial-video-frame{max-width:610px!important}
+}
+.summary-panel h3{text-align:center!important}
+#stats-status{display:none!important}
+</style>
 </head>
 <body>
 
