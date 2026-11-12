@@ -2501,6 +2501,92 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
 }
 </style>
 
+
+<style id="final-mobile-social-compact-two-lines">
+@media (max-width:700px){
+  header.site-header .header-links{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:7px!important;
+    width:calc(100% - 20px)!important;
+    margin:9px auto 3px!important;
+    padding:0!important;
+    align-items:stretch!important;
+  }
+  header.site-header .header-links>a.header-support,
+  header.site-header .header-links>a.header-support.whatsapp-channel-link{
+    display:flex!important;
+    flex-direction:row!important;
+    flex-wrap:nowrap!important;
+    align-items:center!important;
+    justify-content:center!important;
+    gap:6px!important;
+    box-sizing:border-box!important;
+    width:100%!important;
+    height:60px!important;
+    min-height:60px!important;
+    max-height:60px!important;
+    padding:5px 6px!important;
+    margin:0!important;
+    overflow:visible!important;
+    border-radius:9px!important;
+    line-height:1.2!important;
+  }
+  header.site-header .header-links>a.header-support>span:first-child{
+    display:flex!important;
+    flex:0 0 15px!important;
+    width:15px!important;
+    height:18px!important;
+    align-items:center!important;
+    justify-content:center!important;
+    margin:0!important;
+    padding:0!important;
+    font-size:0!important;
+    line-height:0!important;
+    overflow:visible!important;
+  }
+  header.site-header .header-links>a.header-support>span:first-child .social-card-icon,
+  header.site-header .header-links>a.header-support>span:first-child svg{
+    display:block!important;
+    width:15px!important;
+    height:15px!important;
+    min-width:15px!important;
+    flex:0 0 15px!important;
+  }
+  header.site-header .header-links>a.header-support>span:nth-child(2){
+    display:block!important;
+    flex:0 1 auto!important;
+    width:auto!important;
+    min-width:0!important;
+    max-width:100%!important;
+    height:auto!important;
+    min-height:0!important;
+    max-height:none!important;
+    margin:0!important;
+    padding:0!important;
+    font-size:clamp(9px,2.55vw,11px)!important;
+    font-weight:700!important;
+    line-height:1.35!important;
+    text-align:center!important;
+    white-space:normal!important;
+    overflow:visible!important;
+    text-overflow:clip!important;
+    overflow-wrap:normal!important;
+    word-break:normal!important;
+  }
+}
+@media(max-width:370px){
+  header.site-header .header-links>a.header-support,
+  header.site-header .header-links>a.header-support.whatsapp-channel-link{
+    height:62px!important;min-height:62px!important;max-height:62px!important;
+    padding:5px 4px!important;gap:4px!important;
+  }
+  header.site-header .header-links>a.header-support>span:nth-child(2){
+    font-size:8.8px!important;line-height:1.35!important;
+  }
+}
+</style>
+
 </head>
 <body>
 
