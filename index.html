@@ -2030,6 +2030,66 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
 }
 </style>
 
+
+<style id="mobile-urdu-tutorial-one-line-refinement">
+/* Mobile tutorial typography: centered title and single-line supporting messages. */
+@media (max-width:700px) {
+  .tutorial-video-heading {
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:center!important;
+    justify-content:center!important;
+    gap:2px!important;
+    width:100%!important;
+    text-align:center!important;
+    margin:0 auto 8px!important;
+  }
+  .tutorial-video-heading h3 {
+    display:block!important;
+    width:100%!important;
+    text-align:center!important;
+    direction:rtl!important;
+    white-space:nowrap!important;
+    margin:0 auto 2px!important;
+    font-size:clamp(17px,4.8vw,21px)!important;
+    line-height:1.8!important;
+  }
+  .tutorial-video-heading p {
+    display:block!important;
+    width:100%!important;
+    max-width:100%!important;
+    text-align:center!important;
+    direction:rtl!important;
+    white-space:nowrap!important;
+    overflow:visible!important;
+    margin:0 auto!important;
+    font-size:clamp(8.5px,2.55vw,11px)!important;
+    line-height:1.9!important;
+    letter-spacing:-.25px!important;
+  }
+  .tutorial-share-message {
+    display:block!important;
+    width:100%!important;
+    max-width:100%!important;
+    white-space:nowrap!important;
+    overflow:visible!important;
+    text-align:center!important;
+    direction:rtl!important;
+    margin:9px auto 6px!important;
+    padding:3px 0!important;
+    font-size:clamp(8.5px,2.6vw,11px)!important;
+    line-height:1.9!important;
+    letter-spacing:-.3px!important;
+  }
+}
+@media(max-width:360px) {
+  .tutorial-video-heading p,.tutorial-share-message {
+    font-size:8.2px!important;
+    letter-spacing:-.4px!important;
+  }
+}
+</style>
+
 </head>
 <body>
 
