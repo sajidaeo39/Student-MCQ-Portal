@@ -1556,6 +1556,76 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
  .homepage-panels-grid>.welcome-box>.student-info input{width:100%!important;max-width:none!important}
 }
 </style>
+<style id="desktop-social-and-student-panel-finish">
+@media(min-width:701px){
+ /* Social cards: icon, label and detail in one compact horizontal line. */
+ .site-header .header-links{width:min(calc(100% - 36px),960px)!important;max-width:960px!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:10px!important}
+ .site-header .header-links .header-support{
+  flex-direction:row!important;justify-content:center!important;align-items:center!important;
+  gap:7px!important;height:48px!important;min-height:48px!important;padding:6px 10px!important;
+  white-space:nowrap!important
+ }
+ .site-header .header-links .header-support span{display:inline-flex!important;align-items:center!important;width:auto!important;max-width:none!important;white-space:nowrap!important;overflow:visible!important;overflow-wrap:normal!important}
+ .site-header .header-links .header-support span:first-child{font-size:.72rem!important;gap:5px!important;flex:0 0 auto!important}
+ .site-header .header-links .header-support span+span{font-size:.66rem!important;opacity:.88!important;flex:0 1 auto!important}
+ .site-header .header-links .social-card-icon{width:15px!important;height:15px!important;min-width:15px!important;flex:0 0 15px!important}
+ /* Tutorial heading and supporting line share one compact row. */
+ .tutorial-video-heading{display:flex!important;align-items:baseline!important;justify-content:center!important;gap:12px!important;flex-wrap:wrap!important;text-align:center!important;margin-bottom:8px!important}
+ .tutorial-video-heading h3,.tutorial-video-heading p{display:inline!important;margin:0!important}
+ .tutorial-video-heading h3{font-size:.94rem!important;white-space:nowrap!important}
+ .tutorial-video-heading p{font-size:.70rem!important;white-space:nowrap!important}
+ /* Give the student form a purposeful visual hierarchy without changing its action button. */
+ .homepage-panels-grid>.welcome-box{
+  background:linear-gradient(145deg,#f5fbff 0%,#eef7fb 52%,#e9f6f3 100%)!important;
+  border:1px solid #cbdfe9!important;border-radius:18px!important;
+  box-shadow:0 8px 22px rgba(22,66,91,.09)!important;padding:20px 22px!important
+ }
+ .homepage-panels-grid>.welcome-box>.student-info{
+  position:relative!important;isolation:isolate!important;overflow:hidden!important;
+  width:100%!important;max-width:none!important;min-height:0!important;flex:1 1 auto!important;
+  display:flex!important;flex-direction:column!important;justify-content:center!important;
+  align-items:stretch!important;gap:5px!important;
+  padding:20px 22px!important;margin:0 0 13px!important;
+  border:1px solid #d5e5ed!important;border-radius:15px!important;
+  background:linear-gradient(135deg,#fff 0%,#f7fbfe 68%,#eff9f6 100%)!important;
+  box-shadow:0 4px 13px rgba(28,73,98,.055)!important
+ }
+ .homepage-panels-grid>.welcome-box>.student-info:after{opacity:.16!important;right:1%!important;width:28%!important}
+ .homepage-panels-grid>.welcome-box>.student-info h4{
+  font-size:1.02rem!important;font-weight:800!important;color:#173f68!important;
+  margin:0 0 8px!important;padding-bottom:8px!important;border-bottom:1px solid #e2edf2!important
+ }
+ .homepage-panels-grid>.welcome-box>.student-info label{
+  font-size:.78rem!important;font-weight:700!important;color:#40596e!important;margin:4px 0 2px!important
+ }
+ .homepage-panels-grid>.welcome-box>.student-info input{
+  width:100%!important;max-width:none!important;min-height:43px!important;
+  border:1px solid #cbdde7!important;border-radius:9px!important;
+  background:#fff!important;padding:9px 12px!important;box-shadow:0 1px 3px rgba(20,55,75,.04)!important
+ }
+ .test-availability-note{display:flex!important;flex-wrap:wrap!important;gap:7px!important;margin-top:10px!important}
+ .test-availability-note span{
+  display:inline-flex!important;align-items:center!important;gap:5px!important;
+  padding:6px 9px!important;border-radius:8px!important;background:#e8f5f1!important;
+  border:1px solid #cce8dc!important;color:#17644f!important;
+  font-size:.68rem!important;font-weight:700!important;line-height:1.35!important
+ }
+}
+@media(min-width:701px) and (max-width:1050px){
+ .site-header .header-links{gap:6px!important;width:100%!important}
+ .site-header .header-links .header-support{gap:4px!important;padding:5px 5px!important}
+ .site-header .header-links .header-support span:first-child{font-size:.63rem!important}
+ .site-header .header-links .header-support span+span{font-size:.58rem!important}
+ .tutorial-video-heading{gap:7px!important}
+ .tutorial-video-heading h3{font-size:.85rem!important}
+ .tutorial-video-heading p{font-size:.62rem!important;white-space:normal!important}
+ .test-availability-note span{font-size:.61rem!important}
+}
+@media(max-width:700px){
+ .test-availability-note{display:flex!important;flex-direction:column!important;gap:5px!important;margin-top:9px!important}
+ .test-availability-note span{font-size:.65rem!important;line-height:1.4!important}
+}
+</style>
 </head>
 <body>
 
@@ -1609,6 +1679,7 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
                     <input id="school-name" type="text" maxlength="80" placeholder="Enter school name">
                     <label for="student-name">Student Name</label>
                     <input id="student-name" type="text" maxlength="80" placeholder="Enter student name">
+                    <div class="test-availability-note"><span>✓ Class-wise &amp; subject-wise tests available</span><span>✓ AEO TAB-style Mixed Test also available</span></div>
                 </div>
                 <button class="btn btn-primary" onclick="showScreen('class-screen')" style="font-size: 1.2rem; padding: 15px 40px;">🎓 Select Class & Start Test</button>
             </div>
