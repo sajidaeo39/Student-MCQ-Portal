@@ -1300,6 +1300,12 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
   padding:9px 17px;border-radius:9px;background:#fff0f0;color:#b4232c;
   border:1px solid #efc0c3;text-decoration:none;font-size:.82rem;font-weight:750;text-align:center}
 .tutorial-video-link:hover{filter:brightness(.97)}
+.tutorial-share-message{margin:15px auto 10px;max-width:760px;color:#38556c;font-size:.91rem;line-height:1.9;text-align:center;font-family:'Jameel Noori Nastaleeq','Noto Nastaliq Urdu',serif}
+.tutorial-share-actions{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-top:10px}
+.tutorial-share-btn{border:0;border-radius:10px;padding:11px 19px;min-height:43px;font-size:.82rem;font-weight:750;cursor:pointer}
+.tutorial-share-site{background:#e8f5ef;color:#12643e;border:1px solid #b8dfc9}
+.tutorial-share-video{background:#fff0f0;color:#b4232c;border:1px solid #efc0c3}
+.tutorial-share-btn:hover{filter:brightness(.97);transform:translateY(-1px)}
 @media(max-width:600px){
  .tutorial-video-panel{margin:0 0 12px;padding:12px 10px;border-radius:14px}
  .tutorial-video-heading{margin-bottom:9px}
@@ -1307,6 +1313,9 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
  .tutorial-video-heading p{font-size:.78rem;line-height:1.7}
  .tutorial-video-frame{border-radius:9px}
  .tutorial-video-link{width:100%;margin-top:9px;padding:9px 12px;font-size:.76rem}
+ .tutorial-share-message{font-size:.79rem;line-height:1.85;margin:11px auto 8px}
+ .tutorial-share-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+ .tutorial-share-btn{padding:10px 5px;font-size:.72rem;min-width:0}
 }
 </style>
 
@@ -1371,6 +1380,11 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
                     allowfullscreen></iframe>
             </div>
             <a class="tutorial-video-link" href="https://youtu.be/w_VPF52IpeY" target="_blank" rel="noopener noreferrer">▶ YouTube پر ویڈیو دیکھیں</a>
+            <p class="tutorial-share-message" lang="ur" dir="rtl">اگر آپ کو یہ ویڈیو اور پورٹل اچھا لگے تو براہِ کرم اس کا لنک دوسرے طلبہ اور اساتذہ کے ساتھ بھی شیئر کریں تاکہ وہ بھی ماہانہ TAB Test کی تیاری کر سکیں۔</p>
+            <div class="tutorial-share-actions" aria-label="Share portal and tutorial">
+                <button type="button" class="tutorial-share-btn tutorial-share-site" onclick="sharePortalResource('site')">↗ پورٹل شیئر کریں</button>
+                <button type="button" class="tutorial-share-btn tutorial-share-video" onclick="sharePortalResource('video')">▶ ویڈیو شیئر کریں</button>
+            </div>
         </section>
 
             <div class="welcome-box">
@@ -34850,6 +34864,38 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
  }
 }
 </style>
+
+<script id="tutorial-share-actions">
+function sharePortalResource(type){
+    const isVideo = type === 'video';
+    const url = isVideo
+        ? 'https://youtu.be/w_VPF52IpeY'
+        : 'https://sajidaeo39.github.io/Student-MCQ-Portal/';
+    const title = isVideo
+        ? 'PECTAA (Unofficial) MCQs Portal Tutorial'
+        : 'PECTAA (Unofficial) MCQs Practice Portal';
+    const text = isVideo
+        ? 'پورٹل استعمال کرنے کا طریقہ سیکھنے کے لیے یہ ویڈیو دیکھیں۔ ماہانہ TAB Test کی تیاری کے لیے طلبہ اور اساتذہ کے ساتھ شیئر کریں۔'
+        : 'ماہانہ TAB Test کی تیاری کے لیے PECTAA (Unofficial) MCQs Practice Portal پر آن لائن پریکٹس کریں۔';
+    if (navigator.share) {
+        navigator.share({title, text, url}).catch(error => {
+            if (error && error.name !== 'AbortError') copyTutorialShareLink(url);
+        });
+    } else {
+        copyTutorialShareLink(url);
+    }
+}
+function copyTutorialShareLink(url){
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(url).then(
+            () => alert('لنک کاپی ہو گیا ہے۔ اب آپ اسے WhatsApp یا کسی اور جگہ شیئر کر سکتے ہیں۔'),
+            () => window.prompt('یہ لنک کاپی کرکے شیئر کریں:', url)
+        );
+    } else {
+        window.prompt('یہ لنک کاپی کرکے شیئر کریں:', url);
+    }
+}
+</script>
 
 </body></html>`;
             reportWindow.document.open();
