@@ -34465,13 +34465,27 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
             document.getElementById('wrong-q').innerText = wrong;
 
             const anotherSetBtn = document.getElementById('attempt-another-set-btn');
-            const attemptAllBtn = document.getElementById('attempt-all-questions-btn');
+            let attemptAllBtn = document.getElementById('attempt-all-questions-btn');
             const subjectPool = questionBank[currentClass]?.[currentSubject] || [];
+            const canAttemptAll = currentSubject !== 'Mixed Test' && subjectPool.length > total;
+
             if (anotherSetBtn) {
-                anotherSetBtn.style.display = (total === 25 && currentSubject !== 'Mixed Test' && subjectPool.length > 25) ? 'inline-block' : 'none';
+                anotherSetBtn.style.display = canAttemptAll ? 'inline-block' : 'none';
+            }
+
+            // Ensure the action exists in the live results DOM (including older cached layouts).
+            if (canAttemptAll && !attemptAllBtn && anotherSetBtn) {
+                attemptAllBtn = document.createElement('button');
+                attemptAllBtn.type = 'button';
+                attemptAllBtn.id = 'attempt-all-questions-btn';
+                attemptAllBtn.className = 'btn btn-secondary';
+                attemptAllBtn.textContent = 'Attempt All Questions';
+                attemptAllBtn.addEventListener('click', attemptAllQuestions);
+                anotherSetBtn.insertAdjacentElement('afterend', attemptAllBtn);
             }
             if (attemptAllBtn) {
-                attemptAllBtn.style.display = (total === 25 && currentSubject !== 'Mixed Test' && subjectPool.length > 25) ? 'inline-block' : 'none';
+                attemptAllBtn.style.display = canAttemptAll ? 'inline-block' : 'none';
+                attemptAllBtn.disabled = !canAttemptAll;
             }
 
             const msgEl = document.getElementById('performance-msg');
