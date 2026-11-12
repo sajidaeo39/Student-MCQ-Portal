@@ -1940,6 +1940,64 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
 }
 </style>
 
+
+<style id="mobile-home-panel-button-fit-and-polish">
+@media (max-width:700px){
+  /* Match the primary action button to the full inner width of its panel. */
+  .homepage-panels-grid>.welcome-box{
+    box-sizing:border-box!important;
+    width:100%!important;
+    padding:14px 17px!important;
+    gap:0!important;
+  }
+  .homepage-panels-grid>.welcome-box>.student-info{
+    box-sizing:border-box!important;
+    width:100%!important;
+    max-width:none!important;
+    margin:0 0 8px!important;
+  }
+  .homepage-panels-grid>.welcome-box>button.btn.btn-primary{
+    box-sizing:border-box!important;
+    display:block!important;
+    width:100%!important;
+    max-width:none!important;
+    min-width:0!important;
+    align-self:stretch!important;
+    margin:0!important;
+    min-height:76px!important;
+    padding:15px 12px!important;
+    border-radius:22px!important;
+    font-size:clamp(1.05rem,4.5vw,1.28rem)!important;
+    line-height:1.2!important;
+    white-space:normal!important;
+  }
+  .homepage-panels-grid .student-info{
+    border:1px solid #d9e6ed!important;
+    box-shadow:0 3px 10px rgba(23,59,102,.045)!important;
+  }
+  .homepage-panels-grid .student-info input{
+    box-sizing:border-box!important;
+    width:100%!important;
+  }
+  .homepage-panels-grid>.tutorial-video-panel{
+    padding:15px 13px!important;
+  }
+  .homepage-panels-grid .tutorial-video-heading h3{
+    margin-bottom:5px!important;
+  }
+  .homepage-panels-grid .tutorial-video-frame{
+    overflow:hidden!important;
+    border-radius:12px!important;
+  }
+}
+@media(max-width:380px){
+  .homepage-panels-grid>.welcome-box{padding:12px 12px!important}
+  .homepage-panels-grid>.welcome-box>button.btn.btn-primary{
+    min-height:68px!important;border-radius:18px!important;font-size:1rem!important;
+  }
+}
+</style>
+
 </head>
 <body>
 
