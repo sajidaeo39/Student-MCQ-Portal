@@ -2090,6 +2090,37 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
 }
 </style>
 
+
+<style id="tutorial-share-buttons-nastaliq-font">
+/* Apply the loaded Noto Nastaliq Urdu font to every Urdu sharing control. */
+.tutorial-share-actions .tutorial-share-btn,
+.tutorial-share-actions .tutorial-share-btn *,
+.tutorial-video-link,
+.tutorial-video-link *,
+.tutorial-share-message {
+  font-family:"Noto Nastaliq Urdu","Jameel Noori Nastaleeq",serif!important;
+  font-weight:500!important;
+  direction:rtl!important;
+  line-height:2!important;
+}
+.tutorial-share-actions .tutorial-share-btn {
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  text-align:center!important;
+  padding-top:5px!important;
+  padding-bottom:5px!important;
+}
+@media(max-width:700px){
+  .tutorial-share-actions .tutorial-share-btn,
+  .tutorial-video-link {
+    font-size:clamp(10px,3vw,13px)!important;
+    line-height:2.1!important;
+    min-height:40px!important;
+  }
+}
+</style>
+
 </head>
 <body>
 
