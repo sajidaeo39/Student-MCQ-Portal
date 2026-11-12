@@ -34148,7 +34148,8 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
                     }
                     selectSubject(sub);
                 };
-                card.innerHTML = `<h4>${sub}</h4><p style="margin-top:6px;font-size:.8rem;color:#64748b;">${ready ? `25-question batch • ${pool.length} questions in bank` : 'Question set under verification'}</p>`;
+                const batchSize = Math.min(25, pool.length);
+                card.innerHTML = `<h4>${sub}</h4><p style="margin-top:6px;font-size:.8rem;color:#64748b;">${ready ? `${batchSize}-question batch • ${pool.length} questions in bank` : 'Question set under verification'}</p>`;
                 subjectList.appendChild(card);
             });
             const isSenior = ['Class 6','Class 7','Class 8'].includes(currentClass);
@@ -34301,7 +34302,8 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
                     alert(currentClass + ' - ' + currentSubject + ': no verified questions are available yet.');
                     return;
                 }
-                const batchSize = Math.min(25, pool.length);\n                rawQuestions = selectFreshQuestions(pool, batchSize, currentClass + '::' + currentSubject + '::subject');
+                const batchSize = Math.min(25, pool.length);
+                rawQuestions = selectFreshQuestions(pool, batchSize, currentClass + '::' + currentSubject + '::subject');
             }
             if (!rawQuestions) return;
             shuffleArray(rawQuestions);
