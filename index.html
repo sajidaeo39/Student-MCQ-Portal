@@ -1400,6 +1400,7 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
                 <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
                     <button class="btn btn-secondary" onclick="reviewQuiz()">Subject-wise Questions & Answers</button>
                     <button class="btn btn-success" onclick="downloadQuizReport()">Download Quiz PDF</button>
+                    <button class="btn btn-secondary" id="attempt-another-set-btn" onclick="attemptAnotherSet()" style="display:none;">Attempt Another Set</button>
                     <button class="btn btn-primary" onclick="showScreen('class-screen')">Take Another Test</button>
                 </div>
             </div>
@@ -34461,12 +34462,24 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
             document.getElementById('correct-q').innerText = correct;
             document.getElementById('wrong-q').innerText = wrong;
 
+            const anotherSetBtn = document.getElementById('attempt-another-set-btn');
+            if (anotherSetBtn) {
+                anotherSetBtn.style.display = (total === 25 && currentSubject !== 'Mixed Test') ? 'inline-block' : 'none';
+            }
+
             const msgEl = document.getElementById('performance-msg');
             if (percentage >= 80) { msgEl.innerText = "🌟 Excellent! Keep up the great work!"; msgEl.style.color = "var(--success-color)"; }
             else if (percentage >= 50) { msgEl.innerText = "👍 Good job! A little more practice will make you perfect."; msgEl.style.color = "var(--accent-color)"; }
             else { msgEl.innerText = "📚 Don't worry, keep practicing. You can do it!"; msgEl.style.color = "var(--danger-color)"; }
 
             showScreen('result-screen');
+        }
+
+        function attemptAnotherSet() {
+            // Subject-wise batches use the existing question-rotation record,
+            // so this loads the next fresh batch without repeating the previous set.
+            if (currentSubject === 'Mixed Test') return;
+            startQuiz(false);
         }
 
         function renderSubjectPerformance() {
