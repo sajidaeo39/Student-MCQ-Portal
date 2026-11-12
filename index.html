@@ -1280,6 +1280,36 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
   #result-screen .score-circle span{font-size:.61rem!important}
 }
 </style>
+
+<style id="homepage-tutorial-video">
+.tutorial-video-panel{
+  margin:0 0 18px;padding:20px;background:#fff;border:1px solid #dce7ef;
+  border-radius:18px;box-shadow:0 9px 24px rgba(20,52,78,.07);
+}
+.tutorial-video-heading{text-align:center;margin-bottom:14px}
+.tutorial-video-kicker{display:inline-block;padding:5px 11px;border-radius:999px;
+  background:#e8f4f5;color:#087f83;font-size:.68rem;font-weight:800;letter-spacing:1px}
+.tutorial-video-heading h3{margin:8px 0 5px;color:#173b66;font-size:1.35rem;
+  font-family:'Jameel Noori Nastaleeq','Noto Nastaliq Urdu',serif;line-height:1.8}
+.tutorial-video-heading p{color:#526b7d;font-size:.9rem;line-height:1.8;
+  font-family:'Jameel Noori Nastaleeq','Noto Nastaliq Urdu',serif}
+.tutorial-video-frame{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;
+  border-radius:13px;background:#0b1d32}
+.tutorial-video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.tutorial-video-link{display:block;width:fit-content;max-width:100%;margin:13px auto 0;
+  padding:9px 17px;border-radius:9px;background:#fff0f0;color:#b4232c;
+  border:1px solid #efc0c3;text-decoration:none;font-size:.82rem;font-weight:750;text-align:center}
+.tutorial-video-link:hover{filter:brightness(.97)}
+@media(max-width:600px){
+ .tutorial-video-panel{margin:0 0 12px;padding:12px 10px;border-radius:14px}
+ .tutorial-video-heading{margin-bottom:9px}
+ .tutorial-video-heading h3{font-size:1.12rem;margin:5px 0 2px}
+ .tutorial-video-heading p{font-size:.78rem;line-height:1.7}
+ .tutorial-video-frame{border-radius:9px}
+ .tutorial-video-link{width:100%;margin-top:9px;padding:9px 12px;font-size:.76rem}
+}
+</style>
+
 </head>
 <body>
 
@@ -1323,6 +1353,24 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
                 <div class="summary-card"><strong id="questions-attempted">—</strong><span>Answered Questions</span></div>
             </div>
             <p id="stats-status" class="stats-status">Loading shared statistics...</p>
+        </section>
+
+        <section class="tutorial-video-panel" aria-labelledby="tutorial-video-title">
+            <div class="tutorial-video-heading">
+                <span class="tutorial-video-kicker">STUDENT GUIDE</span>
+                <h3 id="tutorial-video-title" lang="ur" dir="rtl">پورٹل استعمال کرنے کا طریقہ</h3>
+                <p lang="ur" dir="rtl">ماہانہ TAB Test کی تیاری کے لیے ویڈیو دیکھیں اور آن لائن MCQs کی پریکٹس سیکھیں۔</p>
+            </div>
+            <div class="tutorial-video-frame">
+                <iframe
+                    src="https://www.youtube-nocookie.com/embed/w_VPF52IpeY"
+                    title="PECTAA Unofficial MCQs Portal استعمال کرنے کا طریقہ"
+                    loading="lazy"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen></iframe>
+            </div>
+            <a class="tutorial-video-link" href="https://youtu.be/w_VPF52IpeY" target="_blank" rel="noopener noreferrer">▶ YouTube پر ویڈیو دیکھیں</a>
         </section>
 
             <div class="welcome-box">
