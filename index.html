@@ -35153,6 +35153,39 @@ header.site-header{padding:25px 16px 24px!important;background:linear-gradient(1
 
 
 
+<style id="final-desktop-responsive-layout">
+/* Final responsive overrides: wider desktop, balanced panels, fluid tablet/mobile. */
+@media(min-width:1200px){
+  .container{width:calc(100% - 64px)!important;max-width:1560px!important;padding-left:12px!important;padding-right:12px!important;margin:22px auto 30px!important}
+}
+@media(min-width:900px) and (max-width:1199px){
+  .container{width:calc(100% - 44px)!important;max-width:1120px!important;padding-left:10px!important;padding-right:10px!important;margin:18px auto 26px!important}
+}
+@media(min-width:900px){
+  .homepage-panels-grid{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:20px!important;align-items:stretch!important;width:100%!important}
+  .homepage-panels-grid>.welcome-box,.homepage-panels-grid>.tutorial-video-panel{
+    width:100%!important;min-width:0!important;min-height:330px!important;height:auto!important;
+    box-sizing:border-box!important;margin:0!important
+  }
+  .homepage-panels-grid>.welcome-box{padding:22px clamp(18px,2vw,32px)!important}
+  .homepage-panels-grid>.tutorial-video-panel{padding:16px clamp(14px,1.6vw,24px)!important}
+  .homepage-panels-grid .tutorial-video-frame{width:100%!important;max-width:660px!important}
+}
+@media(min-width:701px) and (max-width:899px){
+  .container{width:calc(100% - 36px)!important;max-width:820px!important;padding:0 8px!important}
+  .homepage-panels-grid{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:14px!important}
+  .homepage-panels-grid>.welcome-box,.homepage-panels-grid>.tutorial-video-panel{width:100%!important;min-height:0!important;height:auto!important}
+  .homepage-panels-grid .tutorial-video-frame{max-width:640px!important}
+  .summary-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+@media(max-width:700px){
+  .container{width:100%!important;max-width:100%!important;box-sizing:border-box!important}
+  .homepage-panels-grid{width:100%!important;grid-template-columns:minmax(0,1fr)!important}
+  .homepage-panels-grid>.welcome-box,.homepage-panels-grid>.tutorial-video-panel{width:100%!important;min-width:0!important}
+}
+.site-header,.site-header *,.container,.container *{box-sizing:border-box}
+img,video,iframe{max-width:100%}
+</style>
     <footer class="site-footer">
         <p>For more educational updates, follow my <a href="https://whatsapp.com/channel/0029VaoMfR3C6ZvYxRXWod3G" target="_blank" rel="noopener noreferrer">WhatsApp Channel</a>.</p>
         <p>For query and support, contact on WhatsApp: <a href="https://wa.me/923496027086" target="_blank" rel="noopener noreferrer">0349 6027086</a></p>
