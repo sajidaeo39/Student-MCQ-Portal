@@ -923,6 +923,41 @@
       }
     </style>
 
+
+<style id="pectaa-phase2-ux">
+:root{--p2-ink:#18334d;--p2-line:#d9e5ee;--p2-teal:#087e8b}
+body{font-family:Inter,"Segoe UI",Arial,sans-serif;color:var(--p2-ink)}
+::selection{background:#ccebed;color:#123d48}
+.container{max-width:1120px}
+.summary-panel,.welcome-box,.question-box,.result-box{box-shadow:0 12px 32px rgba(20,52,78,.075)}
+.summary-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+.summary-card{display:flex;flex-direction:column;justify-content:center;min-height:88px}
+.summary-card strong{font-variant-numeric:tabular-nums;letter-spacing:-.3px}
+#welcome-screen .welcome-eyebrow{padding:6px 13px;font-size:.7rem}
+#welcome-screen .student-info input{min-height:46px;padding:10px 12px}
+.grid-container{grid-template-columns:repeat(3,minmax(0,1fr))}
+.card{display:flex;flex-direction:column;justify-content:center;min-height:124px}
+.card:focus-visible{outline:3px solid rgba(8,126,139,.45);outline-offset:3px}
+.top-bar{padding:4px 0 10px;border-bottom:1px solid var(--p2-line)}
+.quiz-header{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.timer-pill{font-variant-numeric:tabular-nums;font-weight:800;padding:8px 13px;border-radius:999px}
+.question-box{border-top:4px solid var(--p2-teal)}
+.question-text{letter-spacing:.05px}
+.option-btn{width:100%;display:block;text-align:start;font-size:1rem}
+.option-btn:focus-visible{outline:3px solid rgba(8,126,139,.4);outline-offset:2px}
+.nav-buttons .btn{min-height:47px}
+.score-circle{border:6px solid rgba(8,126,139,.12)}
+.stat-item{min-height:90px;display:flex;flex-direction:column;justify-content:center}
+.subject-performance-row{gap:10px}
+.subject-performance-track{overflow:hidden;border-radius:999px}
+.review-item{border:1px solid var(--p2-line);background:#fff}
+.site-footer{border-radius:16px 16px 0 0}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid rgba(8,126,139,.42);outline-offset:2px}
+.question-text[dir="rtl"],.option-btn[dir="rtl"],.rtl-text,.urdu-text,[lang="ur"]{font-family:"Jameel Noori Nastaleeq","Noto Nastaliq Urdu",serif;line-height:1.95;direction:rtl;text-align:right}
+@media(max-width:760px){.container{max-width:100%}.summary-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.grid-container{grid-template-columns:repeat(2,minmax(0,1fr))}.quiz-header{align-items:flex-start;flex-wrap:wrap}.timer-pill{margin-inline-start:auto}.question-box{border-top-width:3px}.option-btn{font-size:.94rem}}
+@media(max-width:420px){.summary-card{min-height:70px}.grid-container{gap:9px}.card{min-height:94px}.quiz-header{gap:8px}.timer-pill{font-size:.78rem}.stat-item{min-height:76px}.nav-buttons .btn{min-height:45px}}
+@media(prefers-reduced-motion:reduce){.card:hover,.btn:hover,.option-btn:hover{transform:none}}
+</style>
 </head>
 <body>
 
