@@ -34685,6 +34685,42 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
 }
 </style>
 
+
+<style id="social-cards-two-line-fix">
+/* Keep every social card's title on line one and its detail on line two. */
+.site-header .header-links .header-support{
+ display:flex!important;flex-direction:column!important;
+ align-items:center!important;justify-content:center!important;
+ gap:4px!important;white-space:normal!important;
+}
+.site-header .header-links .header-support span:first-child{
+ display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;
+ align-items:center!important;justify-content:center!important;
+ width:100%!important;white-space:nowrap!important;overflow:hidden!important;
+ font-size:clamp(.58rem,1.05vw,.73rem)!important;line-height:1.1!important;
+}
+.site-header .header-links .header-support span:first-child .social-card-icon{
+ flex:0 0 14px!important;width:14px!important;height:14px!important;
+}
+.site-header .header-links .header-support span+span{
+ display:block!important;flex:0 0 auto!important;width:100%!important;
+ white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;
+ font-size:clamp(.53rem,.95vw,.66rem)!important;line-height:1.1!important;
+}
+@media(max-width:520px){
+ .site-header .header-links .header-support{gap:4px!important;padding:4px 2px!important}
+ .site-header .header-links .header-support span:first-child{
+  font-size:clamp(.39rem,1.65vw,.56rem)!important;gap:2px!important;
+ }
+ .site-header .header-links .header-support span:first-child .social-card-icon{
+  flex-basis:11px!important;width:11px!important;height:11px!important;
+ }
+ .site-header .header-links .header-support span+span{
+  font-size:clamp(.40rem,1.55vw,.53rem)!important;
+ }
+}
+</style>
+
 </body></html>`;
             reportWindow.document.open();
             reportWindow.document.write(report);
