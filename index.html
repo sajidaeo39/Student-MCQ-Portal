@@ -1383,6 +1383,48 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
 .summary-panel h3{text-align:center!important}
 #stats-status{display:none!important}
 </style>
+<style id="mobile-social-cards-clean-two-line">
+@media(max-width:700px){
+ .site-header .header-links{
+  display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:5px!important;width:100%!important;max-width:100%!important;
+  margin:8px auto 0!important;padding:0 3px!important;
+ }
+ .site-header .header-links .header-support{
+  box-sizing:border-box!important;display:flex!important;flex-direction:column!important;
+  align-items:center!important;justify-content:center!important;
+  width:100%!important;min-width:0!important;height:46px!important;min-height:46px!important;
+  padding:4px 2px!important;gap:3px!important;border-radius:8px!important;
+  overflow:hidden!important;white-space:normal!important;
+ }
+ .site-header .header-links .header-support span:first-child{
+  display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;
+  align-items:center!important;justify-content:center!important;gap:2px!important;
+  width:100%!important;min-width:0!important;white-space:nowrap!important;
+  overflow:hidden!important;text-overflow:clip!important;
+  font-size:clamp(.43rem,1.7vw,.57rem)!important;line-height:1.05!important;
+ }
+ .site-header .header-links .header-support span:first-child .social-card-icon{
+  display:inline-block!important;flex:0 0 11px!important;
+  width:11px!important;height:11px!important;min-width:11px!important;
+ }
+ .site-header .header-links .header-support span+span{
+  display:block!important;flex:0 0 auto!important;width:100%!important;
+  min-width:0!important;white-space:nowrap!important;overflow:hidden!important;
+  text-overflow:ellipsis!important;text-align:center!important;
+  font-size:clamp(.40rem,1.5vw,.51rem)!important;line-height:1.05!important;
+ }
+}
+@media(max-width:370px){
+ .site-header .header-links{gap:4px!important;padding:0 1px!important}
+ .site-header .header-links .header-support{height:43px!important;min-height:43px!important;padding:3px 1px!important}
+ .site-header .header-links .header-support span:first-child{font-size:.41rem!important}
+ .site-header .header-links .header-support span+span{font-size:.39rem!important}
+ .site-header .header-links .header-support span:first-child .social-card-icon{
+  flex-basis:10px!important;width:10px!important;height:10px!important;min-width:10px!important
+ }
+}
+</style>
 </head>
 <body>
 
