@@ -34613,7 +34613,38 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
             -webkit-touch-callout: none;
         }
 
-    </style></head><body>
+    </style>
+<style id="social-cards-two-lines-final">
+.site-header .header-links .header-support{
+ box-sizing:border-box!important;display:flex!important;flex-direction:column!important;
+ align-items:center!important;justify-content:center!important;gap:5px!important;
+ min-width:0!important;white-space:normal!important;overflow:hidden!important;
+}
+.site-header .header-links .header-support span:first-child{
+ display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;
+ align-items:center!important;justify-content:center!important;gap:4px!important;
+ width:100%!important;min-width:0!important;white-space:nowrap!important;
+ overflow:hidden!important;text-overflow:clip!important;line-height:1.15!important;
+ font-size:clamp(.56rem,1vw,.74rem)!important;font-weight:750!important;
+}
+.site-header .header-links .header-support span:first-child .social-card-icon{
+ display:inline-block!important;flex:0 0 14px!important;width:14px!important;height:14px!important;
+}
+.site-header .header-links .header-support span+span{
+ display:block!important;flex:0 0 auto!important;width:100%!important;
+ min-width:0!important;white-space:nowrap!important;overflow:hidden!important;
+ text-overflow:ellipsis!important;text-align:center!important;
+ font-size:clamp(.52rem,.9vw,.66rem)!important;line-height:1.15!important;font-weight:650!important;
+}
+@media(max-width:520px){
+ .site-header .header-links .header-support{gap:4px!important;padding:4px 2px!important}
+ .site-header .header-links .header-support span:first-child{font-size:clamp(.40rem,1.65vw,.58rem)!important;gap:2px!important}
+ .site-header .header-links .header-support span:first-child .social-card-icon{flex-basis:11px!important;width:11px!important;height:11px!important}
+ .site-header .header-links .header-support span+span{font-size:clamp(.40rem,1.55vw,.54rem)!important}
+}
+</style>
+
+</head><body>
                 <header><h1>PECTAA (Unofficial) SMART PRACTICE PORTAL</h1><p>Quiz Result & Subject-wise Question Report</p></header>
                 <div class="meta"><span><b>Class:</b> ${escapeReportHtml(currentClass)}</span><span><b>Quiz:</b> ${escapeReportHtml(currentSubject)}</span><span><b>Date:</b> ${new Date().toLocaleString()}</span></div>
                 <div class="meta"><span><b>Student:</b> ${escapeReportHtml(student)}</span><span><b>School:</b> ${escapeReportHtml(school)}</span></div>
