@@ -1467,6 +1467,50 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
  .site-header .header-links .header-support span:first-child .social-card-icon{width:10px!important;height:10px!important;min-width:10px!important}
 }
 </style>
+<style id="final-student-video-panel-polish">
+@media(min-width:701px){
+ .homepage-panels-grid{align-items:stretch!important}
+ .homepage-panels-grid>.welcome-box,.homepage-panels-grid>.tutorial-video-panel{
+   min-height:360px!important;height:100%!important;box-sizing:border-box!important
+ }
+ .homepage-panels-grid>.welcome-box{display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:stretch!important;padding:22px 28px!important}
+ .homepage-panels-grid>.welcome-box>.student-info{
+   width:100%!important;max-width:none!important;min-height:260px!important;
+   flex:1 1 auto!important;box-sizing:border-box!important;padding:22px 26px!important;
+   display:flex!important;flex-direction:column!important;justify-content:center!important;
+   align-items:stretch!important;margin:0 0 14px!important
+ }
+ .homepage-panels-grid>.welcome-box>.student-info input{
+   width:100%!important;max-width:none!important;min-height:45px!important
+ }
+ .homepage-panels-grid>.welcome-box>.btn{width:100%!important;max-width:none!important;flex:0 0 auto!important}
+ .tutorial-video-heading h3{font-size:.9rem!important;margin:0 0 5px!important}
+ .tutorial-video-heading p{font-size:.7rem!important;margin:0 0 8px!important}
+ .tutorial-share-message{font-size:.85rem!important;font-weight:800!important;color:#0b6570!important;background:#e9f7f5!important;border:1px solid #c5e9e3!important;border-radius:9px!important;padding:7px 9px!important}
+}
+.tutorial-share-actions{
+ display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;
+ justify-content:center!important;align-items:stretch!important;gap:6px!important;width:100%!important
+}
+.tutorial-share-actions .tutorial-share-btn{
+ display:flex!important;align-items:center!important;justify-content:center!important;
+ flex:1 1 0!important;min-width:0!important;white-space:nowrap!important;
+ box-sizing:border-box!important;text-decoration:none!important;text-align:center!important;
+ padding:8px 5px!important;font-size:clamp(.58rem,1.05vw,.76rem)!important;line-height:1.25!important
+}
+.tutorial-share-youtube{background:#fff0f0!important;color:#b4232c!important;border:1px solid #efc0c3!important;border-radius:8px!important}
+@media(max-width:700px){
+ .homepage-panels-grid>.welcome-box>.student-info{
+  width:100%!important;max-width:none!important;box-sizing:border-box!important;
+  min-height:0!important;display:flex!important;flex-direction:column!important;
+  align-items:stretch!important;padding:13px 12px!important
+ }
+ .homepage-panels-grid>.welcome-box>.student-info input{width:100%!important;max-width:none!important}
+ .tutorial-share-message{font-size:.76rem!important;font-weight:800!important;color:#0b6570!important;background:#e9f7f5!important;border:1px solid #c5e9e3!important;border-radius:9px!important;padding:8px!important}
+ .tutorial-share-actions{gap:4px!important}
+ .tutorial-share-actions .tutorial-share-btn{font-size:clamp(.49rem,2.05vw,.64rem)!important;padding:7px 2px!important}
+}
+</style>
 </head>
 <body>
 
@@ -1502,7 +1546,6 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
     <div class="container">
         <div id="welcome-screen" class="screen active">
         <section class="summary-panel" aria-label="Portal statistics">
-            <h3>Portal Statistics</h3>
             <div class="summary-grid">
                 <div class="summary-card"><strong id="total-schools">—</strong><span>School Entries</span></div>
                 <div class="summary-card"><strong id="total-students">—</strong><span>Student Entries</span></div>
@@ -1528,7 +1571,6 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
 
         <section class="tutorial-video-panel" aria-labelledby="tutorial-video-title">
             <div class="tutorial-video-heading">
-                <span class="tutorial-video-kicker">STUDENT GUIDE</span>
                 <h3 id="tutorial-video-title" lang="ur" dir="rtl">پورٹل استعمال کرنے کا طریقہ</h3>
                 <p lang="ur" dir="rtl">ماہانہ TAB Test کی تیاری کے لیے ویڈیو دیکھیں اور آن لائن MCQs کی پریکٹس سیکھیں۔</p>
             </div>
@@ -1541,11 +1583,11 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowfullscreen></iframe>
             </div>
-            <a class="tutorial-video-link" href="https://youtu.be/w_VPF52IpeY" target="_blank" rel="noopener noreferrer">▶ YouTube پر ویڈیو دیکھیں</a>
-            <p class="tutorial-share-message" lang="ur" dir="rtl">اگر آپ کو یہ ویڈیو اور پورٹل اچھا لگے تو براہِ کرم اس کا لنک دوسرے طلبہ اور اساتذہ کے ساتھ بھی شیئر کریں تاکہ وہ بھی ماہانہ TAB Test کی تیاری کر سکیں۔</p>
-            <div class="tutorial-share-actions" aria-label="Share portal and tutorial">
+            <p class="tutorial-share-message" lang="ur" dir="rtl">اگر آپ کو یہ ویڈیو اور پورٹل اچھا لگے تو دوسروں کے ساتھ ضرور شیئر کریں۔</p>
+            <div class="tutorial-share-actions" aria-label="Video and portal sharing">
+                <a class="tutorial-share-btn tutorial-share-youtube" href="https://youtu.be/w_VPF52IpeY" target="_blank" rel="noopener noreferrer">▶ YouTube پر ویڈیو دیکھیں</a>
+                <button type="button" class="tutorial-share-btn tutorial-share-video" onclick="sharePortalResource('video')">↗ ویڈیو شیئر کریں</button>
                 <button type="button" class="tutorial-share-btn tutorial-share-site" onclick="sharePortalResource('site')">↗ پورٹل شیئر کریں</button>
-                <button type="button" class="tutorial-share-btn tutorial-share-video" onclick="sharePortalResource('video')">▶ ویڈیو شیئر کریں</button>
             </div>
         </section>
             </div><!-- /.homepage-panels-grid -->
