@@ -1727,6 +1727,101 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
 }
 </style>
 
+
+<style id="actual-markup-desktop-layout-correction">
+@media screen and (min-width:701px){
+  /* Social cards: each card keeps icon + label + detail on one line. */
+  header .header-links{
+    display:grid!important;
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    width:min(calc(100% - 32px),1120px)!important;
+    max-width:1120px!important;
+    gap:12px!important;
+  }
+  header .header-links > a.header-support{
+    display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;
+    justify-content:center!important;align-items:center!important;
+    gap:9px!important;width:100%!important;min-width:0!important;
+    height:48px!important;min-height:48px!important;padding:5px 9px!important;
+    white-space:nowrap!important;overflow:hidden!important;box-sizing:border-box!important;
+  }
+  header .header-links > a.header-support > span{
+    display:inline-flex!important;flex:0 1 auto!important;flex-direction:row!important;
+    align-items:center!important;justify-content:center!important;gap:5px!important;
+    width:auto!important;min-width:0!important;max-width:none!important;
+    white-space:nowrap!important;overflow:visible!important;overflow-wrap:normal!important;
+    line-height:1.15!important;
+  }
+  header .header-links > a.header-support > span:first-child{
+    flex:0 0 auto!important;font-size:clamp(.68rem,.78vw,.82rem)!important;
+  }
+  header .header-links > a.header-support > span:nth-child(2){
+    flex:0 1 auto!important;font-size:clamp(.62rem,.72vw,.76rem)!important;
+  }
+  header .header-links .social-card-icon{
+    display:inline-block!important;flex:0 0 16px!important;
+    width:16px!important;height:16px!important;min-width:16px!important;
+  }
+
+  /* Keep heading first, with monthly TAB-test explanation immediately after it. */
+  .tutorial-video-heading{
+    display:flex!important;flex-direction:row!important;
+    align-items:baseline!important;justify-content:center!important;
+    flex-wrap:nowrap!important;gap:8px 14px!important;text-align:center!important;
+  }
+  .tutorial-video-heading h3{
+    display:inline!important;flex:0 0 auto!important;white-space:nowrap!important;
+    margin:0!important;font-size:.96rem!important;
+  }
+  .tutorial-video-heading p{
+    display:inline!important;flex:0 1 auto!important;white-space:nowrap!important;
+    margin:0!important;font-size:.76rem!important;line-height:1.4!important;
+  }
+
+  /* Both outer panels share the same grid-row height; student form fills its panel. */
+  .homepage-panels-grid{
+    display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+    grid-auto-rows:1fr!important;align-items:stretch!important;
+  }
+  .homepage-panels-grid > .welcome-box,
+  .homepage-panels-grid > .tutorial-video-panel{
+    display:flex!important;flex-direction:column!important;
+    align-self:stretch!important;height:100%!important;min-height:420px!important;
+    box-sizing:border-box!important;
+  }
+  .homepage-panels-grid > .welcome-box{
+    align-items:stretch!important;justify-content:flex-start!important;
+  }
+  .homepage-panels-grid > .welcome-box > .student-info{
+    display:flex!important;flex:1 1 0!important;flex-direction:column!important;
+    justify-content:center!important;align-items:stretch!important;
+    align-self:stretch!important;width:100%!important;max-width:none!important;
+    min-height:0!important;height:auto!important;box-sizing:border-box!important;
+    margin:0 0 14px!important;padding:22px 24px!important;
+  }
+  .homepage-panels-grid > .welcome-box > .student-info > input{
+    display:block!important;width:100%!important;max-width:none!important;
+    box-sizing:border-box!important;
+  }
+  .homepage-panels-grid > .welcome-box > button.btn{
+    display:block!important;flex:0 0 auto!important;width:100%!important;
+    max-width:none!important;margin-top:auto!important;
+  }
+  .tutorial-share-message{
+    font-size:1.02rem!important;font-weight:850!important;line-height:1.75!important;
+  }
+}
+@media screen and (min-width:701px) and (max-width:1050px){
+  header .header-links{gap:6px!important;width:calc(100% - 20px)!important}
+  header .header-links > a.header-support{gap:5px!important;padding:4px 5px!important}
+  header .header-links > a.header-support > span:first-child{font-size:.62rem!important}
+  header .header-links > a.header-support > span:nth-child(2){font-size:.57rem!important}
+  header .header-links .social-card-icon{width:13px!important;height:13px!important;min-width:13px!important;flex-basis:13px!important}
+  .tutorial-video-heading{flex-wrap:wrap!important}
+  .tutorial-video-heading p{white-space:normal!important}
+}
+</style>
+
 </head>
 <body>
 
