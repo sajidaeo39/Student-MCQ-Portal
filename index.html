@@ -1911,6 +1911,35 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
 .site-footer p:last-child{margin-bottom:0!important}
 </style>
 
+
+<style id="social-cards-two-line-layout">
+.site-header .header-links > a.header-support.whatsapp-channel-link,
+.site-header .header-links > a.header-support[href^="https://wa.me/"]{
+  display:flex!important;flex-direction:column!important;align-items:center!important;
+  justify-content:center!important;gap:3px!important;text-align:center!important;
+}
+.site-header .header-links > a.header-support.whatsapp-channel-link > span:first-child,
+.site-header .header-links > a.header-support[href^="https://wa.me/"] > span:first-child{
+  display:flex!important;flex-direction:row!important;align-items:center!important;
+  justify-content:center!important;gap:5px!important;width:100%!important;
+  font-size:clamp(.56rem,1.8vw,.76rem)!important;line-height:1.15!important;
+  white-space:normal!important;overflow-wrap:normal!important;
+}
+.site-header .header-links > a.header-support.whatsapp-channel-link > span+span,
+.site-header .header-links > a.header-support[href^="https://wa.me/"] > span+span{
+  display:block!important;width:100%!important;font-size:clamp(.58rem,1.7vw,.72rem)!important;
+  line-height:1.15!important;font-weight:750!important;text-align:center!important;
+  white-space:normal!important;overflow-wrap:normal!important;word-break:normal!important;
+}
+.site-header .header-links .social-card-icon{flex:0 0 14px!important;width:14px!important;height:14px!important}
+@media(max-width:370px){
+ .site-header .header-links > a.header-support.whatsapp-channel-link > span:first-child,
+ .site-header .header-links > a.header-support[href^="https://wa.me/"] > span:first-child{font-size:.53rem!important}
+ .site-header .header-links > a.header-support.whatsapp-channel-link > span+span,
+ .site-header .header-links > a.header-support[href^="https://wa.me/"] > span+span{font-size:.56rem!important}
+}
+</style>
+
 </head>
 <body>
 
@@ -1920,10 +1949,10 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
         <p class="header-credit"><strong>Developed by: M.Sajid (A.E.O), Markaz Amli Moti, Okara <span class="desktop-youtube-credit">| YouTube Channel: <a href="https://youtube.com/@sajideducationalhelper" target="_blank" rel="noopener noreferrer">The Educational Helper</a></span></strong></p>
         <div class="header-links" aria-label="Social media links">
           <a class="header-support whatsapp-channel-link" href="https://whatsapp.com/channel/0029VaoMfR3C6ZvYxRXWod3G" target="_blank" rel="noopener noreferrer">
-            <span><svg class="social-card-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12.04 2a9.9 9.9 0 0 0-8.5 15l-1.3 4.7 4.8-1.26A10 10 0 1 0 12.04 2Zm0 18.1a8.1 8.1 0 0 1-4.13-1.13l-.3-.18-2.85.75.76-2.78-.2-.3A8.1 8.1 0 1 1 12.04 20.1Zm4.45-6.07c-.24-.12-1.42-.7-1.64-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06-.24-.12-1.02-.38-1.94-1.2-.72-.64-1.2-1.43-1.34-1.67-.14-.24-.02-.37.1-.49.1-.1.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.2-.46-.4-.4-.54-.4h-.46c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.12 3.64.58.25 1.03.4 1.38.51.58.18 1.1.16 1.52.1.46-.07 1.42-.58 1.62-1.14.2-.56.2-1.04.14-1.14-.06-.1-.22-.16-.46-.28Z"/></svg></span><span>Follow my WhatsApp Channel</span>
+            <span><svg class="social-card-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12.04 2a9.9 9.9 0 0 0-8.5 15l-1.3 4.7 4.8-1.26A10 10 0 1 0 12.04 2Zm0 18.1a8.1 8.1 0 0 1-4.13-1.13l-.3-.18-2.85.75.76-2.78-.2-.3A8.1 8.1 0 1 1 12.04 20.1Zm4.45-6.07c-.24-.12-1.42-.7-1.64-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06-.24-.12-1.02-.38-1.94-1.2-.72-.64-1.2-1.43-1.34-1.67-.14-.24-.02-.37.1-.49.1-.1.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.2-.46-.4-.4-.54-.4h-.46c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.12 3.64.58.25 1.03.4 1.38.51.58.18 1.1.16 1.52.1.46-.07 1.42-.58 1.62-1.14.2-.56.2-1.04.14-1.14-.06-.1-.22-.16-.46-.28Z"/></svg>Follow my WhatsApp</span><span>Channel</span>
           </a>
           <a class="header-support whatsapp-channel-link" href="https://wa.me/923496027086" target="_blank" rel="noopener noreferrer">
-            <span><svg class="social-card-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a8 8 0 0 0-8 8v3a3 3 0 0 0 3 3h1v-7H6a6 6 0 0 1 12 0h-2v7h1a3 3 0 0 0 3-3v-3a8 8 0 0 0-8-8Zm-5 9h-1v3h1v-3Zm11 0h-1v3h1v-3ZM8 18h5a3 3 0 0 0 3-3h-2a1 1 0 0 1-1 1H8v2Z"/></svg></span><span>For support contact: 0349 6027086</span>
+            <span><svg class="social-card-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a8 8 0 0 0-8 8v3a3 3 0 0 0 3 3h1v-7H6a6 6 0 0 1 12 0h-2v7h1a3 3 0 0 0 3-3v-3a8 8 0 0 0-8-8Zm-5 9h-1v3h1v-3Zm11 0h-1v3h1v-3ZM8 18h5a3 3 0 0 0 3-3h-2a1 1 0 0 1-1 1H8v2Z"/></svg>For support contact</span><span>0349 6027086</span>
           </a>
           <a class="header-support youtube-link" href="https://youtube.com/@sajideducationalhelper" target="_blank" rel="noopener noreferrer">
             <span><svg class="social-card-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.3 3.6-6.3 3.6Z"/></svg>Educational Helper</span><span>YouTube Channel</span>
