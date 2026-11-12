@@ -2305,6 +2305,85 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
 }
 </style>
 
+
+<style id="mobile-social-auto-fit-final">
+@media(max-width:700px){
+  .site-header .header-links{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    align-items:stretch!important;
+    gap:8px!important;
+    width:calc(100% - 24px)!important;
+    max-width:640px!important;
+    margin:10px auto 4px!important;
+    padding:0!important;
+  }
+  .site-header .header-links>a.header-support{
+    display:flex!important;
+    flex-direction:row!important;
+    flex-wrap:nowrap!important;
+    align-items:center!important;
+    justify-content:center!important;
+    gap:7px!important;
+    width:100%!important;
+    height:auto!important;
+    min-height:64px!important;
+    max-height:none!important;
+    box-sizing:border-box!important;
+    padding:9px 8px!important;
+    margin:0!important;
+    overflow:visible!important;
+    white-space:normal!important;
+    line-height:normal!important;
+  }
+  .site-header .header-links>a.header-support>span:first-child{
+    display:flex!important;
+    flex:0 0 17px!important;
+    width:17px!important;
+    height:auto!important;
+    align-items:center!important;
+    justify-content:center!important;
+    margin:0!important;
+    padding:0!important;
+    overflow:visible!important;
+    font-size:0!important;
+    line-height:0!important;
+  }
+  .site-header .header-links>a.header-support>span:first-child .social-card-icon{
+    display:block!important;
+    width:17px!important;
+    height:17px!important;
+    min-width:17px!important;
+    flex:0 0 17px!important;
+  }
+  .site-header .header-links>a.header-support>span+span{
+    display:block!important;
+    flex:1 1 auto!important;
+    width:auto!important;
+    min-width:0!important;
+    max-width:none!important;
+    height:auto!important;
+    min-height:0!important;
+    margin:0!important;
+    padding:0!important;
+    font-size:clamp(10px,2.8vw,12px)!important;
+    font-weight:700!important;
+    line-height:1.55!important;
+    text-align:center!important;
+    white-space:normal!important;
+    overflow:visible!important;
+    text-overflow:clip!important;
+    overflow-wrap:break-word!important;
+    word-break:normal!important;
+  }
+}
+@media(max-width:370px){
+ .site-header .header-links{gap:6px!important;width:calc(100% - 16px)!important}
+ .site-header .header-links>a.header-support{min-height:68px!important;padding:8px 5px!important;gap:5px!important}
+ .site-header .header-links>a.header-support>span+span{font-size:9.5px!important;line-height:1.5!important}
+}
+</style>
+
 </head>
 <body>
 
