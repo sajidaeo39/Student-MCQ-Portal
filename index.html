@@ -1998,6 +1998,38 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
 }
 </style>
 
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+<style id="load-and-apply-noto-nastaliq-urdu">
+/* Loadable Nastaliq fallback for devices without Jameel Noori installed. */
+.rtl-text,
+.bilingual-urdu,
+.urdu-text,
+[lang="ur"],
+[dir="rtl"],
+.question-text[dir="rtl"],
+.option-btn[dir="rtl"],
+#quiz-screen .question-text .bilingual-urdu,
+#quiz-screen .option-btn .bilingual-urdu,
+.tutorial-video-heading [lang="ur"],
+.tutorial-share-message[lang="ur"] {
+  font-family:"Noto Nastaliq Urdu","Jameel Noori Nastaleeq",serif !important;
+  direction:rtl;
+  text-align:right;
+  line-height:2.15 !important;
+}
+#quiz-screen .question-text .bilingual-urdu,
+#quiz-screen .option-btn .bilingual-urdu {
+  line-height:2.05 !important;
+  padding-top:5px !important;
+  padding-bottom:5px !important;
+}
+</style>
+
 </head>
 <body>
 
