@@ -1327,6 +1327,28 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
  .tutorial-video-panel{max-width:700px;padding:12px}
  .tutorial-video-frame{max-width:620px}
 }
+/* Equal two-column homepage panels on desktop; stacked on mobile. */
+.homepage-panels-grid{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:16px;align-items:stretch;margin:0 0 16px;
+}
+.homepage-panels-grid>.welcome-box,
+.homepage-panels-grid>.tutorial-video-panel{
+  box-sizing:border-box;width:100%;max-width:none;min-width:0;height:100%;
+  margin:0;display:flex;flex-direction:column;
+}
+.homepage-panels-grid>.welcome-box{justify-content:center;padding:22px 20px}
+.homepage-panels-grid .student-info{margin:0 0 12px}
+.homepage-panels-grid .welcome-box .class-first-note{margin-top:5px!important}
+.homepage-panels-grid>.tutorial-video-panel{justify-content:flex-start;padding:15px}
+.homepage-panels-grid .tutorial-video-frame{max-width:100%}
+.homepage-panels-grid .tutorial-share-message{margin-top:8px}
+@media(max-width:700px){
+ .homepage-panels-grid{grid-template-columns:minmax(0,1fr);gap:10px;margin-bottom:12px}
+ .homepage-panels-grid>.welcome-box,
+ .homepage-panels-grid>.tutorial-video-panel{height:auto}
+ .homepage-panels-grid>.welcome-box{padding:14px 10px}
+}
 </style>
 
 </head>
@@ -1374,6 +1396,7 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
             <p id="stats-status" class="stats-status">Loading shared statistics...</p>
         </section>
 
+            <div class="homepage-panels-grid">
             <div class="welcome-box">
                 
                 <div class="student-info">
@@ -1410,10 +1433,7 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
                 <button type="button" class="tutorial-share-btn tutorial-share-video" onclick="sharePortalResource('video')">▶ ویڈیو شیئر کریں</button>
             </div>
         </section>
-
-
-
-
+            </div><!-- /.homepage-panels-grid -->
 
         </div>
 
