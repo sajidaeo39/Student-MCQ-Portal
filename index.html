@@ -1401,6 +1401,7 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
                     <button class="btn btn-secondary" onclick="reviewQuiz()">Subject-wise Questions & Answers</button>
                     <button class="btn btn-success" onclick="downloadQuizReport()">Download Quiz PDF</button>
                     <button class="btn btn-secondary" id="attempt-another-set-btn" onclick="attemptAnotherSet()" style="display:none;">Attempt Another Set</button>
+                    <button class="btn btn-secondary" id="attempt-all-questions-btn" onclick="attemptAllQuestions()" style="display:none;">Attempt All Questions</button>
                     <button class="btn btn-primary" onclick="showScreen('class-screen')">Take Another Test</button>
                 </div>
             </div>
@@ -34208,13 +34209,14 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
             pill.classList.toggle('expired', quizTimeRemaining <= 0);
         }
 
-        function startQuizTimer(isMixed = false) {
+        function startQuizTimer(isMixed = false, isAttemptAll = false) {
             stopQuizTimer();
-            // Mixed Test is always fixed at five minutes. Mathematics practice gets
-            // one minute per question; English, Urdu and Science remain five minutes.
+            // Attempt All: Mathematics gets 60 seconds per question; other subjects get 30 seconds.
+            // Existing 25-question and Mixed Test timer rules remain unchanged.
             const isMathPractice = !isMixed && currentQuestions.length > 0 &&
                 currentQuestions.every(q => (q.subject || currentSubject) === 'Mathematics');
-            quizTimeLimit = isMixed ? 300 : (isMathPractice ? currentQuestions.length * 60 : 300);
+            const secondsPerQuestion = currentSubject === 'Mathematics' ? 60 : 30;
+            quizTimeLimit = isMixed ? 300 : (isAttemptAll ? currentQuestions.length * secondsPerQuestion : (isMathPractice ? currentQuestions.length * 60 : 300));
             quizTimeRemaining = quizTimeLimit;
             quizStartedAt = Date.now();
             quizAutoSubmitted = false;
@@ -34294,7 +34296,7 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
             return JSON.parse(JSON.stringify(selected));
         }
 
-        function startQuiz(isMixed = false, suppliedQuestions = null) {
+        function startQuiz(isMixed = false, suppliedQuestions = null, isAttemptAll = false) {
             quizRecorded = false;
             let rawQuestions;
             if (suppliedQuestions) {
@@ -34334,7 +34336,7 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
             currentQuestionIndex = 0;
             showScreen('quiz-screen');
             loadQuestion();
-            startQuizTimer(isMixed);
+            startQuizTimer(isMixed, isAttemptAll);
         }
 
         const urduTranslationCache = {};
@@ -34463,8 +34465,13 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
             document.getElementById('wrong-q').innerText = wrong;
 
             const anotherSetBtn = document.getElementById('attempt-another-set-btn');
+            const attemptAllBtn = document.getElementById('attempt-all-questions-btn');
+            const subjectPool = questionBank[currentClass]?.[currentSubject] || [];
             if (anotherSetBtn) {
-                anotherSetBtn.style.display = (total === 25 && currentSubject !== 'Mixed Test') ? 'inline-block' : 'none';
+                anotherSetBtn.style.display = (total === 25 && currentSubject !== 'Mixed Test' && subjectPool.length > 25) ? 'inline-block' : 'none';
+            }
+            if (attemptAllBtn) {
+                attemptAllBtn.style.display = (total === 25 && currentSubject !== 'Mixed Test' && subjectPool.length > 25) ? 'inline-block' : 'none';
             }
 
             const msgEl = document.getElementById('performance-msg');
@@ -34480,6 +34487,17 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
             // so this loads the next fresh batch without repeating the previous set.
             if (currentSubject === 'Mixed Test') return;
             startQuiz(false);
+        }
+
+        function attemptAllQuestions() {
+            if (currentSubject === 'Mixed Test') return;
+            const pool = questionBank[currentClass]?.[currentSubject] || [];
+            if (!(verifiedPracticeSets[currentClass] || []).includes(currentSubject) || !pool.length) {
+                alert('No verified questions are available for this subject yet.');
+                return;
+            }
+            // Load the complete subject bank in one attempt, with a question-count-based timer.
+            startQuiz(false, pool, true);
         }
 
         function renderSubjectPerformance() {
