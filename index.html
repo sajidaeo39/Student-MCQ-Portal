@@ -35605,12 +35605,12 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
 
         function startQuizTimer(isMixed = false, isAttemptAll = false) {
             stopQuizTimer();
-            // Attempt All: Mathematics gets 60 seconds per question; other subjects get 30 seconds.
-            // Existing 25-question and Mixed Test timer rules remain unchanged.
+            // Mathematics keeps its existing 60 seconds per question. Subject-wise practice
+            // gives every other subject 30 seconds per question; Mixed Test stays unchanged.
             const isMathPractice = !isMixed && currentQuestions.length > 0 &&
                 currentQuestions.every(q => (q.subject || currentSubject) === 'Mathematics');
             const secondsPerQuestion = currentSubject === 'Mathematics' ? 60 : 30;
-            quizTimeLimit = isMixed ? 300 : (isAttemptAll ? currentQuestions.length * secondsPerQuestion : (isMathPractice ? currentQuestions.length * 60 : 300));
+            quizTimeLimit = isMixed ? 300 : (isAttemptAll ? currentQuestions.length * secondsPerQuestion : (isMathPractice ? currentQuestions.length * 60 : currentQuestions.length * 30));
             quizTimeRemaining = quizTimeLimit;
             quizStartedAt = Date.now();
             quizAutoSubmitted = false;
@@ -35672,16 +35672,9 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
             shuffleArray(fresh);
             let selected = fresh.slice(0, Math.min(count, fresh.length));
 
-            // Mixed tests need a fixed number of questions per subject. If
-            // fewer than requested remain in this round, use all remaining
-            // questions first, then top up from the pool without duplicating
-            // a question inside this same test.
-            if (selected.length < count) {
-                const selectedKeys = new Set(selected.map(fingerprint));
-                const topUp = source.filter(q => !selectedKeys.has(fingerprint(q)));
-                shuffleArray(topUp);
-                selected = selected.concat(topUp.slice(0, count - selected.length));
-            }
+            // Never top up a partial final batch with questions already used
+            // in this round. The final attempt may contain fewer than 25 items;
+            // the next attempt starts a fresh cycle only after the bank is exhausted.
 
             const selectedKeys = selected.map(fingerprint);
             try {
