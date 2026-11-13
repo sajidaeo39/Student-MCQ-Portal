@@ -35568,6 +35568,14 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
             startQuiz(subject === 'Mixed Test');
         }
 
+        function getStudentRotationKey() {
+            // Keep question history separate for each learner on a shared device.
+            const normalize = value => String(value || '').trim().toLowerCase().replace(/\\s+/g, ' ');
+            const school = normalize(document.getElementById('school-name')?.value);
+            const student = normalize(document.getElementById('student-name')?.value);
+            return 'student::' + (school || 'unspecified-school') + '::' + (student || 'anonymous-student');
+        }
+
         function buildMixedTestQuestions() {
             const bank = questionBank[currentClass] || {};
             const subjects = approvedSubjects[currentClass] || [];
@@ -35578,7 +35586,7 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
             }
             const selected = [];
             for (const subject of subjects) {
-                const copy = selectFreshQuestions(bank[subject], 3, currentClass + '::' + subject + '::mixed');
+                const copy = selectFreshQuestions(bank[subject], 3, currentClass + '::' + subject + '::mixed::' + getStudentRotationKey());
                 if (!copy || copy.length !== 3) return null;
                 copy.forEach(question => { question._subject = subject; selected.push(question); });
             }
@@ -35697,7 +35705,7 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
                     return;
                 }
                 const batchSize = Math.min(25, pool.length);
-                rawQuestions = selectFreshQuestions(pool, batchSize, currentClass + '::' + currentSubject + '::subject');
+                rawQuestions = selectFreshQuestions(pool, batchSize, currentClass + '::' + currentSubject + '::subject::' + getStudentRotationKey());
             }
             if (!rawQuestions) return;
             shuffleArray(rawQuestions);
@@ -35897,8 +35905,11 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
                 alert('No verified questions are available for this subject yet.');
                 return;
             }
-            // Load the complete subject bank in one attempt, with a question-count-based timer.
-            startQuiz(false, pool, true);
+            // Attempt all questions that remain unseen for this learner; the cycle
+            // resets only after the complete subject bank has been attempted.
+            const freshPool = selectFreshQuestions(pool, pool.length,
+                currentClass + '::' + currentSubject + '::subject::' + getStudentRotationKey());
+            startQuiz(false, freshPool, true);
         }
 
         function renderSubjectPerformance() {
