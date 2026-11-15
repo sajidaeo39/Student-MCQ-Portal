@@ -2711,7 +2711,7 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
                     <input id="school-name" type="text" maxlength="80" placeholder="Enter school name">
                     <label for="student-name">Student Name</label>
                     <input id="student-name" type="text" maxlength="80" placeholder="Enter student name">
-                    <div class="test-availability-note"><span>✓ Class-wise &amp; subject-wise tests available</span><span>✓ AEO TAB-style Mixed Test also available</span></div>
+                    <div class="test-availability-note"><span>✓ Class-wise &amp; subject-wise tests available</span><span>✓ Sample AEO Tab Test also available</span></div>
                 </div>
                 <button class="btn btn-primary" onclick="showScreen('class-screen')" style="font-size: 1.2rem; padding: 15px 40px;">🎓 Select Class & Start Test</button>
             </div>
@@ -35558,7 +35558,7 @@ body:has(#quiz-screen.active) .container{max-width:100%!important;margin:0 auto!
             mixedCard.style.border = '2px solid var(--secondary-color)';
             mixedCard.style.background = '#eff6ff';
             mixedCard.onclick = () => selectSubject('Mixed Test');
-            mixedCard.innerHTML = `<h4>⭐ Mixed Test</h4><p style="margin-top:6px;font-size:.85rem;color:#475569;">${distribution}</p><strong style="display:block;margin-top:5px;color:var(--primary-color);">Total: ${totalMarks} Marks</strong>`;
+            mixedCard.innerHTML = `<h4>⭐ Sample AEO Tab Test</h4><p style="margin-top:6px;font-size:.85rem;color:#475569;">${distribution}</p><strong style="display:block;margin-top:5px;color:var(--primary-color);">Total: ${totalMarks} Marks</strong>`;
             subjectList.appendChild(mixedCard);
         }
 
