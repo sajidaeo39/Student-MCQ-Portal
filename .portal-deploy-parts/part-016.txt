@@ -142,7 +142,8 @@ $('schoolPrev').onclick=()=>{if(schoolIndex>0&&!schoolDone){schoolIndex--;render
 function schoolResultHtml(){let correct=schoolQuestions.reduce((n,q,i)=>n+(schoolAnswers[i]===String(q.correct_answer).toUpperCase()?1:0),0),incorrect=schoolQuestions.reduce((n,q,i)=>n+(!!schoolAnswers[i]&&schoolAnswers[i]!==String(q.correct_answer).toUpperCase()?1:0),0),unattempted=schoolQuestions.length-correct-incorrect;return `<h2>${esc($('schoolAttemptTitle').textContent)} — Result</h2><p>${esc($('schoolAttemptSub').textContent)}</p><h3>Correct: ${correct} · Incorrect: ${incorrect} · Unattempted: ${unattempted}</h3><table><thead><tr><th>#</th><th>Question</th><th>Your Answer</th><th>Correct Answer</th><th>Status</th></tr></thead><tbody>${schoolQuestions.map((q,i)=>`<tr><td>${i+1}</td><td>${esc(q.question)}</td><td>${esc(schoolAnswers[i]||'—')}</td><td>${esc(q.correct_answer)}</td><td>${!schoolAnswers[i]?'Unattempted':schoolAnswers[i]===String(q.correct_answer).toUpperCase()?'Correct':'Incorrect'}</td></tr>`).join('')}</tbody></table>`;}
 $('schoolResultPdf').onclick=()=>setPrint('AEO Tab Test Result',schoolResultHtml());
 $('schoolAttemptAgain').onclick=()=>{schoolDone=false;schoolAnswers={};schoolIndex=0;renderSchoolClasses();};
-$('schoolBackClasses').onclick=()=>{if(schoolDone||confirm('Leave this test? Your current answers will not be saved.')){$('schoolAttemptPage').classList.add('hide');$('schoolClassPage').classList.remove('hide');}};
+$('schoolBackClasses').onclick=()=>{if(schoolDone||confirm('Quit this test? Your current answers will be discarded.')){stopPortalTimer();$('schoolAttemptPage').classList.add('hide');$('schoolClassPage').classList.remove('hide');}};
+$('quitClassTest').onclick=()=>{if(confirm('Quit this test? Your current answers will be discarded.')){stopPortalTimer();resetTest();}};
 
 
 /* Elapsed test timer: visible during both test modes; stops on submission. */
