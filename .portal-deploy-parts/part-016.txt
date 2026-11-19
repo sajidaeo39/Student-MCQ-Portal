@@ -113,23 +113,6 @@ $('schoolAttemptAgain').onclick=()=>{schoolDone=false;schoolAnswers={};schoolInd
 $('schoolBackClasses').onclick=()=>{if(schoolDone||confirm('Leave this test? Your current answers will not be saved.')){$('schoolAttemptPage').classList.add('hide');$('schoolClassPage').classList.remove('hide');}};
 
 
-/* Portal overview cards and social sharing */
-(function(){
- const put=(id,value)=>{const el=document.getElementById(id);if(el)el.textContent=Number(value||0).toLocaleString();};
- put('statMcqs',portalRows.length);
- put('statClasses',uniq(portalRows.map(x=>x.class_num)).length);
- put('statSubjects',uniq(portalRows.map(x=>x.subject)).length);
- put('statSlos',uniq(portalSLOs.map(x=>x.slo_id||x.id)).length);
- const page=location.href.split('#')[0],title='PECTAA Smart Practice Portal';
- const enc=encodeURIComponent(page),msg=encodeURIComponent(title+' — '+page);
- const wa=document.getElementById('shareWhatsApp'),fb=document.getElementById('shareFacebook'),tg=document.getElementById('shareTelegram');
- if(wa)wa.href='https://wa.me/?text='+msg;
- if(fb)fb.href='https://www.facebook.com/sharer/sharer.php?u='+enc;
- if(tg)tg.href='https://t.me/share/url?url='+enc+'&text='+encodeURIComponent(title);
- const cp=document.getElementById('shareCopy');
- if(cp)cp.onclick=async()=>{try{await navigator.clipboard.writeText(page);cp.textContent='Link Copied';}catch(e){window.prompt('Copy portal link:',page);}};
-})();
-
 /* Elapsed test timer: visible during both test modes; stops on submission. */
 let portalTimerHandle=null,portalTimerStarted=0;
 function startPortalTimer(id){
@@ -169,4 +152,27 @@ renderSchoolQuestion=function(){
  paintQuestionPalette('schoolQuestionPalette',schoolQuestions.length,schoolIndex,schoolAnswers,schoolDone,n=>{schoolIndex=n;renderSchoolQuestion();});
  document.querySelectorAll('#schoolOpts input[name="schoolAnswer"]').forEach(el=>el.addEventListener('change',()=>paintQuestionPalette('schoolQuestionPalette',schoolQuestions.length,schoolIndex,schoolAnswers,schoolDone,n=>{schoolIndex=n;renderSchoolQuestion();})));
 };
+
+/* Reuse the original MCQ portal's shared Abacus counters and exact labels. */
+const COUNTER_BASE="https://abacus.jasoncameron.dev";
+const COUNTER_NAMESPACE="student-mcq-portal-sajidaeo39";
+const COUNTER_KEYS={schools:"school_entries",students:"student_entries",tests:"tests_attempted",questions:"questions_attempted"};
+const COUNTER_OFFSETS={schools:1,students:1,tests:7,questions:14};
+let quizRecorded=false;
+async function readCounter(key,id){const el=document.getElementById(id);try{const r=await fetch(`${COUNTER_BASE}/get/${COUNTER_NAMESPACE}/${COUNTER_KEYS[key]}?t=${Date.now()}`,{mode:"cors",cache:"no-store"});if(r.status===404){el.innerText=COUNTER_OFFSETS[key].toLocaleString();return true;}if(!r.ok)throw Error("Counter read failed");const d=await r.json();if(d.value===undefined)throw Error("Counter value missing");el.innerText=(COUNTER_OFFSETS[key]+Number(d.value)).toLocaleString();return true;}catch(e){el.innerText="—";return false;}}
+async function loadPortalStats(){const el=document.getElementById("stats-status");el.innerText="Loading shared statistics...";const results=await Promise.all([readCounter("schools","total-schools"),readCounter("students","total-students"),readCounter("tests","tests-attempted"),readCounter("questions","questions-attempted")]);el.innerText=results.every(Boolean)?"Live shared statistics":"Statistics service unavailable. Please refresh or try another network.";}
+async function hitCounter(key){const r=await fetch(`${COUNTER_BASE}/hit/${COUNTER_NAMESPACE}/${COUNTER_KEYS[key]}?t=${Date.now()}`,{mode:"cors",cache:"no-store"});if(!r.ok)throw Error("Counter update failed");const d=await r.json();if(d.value===undefined)throw Error("Counter value missing");return COUNTER_OFFSETS[key]+Number(d.value);}
+async function hitCounterWithRetry(key){let err;for(let i=0;i<3;i++){try{return await hitCounter(key);}catch(e){err=e;await new Promise(r=>setTimeout(r,1100*(i+1)));}}throw err;}
+async function saveAttemptStats(total,answered){if(quizRecorded)return;quizRecorded=true;const schoolEntered=document.getElementById("school-name").value.trim().length>0,studentEntered=document.getElementById("student-name").value.trim().length>0;try{const tests=await hitCounterWithRetry("tests");document.getElementById("tests-attempted").innerText=tests.toLocaleString();if(schoolEntered)document.getElementById("total-schools").innerText=(await hitCounterWithRetry("schools")).toLocaleString();if(studentEntered)document.getElementById("total-students").innerText=(await hitCounterWithRetry("students")).toLocaleString();const out=document.getElementById("questions-attempted");for(let i=0;i<answered;i++){out.innerText=(await hitCounterWithRetry("questions")).toLocaleString();if(i<answered-1)await new Promise(r=>setTimeout(r,350));}document.getElementById("stats-status").innerText="Statistics updated successfully";}catch(e){document.getElementById("stats-status").innerText="Some statistics could not sync. Please try again later.";}}
+loadPortalStats();
+const _originalStartClass=startClassTest;
+startClassTest=function(){quizRecorded=false;return _originalStartClass();};
+const _originalStartSchool=startSchoolClass;
+startSchoolClass=function(n){quizRecorded=false;return _originalStartSchool(n);};
+const _originalSubmitClass=submitClassTest;
+submitClassTest=function(){const was=submitted;_originalSubmitClass();if(!was&&submitted)saveAttemptStats(questions.length,Object.values(answers).filter(Boolean).length);};
+$('submitTest').onclick=submitClassTest;
+const _originalSubmitSchool=submitSchool;
+submitSchool=function(){const was=schoolDone;_originalSubmitSchool();if(!was&&schoolDone)saveAttemptStats(schoolQuestions.length,Object.values(schoolAnswers).filter(Boolean).length);};
+$('schoolSubmit').onclick=submitSchool;
 </script></body></html>
