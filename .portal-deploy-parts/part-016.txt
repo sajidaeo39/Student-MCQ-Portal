@@ -112,4 +112,61 @@ $('schoolResultPdf').onclick=()=>setPrint('AEO Tab Test Result',schoolResultHtml
 $('schoolAttemptAgain').onclick=()=>{schoolDone=false;schoolAnswers={};schoolIndex=0;renderSchoolClasses();};
 $('schoolBackClasses').onclick=()=>{if(schoolDone||confirm('Leave this test? Your current answers will not be saved.')){$('schoolAttemptPage').classList.add('hide');$('schoolClassPage').classList.remove('hide');}};
 
+
+/* Portal overview cards and social sharing */
+(function(){
+ const put=(id,value)=>{const el=document.getElementById(id);if(el)el.textContent=Number(value||0).toLocaleString();};
+ put('statMcqs',portalRows.length);
+ put('statClasses',uniq(portalRows.map(x=>x.class_num)).length);
+ put('statSubjects',uniq(portalRows.map(x=>x.subject)).length);
+ put('statSlos',uniq(portalSLOs.map(x=>x.slo_id||x.id)).length);
+ const page=location.href.split('#')[0],title='PECTAA Smart Practice Portal';
+ const enc=encodeURIComponent(page),msg=encodeURIComponent(title+' — '+page);
+ const wa=document.getElementById('shareWhatsApp'),fb=document.getElementById('shareFacebook'),tg=document.getElementById('shareTelegram');
+ if(wa)wa.href='https://wa.me/?text='+msg;
+ if(fb)fb.href='https://www.facebook.com/sharer/sharer.php?u='+enc;
+ if(tg)tg.href='https://t.me/share/url?url='+enc+'&text='+encodeURIComponent(title);
+ const cp=document.getElementById('shareCopy');
+ if(cp)cp.onclick=async()=>{try{await navigator.clipboard.writeText(page);cp.textContent='Link Copied';}catch(e){window.prompt('Copy portal link:',page);}};
+})();
+
+/* Elapsed test timer: visible during both test modes; stops on submission. */
+let portalTimerHandle=null,portalTimerStarted=0;
+function startPortalTimer(id){
+ if(portalTimerHandle)clearInterval(portalTimerHandle);
+ const el=document.getElementById(id);if(!el)return;
+ portalTimerStarted=Date.now();
+ const tick=()=>{const seconds=Math.floor((Date.now()-portalTimerStarted)/1000),mm=String(Math.floor(seconds/60)).padStart(2,'0'),ss=String(seconds%60).padStart(2,'0');el.textContent='Time: '+mm+':'+ss;};
+ tick();portalTimerHandle=setInterval(tick,1000);
+}
+function stopPortalTimer(){if(portalTimerHandle){clearInterval(portalTimerHandle);portalTimerHandle=null;}}
+const originalStartClassTest=startClassTest;
+startClassTest=function(){originalStartClassTest();if(questions&&questions.length)startPortalTimer('classTimer');};
+const originalSubmitClassTest=submitClassTest;
+submitClassTest=function(){originalSubmitClassTest();if(submitted)stopPortalTimer();};
+$('submitTest').onclick=submitClassTest;
+const originalStartSchoolClass=startSchoolClass;
+startSchoolClass=function(n){originalStartSchoolClass(n);if(schoolQuestions&&schoolQuestions.length&&!schoolDone&&$('schoolAttemptPage')&&!$('schoolAttemptPage').classList.contains('hide'))startPortalTimer('schoolTimer');};
+const originalSubmitSchool=submitSchool;
+submitSchool=function(){originalSubmitSchool();if(schoolDone)stopPortalTimer();};
+$('schoolSubmit').onclick=submitSchool;
+
+/* Numbered question navigation with answered/current status. */
+function paintQuestionPalette(id,total,current,answerMap,done,jump){
+ const host=document.getElementById(id);if(!host)return;
+ host.innerHTML=Array.from({length:total},(_,i)=>{const answered=!!answerMap[i];return '<button type="button" class="'+(i===current?'current ': '')+(answered?'answered':'')+'" aria-label="Question '+(i+1)+(answered?', answered':' , unanswered')+'" '+(done?'disabled':'')+'>'+ (i+1)+'</button>';}).join('');
+ host.querySelectorAll('button').forEach((btn,i)=>btn.onclick=()=>{if(!done)jump(i);});
+}
+const originalRenderQuestion=renderQuestion;
+renderQuestion=function(){
+ originalRenderQuestion();
+ paintQuestionPalette('questionPalette',questions.length,idx,answers,submitted,n=>{idx=n;renderQuestion();});
+ document.querySelectorAll('#opts input[name="answer"]').forEach(el=>el.addEventListener('change',()=>paintQuestionPalette('questionPalette',questions.length,idx,answers,submitted,n=>{idx=n;renderQuestion();})));
+};
+const originalRenderSchoolQuestion=renderSchoolQuestion;
+renderSchoolQuestion=function(){
+ originalRenderSchoolQuestion();
+ paintQuestionPalette('schoolQuestionPalette',schoolQuestions.length,schoolIndex,schoolAnswers,schoolDone,n=>{schoolIndex=n;renderSchoolQuestion();});
+ document.querySelectorAll('#schoolOpts input[name="schoolAnswer"]').forEach(el=>el.addEventListener('change',()=>paintQuestionPalette('schoolQuestionPalette',schoolQuestions.length,schoolIndex,schoolAnswers,schoolDone,n=>{schoolIndex=n;renderSchoolQuestion();})));
+};
 </script></body></html>
