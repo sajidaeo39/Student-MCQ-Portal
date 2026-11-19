@@ -566,13 +566,10 @@ input,select,textarea{font-size:16px}
 <button type="button" class="portal-choice" id="homeClass"><span class="choice-icon">📝</span><strong>Class-wise Test</strong><small>Select class, subject and month</small></button>
 <button type="button" class="portal-choice" id="homeAeo"><span class="choice-icon">🎯</span><strong>AEO Tab Sample Test</strong><small>Open the sample practice test</small></button>
 </div>
-<div class="student-info original-student-info">
-                    <h4>👤 Student Information <span class="optional-note">Optional</span></h4>
-                    <label for="school-name">School Name</label>
-                    <input id="school-name" type="text" maxlength="80" placeholder="Enter school name">
-                    <label for="student-name">Student Name</label>
-                    <input id="student-name" type="text" maxlength="80" placeholder="Enter student name">
-                    <div class="test-availability-note"><span>✓ Class-wise &amp; subject-wise tests available</span><span>✓ Sample AEO Tab Test also available</span></div>
+<div class="home-availability-note">
+  <div>✓ Class-wise &amp; subject-wise tests available</div>
+  <div>✓ Sample AEO Tab Test also available</div>
+</div>
 </section>
 
 <section id="mcqTab" class="tabpage hide">
@@ -585,7 +582,15 @@ input,select,textarea{font-size:16px}
 <div class="grid3" style="margin-top:12px"><div class="field"><label>Class</label><select id="sloClass"><option value="">All Classes</option></select></div><div class="field"><label>Subject</label><select id="sloSubject"><option value="">All Subjects</option></select></div><div class="field"><label>Month</label><select id="sloMonth"><option value="">All Months</option></select></div></div>
 <div class="field" style="margin-top:10px"><label for="sloSearch">Search SLO description / chapter</label><input id="sloSearch" type="search" placeholder="Type a keyword to filter the selected SLOs" style="width:100%;padding:11px;border:1px solid #cbd5e1;border-radius:9px"></div><div class="actions no-print"><button class="btn secondary" id="sloPdf">Download PDF</button><span class="small" id="sloCount"></span></div>
 <div id="sloPrompt" class="notice" style="margin-top:12px">Please select Class, Subject and Month from the dropdowns to view SLOs. The full SLO list remains hidden until filters are selected.</div><div class="tablewrap hide" id="sloTableWrap" style="margin-top:12px"><table><thead><tr><th>Class</th><th>Subject</th><th>Month</th><th>Chapter</th><th>SLO Description</th></tr></thead><tbody id="sloRows"></tbody></table></div></div></section>
-<section id="classTab" class="tabpage hide"><div class="panel">
+<section id="classTab" class="tabpage hide">
+<div class="student-info class-test-student-info">
+  <h4>👤 Student Information <span class="optional-note">Optional</span></h4>
+  <label for="school-name">School Name</label>
+  <input id="school-name" type="text" maxlength="80" placeholder="Enter school name">
+  <label for="student-name">Student Name</label>
+  <input id="student-name" type="text" maxlength="80" placeholder="Enter student name">
+</div>
+<div class="panel">
                 </div></div>
 <div class="panel"><h2 style="margin:0 0 12px">Select Test Options</h2><div class="grid3"><div class="field"><label>Class</label><select id="cls"><option value="">Choose class</option></select></div><div class="field"><label>Subject</label><select id="sub" disabled><option value="">Choose subject</option></select></div><div class="field"><label>Month</label><select id="month" disabled><option value="">Choose month</option></select></div></div><select id="chapter" class="hide" aria-hidden="true" tabindex="-1" disabled><option value="">Monthly SLO-Based Test</option></select><p class="muted" id="monthlyTestHint">Choose Class, Subject and Month. Your test will open automatically after the final selection.</p><div class="summary" id="meta"></div><div class="actions no-print"><button class="btn secondary" id="classPdf">Download PDF</button></div></div>
 <div id="testPanel" class="panel hide" aria-live="polite"><div class="topline"><div><b id="testTitle">Practice Test</b><div id="testSub" class="muted"></div></div><span id="counter" class="pill"></span><span id="classTimer" class="timer-pill">Time: 00:00</span></div><div class="progress"><span id="bar" style="width:0%"></span></div><div id="qText" class="question"></div><div id="opts"></div><div id="questionPalette" class="question-palette no-print" aria-label="Question navigation"></div><div class="topline no-print" style="margin-top:14px"><button id="prev" class="btn secondary">Previous</button><button id="skipNext" class="btn secondary">Skip &amp; Next</button><button id="next" class="btn">Next</button><button id="submitTest" class="btn">Submit Test</button></div><div id="result" class="notice hide" style="margin-top:14px"></div><div class="actions no-print" style="margin-top:10px"><button id="classResultPdf" class="btn secondary hide">Download Result PDF</button></div><div id="retryWrap" class="hide no-print" style="margin-top:12px"><button id="retry" class="btn">Attempt Another Quiz</button></div><div id="classPaper" class="hide print-show"></div></div></section>
@@ -600,6 +605,18 @@ input,select,textarea{font-size:16px}
 <footer class="site-footer compact-site-footer">
   <span>The Educational Helper</span>
 </footer>
+<style id="home-class-student-layout-fix">
+.home-availability-note{display:flex;flex-wrap:wrap;gap:5px 18px;margin:8px 2px 0;color:#475569;font-size:.82rem;line-height:1.35}
+.class-test-student-info{margin:0 0 10px!important;padding:10px!important;border:1px solid #dce4ec;border-radius:11px;background:#fff}
+.class-test-student-info h4{margin:0 0 7px}
+.class-test-student-info label{display:block;margin:7px 0 3px}
+.class-test-student-info input{width:100%;box-sizing:border-box}
+@media(max-width:700px){
+ .home-availability-note{display:grid;gap:3px;font-size:.72rem;margin-top:7px}
+ .class-test-student-info{padding:9px!important;margin-bottom:8px!important}
+ .class-test-student-info h4{font-size:.84rem}
+}
+</style>
 <style id="compact-footer-navigation-fix">
 .compact-site-footer{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;column-gap:16px;row-gap:5px;padding:10px 12px!important;margin-top:12px!important;font-size:12px;line-height:1.35;text-align:center}
 .compact-site-footer span{display:inline}
