@@ -358,7 +358,61 @@ input,select,textarea{font-size:16px}
 @media(prefers-reduced-motion:reduce){.portal-choice,.tabs .tab{transition:none}}
 </style>
 
-</head><body>
+<style id="mobile-compact-v49">
+@media(max-width:700px){
+ body{font-size:14px;line-height:1.4}
+ header.site-header{padding:12px 9px 10px}
+ header.site-header h1{font-size:1.05rem;line-height:1.25;margin-bottom:3px}
+ header.site-header h2{font-size:.76rem;line-height:1.25;margin:3px 0}
+ .header-links{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:5px!important;margin:7px auto 0!important;padding:0!important}
+ .header-links .header-support{min-height:38px!important;padding:4px 2px!important;gap:3px!important}
+ .header-links .social-brand-name{font-size:.55rem!important}
+ .header-links .social-brand-subline{font-size:.48rem!important}
+ .header-links .social-brand-icon{width:12px!important;height:12px!important;min-width:12px!important;flex-basis:12px!important}
+ main,.container{padding:8px!important;margin-top:7px!important}
+ .summary-panel{padding:9px 8px!important;margin-bottom:8px!important;border-radius:11px}
+ .summary-panel h3{font-size:.8rem;margin-bottom:6px!important}
+ .summary-grid{gap:5px!important}
+ .summary-card{min-height:48px!important;padding:6px 5px!important;border-radius:9px}
+ .summary-card strong{font-size:.98rem!important;line-height:1.1}
+ .summary-card span{font-size:.59rem!important;line-height:1.15;margin-top:3px}
+ .portal-home{padding:11px 10px 12px!important;margin:7px auto 9px!important;border-radius:13px}
+ .portal-home>h2{font-size:1.15rem!important;line-height:1.25;margin:0 0 5px!important}
+ .portal-home>.muted{font-size:.78rem!important;line-height:1.3}
+ .portal-choice-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important;margin:10px 0 12px!important}
+ .portal-choice{display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:center!important;gap:4px!important;min-height:88px!important;padding:8px 5px!important;border-radius:11px!important;text-align:center!important}
+ .portal-choice .choice-icon{width:auto!important;height:auto!important;font-size:25px!important;line-height:1.1}
+ .portal-choice strong{font-size:.77rem!important;line-height:1.2}
+ .portal-choice small{font-size:.64rem!important;line-height:1.2}
+ .portal-home .student-info{margin:10px 0 0!important;padding:9px!important;border-radius:10px}
+ .portal-home .student-info h4{font-size:.84rem;margin-bottom:6px}
+ .portal-home .student-info label{font-size:.76rem;margin:6px 0 3px}
+ .portal-home .student-info input{min-height:39px!important;padding:7px 9px!important;font-size:16px}
+ .portal-home .test-availability-note{font-size:.7rem;gap:3px;margin-top:6px}
+ .tabs{position:sticky;top:0;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:4px!important;padding:4px!important;margin:6px 0 8px!important;border-radius:10px}
+ .tabs .tab{min-height:36px!important;padding:5px 2px!important;font-size:.64rem!important;line-height:1.15;border-radius:7px}
+ .panel{padding:9px!important;margin-bottom:7px!important;border-radius:10px}
+ .field label{font-size:.72rem;margin-bottom:3px}
+ .field input,.field select,.field textarea,select,input,textarea{min-height:39px!important;padding:7px 8px!important;font-size:16px}
+ .actions{gap:5px!important;margin-top:7px}
+ .actions button,.actions .btn{min-height:36px!important;padding:7px 6px!important;font-size:.74rem}
+ .question{font-size:.94rem!important;line-height:1.42!important;margin:6px 0 8px!important}
+ .option{min-height:39px!important;padding:8px!important;margin:5px 0!important;font-size:.8rem;line-height:1.3}
+ .option input{width:17px;height:17px;flex-basis:17px}
+ .question-palette{gap:4px!important;margin:7px 0}
+ .question-palette button{min-width:32px!important;width:32px!important;min-height:32px!important;height:32px!important;font-size:.72rem}
+ .top-bar{margin-bottom:7px}.quiz-header{padding:8px!important;margin-bottom:7px!important}
+ .question-box{padding:10px!important;border-radius:10px}
+ .nav-buttons{gap:5px!important}
+ .nav-buttons .btn{min-height:37px!important;padding:7px 5px!important;font-size:.76rem}
+ .stats-grid{gap:4px!important}.stat-item{padding:7px 3px!important}
+ .stat-item h3{font-size:.95rem!important}.stat-item p{font-size:.59rem!important}
+ .result-box{padding:12px 8px!important}.score-circle{width:94px!important;height:94px!important}
+ .review-item{padding:8px!important}
+ .site-footer{margin-top:10px!important;padding:8px 6px!important;font-size:.65rem!important;line-height:1.4}
+}
+@media(max-width:360px){.portal-choice{min-height:80px!important}.portal-choice strong{font-size:.7rem!important}.portal-choice small{font-size:.58rem!important}.tabs .tab{font-size:.58rem!important}}
+</style></head><body>
 <header class="site-header">
         <h1>PECTAA (Unofficial) Class Wise and Subject Wise Practice Portal</h1>
         <h2>Learn • Practice • Improve</h2>
