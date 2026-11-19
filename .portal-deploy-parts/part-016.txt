@@ -146,23 +146,39 @@ $('schoolBackClasses').onclick=()=>{if(schoolDone||confirm('Quit this test? Your
 $('quitClassTest').onclick=()=>{if(confirm('Quit this test? Your current answers will be discarded.')){stopPortalTimer();resetTest();}};
 
 
-/* Elapsed test timer: visible during both test modes; stops on submission. */
-let portalTimerHandle=null,portalTimerStarted=0;
-function startPortalTimer(id){
- if(portalTimerHandle)clearInterval(portalTimerHandle);
+/* Countdown time limits for Class-wise and AEO sample tests. */
+let portalTimerHandle=null,portalTimerDeadline=0;
+function startPortalTimer(id,durationSeconds,onExpire){
+ stopPortalTimer();
  const el=document.getElementById(id);if(!el)return;
- portalTimerStarted=Date.now();
- const tick=()=>{const seconds=Math.floor((Date.now()-portalTimerStarted)/1000),mm=String(Math.floor(seconds/60)).padStart(2,'0'),ss=String(seconds%60).padStart(2,'0');el.textContent='Time: '+mm+':'+ss;};
+ portalTimerDeadline=Date.now()+durationSeconds*1000;
+ const tick=()=>{
+  const remaining=Math.max(0,Math.ceil((portalTimerDeadline-Date.now())/1000));
+  const mm=String(Math.floor(remaining/60)).padStart(2,'0'),ss=String(remaining%60).padStart(2,'0');
+  el.textContent='Time Left: '+mm+':'+ss;
+  if(remaining<=0){stopPortalTimer();el.textContent='Time Up';if(typeof onExpire==='function')onExpire();}
+ };
  tick();portalTimerHandle=setInterval(tick,1000);
 }
 function stopPortalTimer(){if(portalTimerHandle){clearInterval(portalTimerHandle);portalTimerHandle=null;}}
 const originalStartClassTest=startClassTest;
-startClassTest=function(){originalStartClassTest();if(questions&&questions.length)startPortalTimer('classTimer');};
+startClassTest=function(){
+ originalStartClassTest();
+ if(questions&&questions.length){
+  const subject=$('sub').value;
+  const seconds=subject===MIX?300:(subject==='Mathematics'?60:30)*questions.length;
+  startPortalTimer('classTimer',seconds,()=>$('submitTest').click());
+ }
+};
 const originalSubmitClassTest=submitClassTest;
 submitClassTest=function(){originalSubmitClassTest();if(submitted)stopPortalTimer();};
 $('submitTest').onclick=submitClassTest;
 const originalStartSchoolClass=startSchoolClass;
-startSchoolClass=function(n){originalStartSchoolClass(n);if(schoolQuestions&&schoolQuestions.length&&!schoolDone&&$('schoolAttemptPage')&&!$('schoolAttemptPage').classList.contains('hide'))startPortalTimer('schoolTimer');};
+startSchoolClass=function(n){
+ originalStartSchoolClass(n);
+ if(schoolQuestions&&schoolQuestions.length&&!schoolDone&&$('schoolAttemptPage')&&!$('schoolAttemptPage').classList.contains('hide'))
+  startPortalTimer('schoolTimer',300,()=>$('schoolSubmit').click());
+};
 const originalSubmitSchool=submitSchool;
 submitSchool=function(){originalSubmitSchool();if(schoolDone)stopPortalTimer();};
 $('schoolSubmit').onclick=submitSchool;
