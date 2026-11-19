@@ -2,7 +2,7 @@
  * PECTAA (Unofficial) MCQ Portal — Offline-first service worker
  * Keeps the existing single-file portal and its current quiz logic unchanged.
  */
-const APP_CACHE = 'pectaa-mcqs-v43';
+const APP_CACHE = 'pectaa-mcqs-v44';
 const FONT_CACHE = 'pectaa-fonts-v1';
 const APP_SHELL = [
   './',
