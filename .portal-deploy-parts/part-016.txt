@@ -37,9 +37,8 @@ function drawBank(){
 ['bankClass','bankSubject','bankMonth'].forEach(id=>$(id).addEventListener('change',drawBank));
 $('bankSearch').addEventListener('input',drawBank);drawBank();
 function sloFiltered(){
- const term=$('sloSearch').value.trim().toLowerCase();
- return portalSLOs.filter(x=>x.class===$('sloClass').value&&x.subject===$('sloSubject').value&&x.month===$('sloMonth').value)
- .filter(x=>!term||[x.slo_desc,x.chapter,x.category].some(v=>String(v??'').toLowerCase().includes(term)));
+ // The SLO search box was intentionally removed from the interface.
+ return portalSLOs.filter(x=>x.class===$('sloClass').value&&x.subject===$('sloSubject').value&&x.month===$('sloMonth').value);
 }
 function drawSlos(){
  let ready=$('sloClass').value&&$('sloSubject').value&&$('sloMonth').value;
@@ -49,7 +48,7 @@ function drawSlos(){
  $('sloRows').innerHTML=a.map(x=>`<tr><td>${esc(x.class)}</td><td>${esc(x.subject)}</td><td>${esc(x.month)}</td><td>${esc(x.chapter)}</td><td>${esc(x.slo_desc)}</td></tr>`).join('');
 }
 ['sloClass','sloSubject','sloMonth'].forEach(id=>$(id).addEventListener('change',drawSlos));
-$('sloSearch').addEventListener('input',drawSlos);drawSlos();
+drawSlos();
 function bankReady(){return !!($('bankClass').value&&$('bankSubject').value&&$('bankMonth').value);}
 function sloReady(){return !!($('sloClass').value&&$('sloSubject').value&&$('sloMonth').value);}
 $('bankPdf').onclick=()=>{if(!bankReady()){alert('Please select Class, Subject and Month first.');return;}let a=bankFiltered();setPrint('MCQ Bank',`<p>${a.length} MCQs · ${esc($('bankClass').value)} · ${esc($('bankSubject').value)} · ${esc($('bankMonth').value)}</p><table><thead><tr><th>Class</th><th>Subject</th><th>Month</th><th>Chapter</th><th>SLO</th><th>Question</th></tr></thead><tbody>${a.map(x=>`<tr><td>${esc(x.class_name)}</td><td>${esc(x.subject)}</td><td>${esc(x.month)}</td><td>${esc(x.ch_name||x.ch_num)}</td><td>${esc(x.slo_id)}</td><td>${esc(x.question)}</td></tr>`).join('')}</tbody></table>`);};
@@ -226,54 +225,4 @@ const _originalSubmitSchool=submitSchool;
 submitSchool=function(){const was=schoolDone;_originalSubmitSchool();if(!was&&schoolDone)saveAttemptStats(schoolQuestions.length,Object.values(schoolAnswers).filter(Boolean).length);};
 $('schoolSubmit').onclick=submitSchool;
 
-/* v64: Rebind student test selectors after all portal modules are initialized.
-   This keeps mobile dropdowns and AEO level cards responsive after page navigation. */
-fill('cls',classes,'Choose class');
-fill('schoolMonth',months,'Choose month');
-$('cls').disabled=false;
-$('cls').onchange=()=>{
- const c=$('cls').value;
- const n=c?Number((c.match(/\d+/)||[])[0]):0;
- const ss=uniq(portalRows.filter(x=>x.class_name===c).map(x=>x.subject))
-   .sort((a,b)=>subjects.indexOf(a)-subjects.indexOf(b));
- if(n>=3)ss.push(MIX);
- $('sub').innerHTML='<option value="">Choose subject</option>'+
-   ss.map(x=>x===MIX?'<option value="'+MIX+'">AEO Tab Test</option>':'<option value="'+esc(x)+'">'+esc(x)+'</option>').join('');
- $('sub').disabled=!c;
- resetClassAfter('sub');
-};
-$('sub').onchange=()=>{
- const c=$('cls').value,sub=$('sub').value;
- if(!c||!sub){fill('month',[],'Choose month');$('month').disabled=true;resetClassAfter('month');return;}
- const allow=sub===MIX?mixSubjectsForClass(classNo()):[sub];
- const a=portalRows.filter(x=>x.class_name===c&&allow.includes(x.subject));
- const ms=uniq(a.map(x=>x.month)).sort((a,b)=>rankMonth(a)-rankMonth(b));
- fill('month',ms,'Choose month');$('month').disabled=false;
- resetClassAfter('month');
-};
-$('month').onchange=()=>{
- if(!$('cls').value||!$('sub').value||!$('month').value){resetTest();return;}
- const a=classFiltered();
- fill('chapter',['Monthly SLO-Based Test'],'Monthly SLO-Based Test');
- $('chapter').value='Monthly SLO-Based Test';$('chapter').disabled=false;
- $('meta').innerHTML='<span class="pill">'+validRows(a).length+' monthly MCQs</span><span class="pill">Monthly SLO-based practice</span>';
- resetTest();startClassTest();
- if(!$('testPanel').classList.contains('hide'))$('testPanel').scrollIntoView({behavior:'smooth',block:'start'});
-};
-$('schoolMonth').disabled=false;
-$('schoolMonth').onchange=()=>{
- const ready=!!$('schoolMonth').value;
- $('schoolLevelCards').querySelectorAll('[data-level]').forEach(b=>b.disabled=!ready);
- $('schoolClassPage').classList.add('hide');
- $('schoolAttemptPage').classList.add('hide');
- $('schoolLevelPage').classList.remove('hide');
-};
-$('schoolLevelCards').querySelectorAll('[data-level]').forEach(btn=>{
- btn.disabled=false;
- btn.onclick=()=>{
-  if(!$('schoolMonth').value){alert('Please select the test month first.');return;}
-  chosenSchoolLevel=btn.dataset.level;
-  renderSchoolClasses();
- };
-});
 </script></body></html>
