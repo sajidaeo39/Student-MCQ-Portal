@@ -2,9 +2,9 @@
  * PECTAA Smart Practice Portal — offline-first service worker.
  * Pre-caches the complete split portal so all 16 data parts are available offline.
  */
-const APP_CACHE = 'pectaa-mcqs-v47';
+const APP_CACHE = 'pectaa-mcqs-v49';
 const FONT_CACHE = 'pectaa-fonts-v1';
-const PART_VERSION = '20261119-offline-v47';
+const PART_VERSION = '20261119-offline-v49';
 const PARTS = Array.from({length:16}, (_,i) =>
   `./.portal-deploy-parts/part-${String(i+1).padStart(3,'0')}.txt?v=${PART_VERSION}`
 );
