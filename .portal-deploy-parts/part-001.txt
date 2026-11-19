@@ -595,10 +595,6 @@ input,select,textarea{font-size:16px}
 <button type="button" class="portal-choice" id="homeClass"><span class="choice-icon">📝</span><strong>Class-wise Test</strong><small>Select class, subject and month</small></button>
 <button type="button" class="portal-choice" id="homeAeo"><span class="choice-icon">🎯</span><strong>AEO Tab Sample Test</strong><small>Open the sample practice test</small></button>
 </div>
-<div class="home-availability-note">
-  <div>✓ Class-wise &amp; subject-wise tests available</div>
-  <div>✓ Sample AEO Tab Test also available</div>
-</div>
 </section>
 
 <section id="mcqTab" class="tabpage hide">
