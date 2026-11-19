@@ -233,7 +233,7 @@ fill('schoolMonth',months,'Choose month');
 $('cls').disabled=false;
 $('cls').onchange=()=>{
  const c=$('cls').value;
- const n=c?Number((c.match(/\\d+/)||[])[0]):0;
+ const n=c?Number((c.match(/\d+/)||[])[0]):0;
  const ss=uniq(portalRows.filter(x=>x.class_name===c).map(x=>x.subject))
    .sort((a,b)=>subjects.indexOf(a)-subjects.indexOf(b));
  if(n>=3)ss.push(MIX);
@@ -269,7 +269,7 @@ $('schoolMonth').onchange=()=>{
  $('schoolLevelPage').classList.remove('hide');
 };
 $('schoolLevelCards').querySelectorAll('[data-level]').forEach(btn=>{
- btn.disabled=!$('schoolMonth').value;
+ btn.disabled=false;
  btn.onclick=()=>{
   if(!$('schoolMonth').value){alert('Please select the test month first.');return;}
   chosenSchoolLevel=btn.dataset.level;
