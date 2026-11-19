@@ -540,11 +540,11 @@ input,select,textarea{font-size:16px}
     </header>
 <div class="top-home-wrap no-print"><button class="tab top-home-button" data-tab="portalHome" type="button" aria-label="Go to Home">⌂ Home</button></div>
 <style id="top-home-navigation-v51">
-.top-home-wrap{max-width:1000px;margin:8px auto 0;padding:0 16px;display:flex;justify-content:flex-start}
+.top-home-wrap{position:sticky;top:0;z-index:1000;max-width:1000px;margin:0 auto;padding:6px 16px;display:flex;justify-content:flex-start;background:rgba(244,247,251,.96);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 .top-home-button{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-width:108px;min-height:42px;padding:9px 16px;border:1px solid #dce4ec;border-radius:11px;background:#fff;color:#173b66;font-weight:700;box-shadow:0 2px 8px rgba(23,54,93,.08);cursor:pointer}
 .top-home-button.active{background:#173b66;color:#fff;border-color:#173b66}
 .tabs{grid-template-columns:repeat(3,minmax(0,1fr))!important}
-@media(max-width:700px){.top-home-wrap{margin:6px auto 0;padding:0 10px}.top-home-button{min-height:38px;min-width:92px;padding:7px 13px;font-size:.82rem}.tabs{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
+@media(max-width:700px){.top-home-wrap{top:0;margin:0;padding:5px 10px}.top-home-button{min-height:38px;min-width:92px;padding:7px 13px;font-size:.82rem}.tabs{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
 </style>
 <section class="summary-panel" aria-label="Portal statistics">
             <div class="summary-grid">
