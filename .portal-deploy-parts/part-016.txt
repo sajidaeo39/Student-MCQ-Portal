@@ -89,15 +89,33 @@ function classResultHtml(){
  const unattempted=questions.length-correct-incorrect,attempted=correct+incorrect,pct=questions.length?Math.round(correct/questions.length*100):0;
  const groups={};questions.forEach((q,i)=>{const sub=q.subject||'General';(groups[sub]??={total:0,correct:0,incorrect:0,unattempted:0}).total++;if(!answers[i])groups[sub].unattempted++;else if(answers[i]===String(q.correct_answer).toUpperCase())groups[sub].correct++;else groups[sub].incorrect++;});
  const name=($('student-name')?.value||'').trim(),school=($('school-name')?.value||'').trim();
- return `<h2>Practice Test Result</h2><p><b>${esc($('testTitle').textContent)}</b> — ${esc($('testSub').textContent)}</p>
- <p><b>Student:</b> ${esc(name||'Not provided')} &nbsp; <b>School:</b> ${esc(school||'Not provided')}</p>
- <table class="result-summary"><tbody><tr><th>Score</th><td>${correct} / ${questions.length}</td><th>Percentage</th><td>${pct}%</td></tr><tr><th>Total Questions</th><td>${questions.length}</td><th>Attempted</th><td>${attempted}</td></tr><tr><th>Correct</th><td>${correct}</td><th>Incorrect</th><td>${incorrect}</td></tr><tr><th>Unattempted</th><td>${unattempted}</td><th>Result</th><td>${pct>=50?'Pass':'Needs Improvement'}</td></tr></tbody></table>
- <h3>Subject-wise Performance</h3><table><thead><tr><th>Subject</th><th>Total</th><th>Correct</th><th>Incorrect</th><th>Unattempted</th><th>Score</th></tr></thead><tbody>${Object.entries(groups).map(([s,v])=>`<tr><td>${esc(s)}</td><td>${v.total}</td><td>${v.correct}</td><td>${v.incorrect}</td><td>${v.unattempted}</td><td>${Math.round(v.correct/v.total*100)}%</td></tr>`).join('')}</tbody></table>
- <h3>Review Answers — Questions with Options and Correct Answers</h3>${questions.map((q,i)=>{const selected=answers[i]||'Not attempted',correctKey=String(q.correct_answer).toUpperCase();return `<div class="test-question"><b>Q${i+1}. ${esc(q.question)}</b>${q.question_ur?`<div class="urdu-question" dir="rtl">${esc(q.question_ur)}</div>`:''}<ol type="A">${['a','b','c','d'].map((k,j)=>`<li>${esc(q['option_'+k]||'')}${q['option_'+k+'_ur']?` <span dir="rtl">${esc(q['option_'+k+'_ur'])}</span>`:''}${'ABCD'[j]===correctKey?' <b>(Correct Answer)</b>':''}</li>`).join('')}</ol><p><b>Your Answer:</b> ${esc(selected)} &nbsp; <b>Correct Answer:</b> ${esc(correctKey)} &nbsp; <b>Status:</b> ${!answers[i]?'Unattempted':answers[i]===correctKey?'Correct':'Incorrect'}</p>${q.explanation?`<p><b>Explanation:</b> ${esc(q.explanation)}</p>`:''}</div>`;}).join('')}`;
+ const status=pct>=50?'Pass':'Needs Improvement';
+ return `<div class="result-box">
+ <h2 class="result-heading">Practice Test Result</h2>
+ <p class="result-meta">${esc($('testTitle').textContent)} · ${esc($('testSub').textContent)}</p>
+ <p class="result-meta"><b>Student:</b> ${esc(name||'Not provided')} &nbsp; <b>School:</b> ${esc(school||'Not provided')}<br><b>Date:</b> ${new Date().toLocaleDateString()}</p>
+ <div class="score-wrap"><div class="score-circle" style="--score:${pct}%"><div class="score-circle-inner"><strong>${pct}%</strong><span>YOUR SCORE</span></div></div></div>
+ <div class="stats-grid">
+ <div class="stat-item correct"><strong>${correct}</strong><span>Correct</span></div>
+ <div class="stat-item incorrect"><strong>${incorrect}</strong><span>Incorrect</span></div>
+ <div class="stat-item unattempted"><strong>${unattempted}</strong><span>Unattempted</span></div>
+ <div class="stat-item"><strong>${questions.length}</strong><span>Total Questions</span></div>
+ </div>
+ <p class="result-meta"><b>Attempted:</b> ${attempted} / ${questions.length} &nbsp; <b>Result:</b> ${status}</p>
+ <section class="subject-performance"><h3 class="result-subheading">Subject-wise Performance</h3>
+ ${Object.entries(groups).map(([s,v])=>{const score=Math.round(v.correct/v.total*100);return `<div class="subject-row"><div class="subject-row-head"><span>${esc(s)}</span><span>${v.correct}/${v.total} · ${score}%</span></div><div class="subject-track"><div class="subject-fill" style="width:${score}%"></div></div><small>Incorrect: ${v.incorrect} · Unattempted: ${v.unattempted}</small></div>`;}).join('')}
+ </section>
+ <h3 class="result-subheading">Review Answers</h3>
+ ${questions.map((q,i)=>{const selected=answers[i]||'',correctKey=String(q.correct_answer).toUpperCase(),state=!selected?'unattempted':selected===correctKey?'correct':'incorrect';return `<div class="review-item ${state}">
+ <b>Q${i+1}. ${esc(q.question)}</b>${q.question_ur?`<div class="urdu-question" dir="rtl">${esc(q.question_ur)}</div>`:''}
+ <ol type="A">${['a','b','c','d'].map((k,j)=>`<li class="${'ABCD'[j]===correctKey?'correct-option':''}">${esc(q['option_'+k]||'')}${q['option_'+k+'_ur']?` <span dir="rtl">${esc(q['option_'+k+'_ur'])}</span>`:''}${'ABCD'[j]===correctKey?' — Correct Answer':''}</li>`).join('')}</ol>
+ <div class="review-status"><b>Your Answer:</b> ${esc(selected||'Not attempted')} &nbsp; <b>Correct Answer:</b> ${esc(correctKey)} &nbsp; <b>Status:</b> ${state==='unattempted'?'Unattempted':state==='correct'?'Correct':'Incorrect'}</div>
+ ${q.explanation?`<p><b>Explanation:</b> ${esc(q.explanation)}</p>`:''}</div>`;}).join('')}
+ </div>`;
 }
 $('next').onclick=()=>{if(idx<questions.length-1){if(!answers[idx]){alert('Please select an answer before moving to the next question.');return;}idx++;renderQuestion();return;}if(!answers[idx]){alert('Please select an answer before submitting.');return;}let score=questions.reduce((n,q,i)=>n+(answers[i]===String(q.correct_answer).toUpperCase()?1:0),0);submitted=true;$('result').classList.remove('hide');$('result').innerHTML=`<b>Result: ${score} / ${questions.length}</b><br>Correct: ${score} · Incorrect: ${questions.length-score}`;$('prev').disabled=true;$('next').disabled=true;document.querySelectorAll('#testPanel input[name="answer"]').forEach(e=>e.disabled=true);$('classResultPdf').classList.remove('hide');$('retryWrap').classList.remove('hide');};
 $('classResultPdf').onclick=()=>setPrint('Practice Test Result',classResultHtml());
-function submitClassTestFull(){if(submitted||!questions.length)return;submitted=true;const correct=questions.reduce((n,q,i)=>n+(answers[i]===String(q.correct_answer).toUpperCase()?1:0),0),incorrect=questions.reduce((n,q,i)=>n+(!!answers[i]&&answers[i]!==String(q.correct_answer).toUpperCase()?1:0),0),unattempted=questions.length-correct-incorrect,pct=Math.round(correct/questions.length*100);$('result').classList.remove('hide');$('result').innerHTML=classResultHtml();$('prev').disabled=true;$('next').disabled=true;$('skipNext').disabled=true;$('submitTest').disabled=true;document.querySelectorAll('#testPanel input[name="answer"]').forEach(e=>e.disabled=true);$('retryWrap').classList.remove('hide');$('classResultPdf').classList.remove('hide');if(typeof stopPortalTimer==='function')stopPortalTimer();}
+function submitClassTestFull(){if(submitted||!questions.length)return;submitted=true;$('result').classList.remove('hide');$('result').classList.add('result-box');$('result').innerHTML=classResultHtml();$('prev').disabled=true;$('next').disabled=true;$('skipNext').disabled=true;$('submitTest').disabled=true;document.querySelectorAll('#testPanel input[name="answer"]').forEach(e=>e.disabled=true);$('retryWrap').classList.remove('hide');$('classResultPdf').classList.remove('hide');if(typeof stopPortalTimer==='function')stopPortalTimer();}
 $('submitTest').onclick=submitClassTestFull;
 $('retry').onclick=()=>{ $('classResultPdf').classList.add('hide');  startClassTest(); };
 // School wizard: level screen -> class selection screen -> one MCQ at a time -> downloadable result.
