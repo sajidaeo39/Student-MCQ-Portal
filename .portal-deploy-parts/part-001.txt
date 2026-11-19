@@ -598,9 +598,7 @@ input,select,textarea{font-size:16px}
 <div id="printArea" class="hide print-show"></div>
 </main>
 <footer class="site-footer compact-site-footer">
-  <span>For educational updates: <a href="https://whatsapp.com/channel/0029VaoMfR3C6ZvYxRXWod3G" target="_blank" rel="noopener noreferrer">WhatsApp Channel</a></span>
-  <span>Support: <a href="https://wa.me/923496027086" target="_blank" rel="noopener noreferrer">0349 6027086</a></span>
-  <span>© The Educational Helper</span>
+  <span>The Educational Helper</span>
 </footer>
 <style id="compact-footer-navigation-fix">
 .compact-site-footer{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;column-gap:16px;row-gap:5px;padding:10px 12px!important;margin-top:12px!important;font-size:12px;line-height:1.35;text-align:center}
