@@ -538,6 +538,14 @@ input,select,textarea{font-size:16px}
         }
         </style>
     </header>
+<div class="top-home-wrap no-print"><button class="tab top-home-button" data-tab="portalHome" type="button" aria-label="Go to Home">⌂ Home</button></div>
+<style id="top-home-navigation-v51">
+.top-home-wrap{max-width:1000px;margin:8px auto 0;padding:0 16px;display:flex;justify-content:flex-start}
+.top-home-button{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-width:108px;min-height:42px;padding:9px 16px;border:1px solid #dce4ec;border-radius:11px;background:#fff;color:#173b66;font-weight:700;box-shadow:0 2px 8px rgba(23,54,93,.08);cursor:pointer}
+.top-home-button.active{background:#173b66;color:#fff;border-color:#173b66}
+.tabs{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+@media(max-width:700px){.top-home-wrap{margin:6px auto 0;padding:0 10px}.top-home-button{min-height:38px;min-width:92px;padding:7px 13px;font-size:.82rem}.tabs{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
+</style>
 <section class="summary-panel" aria-label="Portal statistics">
             <div class="summary-grid">
                 <div class="summary-card"><strong id="total-schools">—</strong><span>School Entries</span></div>
@@ -567,7 +575,6 @@ input,select,textarea{font-size:16px}
                     <div class="test-availability-note"><span>✓ Class-wise &amp; subject-wise tests available</span><span>✓ Sample AEO Tab Test also available</span></div>
 </section>
 <nav class="tabs no-print" role="navigation" aria-label="Portal navigation">
-<button class="tab" data-tab="portalHome" type="button" aria-label="Go to Home">⌂ Home</button>
 <button class="tab" data-tab="sloTab" type="button">SLO Bank</button>
 <button class="tab" data-tab="classTab" type="button">Class-wise Test</button>
 <button class="tab" data-tab="schoolTab" type="button">AEO Tab Sample Test</button>
