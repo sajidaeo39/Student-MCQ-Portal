@@ -11,7 +11,7 @@ const uniq=a=>[...new Set(a.filter(Boolean))];
 function fill(id,items,first){$(id).innerHTML=`<option value="">${esc(first)}</option>`+items.map(x=>`<option value="${esc(x)}">${esc(x)}</option>`).join('');}
 function rankMonth(m){let i=months.indexOf(m);return i<0?99:i;}
 function setPrint(title,html){$('printArea').innerHTML=`<h1>${esc(title)}</h1>${html}`;window.print();}
-function activateTab(id){$('portalHome').classList.add('hide');document.querySelectorAll('.tabpage').forEach(x=>x.classList.add('hide'));$(id).classList.remove('hide');document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x.dataset.tab===id));window.scrollTo({top:0,behavior:'smooth'});}
+function activateTab(id){const isHome=id==='portalHome';$('portalHome').classList.toggle('hide',!isHome);document.querySelectorAll('.tabpage').forEach(x=>x.classList.toggle('hide',isHome||x.id!==id));document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x.dataset.tab===id));window.scrollTo({top:0,behavior:'smooth'});}
 document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>activateTab(b.dataset.tab));
 $('homeSlo').onclick=()=>activateTab('sloTab');$('homeClass').onclick=()=>activateTab('classTab');$('homeAeo').onclick=()=>activateTab('schoolTab');
 // Populate the independent MCQ bank.
