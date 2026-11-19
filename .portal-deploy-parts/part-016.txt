@@ -225,4 +225,55 @@ $('submitTest').onclick=submitClassTest;
 const _originalSubmitSchool=submitSchool;
 submitSchool=function(){const was=schoolDone;_originalSubmitSchool();if(!was&&schoolDone)saveAttemptStats(schoolQuestions.length,Object.values(schoolAnswers).filter(Boolean).length);};
 $('schoolSubmit').onclick=submitSchool;
+
+/* v64: Rebind student test selectors after all portal modules are initialized.
+   This keeps mobile dropdowns and AEO level cards responsive after page navigation. */
+fill('cls',classes,'Choose class');
+fill('schoolMonth',months,'Choose month');
+$('cls').disabled=false;
+$('cls').onchange=()=>{
+ const c=$('cls').value;
+ const n=c?Number((c.match(/\\d+/)||[])[0]):0;
+ const ss=uniq(portalRows.filter(x=>x.class_name===c).map(x=>x.subject))
+   .sort((a,b)=>subjects.indexOf(a)-subjects.indexOf(b));
+ if(n>=3)ss.push(MIX);
+ $('sub').innerHTML='<option value="">Choose subject</option>'+
+   ss.map(x=>x===MIX?'<option value="'+MIX+'">AEO Tab Test</option>':'<option value="'+esc(x)+'">'+esc(x)+'</option>').join('');
+ $('sub').disabled=!c;
+ resetClassAfter('sub');
+};
+$('sub').onchange=()=>{
+ const c=$('cls').value,sub=$('sub').value;
+ if(!c||!sub){fill('month',[],'Choose month');$('month').disabled=true;resetClassAfter('month');return;}
+ const allow=sub===MIX?mixSubjectsForClass(classNo()):[sub];
+ const a=portalRows.filter(x=>x.class_name===c&&allow.includes(x.subject));
+ const ms=uniq(a.map(x=>x.month)).sort((a,b)=>rankMonth(a)-rankMonth(b));
+ fill('month',ms,'Choose month');$('month').disabled=false;
+ resetClassAfter('month');
+};
+$('month').onchange=()=>{
+ if(!$('cls').value||!$('sub').value||!$('month').value){resetTest();return;}
+ const a=classFiltered();
+ fill('chapter',['Monthly SLO-Based Test'],'Monthly SLO-Based Test');
+ $('chapter').value='Monthly SLO-Based Test';$('chapter').disabled=false;
+ $('meta').innerHTML='<span class="pill">'+validRows(a).length+' monthly MCQs</span><span class="pill">Monthly SLO-based practice</span>';
+ resetTest();startClassTest();
+ if(!$('testPanel').classList.contains('hide'))$('testPanel').scrollIntoView({behavior:'smooth',block:'start'});
+};
+$('schoolMonth').disabled=false;
+$('schoolMonth').onchange=()=>{
+ const ready=!!$('schoolMonth').value;
+ $('schoolLevelCards').querySelectorAll('[data-level]').forEach(b=>b.disabled=!ready);
+ $('schoolClassPage').classList.add('hide');
+ $('schoolAttemptPage').classList.add('hide');
+ $('schoolLevelPage').classList.remove('hide');
+};
+$('schoolLevelCards').querySelectorAll('[data-level]').forEach(btn=>{
+ btn.disabled=!$('schoolMonth').value;
+ btn.onclick=()=>{
+  if(!$('schoolMonth').value){alert('Please select the test month first.');return;}
+  chosenSchoolLevel=btn.dataset.level;
+  renderSchoolClasses();
+ };
+});
 </script></body></html>
