@@ -239,7 +239,79 @@ table{min-width:560px}
   .panel{padding:10px}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
-</style></head><body>
+</style>
+<style id="pectaa-premium-mobile-layout-v45">
+/* Restore the original illustrated home tiles and refine the complete responsive layout. */
+.portal-home{max-width:100%;margin:14px auto 16px;padding:24px 20px 22px;border:1px solid #dce4ec;border-radius:20px;background:#fff;box-shadow:0 5px 22px rgba(23,54,93,.055)}
+.portal-home>h2{font-size:clamp(1.45rem,3vw,2rem);line-height:1.3;color:#1d2939;font-weight:800;margin:0 0 12px!important}
+.portal-home>.muted{font-size:1rem;line-height:1.5;margin:0;color:#667085}
+.portal-choice-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:20px 0 22px}
+.portal-choice{
+ display:grid;grid-template-columns:1fr;grid-template-rows:54px auto auto;justify-items:center;align-content:center;
+ gap:8px;min-width:0;min-height:172px;padding:18px 14px;border:1px solid #dce3ea;border-radius:22px;
+ background:linear-gradient(160deg,#fff 0%,#fbfcfe 100%);color:#203b5a;text-align:center;
+ box-shadow:0 5px 16px rgba(25,48,76,.055);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;
+}
+.portal-choice:hover,.portal-choice:focus-visible{transform:translateY(-2px);border-color:#9bb6cc;box-shadow:0 9px 22px rgba(25,48,76,.10);outline:none}
+.portal-choice .choice-icon{display:flex;align-items:center;justify-content:center;width:54px;height:54px;font-size:38px;line-height:1}
+.portal-choice strong{display:block;min-width:0;font-size:1.08rem;line-height:1.35;font-weight:800;color:#203b5a}
+.portal-choice small{display:block;min-width:0;font-size:.9rem;line-height:1.45;color:#687587;font-weight:400}
+.portal-home .student-info{margin:22px 0 0;padding:18px 16px;border:1px solid #e4e9ef;border-radius:16px;background:#fbfcfe}
+.portal-home .student-info h4{margin:0 0 14px;font-size:1.08rem;color:#202b3a}
+.portal-home .student-info label{display:block;margin:10px 0 5px;font-size:.98rem;font-weight:500;color:#273444}
+.portal-home .student-info input{width:100%;min-height:48px;padding:11px 14px;border:1px solid #aeb8c4;border-radius:8px;background:#fff;font-size:16px}
+.portal-home .test-availability-note{display:flex;flex-direction:column;gap:5px;margin-top:12px;font-size:.94rem;line-height:1.45;color:#344054}
+.tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;padding:9px;border:1px solid #dce4ed;border-radius:16px;background:rgba(245,248,252,.96)}
+.tabs .tab{min-width:0;min-height:46px;padding:10px 8px;border:1px solid #dce4ec;border-radius:11px;background:#fff;color:#203b5a;font-size:.88rem;font-weight:750;line-height:1.25;white-space:normal;touch-action:manipulation}
+.tabs .tab.active{background:#173b66;color:#fff;border-color:#173b66}
+button,.btn,.test,.tab{cursor:pointer;-webkit-tap-highlight-color:transparent}
+input,select,textarea{font-size:16px}
+@media(max-width:700px){
+ body{overflow-x:hidden}
+ main{padding:12px 10px}
+ .portal-home{padding:20px 18px 22px;margin:10px auto 14px;border-radius:20px}
+ .portal-home>h2{font-size:clamp(1.45rem,5vw,1.85rem);margin-bottom:12px!important}
+ .portal-home>.muted{font-size:1rem}
+ .portal-choice-grid{grid-template-columns:minmax(0,1fr);gap:12px;margin:18px 0 24px}
+ .portal-choice{
+  display:grid;grid-template-columns:64px minmax(0,1fr);grid-template-rows:auto auto;
+  align-items:center;justify-items:start;column-gap:14px;row-gap:5px;
+  width:100%;min-height:138px;padding:18px 20px;border-radius:24px;text-align:left;
+ }
+ .portal-choice .choice-icon{grid-column:1;grid-row:1/3;width:58px;height:58px;font-size:40px;align-self:center}
+ .portal-choice strong{grid-column:2;grid-row:1;font-size:1.12rem;line-height:1.35}
+ .portal-choice small{grid-column:2;grid-row:2;font-size:.98rem;line-height:1.45}
+ .portal-home .student-info{margin-top:26px;padding:16px 14px;border-radius:15px}
+ .portal-home .student-info h4{font-size:1.02rem}
+ .portal-home .student-info label{font-size:1rem}
+ .portal-home .student-info input{min-height:52px;font-size:17px}
+ .portal-home .test-availability-note{font-size:.94rem;gap:6px}
+ .tabs{position:sticky;top:0;z-index:50;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:8px;margin:10px 0 14px;border-radius:16px;background:rgba(247,249,252,.97);box-shadow:0 4px 16px rgba(23,54,93,.10);backdrop-filter:blur(10px)}
+ .tabs .tab{width:100%;min-width:0;min-height:52px;padding:10px 7px;font-size:.9rem;border-radius:12px}
+ .panel{min-width:0}
+ .field input,.field select,.field textarea,select,input,textarea{width:100%;max-width:100%;min-height:46px}
+ .grid3,.grid2,.steps{grid-template-columns:minmax(0,1fr)!important}
+ .topline{align-items:flex-start;flex-wrap:wrap}
+ .actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+ .actions>*{min-width:0;width:100%}
+ .question{font-size:1.05rem;line-height:1.65}
+ .option{min-height:50px;padding:13px 12px;line-height:1.5}
+ .question-palette{gap:6px}
+ .question-palette button{min-width:40px;min-height:40px}
+ .tablewrap{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+}
+@media(max-width:380px){
+ .portal-home{padding:16px 12px}
+ .portal-choice{grid-template-columns:52px minmax(0,1fr);column-gap:10px;padding:15px 12px;min-height:124px}
+ .portal-choice .choice-icon{width:48px;height:48px;font-size:35px}
+ .portal-choice strong{font-size:1rem}
+ .portal-choice small{font-size:.88rem}
+ .tabs .tab{font-size:.82rem;padding:9px 5px}
+}
+@media(prefers-reduced-motion:reduce){.portal-choice{transition:none}.portal-choice:hover{transform:none}html{scroll-behavior:auto}}
+</style>
+
+</head><body>
 <header class="site-header">
         <h1>PECTAA (Unofficial) Class Wise and Subject Wise Practice Portal</h1>
         <h2>Learn • Practice • Improve</h2>
