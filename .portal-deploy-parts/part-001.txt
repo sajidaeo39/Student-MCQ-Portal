@@ -168,6 +168,12 @@ header.site-header h2{
  .header-links .social-brand-subline{font-size:.47rem!important}
 }
 
+
+.portal-home{margin:14px 0}.portal-choice-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;margin:16px 0}
+.portal-choice{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;min-height:132px;padding:16px 12px;border:1px solid var(--line);border-radius:14px;background:#fff;color:var(--navy);cursor:pointer;text-align:center;box-shadow:0 3px 12px #17365d0a;transition:transform .15s,border-color .15s}
+.portal-choice:hover{transform:translateY(-2px);border-color:var(--teal)}.portal-choice strong{font-size:16px}.portal-choice small{font-size:12px;color:var(--muted);font-weight:400}.choice-icon{font-size:27px}
+.portal-home .student-info{margin-top:18px}
+@media(max-width:700px){.portal-choice-grid{grid-template-columns:1fr;gap:9px}.portal-choice{min-height:88px;flex-direction:row;justify-content:flex-start;text-align:left;padding:13px}.portal-choice .choice-icon{width:42px;font-size:25px}.portal-choice strong,.portal-choice small{display:block}.portal-choice small{margin-top:3px}}
 </style></head><body>
 <header class="site-header">
         <h1>PECTAA (Unofficial) Class Wise and Subject Wise Practice Portal</h1>
@@ -280,8 +286,24 @@ header.site-header h2{
 
 <main>
 
+<section id="portalHome" class="panel portal-home">
+<h2 style="margin:0 0 8px">PECTAA Smart Practice Portal</h2>
+<p class="muted">Select the practice section you want to open.</p>
+<div class="portal-choice-grid">
+<button type="button" class="portal-choice" id="homeSlo"><span class="choice-icon">📘</span><strong>SLO Bank</strong><small>Browse class-wise learning outcomes</small></button>
+<button type="button" class="portal-choice" id="homeClass"><span class="choice-icon">📝</span><strong>Class-wise Test</strong><small>Select class, subject and month</small></button>
+<button type="button" class="portal-choice" id="homeAeo"><span class="choice-icon">🎯</span><strong>AEO Tab Sample Test</strong><small>Open the sample practice test</small></button>
+</div>
+<div class="student-info original-student-info">
+                    <h4>👤 Student Information <span class="optional-note">Optional</span></h4>
+                    <label for="school-name">School Name</label>
+                    <input id="school-name" type="text" maxlength="80" placeholder="Enter school name">
+                    <label for="student-name">Student Name</label>
+                    <input id="student-name" type="text" maxlength="80" placeholder="Enter student name">
+                    <div class="test-availability-note"><span>✓ Class-wise &amp; subject-wise tests available</span><span>✓ Sample AEO Tab Test also available</span></div>
+</section>
 <div class="tabs no-print">
-<button class="tab" data-tab="sloTab">SLO Bank</button><button class="tab active" data-tab="classTab">Class-wise Test</button><button class="tab" data-tab="schoolTab">AEO Tab Test</button>
+<button class="tab" data-tab="sloTab">SLO Bank</button><button class="tab" data-tab="classTab">Class-wise Test</button><button class="tab" data-tab="schoolTab">AEO Tab Test</button>
 </div>
 <section id="mcqTab" class="tabpage hide">
 <div class="panel"><div class="topline"><div><h2 style="margin:0">MCQ Bank</h2><div class="muted">Complete portal-ready MCQ dataset</div></div><span class="pill" id="mcqTotal"></span></div>
@@ -293,13 +315,7 @@ header.site-header h2{
 <div class="grid3" style="margin-top:12px"><div class="field"><label>Class</label><select id="sloClass"><option value="">All Classes</option></select></div><div class="field"><label>Subject</label><select id="sloSubject"><option value="">All Subjects</option></select></div><div class="field"><label>Month</label><select id="sloMonth"><option value="">All Months</option></select></div></div>
 <div class="field" style="margin-top:10px"><label for="sloSearch">Search SLO description / chapter</label><input id="sloSearch" type="search" placeholder="Type a keyword to filter the selected SLOs" style="width:100%;padding:11px;border:1px solid #cbd5e1;border-radius:9px"></div><div class="actions no-print"><button class="btn secondary" id="sloPdf">Download PDF</button><span class="small" id="sloCount"></span></div>
 <div id="sloPrompt" class="notice" style="margin-top:12px">Please select Class, Subject and Month from the dropdowns to view SLOs. The full SLO list remains hidden until filters are selected.</div><div class="tablewrap hide" id="sloTableWrap" style="margin-top:12px"><table><thead><tr><th>Class</th><th>Subject</th><th>Month</th><th>Chapter</th><th>SLO Description</th></tr></thead><tbody id="sloRows"></tbody></table></div></div></section>
-<section id="classTab" class="tabpage"><div class="panel"><div class="student-info original-student-info">
-                    <h4>👤 Student Information <span class="optional-note">Optional</span></h4>
-                    <label for="school-name">School Name</label>
-                    <input id="school-name" type="text" maxlength="80" placeholder="Enter school name">
-                    <label for="student-name">Student Name</label>
-                    <input id="student-name" type="text" maxlength="80" placeholder="Enter student name">
-                    <div class="test-availability-note"><span>✓ Class-wise &amp; subject-wise tests available</span><span>✓ Sample AEO Tab Test also available</span></div>
+<section id="classTab" class="tabpage hide"><div class="panel">
                 </div></div>
 <div class="panel"><h2 style="margin:0 0 12px">Select Test Options</h2><div class="grid3"><div class="field"><label>Class</label><select id="cls"><option value="">Choose class</option></select></div><div class="field"><label>Subject</label><select id="sub" disabled><option value="">Choose subject</option></select></div><div class="field"><label>Month</label><select id="month" disabled><option value="">Choose month</option></select></div></div><select id="chapter" class="hide" aria-hidden="true" tabindex="-1" disabled><option value="">Monthly SLO-Based Test</option></select><p class="muted" id="monthlyTestHint">Choose Class, Subject and Month. Your test will open automatically after the final selection.</p><div class="summary" id="meta"></div><div class="actions no-print"><button class="btn secondary" id="classPdf">Download PDF</button></div></div>
 <div id="testPanel" class="panel hide" aria-live="polite"><div class="topline"><div><b id="testTitle">Practice Test</b><div id="testSub" class="muted"></div></div><span id="counter" class="pill"></span><span id="classTimer" class="timer-pill">Time: 00:00</span></div><div class="progress"><span id="bar" style="width:0%"></span></div><div id="qText" class="question"></div><div id="opts"></div><div id="questionPalette" class="question-palette no-print" aria-label="Question navigation"></div><div class="topline no-print" style="margin-top:14px"><button id="prev" class="btn secondary">Previous</button><button id="skipNext" class="btn secondary">Skip &amp; Next</button><button id="next" class="btn">Next</button><button id="submitTest" class="btn">Submit Test</button></div><div id="result" class="notice hide" style="margin-top:14px"></div><div class="actions no-print" style="margin-top:10px"><button id="classResultPdf" class="btn secondary hide">Download Result PDF</button></div><div id="retryWrap" class="hide no-print" style="margin-top:12px"><button id="retry" class="btn">Attempt Another Quiz</button></div><div id="classPaper" class="hide print-show"></div></div></section>
