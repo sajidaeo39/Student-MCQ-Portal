@@ -284,15 +284,15 @@ $('schoolResultPdf').onclick=()=>setPrint('AEO Sample Test Result',schoolResultH
  style.id='pectaa-separate-result-page-style';
  style.textContent=`
  #portalResultPage{max-width:1000px;margin:18px auto;padding:18px;background:#fff;border:1px solid #dce4ee;border-radius:16px;box-shadow:0 5px 20px #17365d12}
- #portalResultPage .result-page-title{text-align:center;color:#173b66;font-size:1.45rem;letter-spacing:.8px;margin:0 0 5px}
- #portalResultPage .result-center-label{text-align:center;color:#64748b;font-size:.82rem;font-weight:700;letter-spacing:.5px;margin:0 0 14px}
+ #portalResultPage .result-page-title{text-align:center!important;display:block;width:100%;margin-left:auto;margin-right:auto;color:#173b66;font-size:1.45rem;letter-spacing:.8px;margin:0 0 5px}
+ #portalResultPage .result-center-label{text-align:center!important;display:block;width:100%;margin-left:auto;margin-right:auto;color:#64748b;font-size:.82rem;font-weight:700;letter-spacing:.5px;margin:0 0 14px}
  #portalResultPage .stats-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px;margin:14px 0 18px}
  #portalResultPage .stat-item{min-width:0;text-align:center;background:#f3f8fb;border:1px solid #dce7ef;border-radius:12px;padding:13px 7px}
  #portalResultPage .stat-item strong{display:block;font-size:1.35rem;color:#173b66}
  #portalResultPage .stat-item span{display:block;font-size:.75rem;color:#64748b;margin-top:4px}
  #portalResultPage .result-page-actions{display:flex;justify-content:center;flex-wrap:wrap;gap:9px;margin:16px 0}
  #portalResultPage .result-page-actions button{min-width:145px}
- #portalResultPage .result-box{margin-top:0}
+ #portalResultPage .result-box{margin-top:0;text-align:center!important}#portalResultPage .result-box .result-meta,#portalResultPage .result-box .result-heading{text-align:center!important}#portalResultPage .result-box .stats-grid{justify-content:center;text-align:center}#portalResultPage .result-box .score-wrap{justify-content:center!important}
  #portalResultPage .result-subheading{scroll-margin-top:18px}
  @media(max-width:650px){#portalResultPage{margin:10px 7px;padding:12px 8px}#portalResultPage .result-page-title{font-size:1.2rem}#portalResultPage .stats-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}#portalResultPage .stat-item{padding:10px 5px}#portalResultPage .stat-item strong{font-size:1.15rem}#portalResultPage .stat-item span{font-size:.68rem}}
  @media print{#portalResultPage{box-shadow:none;border:0;margin:0;max-width:none;padding:0}#portalResultPage .result-page-actions{display:none!important}}
