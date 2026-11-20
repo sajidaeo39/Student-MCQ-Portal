@@ -225,4 +225,56 @@ const _originalSubmitSchool=submitSchool;
 submitSchool=function(){const was=schoolDone;_originalSubmitSchool();if(!was&&schoolDone)saveAttemptStats(schoolQuestions.length,Object.values(schoolAnswers).filter(Boolean).length);};
 $('schoolSubmit').onclick=submitSchool;
 
+/* Final result presentation: keep all existing test selection, question, timer and scoring flows intact. */
+schoolResultHtml=function(){
+ const correct=schoolQuestions.reduce((n,q,i)=>n+(schoolAnswers[i]===String(q.correct_answer).toUpperCase()?1:0),0);
+ const incorrect=schoolQuestions.reduce((n,q,i)=>n+(!!schoolAnswers[i]&&schoolAnswers[i]!==String(q.correct_answer).toUpperCase()?1:0),0);
+ const unattempted=schoolQuestions.length-correct-incorrect,attempted=correct+incorrect,pct=schoolQuestions.length?Math.round(correct/schoolQuestions.length*100):0;
+ const groups={};schoolQuestions.forEach((q,i)=>{const sub=q.subject||'General';(groups[sub]??={total:0,correct:0,incorrect:0,unattempted:0}).total++;if(!schoolAnswers[i])groups[sub].unattempted++;else if(schoolAnswers[i]===String(q.correct_answer).toUpperCase())groups[sub].correct++;else groups[sub].incorrect++;});
+ const name=($('student-name')?.value||'').trim(),school=($('school-name')?.value||'').trim(),status=pct>=50?'Pass':'Needs Improvement';
+ return `<div class="result-box">
+ <h2 class="result-heading">AEO Sample Test Result</h2>
+ <p class="result-meta">${esc($('schoolAttemptTitle').textContent)} · ${esc($('schoolAttemptSub').textContent)}</p>
+ <p class="result-meta"><b>Student:</b> ${esc(name||'Not provided')} &nbsp; <b>School:</b> ${esc(school||'Not provided')}<br><b>Date:</b> ${new Date().toLocaleDateString()}</p>
+ <div class="score-wrap"><div class="score-circle" style="--score:${pct}%"><div class="score-circle-inner"><strong>${pct}%</strong><span>YOUR SCORE</span></div></div></div>
+ <div class="stats-grid">
+ <div class="stat-item correct"><strong>${correct}</strong><span>Correct</span></div>
+ <div class="stat-item incorrect"><strong>${incorrect}</strong><span>Incorrect</span></div>
+ <div class="stat-item unattempted"><strong>${unattempted}</strong><span>Unattempted</span></div>
+ <div class="stat-item"><strong>${schoolQuestions.length}</strong><span>Total Questions</span></div>
+ </div>
+ <p class="result-meta"><b>Attempted:</b> ${attempted} / ${schoolQuestions.length} &nbsp; <b>Result:</b> ${status}</p>
+ <section class="subject-performance"><h3 class="result-subheading">Subject-wise Performance</h3>
+ ${Object.entries(groups).map(([s,v])=>{const score=Math.round(v.correct/v.total*100);return `<div class="subject-row"><div class="subject-row-head"><span>${esc(s)}</span><span>${v.correct}/${v.total} · ${score}%</span></div><div class="subject-track"><div class="subject-fill" style="width:${score}%"></div></div><small>Incorrect: ${v.incorrect} · Unattempted: ${v.unattempted}</small></div>`;}).join('')}
+ </section>
+ <h3 class="result-subheading">Review Answers</h3>
+ ${schoolQuestions.map((q,i)=>{const selected=schoolAnswers[i]||'',correctKey=String(q.correct_answer).toUpperCase(),state=!selected?'unattempted':selected===correctKey?'correct':'incorrect';return `<div class="review-item ${state}">
+ <b>Q${i+1}. ${esc(q.question)}</b>${q.question_ur?`<div class="urdu-question" dir="rtl">${esc(q.question_ur)}</div>`:''}
+ <ol type="A">${['a','b','c','d'].map((k,j)=>`<li class="${'ABCD'[j]===correctKey?'correct-option':''}">${esc(q['option_'+k]||'')}${q['option_'+k+'_ur']?` <span dir="rtl">${esc(q['option_'+k+'_ur'])}</span>`:''}${'ABCD'[j]===correctKey?' — Correct Answer':''}</li>`).join('')}</ol>
+ <div class="review-status"><b>Your Answer:</b> ${esc(selected||'Not attempted')} &nbsp; <b>Correct Answer:</b> ${esc(correctKey)} &nbsp; <b>Status:</b> ${state==='unattempted'?'Unattempted':state==='correct'?'Correct':'Incorrect'}</div>
+ ${q.explanation?`<p><b>Explanation:</b> ${esc(q.explanation)}</p>`:''}</div>`;}).join('')}
+ </div>`;
+};
+const _finalSubmitClass=submitClassTestFull;
+submitClassTestFull=function(){
+ const was=submitted;
+ _finalSubmitClass();
+ if(!was&&submitted){
+  stopPortalTimer();
+  saveAttemptStats(questions.length,Object.values(answers).filter(Boolean).length);
+ }
+};
+$('submitTest').onclick=submitClassTestFull;
+const _finalSubmitSchool=submitSchool;
+submitSchool=function(){
+ const was=schoolDone;
+ _finalSubmitSchool();
+ if(!was&&schoolDone){
+  $('schoolResult').innerHTML=schoolResultHtml();
+  saveAttemptStats(schoolQuestions.length,Object.values(schoolAnswers).filter(Boolean).length);
+ }
+};
+$('schoolSubmit').onclick=submitSchool;
+$('schoolResultPdf').onclick=()=>setPrint('AEO Sample Test Result',schoolResultHtml());
+
 </script></body></html>
