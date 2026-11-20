@@ -277,4 +277,92 @@ submitSchool=function(){
 $('schoolSubmit').onclick=submitSchool;
 $('schoolResultPdf').onclick=()=>setPrint('AEO Sample Test Result',schoolResultHtml());
 
+
+/* Separate TEST RESULT page for Class Test and AEO Test; preserve original scoring/timers/review. */
+(function(){
+ const style=document.createElement('style');
+ style.id='pectaa-separate-result-page-style';
+ style.textContent=`
+ #portalResultPage{max-width:1000px;margin:18px auto;padding:18px;background:#fff;border:1px solid #dce4ee;border-radius:16px;box-shadow:0 5px 20px #17365d12}
+ #portalResultPage .result-page-title{text-align:center;color:#173b66;font-size:1.45rem;letter-spacing:.8px;margin:0 0 5px}
+ #portalResultPage .result-center-label{text-align:center;color:#64748b;font-size:.82rem;font-weight:700;letter-spacing:.5px;margin:0 0 14px}
+ #portalResultPage .stats-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px;margin:14px 0 18px}
+ #portalResultPage .stat-item{min-width:0;text-align:center;background:#f3f8fb;border:1px solid #dce7ef;border-radius:12px;padding:13px 7px}
+ #portalResultPage .stat-item strong{display:block;font-size:1.35rem;color:#173b66}
+ #portalResultPage .stat-item span{display:block;font-size:.75rem;color:#64748b;margin-top:4px}
+ #portalResultPage .result-page-actions{display:flex;justify-content:center;flex-wrap:wrap;gap:9px;margin:16px 0}
+ #portalResultPage .result-page-actions button{min-width:145px}
+ #portalResultPage .result-box{margin-top:0}
+ #portalResultPage .result-subheading{scroll-margin-top:18px}
+ @media(max-width:650px){#portalResultPage{margin:10px 7px;padding:12px 8px}#portalResultPage .result-page-title{font-size:1.2rem}#portalResultPage .stats-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}#portalResultPage .stat-item{padding:10px 5px}#portalResultPage .stat-item strong{font-size:1.15rem}#portalResultPage .stat-item span{font-size:.68rem}}
+ @media print{#portalResultPage{box-shadow:none;border:0;margin:0;max-width:none;padding:0}#portalResultPage .result-page-actions{display:none!important}}
+ `;
+ document.head.appendChild(style);
+ const main=document.querySelector('main');
+ if(!main)return;
+ const page=document.createElement('section');
+ page.id='portalResultPage';
+ page.className='hide';
+ main.appendChild(page);
+ function showResult(html){
+  const temp=document.createElement('div');
+  temp.innerHTML=String(html||'');
+  const oldTitle=temp.querySelector('.result-heading,h2');
+  if(oldTitle){oldTitle.textContent='TEST RESULT';oldTitle.classList.add('result-heading');}
+  temp.innerHTML=temp.innerHTML.replace(/Needs Improvement/g,'Fail').replace(/Incorrect/g,'Wrong');
+  const box=temp.querySelector('.result-box')||temp;
+  const grid=box.querySelector('.stats-grid');
+  if(grid){
+   const cards=Array.from(grid.children);
+   const get=(label)=>cards.find(el=>(el.querySelector('span')?.textContent||'').trim()===label);
+   const total=get('Total Questions'),correct=get('Correct'),wrong=get('Wrong'),unattempted=get('Unattempted');
+   const attemptedValue=Number(correct?.querySelector('strong')?.textContent||0)+Number(wrong?.querySelector('strong')?.textContent||0);
+   const attempted=document.createElement('div');
+   attempted.className='stat-item';
+   attempted.innerHTML='<strong>'+attemptedValue+'</strong><span>Attempted</span>';
+   grid.replaceChildren();
+   [total,attempted,correct,wrong,unattempted].filter(Boolean).forEach(el=>grid.appendChild(el));
+  }
+  const dataLabel=document.createElement('p');
+  dataLabel.className='result-center-label';
+  dataLabel.textContent='RESULT DATA CENTER';
+  const heading=document.createElement('h2');
+  heading.className='result-page-title';
+  heading.textContent='TEST RESULT';
+  const actions=document.createElement('div');
+  actions.className='result-page-actions no-print';
+  actions.innerHTML='<button type="button" class="btn secondary" id="resultReviewBtn">Review Answers</button><button type="button" class="btn" id="resultHomeBtn">Back to Home</button>';
+  page.replaceChildren(heading,dataLabel,actions,temp);
+  document.getElementById('classTab')?.classList.add('hide');
+  document.getElementById('schoolTab')?.classList.add('hide');
+  document.getElementById('portalHome')?.classList.add('hide');
+  page.classList.remove('hide');
+  document.getElementById('resultReviewBtn').onclick=()=>{
+   const target=Array.from(page.querySelectorAll('.result-subheading')).find(el=>/Review Answers/i.test(el.textContent));
+   if(target)target.scrollIntoView({behavior:'smooth',block:'start'});
+  };
+  document.getElementById('resultHomeBtn').onclick=()=>{
+   page.classList.add('hide');
+   document.querySelectorAll('main .tabpage').forEach(el=>el.classList.add('hide'));
+   document.getElementById('portalHome')?.classList.remove('hide');
+   window.scrollTo({top:0,behavior:'smooth'});
+  };
+  window.scrollTo({top:0,behavior:'smooth'});
+ }
+ const submitClass=submitClassTestFull;
+ submitClassTestFull=function(){
+  const was=submitted;
+  submitClass();
+  if(!was&&submitted)showResult(classResultHtml());
+ };
+ $('submitTest').onclick=submitClassTestFull;
+ const submitAeo=submitSchool;
+ submitSchool=function(){
+  const was=schoolDone;
+  submitAeo();
+  if(!was&&schoolDone)showResult(schoolResultHtml());
+ };
+ $('schoolSubmit').onclick=submitSchool;
+})();
+
 </script></body></html>
