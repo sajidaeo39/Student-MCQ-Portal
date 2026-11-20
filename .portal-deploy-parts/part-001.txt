@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PECTAA Smart Practice Portal — Monthly SLO Tests</title><style>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PECTAA Smart Practice Portal</title><style>
 :root{--navy:#17365d;--teal:#087e8b;--bg:#f4f7fb;--ink:#182230;--muted:#667085;--line:#dce4ee;--white:#fff}*{box-sizing:border-box}body{margin:0;background:var(--bg);font:15px/1.5 Arial,sans-serif;color:var(--ink)}header{background:linear-gradient(120deg,#17365d,#087e8b);color:#fff;padding:22px 16px}header .wrap,main{max-width:1000px;margin:auto}h1{font-size:22px;margin:0 0 5px}header p{margin:0;opacity:.9}.tag{display:inline-block;font-size:12px;border:1px solid #ffffff66;border-radius:20px;padding:3px 9px;margin-top:10px}.wrap{padding:0 16px}main{padding:20px 16px}.panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:15px;box-shadow:0 3px 12px #17365d0a}.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.field label{display:block;font-weight:700;font-size:13px;margin-bottom:6px}.field select{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:9px;background:#fff;font-size:15px;color:var(--ink)}.field select:disabled{background:#f1f4f8;color:#98a2b3}.muted{color:var(--muted);font-size:13px}.summary{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.pill{background:#eaf4f6;color:#075b66;border-radius:20px;padding:5px 10px;font-size:12px}.tests{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}.test{border:1px solid var(--line);border-radius:11px;padding:13px;background:#fff;cursor:pointer;text-align:left}.test:hover,.test.active{border-color:var(--teal);background:#f0fbfc}.test b{display:block}.test small{color:var(--muted)}.question{font-size:18px;font-weight:700;margin:10px 0 15px}.option{display:block;border:1px solid var(--line);border-radius:9px;padding:11px;margin:8px 0;cursor:pointer}.option input{margin-right:8px}.btn{background:var(--navy);color:#fff;border:0;border-radius:9px;padding:11px 17px;font-weight:700;cursor:pointer}.btn.secondary{background:#e9eef5;color:var(--navy)}.btn:disabled{opacity:.45;cursor:not-allowed}.hide{display:none}.notice{background:#fff8e8;border:1px solid #f3d89a;padding:11px;border-radius:9px;font-size:13px}.topline{display:flex;justify-content:space-between;gap:10px;align-items:center}.progress{height:7px;background:#e8edf3;border-radius:9px;overflow:hidden;margin:10px 0}.progress span{display:block;height:100%;background:var(--teal)}@media print{.test-question, tr{break-inside:avoid}table{width:100%;border-collapse:collapse}th,td{border:1px solid #bbb;padding:6px;text-align:left;font-size:10pt}thead{display:table-header-group}}@media(max-width:650px){.steps{grid-template-columns:1fr 1fr}h1{font-size:19px}.panel{padding:13px}}
 .urdu-question,.urdu-option{display:block;direction:rtl;text-align:right;font-family:serif;margin-top:6px;font-size:1.05em}
 
@@ -466,9 +466,16 @@ input,select,textarea{font-size:16px}
   .grid3,.grid2,.steps{gap:5px!important}
 }
 @media(prefers-reduced-motion:reduce){.portal-choice,.tabs .tab{transition:none!important}}
+/* Final home-page branding and compact statistics override */
+@media(max-width:700px){
+ .summary-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:4px!important}
+ .summary-card{min-width:0!important;min-height:48px!important;padding:5px 2px!important;text-align:center!important}
+ .summary-card strong{font-size:clamp(11px,3.3vw,14px)!important;line-height:1.1!important;overflow-wrap:anywhere}
+ .summary-card span{font-size:clamp(7px,1.9vw,9px)!important;line-height:1.12!important;white-space:normal!important;margin-top:3px!important}
+}
 </style></head><body>
 <header class="site-header">
-        <h1>PECTAA (Unofficial) Class Wise and Subject Wise Practice Portal</h1>
+        <h1>PECTAA Smart Practice Portal</h1>
         <h2>Learn • Practice • Improve</h2>
         <p class="header-credit"><strong>Developed by: M.Sajid (A.E.O), Markaz Amli Moti, Okara <span class="desktop-youtube-credit">| YouTube Channel: <a href="https://youtube.com/@sajideducationalhelper" target="_blank" rel="noopener noreferrer">The Educational Helper</a></span></strong></p>
         <div class="header-links" aria-label="Social media links">
