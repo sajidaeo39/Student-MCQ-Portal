@@ -590,12 +590,16 @@ input,select,textarea{font-size:16px}
 <section id="portalHome" class="panel portal-home">
 <h2 style="margin:0 0 8px">PECTAA Smart Practice Portal</h2>
 <p class="muted">Select the practice section you want to open.</p>
-<div class="portal-slo-row">
-<button type="button" class="portal-choice portal-slo-choice" id="homeSlo"><span class="choice-icon">📘</span><strong>SLO Bank</strong><small>Browse class-wise learning outcomes</small></button>
+<div class="portal-home-grid" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin:16px 0">
+<button type="button" class="portal-choice" id="homeSlo"><span class="choice-icon">📘</span><strong>SLO Bank for Teachers</strong><small>Browse class-wise learning outcomes</small></button>
+<button type="button" class="portal-choice" id="homeTest"><span class="choice-icon">📝</span><strong>Test Bank for Students</strong><small>Choose a practice test</small></button>
 </div>
-<div class="portal-test-choice-grid">
-<button type="button" class="portal-choice" id="homeClass"><span class="choice-icon">📝</span><strong>Class-wise Test</strong><small>Select class, subject and month</small></button>
-<button type="button" class="portal-choice" id="homeAeo"><span class="choice-icon">🎯</span><strong>AEO Tab Test</strong><small>Open the sample practice test</small></button>
+<div id="homeTestOptions" class="hide" style="margin:12px 0;padding:12px;border:1px solid var(--line);border-radius:12px;background:#f8fbff">
+<div style="font-weight:700;text-align:center;margin-bottom:9px;color:var(--navy)">Test Bank for Students</div>
+<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px">
+<button type="button" class="portal-choice" id="homeClass"><span class="choice-icon">📚</span><strong>Class Test</strong><small>Class-wise practice test</small></button>
+<button type="button" class="portal-choice" id="homeAeo"><span class="choice-icon">🎯</span><strong>AEO Test</strong><small>Sample AEO practice test</small></button>
+</div>
 </div>
 </section>
 
