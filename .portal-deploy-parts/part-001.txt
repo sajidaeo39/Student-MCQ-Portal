@@ -595,7 +595,6 @@ input,select,textarea{font-size:16px}
 <main>
 
 <section id="portalHome" class="panel portal-home">
-<h2 style="margin:0 0 8px">PECTAA SMART PRACTICE PORTAL</h2>
 <p class="muted">Select the practice section you want to open.</p>
 <div class="portal-home-grid" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin:16px 0">
 <button type="button" class="portal-choice" id="homeSlo"><span class="choice-icon">📘</span><strong>SLO Bank for Teachers</strong><small>Browse class-wise learning outcomes</small></button>
