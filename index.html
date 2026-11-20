@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>PECTAA Smart Practice Portal</title>
+<title>PECTAA SMART PRACTICE PORTAL</title>
 <style>
 html,body{margin:0;min-height:100%;font-family:Arial,sans-serif;background:#f4f7fb;color:#172033}
 #portal-loader{max-width:680px;margin:12vh auto;padding:28px;text-align:center;background:#fff;border:1px solid #dbe3ef;border-radius:16px;box-shadow:0 8px 30px #102a4310}
@@ -80,7 +80,7 @@ html,body{margin:0;min-height:100%;font-family:Arial,sans-serif;background:#f4f7
 </style>
 </head>
 <body>
-<div id="portal-loader"><h2>PECTAA Smart Practice Portal</h2><p id="load-status">Loading the updated portal and MCQ database…</p><progress id="load-progress" max="16" value="0"></progress></div>
+<div id="portal-loader"><h2>PECTAA SMART PRACTICE PORTAL</h2><p id="load-status">Loading the updated portal and MCQ database…</p><progress id="load-progress" max="16" value="0"></progress></div>
 <script>
 (async()=>{
  const parts=[".portal-deploy-parts/part-001.txt",".portal-deploy-parts/part-002.txt",".portal-deploy-parts/part-003.txt",".portal-deploy-parts/part-004.txt",".portal-deploy-parts/part-005.txt",".portal-deploy-parts/part-006.txt",".portal-deploy-parts/part-007.txt",".portal-deploy-parts/part-008.txt",".portal-deploy-parts/part-009.txt",".portal-deploy-parts/part-010.txt",".portal-deploy-parts/part-011.txt",".portal-deploy-parts/part-012.txt",".portal-deploy-parts/part-013.txt",".portal-deploy-parts/part-014.txt",".portal-deploy-parts/part-015.txt",".portal-deploy-parts/part-016.txt"];
@@ -89,7 +89,7 @@ html,body{margin:0;min-height:100%;font-family:Arial,sans-serif;background:#f4f7
  const progress=document.getElementById('load-progress');
  try{
   for(let i=0;i<parts.length;i++){
-   const response=await fetch('./'+parts[i]+'?v=20261120-offline-v67',{cache:'no-store'});
+   const response=await fetch('./'+parts[i]+'?v=20261120-brand-v68',{cache:'no-store'});
    if(!response.ok) throw new Error('Could not load portal data part '+(i+1)+' (HTTP '+response.status+').');
    chunks.push(await response.text());
    progress.value=i+1;
