@@ -420,4 +420,55 @@ $('schoolResultPdf').onclick=()=>setPrint('AEO Sample Test Result',schoolResultH
   else{nextBtn.style.display='none';$('schoolAttemptPage').classList.add('hide');$('schoolClassPage').classList.remove('hide');$('schoolSummary').insertAdjacentHTML('beforeend','<span class="pill">All selected class tests completed</span>');}
  };
 })(); 
+ 
+/* Place Next Class actions on the visible result page, not inside hidden test tabs. */
+(function(){
+ const resultPage=()=>document.getElementById('portalResultPage');
+ const attachResultAction=(id)=>{
+  const btn=$(id),actions=resultPage()?.querySelector('.result-page-actions');
+  if(btn&&actions){actions.appendChild(btn);btn.style.display='inline-flex';}
+ };
+ const priorClassStart=startClassTest;
+ startClassTest=function(){
+  resultPage()?.classList.add('hide');
+  $('classTab')?.classList.remove('hide');
+  priorClassStart();
+ };
+ const priorSchoolStart=startSchoolClass;
+ startSchoolClass=function(n){
+  resultPage()?.classList.add('hide');
+  priorSchoolStart(n);
+ };
+ const priorClassSubmit=submitClassTestFull;
+ submitClassTestFull=function(){
+  const was=submitted;
+  priorClassSubmit();
+  if(!was&&submitted)attachResultAction('classNextClassBtn');
+ };
+ $('submitTest').onclick=submitClassTestFull;
+ const priorSchoolSubmit=submitSchool;
+ submitSchool=function(){
+  const was=schoolDone;
+  priorSchoolSubmit();
+  if(!was&&schoolDone)attachResultAction('schoolNextClassBtn');
+ };
+ $('schoolSubmit').onclick=submitSchool;
+ const classNext=$('classNextClassBtn');
+ if(classNext){
+  const priorClick=classNext.onclick;
+  classNext.onclick=()=>{
+   resultPage()?.classList.add('hide');
+   $('classTab')?.classList.remove('hide');
+   if(priorClick)priorClick();
+  };
+ }
+ const schoolNext=$('schoolNextClassBtn');
+ if(schoolNext){
+  const priorClick=schoolNext.onclick;
+  schoolNext.onclick=()=>{
+   if(priorClick)priorClick();
+   if($('schoolClassPage')&&!$('schoolClassPage').classList.contains('hide'))resultPage()?.classList.add('hide');
+  };
+ }
+})();
 </script></body></html>
