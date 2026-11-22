@@ -28,7 +28,7 @@ const DATA=(()=>{
   const optionsKey=[a,b,c,d].map(v=>v.toLocaleLowerCase().replace(/\s+/g,' ').trim()).join('|');
   const key=[classNum,subject,question].join('|');
   if(seen.has(key))continue;seen.add(key);
-  out.push({...x,subject,month:canonicalMonth(String(x.month||x.academic_month||'').trim()),class_name:x.class_name||('Class '+classNum),class_num:classNum,question:q,option_a:a,option_b:b,option_c:c,option_d:d,correct_answer:answer});
+  out.push({...x,subject,month:String(x.month||x.academic_month||'').trim(),class_name:x.class_name||('Class '+classNum),class_num:classNum,question:q,option_a:a,option_b:b,option_c:c,option_d:d,correct_answer:answer});
  }
  if(!out.length){console.error('PECTAA: no external MCQs were usable; falling back to the embedded MCQ bank.');return LEGACY_DATA;}
  if(out.length<9000)console.warn('PECTAA: loaded '+out.length+' unique valid MCQs; some external update files may be incomplete.');
