@@ -1,0 +1,120 @@
+name: MCQ JSON Data Audit
+
+on:
+  push:
+    paths:
+      - "Classes_1_to_8_Portal_Ready_MCQ_Data (4).json"
+      - "Classes_1_to_8_Portal_Ready_MCQ_Data (3).json"
+      - "data/mcq-update-part-01.txt"
+      - ".github/workflows/mcq-data-audit.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Compare uploaded MCQ datasets
+        run: |
+          cat > audit_mcq_json.py <<'PY'
+          import json, csv, re, hashlib
+          from pathlib import Path
+          from collections import Counter, defaultdict
+
+          FILES = [
+              "Classes_1_to_8_Portal_Ready_MCQ_Data (3).json",
+              "Classes_1_to_8_Portal_Ready_MCQ_Data (4).json",
+              "data/mcq-update-part-01.txt",
+          ]
+          QKEYS = {"question", "question_statement", "question_text", "stem", "question_en", "question_ur"}
+          def norm(v):
+              return re.sub(r"\\s+", " ", str(v or "").strip().casefold())
+          def get(d, keys):
+              for k in keys:
+                  if k in d and d[k] not in (None, ""):
+                      return d[k]
+              return ""
+          def walk(x):
+              if isinstance(x, dict):
+                  yield x
+                  for v in x.values(): yield from walk(v)
+              elif isinstance(x, list):
+                  for v in x: yield from walk(v)
+          def records(path):
+              raw=json.loads(Path(path).read_text(encoding="utf-8-sig"))
+              found=[]
+              seen=set()
+              for d in walk(raw):
+                  q=get(d,QKEYS)
+                  if q and any(k in d for k in ("option_a","optionA","options","choices","correct_answer","answer")):
+                      sig=id(d)
+                      if sig not in seen:
+                          seen.add(sig); found.append(d)
+              return found
+          def canon(d):
+              q=norm(get(d,("question","question_statement","question_text","stem","question_en","question_ur")))
+              opts=[]
+              o=get(d,("options","choices"))
+              if isinstance(o,dict): opts=[norm(o.get(k,"")) for k in ("A","B","C","D","a","b","c","d")]
+              elif isinstance(o,list): opts=[norm(z) for z in o]
+              else:
+                  opts=[norm(get(d,(f"option_{x}",f"option{x.upper()}",f"option{x}"))) for x in "abcd"]
+              cls=get(d,("class_num","class","grade","class_name"))
+              sub=get(d,("subject","subject_name"))
+              ans=get(d,("correct_answer","answer","correct_option","answer_key"))
+              month=get(d,("academic_month","month"))
+              return {"class":str(cls),"subject":str(sub),"month":str(month),"question":q,"options":opts,"answer":str(ans).strip().upper(),"signature":hashlib.sha256((q+"|"+ "|".join(opts)).encode()).hexdigest()}
+          def main():
+              all_data={}
+              for f in FILES:
+                  if Path(f).exists():
+                      rr=records(f)
+                      all_data[f]=[canon(d) for d in rr]
+              lines=["# MCQ JSON audit report","", "Generated from repository datasets. This is a structural and duplicate audit, not academic answer verification.",""]
+              for f, arr in all_data.items():
+                  classes=Counter(x["class"] for x in arr); subjects=Counter(x["subject"] for x in arr); months=Counter(x["month"] for x in arr)
+                  sigs=Counter(x["signature"] for x in arr)
+                  lines += [f"## {f}",f"- Parsed MCQ records: **{len(arr)}**",f"- Exact duplicate groups (same normalized stem + options): **{sum(1 for n in sigs.values() if n>1)}**",f"- Duplicate extra records: **{sum(n-1 for n in sigs.values() if n>1)}**","- Class counts: "+", ".join(f"{k}: {v}" for k,v in sorted(classes.items())),"- Subject counts: "+", ".join(f"{k}: {v}" for k,v in sorted(subjects.items())),"- Month counts: "+", ".join(f"{k or '(blank)'}: {v}" for k,v in sorted(months.items())),""]
+                  bad=[]
+                  for i,x in enumerate(arr,1):
+                      c=x["class"].lower().replace("class ","").strip()
+                      s=x["subject"].lower().strip()
+                      allowed = (c in {"3","4","5"} and s in {"english","urdu","mathematics","math"}) or (c in {"6","7","8"} and s in {"english","urdu","mathematics","math","science"})
+                      if c in {"3","4","5","6","7","8"} and not allowed: bad.append((i,x["class"],x["subject"]))
+                  lines.append(f"- Out-of-scope subject records for Classes 3–8: **{len(bad)}**")
+                  if bad: lines.extend([f"  - Record {i}: {c} / {s}" for i,c,s in bad[:30]])
+              old=all_data.get(FILES[0],[]); new=all_data.get(FILES[1],[]); extra=all_data.get(FILES[2],[])
+              if old and new:
+                  oldset={x["signature"] for x in old}; newset={x["signature"] for x in new}
+                  lines += ["## New dataset comparison",f"- New records not found in previous JSON: **{len(newset-oldset)} unique signatures**",f"- New records matching previous JSON: **{len(newset & oldset)} unique signatures**",f"- Previous signatures absent from new JSON: **{len(oldset-newset)}**",""]
+                  with open("new_vs_old_duplicate_candidates.csv","w",newline="",encoding="utf-8-sig") as fp:
+                      w=csv.writer(fp); w.writerow(["Class","Subject","Month","Question","Answer","Relation"])
+                      for x in new:
+                          if x["signature"] in oldset: w.writerow([x["class"],x["subject"],x["month"],x["question"],x["answer"],"Already in previous JSON"])
+              if extra:
+                  lines += ["## November AEO update part",f"- Parsed MCQ records: **{len(extra)}**",""]
+                  if new:
+                      ns={x["signature"] for x in new}
+                      lines.append(f"- AEO part records matching new JSON: **{sum(1 for x in extra if x['signature'] in ns)}**")
+              Path("mcq-json-audit-report.md").write_text("\\n".join(lines)+"\\n",encoding="utf-8")
+              Path("mcq-json-audit-summary.json").write_text(json.dumps({f:{"records":len(a),"classes":dict(Counter(x["class"] for x in a)),"subjects":dict(Counter(x["subject"] for x in a))} for f,a in all_data.items()},ensure_ascii=False,indent=2),encoding="utf-8")
+              print("\\n".join(lines))
+          if __name__=="__main__": main()
+          PY
+          python audit_mcq_json.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mcq-json-audit
+          path: |
+            mcq-json-audit-report.md
+            mcq-json-audit-summary.json
+            new_vs_old_duplicate_candidates.csv
+          if-no-files-found: warn
+          retention-days: 30
