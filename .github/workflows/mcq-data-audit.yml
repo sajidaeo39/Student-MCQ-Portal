@@ -70,6 +70,7 @@ jobs:
                   opts=[norm(get(d,(f"option_{x}",f"option{x.upper()}",f"option{x}"))) for x in "abcd"]
               cls=get(d,("class_num","class","grade","class_name"))
               sub=get(d,("subject","subject_name"))
+              if norm(sub) == "general science": sub = "Science"
               ans=get(d,("correct_answer","answer","correct_option","answer_key"))
               month=get(d,("academic_month","month"))
               return {"class":str(cls),"subject":str(sub),"month":str(month),"question":q,"options":opts,"answer":str(ans).strip().upper(),"signature":hashlib.sha256((str(cls)+"|"+str(sub)+"|"+q+"|"+ "|".join(opts)).encode()).hexdigest()}
