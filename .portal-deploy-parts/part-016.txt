@@ -392,6 +392,8 @@ $('schoolResultPdf').onclick=()=>setPrint('AEO Sample Test Result',schoolResultH
  };
  $('schoolSubmit').onclick=submitSchool;
 
+})();
+
 /* Reliable AEO class-to-class navigation after each submitted class test. */
 (function(){
  const nextBtn=document.createElement('button');
