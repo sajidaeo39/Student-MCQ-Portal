@@ -8,16 +8,24 @@ const DATA=(()=>{
  ];
  const seen=new Set(),out=[];
  for(const x of sources){
-  const q=String(x.question||x.question_statement||'').trim();
-  const a=String(x.option_a||x.optionA||'').trim(),b=String(x.option_b||x.optionB||'').trim(),c=String(x.option_c||x.optionC||'').trim(),d=String(x.option_d||x.optionD||'').trim();
-  if(!q||!a||!b||!c||!d||!['A','B','C','D'].includes(String(x.correct_answer||x.answer||'').toUpperCase()))continue;
+  const q=String(x.question||x.question_statement||x.question_text||x.stem||'').trim();
+  const opts=x.options||x.choices||{};
+  const a=String(x.option_a??x.optionA??(Array.isArray(opts)?opts[0]:(opts.A??opts.a))??'').trim();
+  const b=String(x.option_b??x.optionB??(Array.isArray(opts)?opts[1]:(opts.B??opts.b))??'').trim();
+  const c=String(x.option_c??x.optionC??(Array.isArray(opts)?opts[2]:(opts.C??opts.c))??'').trim();
+  const d=String(x.option_d??x.optionD??(Array.isArray(opts)?opts[3]:(opts.D??opts.d))??'').trim();
+  const answerRaw=String(x.correct_answer??x.answer??x.correct_option??x.answer_key??'').trim().toUpperCase();
+  const answerMatch=answerRaw.match(/^(?:OPTION\\s*)?([ABCD])(?:\\b|[).:]|$)/);
+  const answer=answerMatch?answerMatch[1]:answerRaw;
+  if(!q||!a||!b||!c||!d||!['A','B','C','D'].includes(answer))continue;
   if(/Evaluate standard curriculum concept|Correct option [A-D] for .* concept|Alternative distractor [A-D] for/i.test(q+' '+a+' '+b))continue;
-  const classNum=Number(x.class_num||String(x.class_name||x.class||'').match(/\\d+/)?.[0]||0);
+  const classNum=Number(x.class_num||String(x.class_name||x.class||x.grade||'').match(/\\d+/)?.[0]||0);
   const subject0=x.subject||x.subject_name||'',subject=subject0==='General Science'?'Science':subject0;
   const question=q.replace(/\\s*\\[[^\\]]*?-\\s*Q\\d+\\]\\s*$/i,'').toLocaleLowerCase().replace(/\\s+/g,' ').trim();
-  const key=[classNum,subject,question].join('|');
+  const optionsKey=[a,b,c,d].map(v=>v.toLocaleLowerCase().replace(/\\s+/g,' ').trim()).join('|');
+  const key=[classNum,subject,question,optionsKey].join('|');
   if(seen.has(key))continue;seen.add(key);
-  out.push({...x,subject,month:canonicalMonth(String(x.month||x.academic_month||'').trim()),class_name:x.class_name||('Class '+classNum),class_num:classNum,question:q,option_a:a,option_b:b,option_c:c,option_d:d,correct_answer:String(x.correct_answer||x.answer||'').toUpperCase()});
+  out.push({...x,subject,month:canonicalMonth(String(x.month||x.academic_month||'').trim()),class_name:x.class_name||('Class '+classNum),class_num:classNum,question:q,option_a:a,option_b:b,option_c:c,option_d:d,correct_answer:answer});
  }
  if(out.length<9000)throw new Error('Merged MCQ validation failed: only '+out.length+' unique valid MCQs loaded.');
  return out;
