@@ -6,6 +6,8 @@ on:
       - "Classes_1_to_8_Portal_Ready_MCQ_Data (4).json"
       - "Classes_1_to_8_Portal_Ready_MCQ_Data (3).json"
       - "data/mcq-update-part-01.txt"
+      - ".portal-deploy-parts/**"
+      - "index.html"
       - ".github/workflows/mcq-data-audit.yml"
   workflow_dispatch:
 
