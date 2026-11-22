@@ -35,7 +35,7 @@ jobs:
           ]
           QKEYS = {"question", "question_statement", "question_text", "stem", "question_en", "question_ur"}
           def norm(v):
-              return re.sub(r"\\s+", " ", str(v or "").strip().casefold())
+              return re.sub(r"\s+", " ", str(v or "").strip().casefold())
           def get(d, keys):
               for k in keys:
                   if k in d and d[k] not in (None, ""):
@@ -103,7 +103,7 @@ jobs:
                   if new:
                       ns={x["signature"] for x in new}
                       lines.append(f"- AEO part records matching new JSON: **{sum(1 for x in extra if x['signature'] in ns)}**")
-              Path("mcq-json-audit-report.md").write_text("\\n".join(lines)+"\\n",encoding="utf-8")
+              Path("mcq-json-audit-report.md").write_text("\n".join(lines)+"\\n",encoding="utf-8")
               Path("mcq-json-audit-summary.json").write_text(json.dumps({f:{"records":len(a),"classes":dict(Counter(x["class"] for x in a)),"subjects":dict(Counter(x["subject"] for x in a))} for f,a in all_data.items()},ensure_ascii=False,indent=2),encoding="utf-8")
               print("\\n".join(lines))
           if __name__=="__main__": main()
