@@ -664,7 +664,34 @@ main{padding:0 14px 12px!important}
 <button type="button" class="portal-choice" id="homeClass"><span class="choice-icon">📚</span><strong>Class Test</strong><small>Class-wise practice test</small></button>
 <button type="button" class="portal-choice" id="homeAeo"><span class="choice-icon">🎯</span><strong>AEO Test</strong><small>Sample AEO practice test</small></button>
 </div>
-</div><div class="home-benefits" aria-label="Portal benefits"><div class="home-benefit"><span class="benefit-icon">🛡️</span><div><strong>100% Reliable</strong><small>Accurate and trusted content</small></div></div><div class="home-benefit"><span class="benefit-icon">🚀</span><div><strong>Exam Focused</strong><small>Prepare smartly for better results</small></div></div><div class="home-benefit"><span class="benefit-icon">🎯</span><div><strong>Track Progress</strong><small>Review performance and improve</small></div></div><div class="home-benefit"><span class="benefit-icon">⭐</span><div><strong>Learn &amp; Grow</strong><small>Continuous practice leads to success</small></div></div></div></section><section id="mcqTab" class="tabpage hide">
+</div><div class="home-benefits" aria-label="Portal benefits"><div class="home-benefit"><span class="benefit-icon">🛡️</span><div><strong>100% Reliable</strong><small>Accurate and trusted content</small></div></div><div class="home-benefit"><span class="benefit-icon">🚀</span><div><strong>Exam Focused</strong><small>Prepare smartly for better results</small></div></div><div class="home-benefit"><span class="benefit-icon">🎯</span><div><strong>Track Progress</strong><small>Review performance and improve</small></div></div><div class="home-benefit"><span class="benefit-icon">⭐</span><div><strong>Learn &amp; Grow</strong><small>Continuous practice leads to success</small></div></div></div></section>
+<script id="pectaa-navigation-recovery-v1">
+(function(){
+  function go(id){
+    var home=id==='portalHome';
+    var hp=document.getElementById('portalHome');
+    if(hp) hp.classList.toggle('hide',!home);
+    document.querySelectorAll('.tabpage').forEach(function(p){p.classList.toggle('hide',home||p.id!==id);});
+    var stats=document.querySelector('.summary-panel');
+    if(stats){stats.classList.toggle('hide',!home);stats.style.setProperty('display',home?'':'none','important');}
+    var back=document.getElementById('backToHomeNav');
+    if(back) back.style.display=home?'none':'flex';
+    document.querySelectorAll('.tab[data-tab]').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-tab')===id);});
+    window.scrollTo({top:0,behavior:'auto'});
+  }
+  document.querySelectorAll('.tab[data-tab]').forEach(function(b){
+    b.addEventListener('click',function(){go(b.getAttribute('data-tab'));});
+  });
+  var bind=function(id,fn){var el=document.getElementById(id);if(el)el.addEventListener('click',fn);};
+  bind('homeSlo',function(){go('sloTab');});
+  bind('homeTest',function(){var el=document.getElementById('homeTestOptions');if(el)el.classList.toggle('hide');});
+  bind('homeClass',function(){go('classTab');});
+  bind('homeAeo',function(){go('schoolTab');});
+  bind('backToHomeNav',function(){go('portalHome');});
+  window.__pectaaNavigate=go;
+})();
+</script>
+<section id="mcqTab" class="tabpage hide">
 <div class="panel"><div class="topline"><div><h2 style="margin:0">MCQ Bank</h2><div class="muted">Complete portal-ready MCQ dataset</div></div><span class="pill" id="mcqTotal"></span></div>
 <div class="grid3" style="margin-top:12px"><div class="field"><label>Class</label><select id="bankClass"><option value="">All Classes</option></select></div><div class="field"><label>Subject</label><select id="bankSubject"><option value="">All Subjects</option></select></div><div class="field"><label>Month</label><select id="bankMonth"><option value="">All Months</option></select></div></div>
 <div class="field" style="margin-top:10px"><label for="bankSearch">Search question / chapter / option</label><input id="bankSearch" type="search" placeholder="Type a keyword to filter the selected MCQs" style="width:100%;padding:11px;border:1px solid #cbd5e1;border-radius:9px"></div>
