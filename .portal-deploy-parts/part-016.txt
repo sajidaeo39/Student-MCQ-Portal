@@ -76,6 +76,30 @@ function renderQuestion(){let q=questions[idx];$('counter').textContent=`${idx+1
 function advanceClass(){if(idx<questions.length-1){idx++;renderQuestion();}}
 function submitClassTest(){if(submitted)return;let correct=questions.reduce((n,q,i)=>n+(answers[i]===String(q.correct_answer).toUpperCase()?1:0),0),incorrect=questions.reduce((n,q,i)=>n+(!!answers[i]&&answers[i]!==String(q.correct_answer).toUpperCase()?1:0),0),unattempted=questions.length-correct-incorrect;submitted=true;$('result').classList.remove('hide');$('result').innerHTML=`<b>Result: ${correct} / ${questions.length}</b><br>Correct: ${correct} · Incorrect: ${incorrect} · Unattempted: ${unattempted}`;$('prev').disabled=true;$('next').disabled=true;$('skipNext').disabled=true;$('submitTest').disabled=true;document.querySelectorAll('#testPanel input[name="answer"]').forEach(e=>e.disabled=true);$('retryWrap').classList.remove('hide');$('classResultPdf').classList.remove('hide');}
 $('prev').onclick=()=>{if(idx>0&&!submitted){idx--;renderQuestion();}};$('next').onclick=advanceClass;$('skipNext').onclick=advanceClass;$('submitTest').onclick=submitClassTest;$('retry').onclick=()=>startClassTest();
+/* Keep the next-class action inside the portal controller scope. */
+const classNextBtn=document.createElement('button');
+classNextBtn.type='button';classNextBtn.id='classNextClassBtn';classNextBtn.className='btn';
+classNextBtn.textContent='Next Class';classNextBtn.style.display='none';
+const classResultNode=$('classResultPdf');
+if(classResultNode&&classResultNode.parentNode)classResultNode.parentNode.appendChild(classNextBtn);
+const originalClassSubmit=submitClassTest;
+submitClassTest=function(){
+ const was=submitted;originalClassSubmit();
+ if(!was&&submitted){classNextBtn.style.display='inline-flex';}
+};
+$('submitTest').onclick=submitClassTest;
+classNextBtn.onclick=()=>{
+ const current=Number(String($('cls').value).match(/\\d+/)?.[0]||0);
+ const next=classes.find(c=>Number(String(c).match(/\\d+/)?.[0]||0)>current);
+ if(!next){classNextBtn.style.display='none';$('cls').value='';$('cls').dispatchEvent(new Event('change'));$('cls').scrollIntoView({behavior:'smooth',block:'center'});return;}
+ $('cls').value=next;$('cls').dispatchEvent(new Event('change'));
+ const preferred=$('sub').querySelector('option[value="'+MIX+'"]')?MIX:$('sub').options[1]?.value||'';
+ if(preferred){$('sub').value=preferred;$('sub').dispatchEvent(new Event('change'));}
+ const wanted=$('month').querySelector('option[value="'+CSS.escape(canonicalMonth($('testSub').textContent.split(' · ').slice(-2,-1)[0]||''))+'"]');
+ if(wanted){$('month').value=wanted.value;$('month').dispatchEvent(new Event('change'));}
+ classNextBtn.style.display='none';
+ $('cls').scrollIntoView({behavior:'smooth',block:'center'});
+};
 function testPaperHtml(qs,title,subtitle){return `<h2>${esc(title)}</h2><p>${esc(subtitle)}</p>${qs.map((q,i)=>`<div class="test-question"><b>Q${i+1}. ${esc(q.question)}</b>${q.question_ur?`<div class="urdu-question" dir="rtl">${esc(q.question_ur)}</div>`:''}<p>A. ${esc(q.option_a)}${q.option_a_ur?` <span dir="rtl">${esc(q.option_a_ur)}</span>`:''} &nbsp; B. ${esc(q.option_b)}${q.option_b_ur?` <span dir="rtl">${esc(q.option_b_ur)}</span>`:''}</p><p>C. ${esc(q.option_c)}${q.option_c_ur?` <span dir="rtl">${esc(q.option_c_ur)}</span>`:''} &nbsp; D. ${esc(q.option_d)}${q.option_d_ur?` <span dir="rtl">${esc(q.option_d_ur)}</span>`:''}</p></div>`).join('')}<h3>Answer Key</h3><p class="answerkey">${qs.map((q,i)=>`${i+1}. ${esc(q.correct_answer)}`).join(' &nbsp; | &nbsp; ')}</p>`;}
 $('classPdf').onclick=()=>{if(!questions.length){alert('Please generate a class-wise test first.');return;}setPrint($('testTitle').textContent,testPaperHtml(questions,$('testTitle').textContent,$('testSub').textContent));};
 // School-level test: Primary fixed classes 3,4,5; Elementary/High random 3 classes from 3-8.
@@ -367,8 +391,7 @@ $('schoolResultPdf').onclick=()=>setPrint('AEO Sample Test Result',schoolResultH
   if(!was&&schoolDone)showResult(schoolResultHtml());
  };
  $('schoolSubmit').onclick=submitSchool;
-})();
- 
+
 /* Reliable AEO class-to-class navigation after each submitted class test. */
 (function(){
  const nextBtn=document.createElement('button');
