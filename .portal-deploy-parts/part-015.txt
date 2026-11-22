@@ -15,7 +15,7 @@ const DATA=(()=>{
   const c=String(x.option_c??x.optionC??(Array.isArray(opts)?opts[2]:(opts.C??opts.c))??'').trim();
   const d=String(x.option_d??x.optionD??(Array.isArray(opts)?opts[3]:(opts.D??opts.d))??'').trim();
   const answerRaw=String(x.correct_answer??x.answer??x.correct_option??x.answer_key??'').trim().toUpperCase();
-  const answerMatch=answerRaw.match(/^(?:OPTION\\s*)?([ABCD])(?:\\b|[).:]|$)/);
+  const answerMatch=answerRaw.match(/^(?:OPTION\\s*)?([ABCD])(?:\b|[).:]|$)/);
   const answer=answerMatch?answerMatch[1]:answerRaw;
   if(!q||!a||!b||!c||!d||!['A','B','C','D'].includes(answer))continue;
   if(/Evaluate standard curriculum concept|Correct option [A-D] for .* concept|Alternative distractor [A-D] for/i.test(q+' '+a+' '+b))continue;
