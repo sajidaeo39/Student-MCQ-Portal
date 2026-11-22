@@ -64,7 +64,7 @@ $('month').onchange=()=>{let a=classFiltered();fill('chapter',['Monthly SLO-Base
 $('chapter').onchange=()=>startClassTest();
 function shuffle(a){let b=a.slice();for(let i=b.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
 function questionKey(x){return String(x.question??'').trim().replace(/\s*\[[^\]]*?-\s*Q\d+\]\s*$/i,'').toLocaleLowerCase().replace(/\s+/g,' ').trim();}
-function schoolQuestionId(x){return String(x.mcq_id||x.id||questionKey(x));}
+function schoolQuestionId(x){return questionKey(x);}
 function choose(pool,n,key,random=true){let seenInPool=new Set(),unique=pool.filter(x=>{let k=questionKey(x);if(seenInPool.has(k))return false;seenInPool.add(k);return true;});let p=random?shuffle(unique):unique.slice();if(!p.length)return[];let old=new Set(attemptHistory[key]||[]),fresh=p.filter(x=>!old.has(questionKey(x))),chosen=fresh.slice(0,n);if(chosen.length<n){let selected=new Set(chosen.map(questionKey)),refill=shuffle(p.filter(x=>!selected.has(questionKey(x))));chosen.push(...refill.slice(0,n-chosen.length));attemptHistory[key]=chosen.map(questionKey);}else{attemptHistory[key]=Array.from(new Set([...old,...chosen.map(questionKey)]));}try{localStorage.setItem(HISTORY_KEY,JSON.stringify(attemptHistory));}catch(e){}return random?shuffle(chosen):chosen;}
 function resetClassAfter(which){if(which==='sub'){fill('month',[],'Choose month');$('month').disabled=true;}fill('chapter',[],'Choose test');$('chapter').disabled=true;$('meta').innerHTML='';resetTest();}
 function resetTest(){$('testPanel').classList.add('hide');$('retryWrap').classList.add('hide');$('result').classList.add('hide');$('classResultPdf').classList.add('hide');$('classPdf').classList.add('hide');questions=[];answers={};submitted=false;}
