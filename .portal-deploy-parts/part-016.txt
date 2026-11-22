@@ -401,19 +401,51 @@ $('schoolResultPdf').onclick=()=>setPrint('AEO Sample Test Result',schoolResultH
 </script>
 <script id="pectaa-navigation-final-guard">
 (function(){
+ 'use strict';
+ function byId(id){return document.getElementById(id);}
  function go(id){
   var home=id==='portalHome';
-  var hp=document.getElementById('portalHome');if(hp)hp.classList.toggle('hide',!home);
-  document.querySelectorAll('main .tabpage').forEach(function(p){p.classList.toggle('hide',home||p.id!==id);});
-  var stats=document.querySelector('.summary-panel');if(stats){stats.classList.toggle('hide',!home);stats.style.setProperty('display',home?'':'none','important');}
-  var back=document.getElementById('backToHomeNav');if(back)back.style.display=home?'none':'flex';
-  document.querySelectorAll('.tab[data-tab]').forEach(function(b){b.classList.toggle('active',b.dataset.tab===id);});
-  window.scrollTo(0,0);
+  var page=byId(id);
+  if(!home&&!page){console.warn('PECTAA: page not found:',id);return false;}
+  var hp=byId('portalHome');
+  if(hp)hp.classList.toggle('hide',!home);
+  document.querySelectorAll('.tabpage').forEach(function(p){
+   p.classList.toggle('hide',home||p.id!==id);
+  });
+  var stats=document.querySelector('.summary-panel');
+  if(stats){stats.classList.toggle('hide',!home);stats.style.setProperty('display',home?'':'none','important');}
+  var back=byId('backToHomeNav');
+  if(back)back.style.display=home?'none':'flex';
+  document.querySelectorAll('.tab[data-tab]').forEach(function(b){
+   b.classList.toggle('active',b.dataset.tab===id);
+   b.setAttribute('aria-current',b.dataset.tab===id?'page':'false');
+  });
+  if(id==='classTab'){
+   ['schoolLevelPage','schoolClassPage','schoolAttemptPage'].forEach(function(x){var el=byId(x);if(el&&x!=='schoolLevelPage')el.classList.add('hide');});
+  }
+  window.scrollTo({top:0,behavior:'auto'});
+  return true;
  }
  window.__pectaaNavigate=go;
- document.querySelectorAll('.tab[data-tab]').forEach(function(b){b.onclick=function(e){e.preventDefault();go(b.dataset.tab);};});
- [['homeSlo','sloTab'],['homeClass','classTab'],['homeAeo','schoolTab']].forEach(function(pair){var el=document.getElementById(pair[0]);if(el)el.onclick=function(e){e.preventDefault();go(pair[1]);};});
- var test=document.getElementById('homeTest');if(test)test.onclick=function(e){e.preventDefault();var x=document.getElementById('homeTestOptions');if(x)x.classList.toggle('hide');};
- var back=document.querySelector('#backToHomeNav [data-tab]');if(back)back.onclick=function(e){e.preventDefault();go('portalHome');};
+ // Bind after the complete page has been parsed; use one consistent navigation path.
+ document.querySelectorAll('.tab[data-tab]').forEach(function(b){
+  b.onclick=function(e){e.preventDefault();go(b.dataset.tab);};
+ });
+ [['homeSlo','sloTab'],['homeClass','classTab'],['homeAeo','schoolTab']].forEach(function(pair){
+  var el=byId(pair[0]);if(el)el.onclick=function(e){e.preventDefault();go(pair[1]);};
+ });
+ var test=byId('homeTest');
+ if(test)test.onclick=function(e){
+  e.preventDefault();
+  var menu=byId('homeTestOptions');
+  if(menu)menu.classList.toggle('hide');
+ };
+ var backButton=document.querySelector('#backToHomeNav [data-tab]');
+ if(backButton)backButton.onclick=function(e){e.preventDefault();go('portalHome');};
+ // Keep the portal usable when a tab is opened from a keyboard or a nested icon.
+ document.addEventListener('click',function(e){
+  var b=e.target&&e.target.closest?e.target.closest('[data-portal-page]'):null;
+  if(b){e.preventDefault();go(b.getAttribute('data-portal-page'));}
+ });
 })();
 </script></body></html>
