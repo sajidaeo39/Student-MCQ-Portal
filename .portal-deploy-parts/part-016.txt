@@ -398,4 +398,22 @@ $('schoolResultPdf').onclick=()=>setPrint('AEO Sample Test Result',schoolResultH
 
 })();
 
+</script>
+<script id="pectaa-navigation-final-guard">
+(function(){
+ function go(id){
+  var home=id==='portalHome';
+  var hp=document.getElementById('portalHome');if(hp)hp.classList.toggle('hide',!home);
+  document.querySelectorAll('main .tabpage').forEach(function(p){p.classList.toggle('hide',home||p.id!==id);});
+  var stats=document.querySelector('.summary-panel');if(stats){stats.classList.toggle('hide',!home);stats.style.setProperty('display',home?'':'none','important');}
+  var back=document.getElementById('backToHomeNav');if(back)back.style.display=home?'none':'flex';
+  document.querySelectorAll('.tab[data-tab]').forEach(function(b){b.classList.toggle('active',b.dataset.tab===id);});
+  window.scrollTo(0,0);
+ }
+ window.__pectaaNavigate=go;
+ document.querySelectorAll('.tab[data-tab]').forEach(function(b){b.onclick=function(e){e.preventDefault();go(b.dataset.tab);};});
+ [['homeSlo','sloTab'],['homeClass','classTab'],['homeAeo','schoolTab']].forEach(function(pair){var el=document.getElementById(pair[0]);if(el)el.onclick=function(e){e.preventDefault();go(pair[1]);};});
+ var test=document.getElementById('homeTest');if(test)test.onclick=function(e){e.preventDefault();var x=document.getElementById('homeTestOptions');if(x)x.classList.toggle('hide');};
+ var back=document.querySelector('#backToHomeNav [data-tab]');if(back)back.onclick=function(e){e.preventDefault();go('portalHome');};
+})();
 </script></body></html>
