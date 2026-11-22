@@ -351,8 +351,8 @@ $('schoolResultPdf').onclick=()=>setPrint('AEO Sample Test Result',schoolResultH
   }else if(flow==='class'){
    const next=document.createElement('button');next.type='button';next.className='btn';next.id='resultNextClassTestBtn';next.textContent='Next Class Test';
    next.onclick=()=>{
-    const current=Number(String($('cls').value).match(/\\d+/)?.[0]||0);
-    const nextClass=classes.find(c=>Number(String(c).match(/\\d+/)?.[0]||0)>current);
+    const current=Number(String($('cls').value).match(/\d+/)?.[0]||0);
+    const nextClass=classes.find(c=>Number(String(c).match(/\d+/)?.[0]||0)>current);
     if(!nextClass){alert('You have completed the available class tests.');return;}
     page.classList.add('hide');activateTab('classTab');
     $('cls').value=nextClass;$('cls').dispatchEvent(new Event('change'));
