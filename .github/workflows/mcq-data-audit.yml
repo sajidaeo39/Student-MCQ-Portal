@@ -91,7 +91,8 @@ jobs:
               for f, arr in all_data.items():
                   classes=Counter(x["class"] for x in arr); subjects=Counter(x["subject"] for x in arr); months=Counter(x["month"] for x in arr)
                   sigs=Counter(x["signature"] for x in arr)
-                  lines += [f"## {f}",f"- Parsed MCQ records: **{len(arr)}**",f"- Exact duplicate groups (same normalized stem + options): **{sum(1 for n in sigs.values() if n>1)}**",f"- Duplicate extra records: **{sum(n-1 for n in sigs.values() if n>1)}**","- Class counts: "+", ".join(f"{k}: {v}" for k,v in sorted(classes.items())),"- Subject counts: "+", ".join(f"{k}: {v}" for k,v in sorted(subjects.items())),"- Month counts: "+", ".join(f"{k or '(blank)'}: {v}" for k,v in sorted(months.items())),""]
+                  stem_sigs=Counter(hashlib.sha256((x["class"]+"|"+x["subject"]+"|"+x["question"]).encode()).hexdigest() for x in arr)
+                  lines += [f"## {f}",f"- Parsed MCQ records: **{len(arr)}**",f"- Exact duplicate groups (same normalized stem + options): **{sum(1 for n in sigs.values() if n>1)}**",f"- Duplicate extra records: **{sum(n-1 for n in sigs.values() if n>1)}**",f"- Repeated question-stem groups (same class + subject, options ignored): **{sum(1 for n in stem_sigs.values() if n>1)}**",f"- Repeated question-stem extra records: **{sum(n-1 for n in stem_sigs.values() if n>1)}**","- Class counts: "+", ".join(f"{k}: {v}" for k,v in sorted(classes.items())),"- Subject counts: "+", ".join(f"{k}: {v}" for k,v in sorted(subjects.items())),"- Month counts: "+", ".join(f"{k or '(blank)'}: {v}" for k,v in sorted(months.items())),""]
                   bad=[]
                   for i,x in enumerate(arr,1):
                       c=x["class"].lower().replace("class ","").strip()
