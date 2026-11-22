@@ -73,11 +73,18 @@ jobs:
               return {"class":str(cls),"subject":str(sub),"month":str(month),"question":q,"options":opts,"answer":str(ans).strip().upper(),"signature":hashlib.sha256((q+"|"+ "|".join(opts)).encode()).hexdigest()}
           def main():
               all_data={}
+              parse_errors={}
               for f in FILES:
                   if Path(f).exists():
-                      rr=records(f)
-                      all_data[f]=[canon(d) for d in rr]
+                      try:
+                          rr=records(f)
+                          all_data[f]=[canon(d) for d in rr]
+                      except Exception as exc:
+                          all_data[f]=[]
+                          parse_errors[f]=str(exc)
               lines=["# MCQ JSON audit report","", "Generated from repository datasets. This is a structural and duplicate audit, not academic answer verification.",""]
+              for f, err in parse_errors.items():
+                  lines += [f"## PARSE ERROR: {f}",f"- {err}","- This source was not counted; do not merge or publish it.",""]
               for f, arr in all_data.items():
                   classes=Counter(x["class"] for x in arr); subjects=Counter(x["subject"] for x in arr); months=Counter(x["month"] for x in arr)
                   sigs=Counter(x["signature"] for x in arr)
