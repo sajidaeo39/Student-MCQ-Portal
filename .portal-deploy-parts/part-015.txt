@@ -2,9 +2,9 @@
 const DATA=(()=>{
  const load=(path,shape)=>{const req=new XMLHttpRequest();req.open('GET',path+'?v=20261122-merged-v1',false);req.send(null);if(req.status!==200)throw new Error('MCQ bank load failed for '+path+' (HTTP '+req.status+')');const parsed=JSON.parse(req.responseText);const rows=Array.isArray(parsed)?parsed:(Array.isArray(parsed.mcqs)?parsed.mcqs:(Array.isArray(parsed.questions)?parsed.questions:null));if(!rows)throw new Error('Invalid MCQ data structure in '+path);if(shape&&rows.length<shape)throw new Error('Incomplete MCQ file '+path+': '+rows.length);return rows;};
  const sources=[
+  ...load('./data/mcq-update-part-01.txt',600),
   ...load('./Classes_1_to_8_Portal_Ready_MCQ_Data%20(3).json',4700),
-  ...load('./Classes_1_to_8_Portal_Ready_MCQ_Data%20(4).json',9000),
-  ...load('./data/mcq-update-part-01.txt',600)
+  ...load('./Classes_1_to_8_Portal_Ready_MCQ_Data%20(4).json',9000)
  ];
  const seen=new Set(),out=[];
  for(const x of sources){
