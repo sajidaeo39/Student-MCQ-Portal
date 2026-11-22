@@ -76,30 +76,6 @@ function renderQuestion(){let q=questions[idx];$('counter').textContent=`${idx+1
 function advanceClass(){if(idx<questions.length-1){idx++;renderQuestion();}}
 function submitClassTest(){if(submitted)return;let correct=questions.reduce((n,q,i)=>n+(answers[i]===String(q.correct_answer).toUpperCase()?1:0),0),incorrect=questions.reduce((n,q,i)=>n+(!!answers[i]&&answers[i]!==String(q.correct_answer).toUpperCase()?1:0),0),unattempted=questions.length-correct-incorrect;submitted=true;$('result').classList.remove('hide');$('result').innerHTML=`<b>Result: ${correct} / ${questions.length}</b><br>Correct: ${correct} · Incorrect: ${incorrect} · Unattempted: ${unattempted}`;$('prev').disabled=true;$('next').disabled=true;$('skipNext').disabled=true;$('submitTest').disabled=true;document.querySelectorAll('#testPanel input[name="answer"]').forEach(e=>e.disabled=true);$('retryWrap').classList.remove('hide');$('classResultPdf').classList.remove('hide');}
 $('prev').onclick=()=>{if(idx>0&&!submitted){idx--;renderQuestion();}};$('next').onclick=advanceClass;$('skipNext').onclick=advanceClass;$('submitTest').onclick=submitClassTest;$('retry').onclick=()=>startClassTest();
-/* Keep the next-class action inside the portal controller scope. */
-const classNextBtn=document.createElement('button');
-classNextBtn.type='button';classNextBtn.id='classNextClassBtn';classNextBtn.className='btn';
-classNextBtn.textContent='Next Class';classNextBtn.style.display='none';
-const classResultNode=$('classResultPdf');
-if(classResultNode&&classResultNode.parentNode)classResultNode.parentNode.appendChild(classNextBtn);
-const originalClassSubmit=submitClassTest;
-submitClassTest=function(){
- const was=submitted;originalClassSubmit();
- if(!was&&submitted){classNextBtn.style.display='inline-flex';}
-};
-$('submitTest').onclick=submitClassTest;
-classNextBtn.onclick=()=>{
- const current=Number(String($('cls').value).match(/\\d+/)?.[0]||0);
- const next=classes.find(c=>Number(String(c).match(/\\d+/)?.[0]||0)>current);
- if(!next){classNextBtn.style.display='none';$('cls').value='';$('cls').dispatchEvent(new Event('change'));$('cls').scrollIntoView({behavior:'smooth',block:'center'});return;}
- $('cls').value=next;$('cls').dispatchEvent(new Event('change'));
- const preferred=$('sub').querySelector('option[value="'+MIX+'"]')?MIX:$('sub').options[1]?.value||'';
- if(preferred){$('sub').value=preferred;$('sub').dispatchEvent(new Event('change'));}
- const wanted=$('month').querySelector('option[value="'+CSS.escape(canonicalMonth($('testSub').textContent.split(' · ').slice(-2,-1)[0]||''))+'"]');
- if(wanted){$('month').value=wanted.value;$('month').dispatchEvent(new Event('change'));}
- classNextBtn.style.display='none';
- $('cls').scrollIntoView({behavior:'smooth',block:'center'});
-};
 function testPaperHtml(qs,title,subtitle){return `<h2>${esc(title)}</h2><p>${esc(subtitle)}</p>${qs.map((q,i)=>`<div class="test-question"><b>Q${i+1}. ${esc(q.question)}</b>${q.question_ur?`<div class="urdu-question" dir="rtl">${esc(q.question_ur)}</div>`:''}<p>A. ${esc(q.option_a)}${q.option_a_ur?` <span dir="rtl">${esc(q.option_a_ur)}</span>`:''} &nbsp; B. ${esc(q.option_b)}${q.option_b_ur?` <span dir="rtl">${esc(q.option_b_ur)}</span>`:''}</p><p>C. ${esc(q.option_c)}${q.option_c_ur?` <span dir="rtl">${esc(q.option_c_ur)}</span>`:''} &nbsp; D. ${esc(q.option_d)}${q.option_d_ur?` <span dir="rtl">${esc(q.option_d_ur)}</span>`:''}</p></div>`).join('')}<h3>Answer Key</h3><p class="answerkey">${qs.map((q,i)=>`${i+1}. ${esc(q.correct_answer)}`).join(' &nbsp; | &nbsp; ')}</p>`;}
 $('classPdf').onclick=()=>{if(!questions.length){alert('Please generate a class-wise test first.');return;}setPrint($('testTitle').textContent,testPaperHtml(questions,$('testTitle').textContent,$('testSub').textContent));};
 // School-level test: Primary fixed classes 3,4,5; Elementary/High random 3 classes from 3-8.
@@ -332,7 +308,7 @@ $('schoolResultPdf').onclick=()=>setPrint('AEO Sample Test Result',schoolResultH
  page.id='portalResultPage';
  page.className='hide';
  main.appendChild(page);
- function showResult(html){
+ function showResult(html,flow){
   const temp=document.createElement('div');
   temp.innerHTML=String(html||'');
   const oldTitle=temp.querySelector('.result-heading,h2');
@@ -346,34 +322,62 @@ $('schoolResultPdf').onclick=()=>setPrint('AEO Sample Test Result',schoolResultH
    const total=get('Total Questions'),correct=get('Correct'),wrong=get('Wrong'),unattempted=get('Unattempted');
    const attemptedValue=Number(correct?.querySelector('strong')?.textContent||0)+Number(wrong?.querySelector('strong')?.textContent||0);
    const attempted=document.createElement('div');
-   attempted.className='stat-item';
-   attempted.innerHTML='<strong>'+attemptedValue+'</strong><span>Attempted</span>';
-   grid.replaceChildren();
-   [total,attempted,correct,wrong,unattempted].filter(Boolean).forEach(el=>grid.appendChild(el));
+   attempted.className='stat-item';attempted.innerHTML='<strong>'+attemptedValue+'</strong><span>Attempted</span>';
+   grid.replaceChildren();[total,attempted,correct,wrong,unattempted].filter(Boolean).forEach(el=>grid.appendChild(el));
   }
-  const dataLabel=document.createElement('p');
-  dataLabel.className='result-center-label';
-  dataLabel.textContent='RESULT DATA CENTER';
-  const heading=document.createElement('h2');
-  heading.className='result-page-title';
-  heading.textContent='TEST RESULT';
-  const actions=document.createElement('div');
-  actions.className='result-page-actions no-print';
-  actions.innerHTML='<button type="button" class="btn secondary" id="resultReviewBtn">Review Answers</button><button type="button" class="btn" id="resultHomeBtn">Back to Home</button>';
+  const dataLabel=document.createElement('p');dataLabel.className='result-center-label';dataLabel.textContent='RESULT DATA CENTER';
+  const heading=document.createElement('h2');heading.className='result-page-title';heading.textContent='TEST RESULT';
+  const actions=document.createElement('div');actions.className='result-page-actions no-print';
+  const review=document.createElement('button');review.type='button';review.className='btn secondary';review.id='resultReviewBtn';review.textContent='Review Answers';
+  const home=document.createElement('button');home.type='button';home.className='btn';home.id='resultHomeBtn';home.textContent='Back to Home';
+  actions.append(review);
+  if(flow==='aeo'){
+   const next=document.createElement('button');next.type='button';next.className='btn';next.id='resultNextClassBtn';
+   const pos=chosenSchoolClasses.indexOf(lastSchoolClass);
+   next.textContent=pos>=0&&pos<chosenSchoolClasses.length-1?'Next Class':'Back to Class List';
+   next.onclick=()=>{
+    page.classList.add('hide');
+    if(pos>=0&&pos<chosenSchoolClasses.length-1){
+     document.getElementById('schoolTab')?.classList.remove('hide');
+     startSchoolClass(chosenSchoolClasses[pos+1]);
+    }else{
+     document.getElementById('schoolTab')?.classList.remove('hide');
+     $('schoolAttemptPage').classList.add('hide');
+     $('schoolClassPage').classList.remove('hide');
+    }
+    window.scrollTo({top:0,behavior:'smooth'});
+   };
+   actions.append(next);
+  }else if(flow==='class'){
+   const next=document.createElement('button');next.type='button';next.className='btn';next.id='resultNextClassTestBtn';next.textContent='Next Class Test';
+   next.onclick=()=>{
+    const current=Number(String($('cls').value).match(/\\d+/)?.[0]||0);
+    const nextClass=classes.find(c=>Number(String(c).match(/\\d+/)?.[0]||0)>current);
+    if(!nextClass){alert('You have completed the available class tests.');return;}
+    page.classList.add('hide');activateTab('classTab');
+    $('cls').value=nextClass;$('cls').dispatchEvent(new Event('change'));
+    const mix=$('sub').querySelector('option[value="'+MIX+'"]');
+    if(mix){$('sub').value=MIX;$('sub').dispatchEvent(new Event('change'));}
+    const oldMonth=$('month').querySelector('option[value="'+CSS.escape(canonicalMonth($('testSub').textContent.split(' · ').slice(-2,-1)[0]||''))+'"]');
+    const monthValue=oldMonth?oldMonth.value:$('month').options[$('month').options.length-1]?.value;
+    if(monthValue){$('month').value=monthValue;$('month').dispatchEvent(new Event('change'));}
+    window.scrollTo({top:0,behavior:'smooth'});
+   };
+   actions.append(next);
+  }
+  actions.append(home);
   page.replaceChildren(heading,dataLabel,actions,temp);
   document.getElementById('classTab')?.classList.add('hide');
   document.getElementById('schoolTab')?.classList.add('hide');
   document.getElementById('portalHome')?.classList.add('hide');
   page.classList.remove('hide');
-  document.getElementById('resultReviewBtn').onclick=()=>{
+  review.onclick=()=>{
    const target=Array.from(page.querySelectorAll('.result-subheading')).find(el=>/Review Answers/i.test(el.textContent));
    if(target)target.scrollIntoView({behavior:'smooth',block:'start'});
   };
-  document.getElementById('resultHomeBtn').onclick=()=>{
-   page.classList.add('hide');
-   document.querySelectorAll('main .tabpage').forEach(el=>el.classList.add('hide'));
-   document.getElementById('portalHome')?.classList.remove('hide');
-   window.scrollTo({top:0,behavior:'smooth'});
+  home.onclick=()=>{
+   page.classList.add('hide');document.querySelectorAll('main .tabpage').forEach(el=>el.classList.add('hide'));
+   document.getElementById('portalHome')?.classList.remove('hide');window.scrollTo({top:0,behavior:'smooth'});
   };
   window.scrollTo({top:0,behavior:'smooth'});
  }
@@ -381,94 +385,17 @@ $('schoolResultPdf').onclick=()=>setPrint('AEO Sample Test Result',schoolResultH
  submitClassTestFull=function(){
   const was=submitted;
   submitClass();
-  if(!was&&submitted)showResult(classResultHtml());
+  if(!was&&submitted)showResult(classResultHtml(),'class');
  };
  $('submitTest').onclick=submitClassTestFull;
  const submitAeo=submitSchool;
  submitSchool=function(){
   const was=schoolDone;
   submitAeo();
-  if(!was&&schoolDone)showResult(schoolResultHtml());
+  if(!was&&schoolDone)showResult(schoolResultHtml(),'aeo');
  };
  $('schoolSubmit').onclick=submitSchool;
 
 })();
 
-/* Reliable AEO class-to-class navigation after each submitted class test. */
-(function(){
- const nextBtn=document.createElement('button');
- nextBtn.type='button';nextBtn.id='schoolNextClassBtn';nextBtn.className='btn';
- nextBtn.textContent='Next Class';nextBtn.style.display='none';
- const anchor=$('schoolResultPdf');
- if(anchor&&anchor.parentNode)anchor.parentNode.appendChild(nextBtn);
- const priorStart=startSchoolClass;
- startSchoolClass=function(n){nextBtn.style.display='none';priorStart(n);};
- const priorSubmit=submitSchool;
- submitSchool=function(){
-  const was=schoolDone;
-  priorSubmit();
-  if(!was&&schoolDone){
-   const pos=chosenSchoolClasses.indexOf(lastSchoolClass);
-   nextBtn.textContent=pos>=0&&pos<chosenSchoolClasses.length-1?'Next Class':'Back to Class List';
-   nextBtn.style.display='inline-flex';
-  }
- };
- $('schoolSubmit').onclick=submitSchool;
- nextBtn.onclick=()=>{
-  const pos=chosenSchoolClasses.indexOf(lastSchoolClass);
-  if(pos>=0&&pos<chosenSchoolClasses.length-1){startSchoolClass(chosenSchoolClasses[pos+1]);}
-  else{nextBtn.style.display='none';$('schoolAttemptPage').classList.add('hide');$('schoolClassPage').classList.remove('hide');$('schoolSummary').insertAdjacentHTML('beforeend','<span class="pill">All selected class tests completed</span>');}
- };
-})(); 
- 
-/* Place Next Class actions on the visible result page, not inside hidden test tabs. */
-(function(){
- const resultPage=()=>document.getElementById('portalResultPage');
- const attachResultAction=(id)=>{
-  const btn=$(id),actions=resultPage()?.querySelector('.result-page-actions');
-  if(btn&&actions){actions.appendChild(btn);btn.style.display='inline-flex';}
- };
- const priorClassStart=startClassTest;
- startClassTest=function(){
-  resultPage()?.classList.add('hide');
-  $('classTab')?.classList.remove('hide');
-  priorClassStart();
- };
- const priorSchoolStart=startSchoolClass;
- startSchoolClass=function(n){
-  resultPage()?.classList.add('hide');
-  priorSchoolStart(n);
- };
- const priorClassSubmit=submitClassTestFull;
- submitClassTestFull=function(){
-  const was=submitted;
-  priorClassSubmit();
-  if(!was&&submitted)attachResultAction('classNextClassBtn');
- };
- $('submitTest').onclick=submitClassTestFull;
- const priorSchoolSubmit=submitSchool;
- submitSchool=function(){
-  const was=schoolDone;
-  priorSchoolSubmit();
-  if(!was&&schoolDone)attachResultAction('schoolNextClassBtn');
- };
- $('schoolSubmit').onclick=submitSchool;
- const classNext=$('classNextClassBtn');
- if(classNext){
-  const priorClick=classNext.onclick;
-  classNext.onclick=()=>{
-   resultPage()?.classList.add('hide');
-   $('classTab')?.classList.remove('hide');
-   if(priorClick)priorClick();
-  };
- }
- const schoolNext=$('schoolNextClassBtn');
- if(schoolNext){
-  const priorClick=schoolNext.onclick;
-  schoolNext.onclick=()=>{
-   if(priorClick)priorClick();
-   if($('schoolClassPage')&&!$('schoolClassPage').classList.contains('hide'))resultPage()?.classList.add('hide');
-  };
- }
-})();
 </script></body></html>
