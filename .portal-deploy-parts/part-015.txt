@@ -22,7 +22,7 @@ const DATA=(()=>{
   const subject0=x.subject||x.subject_name||'',subject=subject0==='General Science'?'Science':subject0;
   const question=q.replace(/\s*\[[^\]]*?-\s*Q\d+\]\s*$/i,'').toLocaleLowerCase().replace(/\s+/g,' ').trim();
   const optionsKey=[a,b,c,d].map(v=>v.toLocaleLowerCase().replace(/\s+/g,' ').trim()).join('|');
-  const key=[classNum,subject,question,optionsKey].join('|');
+  const key=[classNum,subject,question].join('|');
   if(seen.has(key))continue;seen.add(key);
   out.push({...x,subject,month:canonicalMonth(String(x.month||x.academic_month||'').trim()),class_name:x.class_name||('Class '+classNum),class_num:classNum,question:q,option_a:a,option_b:b,option_c:c,option_d:d,correct_answer:answer});
  }
