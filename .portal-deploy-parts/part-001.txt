@@ -665,41 +665,24 @@ main{padding:0 14px 12px!important}
 <button type="button" class="portal-choice" id="homeAeo"><span class="choice-icon">🎯</span><strong>AEO Test</strong><small>Sample AEO practice test</small></button>
 </div>
 </div><div class="home-benefits" aria-label="Portal benefits"><div class="home-benefit"><span class="benefit-icon">🛡️</span><div><strong>100% Reliable</strong><small>Accurate and trusted content</small></div></div><div class="home-benefit"><span class="benefit-icon">🚀</span><div><strong>Exam Focused</strong><small>Prepare smartly for better results</small></div></div><div class="home-benefit"><span class="benefit-icon">🎯</span><div><strong>Track Progress</strong><small>Review performance and improve</small></div></div><div class="home-benefit"><span class="benefit-icon">⭐</span><div><strong>Learn &amp; Grow</strong><small>Continuous practice leads to success</small></div></div></div></section>
-<script id="pectaa-navigation-controller-v2">
+<script id="pectaa-navigation-controller-v3">
 (function(){
-  function go(id){
-    var home=id==='portalHome';
-    var hp=document.getElementById('portalHome');
-    if(hp) hp.classList.toggle('hide',!home);
-    document.querySelectorAll('.tabpage').forEach(function(p){p.classList.toggle('hide',home||p.id!==id);});
-    var stats=document.querySelector('.summary-panel');
-    if(stats){stats.classList.toggle('hide',!home);stats.style.setProperty('display',home?'':'none','important');}
-    var back=document.getElementById('backToHomeNav');
-    if(back) back.style.display=home?'none':'flex';
-    document.querySelectorAll('.tab[data-tab]').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-tab')===id);});
-    window.scrollTo({top:0,behavior:'auto'});
-  }
-  document.addEventListener('click',function(event){
-    var target=event.target && event.target.closest ? event.target.closest('button,a,[data-tab]') : null;
-    if(!target) return;
-    var id=null;
-    if(target.id==='homeSlo') id='sloTab';
-    else if(target.id==='homeClass') id='classTab';
-    else if(target.id==='homeAeo') id='schoolTab';
-    else if(target.id==='backToHomeNav' || target.closest('#backToHomeNav')) id='portalHome';
-    else if(target.hasAttribute('data-tab')) id=target.getAttribute('data-tab');
-    if(target.id==='homeTest'){
-      event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();
-      var options=document.getElementById('homeTestOptions');
-      if(options) options.classList.toggle('hide');
-      return;
-    }
-    if(id){
-      event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();
-      go(id);
-    }
-  },true);
-  window.__pectaaNavigate=go;
+ function go(id){
+  var home=id==='portalHome';
+  var hp=document.getElementById('portalHome');if(hp)hp.classList.toggle('hide',!home);
+  document.querySelectorAll('main .tabpage').forEach(function(p){p.classList.toggle('hide',home||p.id!==id);});
+  var stats=document.querySelector('.summary-panel');if(stats){stats.classList.toggle('hide',!home);stats.style.setProperty('display',home?'':'none','important');}
+  var back=document.getElementById('backToHomeNav');if(back)back.style.display=home?'none':'flex';
+  document.querySelectorAll('.tab[data-tab]').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-tab')===id);});
+  window.scrollTo(0,0);
+ }
+ window.__pectaaNavigate=go;
+ document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('.tab[data-tab]').forEach(function(b){b.onclick=function(e){e.preventDefault();go(b.getAttribute('data-tab'));};});
+  [['homeSlo','sloTab'],['homeClass','classTab'],['homeAeo','schoolTab']].forEach(function(pair){var el=document.getElementById(pair[0]);if(el)el.onclick=function(e){e.preventDefault();go(pair[1]);};});
+  var test=document.getElementById('homeTest');if(test)test.onclick=function(e){e.preventDefault();var panel=document.getElementById('homeTestOptions');if(panel)panel.classList.toggle('hide');};
+  var back=document.querySelector('#backToHomeNav [data-tab]');if(back)back.onclick=function(e){e.preventDefault();go('portalHome');};
+ });
 })();
 </script>
 <section id="mcqTab" class="tabpage hide">
