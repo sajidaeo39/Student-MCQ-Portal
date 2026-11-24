@@ -599,24 +599,23 @@ $('schoolResultPdf').onclick=()=>setPrint('AEO Sample Test Result',schoolResultH
   .steps{grid-template-columns:repeat(2,minmax(0,1fr))!important}
   .grid3{grid-template-columns:repeat(2,minmax(0,1fr))!important}
 }
-/* PECTAA desktop layout v3: visibly centered content and consistent desktop grid. */
+
+</style>
 <style id="pectaa-desktop-center-v3">
-@media (min-width: 701px) {
-  html, body { width:100%; min-width:0; }
-  body { display:block!important; text-align:center; }
-  body > header, body > main, body > footer,
-  main, .container, .portal-home, .summary-panel, #portalResultPage {
-    box-sizing:border-box!important;
+/* Desktop layout: centered content with a clear, balanced reading width. */
+@media (min-width:701px) {
+  body { overflow-x:hidden!important; }
+  main, .container, #portalResultPage {
     width:calc(100% - 64px)!important;
     max-width:1280px!important;
     margin-left:auto!important;
     margin-right:auto!important;
-  }
-  main, .container { padding-left:0!important; padding-right:0!important; }
-  .portal-home, .summary-panel, .panel, .quiz-header, .question-box, .result-box {
     box-sizing:border-box!important;
+  }
+  .portal-home, .summary-panel, .panel, .quiz-header, .question-box, .result-box {
     margin-left:auto!important;
     margin-right:auto!important;
+    box-sizing:border-box!important;
   }
   .summary-grid, .portal-choice-grid, .grid3, .steps, .stats-grid {
     width:100%!important;
@@ -625,23 +624,18 @@ $('schoolResultPdf').onclick=()=>setPrint('AEO Sample Test Result',schoolResultH
     justify-content:center!important;
   }
   .tabs { justify-content:center!important; }
-  .field, .student-info, .actions, .question-palette, .nav-buttons {
-    box-sizing:border-box!important;
-    max-width:100%!important;
+  .tablewrap { width:100%!important; max-width:100%!important; margin-left:auto!important; margin-right:auto!important; }
+  table { width:100%!important; margin-left:auto!important; margin-right:auto!important; }
+  .site-footer, .portal-footer {
+    width:calc(100% - 64px)!important;
+    max-width:1280px!important;
     margin-left:auto!important;
     margin-right:auto!important;
-  }
-  .field { text-align:left!important; }
-  .question, .option { text-align:left!important; }
-  .tablewrap { width:100%!important; margin-left:auto!important; margin-right:auto!important; }
-  table { margin-left:auto!important; margin-right:auto!important; }
-  .site-footer, .portal-footer { width:calc(100% - 64px)!important; max-width:1280px!important; margin-left:auto!important; margin-right:auto!important; }
-}
-@media (min-width: 701px) and (max-width: 1050px) {
-  body > header, body > main, body > footer, main, .container, .portal-home, .summary-panel, #portalResultPage, .site-footer, .portal-footer {
-    width:calc(100% - 36px)!important;
+    box-sizing:border-box!important;
   }
 }
-</style>
+@media (min-width:701px) and (max-width:1050px) {
+  main, .container, #portalResultPage, .site-footer, .portal-footer { width:calc(100% - 36px)!important; }
+}
 </style>
 </body></html>
