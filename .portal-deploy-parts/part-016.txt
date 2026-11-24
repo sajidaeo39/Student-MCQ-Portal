@@ -638,4 +638,111 @@ $('schoolResultPdf').onclick=()=>setPrint('AEO Sample Test Result',schoolResultH
   main, .container, #portalResultPage, .site-footer, .portal-footer { width:calc(100% - 36px)!important; }
 }
 </style>
+<style id="pectaa-desktop-redesign-v4">
+/* A visible desktop-first redesign. Mobile breakpoints remain unchanged. */
+@media screen and (min-width: 701px) {
+  body { background:#eef3f8!important; }
+  header.site-header { padding:26px 28px 22px!important; }
+  header.site-header h1 { font-size:2rem!important; letter-spacing:.2px!important; }
+  header.site-header h2 { font-size:1rem!important; }
+  main {
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:center!important;
+    width:100%!important;
+    max-width:none!important;
+    margin:22px auto 30px!important;
+    padding:0 28px!important;
+    box-sizing:border-box!important;
+    gap:16px!important;
+  }
+  main > * {
+    width:100%!important;
+    max-width:1180px!important;
+    margin-left:auto!important;
+    margin-right:auto!important;
+    box-sizing:border-box!important;
+  }
+  #portalHome {
+    padding:30px 34px!important;
+    border:1px solid #d9e3ee!important;
+    border-radius:20px!important;
+    box-shadow:0 10px 30px rgba(22,48,78,.08)!important;
+    background:#fff!important;
+    text-align:center!important;
+  }
+  #portalHome > h2 { font-size:1.65rem!important; margin:0 0 8px!important; }
+  #portalHome > .muted { font-size:1rem!important; margin-bottom:16px!important; }
+  #portalHome .portal-home-grid {
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:18px!important;
+    max-width:880px!important;
+    margin:22px auto!important;
+  }
+  #portalHome .portal-choice {
+    min-height:142px!important;
+    padding:22px!important;
+    border:1px solid #d7e2ed!important;
+    border-radius:16px!important;
+    background:linear-gradient(145deg,#fff,#f7fafc)!important;
+    box-shadow:0 4px 14px rgba(25,55,85,.06)!important;
+    text-align:center!important;
+  }
+  #portalHome .portal-choice:hover {
+    transform:translateY(-3px)!important;
+    box-shadow:0 10px 22px rgba(25,55,85,.12)!important;
+  }
+  #portalHome .portal-choice strong { font-size:1.08rem!important; }
+  #portalHome .portal-choice small { font-size:.86rem!important; }
+  main > .panel, main > section {
+    padding:22px 24px!important;
+    border-radius:16px!important;
+  }
+  .tabs {
+    display:flex!important;
+    flex-wrap:nowrap!important;
+    justify-content:center!important;
+    align-items:stretch!important;
+    gap:10px!important;
+    padding:10px!important;
+    background:#e8eef5!important;
+    border:1px solid #d6e0eb!important;
+    border-radius:14px!important;
+  }
+  .tabs .tab {
+    flex:1 1 0!important;
+    min-width:0!important;
+    min-height:46px!important;
+    font-size:.9rem!important;
+    border-radius:10px!important;
+  }
+  .panel .grid3, .panel .steps {
+    display:grid!important;
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    gap:16px!important;
+  }
+  .question-box, .quiz-header, .result-box {
+    max-width:1080px!important;
+    margin-left:auto!important;
+    margin-right:auto!important;
+  }
+  .question { max-width:1000px!important; margin-left:auto!important; margin-right:auto!important; }
+  .option { max-width:1000px!important; margin-left:auto!important; margin-right:auto!important; }
+  .actions { justify-content:center!important; }
+  .tablewrap { max-width:100%!important; border-radius:12px!important; }
+  .site-footer, .portal-footer {
+    max-width:1180px!important;
+    margin:22px auto!important;
+    border-radius:14px!important;
+  }
+}
+@media screen and (min-width:701px) and (max-width:1050px) {
+  main { padding-left:16px!important; padding-right:16px!important; }
+  #portalHome { padding:22px!important; }
+  .tabs { flex-wrap:wrap!important; }
+  .tabs .tab { flex:1 1 150px!important; }
+  .panel .grid3, .panel .steps { grid-template-columns:repeat(2,minmax(0,1fr))!important; }
+}
+</style>
 </body></html>
