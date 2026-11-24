@@ -16,19 +16,40 @@ const DATA=(()=>{
   const opts=x.options||x.choices||{};
   const a=String(x.option_a??x.optionA??(Array.isArray(opts)?opts[0]:(opts.A??opts.a))??'').trim();
   const b=String(x.option_b??x.optionB??(Array.isArray(opts)?opts[1]:(opts.B??opts.b))??'').trim();
-  const c=String(x.option_c??x.optionC??(Array.isArray(opts)?opts[2]:(opts.C??opts.c))??'').trim();
+  let c=String(x.option_c??x.optionC??(Array.isArray(opts)?opts[2]:(opts.C??opts.c))??'').trim();
   const d=String(x.option_d??x.optionD??(Array.isArray(opts)?opts[3]:(opts.D??opts.d))??'').trim();
   const answerRaw=String(x.correct_answer??x.answer??x.correct_option??x.answer_key??'').trim().toUpperCase();
-  const answer=answerRaw.replace(/^OPTION/,'').trim().charAt(0);
+  let answer=answerRaw.replace(/^OPTION/,'').trim().charAt(0);
   if(!q||!a||!b||!c||!d||!['A','B','C','D'].includes(answer))continue;
   if(/Evaluate standard curriculum concept|Correct option [A-D] for .* concept|Alternative distractor [A-D] for/i.test(q+' '+a+' '+b))continue;
   const classNum=Number(x.class_num||String(x.class_name||x.class||x.grade||'').match(/\d+/)?.[0]||0);
   const subject0=x.subject||x.subject_name||'',subject=subject0==='General Science'?'Science':subject0;
+  let explanation=String(x.explanation||'');
+  if(subject==='Urdu'){
+   if(/استعارہ/.test(q)&&/مستعار لفظ حقیقی معنوں میں برتنا/.test(c)){
+    c='مستعار لفظ کو مجازی معنوں میں برتنا';answer='C';
+    explanation='استعارہ میں لفظ کو حقیقی معنی کے بجائے مجازی معنی میں استعمال کیا جاتا ہے۔';
+   }else if(/'تشبیہ'/.test(q)){
+    answer='B';explanation='تشبیہ میں ایک چیز کو کسی دوسری چیز کے مانند یا مشابہ قرار دیا جاتا ہے۔';
+   }else if(/'تلمیح'/.test(q)){
+    answer='D';explanation='تلمیح میں کسی معروف تاریخی، مذہبی یا ادبی واقعے کی طرف اشارہ کیا جاتا ہے۔';
+   }else if(/'صنعتِ تضاد'/.test(q)){
+    answer='A';explanation='صنعتِ تضاد میں ایک کلام میں دو متضاد الفاظ یا معنی جمع کیے جاتے ہیں۔';
+   }
+  }
+  if(subject==='Mathematics'){
+   const equation=q.match(/3x\s*\+\s*6\s*=\s*(\d+(?:\.\d+)?)/i);
+   if(equation){
+    const rhs=Number(equation[1]),value=(rhs-6)/3;
+    const matches=[a,b,c,d].map((v,i)=>{const m=String(v).match(/-?\d+(?:\.\d+)?/);return m&&Number(m[0])===value?i:-1;}).filter(i=>i>=0);
+    if(matches.length===1){answer='ABCD'[matches[0]];explanation='3x + 6 = '+rhs+'. Subtract 6 from both sides: 3x = '+(rhs-6)+'. Divide by 3: x = '+value+'.';}
+   }
+  }
   const question=q.replace(/\s*\[[^\]]*?-\s*Q\d+\]\s*$/i,'').toLocaleLowerCase().replace(/\s+/g,' ').trim();
   const optionsKey=[a,b,c,d].map(v=>v.toLocaleLowerCase().replace(/\s+/g,' ').trim()).join('|');
   const key=[classNum,subject,question].join('|');
   if(seen.has(key))continue;seen.add(key);
-  out.push({...x,subject,month:String(x.month||x.academic_month||'').trim(),class_name:x.class_name||('Class '+classNum),class_num:classNum,question:q,option_a:a,option_b:b,option_c:c,option_d:d,correct_answer:answer});
+  out.push({...x,subject,month:String(x.month||x.academic_month||'').trim(),class_name:x.class_name||('Class '+classNum),class_num:classNum,question:q,option_a:a,option_b:b,option_c:c,option_d:d,correct_answer:answer,explanation});
  }
  if(!out.length){console.error('PECTAA: no external MCQs were usable; falling back to the embedded MCQ bank.');return LEGACY_DATA;}
  if(out.length<9000)console.warn('PECTAA: loaded '+out.length+' unique valid MCQs; some external update files may be incomplete.');
