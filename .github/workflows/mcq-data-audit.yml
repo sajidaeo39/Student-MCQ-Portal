@@ -167,7 +167,7 @@ jobs:
                   vals = list(opts[:4]) + [""] * max(0, 4-len(opts))
                   return [str(v or "").strip() for v in vals[:4]]
               if isinstance(opts, dict):
-                  return [str(pick(x, (f"option_{k}", f"option{k.upper()}"), opts.get(k, opts.get(k.lower(), ""))) or "").strip() for k in "ABCD"]
+                  return [str(pick(x, (f"option_{k.lower()}", f"option{k.upper()}"), opts.get(k, opts.get(k.lower(), ""))) or "").strip() for k in "ABCD"]
               return [str(pick(x, (f"option_{k.lower()}", f"option{k}"), "") or "").strip() for k in "ABCD"]
 
           sources = [
