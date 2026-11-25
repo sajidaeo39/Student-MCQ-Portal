@@ -120,6 +120,189 @@ jobs:
           if __name__=="__main__": main()
           PY
           python audit_mcq_json.py
+      - name: Export the exact merged portal MCQ bank to Excel
+        run: |
+          python - <<'PY'
+          import json, re
+          from pathlib import Path
+          from collections import Counter
+          from openpyxl import Workbook
+          from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
+          from openpyxl.worksheet.table import Table, TableStyleInfo
+
+          def extract_legacy():
+              parts = [Path(f".portal-deploy-parts/part-{i:03d}.txt").read_text(encoding="utf-8") for i in range(1, 16)]
+              source = "".join(parts)
+              marker = "const LEGACY_DATA="
+              p = source.index(marker)
+              start = source.index("[", p)
+              depth = 0; quoted = False; escaped = False; end = None
+              for i in range(start, len(source)):
+                  ch = source[i]
+                  if quoted:
+                      if escaped: escaped = False
+                      elif ch == "\\\\": escaped = True
+                      elif ch == '"': quoted = False
+                  elif ch == '"': quoted = True
+                  elif ch == "[": depth += 1
+                  elif ch == "]":
+                      depth -= 1
+                      if depth == 0:
+                          end = i + 1
+                          break
+              if end is None: raise ValueError("Could not find end of embedded LEGACY_DATA array")
+              return json.loads(source[start:end])
+
+          def pick(d, keys, default=""):
+              for k in keys:
+                  v = d.get(k)
+                  if v is not None and v != "":
+                      return v
+              return default
+
+          def options_of(x):
+              opts = x.get("options") or x.get("choices") or {}
+              if isinstance(opts, list):
+                  vals = list(opts[:4]) + [""] * max(0, 4-len(opts))
+                  return [str(v or "").strip() for v in vals[:4]]
+              if isinstance(opts, dict):
+                  return [str(pick(x, (f"option_{k}", f"option{k.upper()}"), opts.get(k, opts.get(k.lower(), ""))) or "").strip() for k in "ABCD"]
+              return [str(pick(x, (f"option_{k.lower()}", f"option{k}"), "") or "").strip() for k in "ABCD"]
+
+          sources = [
+              ("data/mcq-update-part-01.txt", json.loads(Path("data/mcq-update-part-01.txt").read_text(encoding="utf-8-sig"))),
+              ("Classes_1_to_8_Portal_Ready_MCQ_Data (3).json", json.loads(Path("Classes_1_to_8_Portal_Ready_MCQ_Data (3).json").read_text(encoding="utf-8-sig"))),
+              ("Classes_1_to_8_Portal_Ready_MCQ_Data (4).json", json.loads(Path("Classes_1_to_8_Portal_Ready_MCQ_Data (4).json").read_text(encoding="utf-8-sig"))),
+              (".portal-deploy-parts/LEGACY_DATA", extract_legacy()),
+          ]
+
+          out=[]; seen=set()
+          for source_name, rows in sources:
+              if isinstance(rows, dict):
+                  rows = rows.get("mcqs", rows.get("questions", []))
+              if not isinstance(rows, list):
+                  raise ValueError(f"Unexpected data structure in {source_name}")
+              for x in rows:
+                  if not isinstance(x, dict): continue
+                  q=str(pick(x, ("question","question_statement","question_text","stem"), "")).strip()
+                  a,b,c,d=options_of(x)
+                  ans_raw=str(pick(x, ("correct_answer","answer","correct_option","answer_key"), "")).strip().upper()
+                  ans=ans_raw.replace("OPTION","",1).strip()[:1]
+                  if not q or not all([a,b,c,d]) or ans not in "ABCD": continue
+                  if re.search(r"Evaluate standard curriculum concept|Correct option [A-D] for .* concept|Alternative distractor [A-D] for", q+" "+a+" "+b, re.I): continue
+                  class_num=int(pick(x, ("class_num",), 0) or re.search(r"\\d+", str(pick(x,("class_name","class","grade"),""))).group() if re.search(r"\\d+", str(pick(x,("class_name","class","grade"),""))) else 0)
+                  subject=str(pick(x, ("subject","subject_name"), "")).strip()
+                  if subject=="General Science": subject="Science"
+                  if not class_num or not subject: continue
+                  # Match the portal's special answer corrections.
+                  explanation=str(x.get("explanation") or "")
+                  if subject=="Urdu":
+                      if "استعارہ" in q and "مستعار لفظ حقیقی معنوں میں برتنا" in c:
+                          c="مستعار لفظ کو مجازی معنوں میں برتنا"; ans="C"; explanation="استعارہ میں لفظ کو حقیقی معنی کے بجائے مجازی معنی میں استعمال کیا جاتا ہے۔"
+                      elif "'تشبیہ'" in q: ans="B"; explanation="تشبیہ میں ایک چیز کو کسی دوسری چیز کے مانند یا مشابہ قرار دیا جاتا ہے۔"
+                      elif "'تلمیح'" in q: ans="D"; explanation="تلمیح میں کسی معروف تاریخی، مذہبی یا ادبی واقعے کی طرف اشارہ کیا جاتا ہے۔"
+                      elif "'صنعتِ تضاد'" in q: ans="A"; explanation="صنعتِ تضاد میں ایک کلام میں دو متضاد الفاظ یا معنی جمع کیے جاتے ہیں۔"
+                  if subject=="Mathematics":
+                      m=re.search(r"3x\\s*\\+\\s*6\\s*=\\s*(\\d+(?:\\.\\d+)?)",q,re.I)
+                      if m:
+                          value=(float(m.group(1))-6)/3
+                          matches=[i for i,v in enumerate([a,b,c,d]) if re.search(r"-?\\d+(?:\\.\\d+)?",v) and float(re.search(r"-?\\d+(?:\\.\\d+)?",v).group())==value]
+                          if len(matches)==1:
+                              ans="ABCD"[matches[0]]; explanation=f"3x + 6 = {m.group(1)}. Subtract 6 from both sides, then divide by 3: x = {value:g}."
+                  key_q=re.sub(r"\\s*\\[[^\\]]*?-\\s*Q\\d+\\]\\s*$","",q,flags=re.I)
+                  key_q=re.sub(r"\\s+"," ",key_q.lower()).strip()
+                  key=(class_num,subject,key_q)
+                  if key in seen: continue
+                  seen.add(key)
+                  record=dict(x)
+                  record.update({
+                      "class_num":class_num,
+                      "class_name":pick(x,("class_name",),f"Class {class_num}"),
+                      "subject":subject,
+                      "month":pick(x,("month","academic_month"),""),
+                      "week":pick(x,("week","academic_week"),""),
+                      "chapter_number":pick(x,("ch_num","chapter_number"),""),
+                      "chapter_name":pick(x,("ch_name","chapter_name"),""),
+                      "slo_id":pick(x,("slo_id",),""),
+                      "slo_description":pick(x,("slo_desc","slo_description"),""),
+                      "topic":pick(x,("grammar_topic","topic","category"),""),
+                      "question":q,
+                      "option_a":a,"option_b":b,"option_c":c,"option_d":d,
+                      "correct_answer":ans,
+                      "correct_answer_text":[a,b,c,d]["ABCD".index(ans)],
+                      "explanation":explanation,
+                      "difficulty":pick(x,("difficulty","difficulty_level"),""),
+                      "cognitive_level":pick(x,("cognitive_level",),""),
+                      "source_reference":pick(x,("source_ref","source_reference"),""),
+                      "source_file":source_name,
+                      "portal_load_order":len(out)+1,
+                  })
+                  out.append(record)
+
+          if not out: raise SystemExit("No valid MCQs were exported.")
+          headers=[
+              ("Portal Load Order","portal_load_order"),("MCQ ID","mcq_id"),
+              ("Class","class_name"),("Class Number","class_num"),("Subject","subject"),
+              ("Month","month"),("Week","week"),("Chapter Number","chapter_number"),
+              ("Chapter Name","chapter_name"),("SLO ID","slo_id"),("SLO Description","slo_description"),
+              ("Topic","topic"),("Question","question"),("Option A","option_a"),("Option B","option_b"),
+              ("Option C","option_c"),("Option D","option_d"),("Correct Option","correct_answer"),
+              ("Correct Answer Text","correct_answer_text"),("Explanation","explanation"),
+              ("Difficulty","difficulty"),("Cognitive Level","cognitive_level"),
+              ("Source Reference","source_reference"),("Source File","source_file"),
+          ]
+          known={k for _,k in headers}
+          extra_keys=sorted({k for r in out for k in r.keys()}-known)
+          headers += [("Other Source Metadata: "+k, "__extra__:"+k) for k in extra_keys]
+
+          wb=Workbook()
+          ws=wb.active; ws.title="All MCQs"
+          ws.append([h for h,_ in headers])
+          for r in out:
+              row=[]
+              for _,key in headers:
+                  if key.startswith("__extra__:"):
+                      value=r.get(key.split(":",1)[1],"")
+                      row.append(json.dumps(value,ensure_ascii=False) if isinstance(value,(dict,list)) else value)
+                  else: row.append(r.get(key,""))
+              ws.append(row)
+          ws.freeze_panes="A2"; ws.auto_filter.ref=ws.dimensions
+          ws.sheet_view.showGridLines=False
+          header_fill=PatternFill("solid",fgColor="163B5C")
+          for cell in ws[1]:
+              cell.fill=header_fill; cell.font=Font(bold=True,color="FFFFFF")
+              cell.alignment=Alignment(horizontal="center",vertical="center",wrap_text=True)
+          ws.row_dimensions[1].height=32
+          widths={
+              "A":12,"B":28,"C":12,"D":10,"E":16,"F":18,"G":14,"H":16,"I":24,
+              "J":18,"K":38,"L":25,"M":58,"N":28,"O":28,"P":28,"Q":28,
+              "R":14,"S":32,"T":48,"U":14,"V":18,"W":42,"X":42
+          }
+          for col,width in widths.items(): ws.column_dimensions[col].width=width
+          for row in ws.iter_rows(min_row=2):
+              for cell in row:
+                  cell.alignment=Alignment(vertical="top",wrap_text=True)
+          tab=Table(displayName="PECTAAMCQBank",ref=ws.dimensions)
+          tab.tableStyleInfo=TableStyleInfo(name="TableStyleMedium2",showFirstColumn=False,showLastColumn=False,showRowStripes=True,showColumnStripes=False)
+          ws.add_table(tab)
+
+          summary=wb.create_sheet("Summary")
+          summary.append(["Class","Subject","MCQ Count"])
+          counts=Counter((r["class_name"],r["subject"]) for r in out)
+          for (cls,sub),n in sorted(counts.items(),key=lambda z:(int(re.search(r"\\d+",z[0][0]).group()),z[0][1])):
+              summary.append([cls,sub,n])
+          summary.append(["TOTAL","All subjects",len(out)])
+          for cell in summary[1]:
+              cell.fill=header_fill; cell.font=Font(bold=True,color="FFFFFF")
+              cell.alignment=Alignment(horizontal="center")
+          summary.column_dimensions["A"].width=18; summary.column_dimensions["B"].width=22; summary.column_dimensions["C"].width=16
+          summary.freeze_panes="A2"; summary.sheet_view.showGridLines=False
+          for row in summary.iter_rows(min_row=2):
+              for cell in row: cell.alignment=Alignment(vertical="center")
+          wb.save("PECTAA_All_Classes_MCQ_Bank.xlsx")
+          print(f"Exported {len(out)} portal-usable MCQs from {len(sources)} source layers.")
+          print("Counts by class/subject:",dict(counts))
+          PY
       - uses: actions/upload-artifact@v4
         with:
           name: mcq-json-audit
@@ -127,5 +310,6 @@ jobs:
             mcq-json-audit-report.md
             mcq-json-audit-summary.json
             new_vs_old_duplicate_candidates.csv
+            PECTAA_All_Classes_MCQ_Bank.xlsx
           if-no-files-found: warn
           retention-days: 30
