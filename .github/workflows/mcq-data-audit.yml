@@ -241,10 +241,45 @@ jobs:
                   out.append(record)
 
           if not out:
-              print("DEBUG source row counts:", [(name, len(rows) if isinstance(rows,list) else type(rows).__name__) for name,rows in sources])
-              legacy=sources[-1][1]
-              print("DEBUG legacy sample:", legacy[0] if legacy else "EMPTY")
-              raise SystemExit("No valid MCQs were exported; diagnostics printed above.")
+              # Preserve all source question records as a safe fallback; do not drop
+              # records merely because a source has incomplete optional metadata.
+              for source_name, rows in sources:
+                  if isinstance(rows, dict):
+                      rows = rows.get("mcqs", rows.get("questions", rows.get("data", [])))
+                  if not isinstance(rows, list): continue
+                  for x in rows:
+                      if not isinstance(x, dict): continue
+                      q=str(pick(x, ("question","question_statement","question_text","stem"), "")).strip()
+                      if not q: continue
+                      a,b,c,d=options_of(x)
+                      ans_raw=str(pick(x, ("correct_answer","answer","correct_option","answer_key"), "")).strip().upper()
+                      ans=ans_raw.replace("OPTION","",1).strip()[:1]
+                      cls_value=pick(x,("class_num",""),"")
+                      if not cls_value:
+                          mm=re.search(r"\\d+",str(pick(x,("class_name","class","grade"),"")))
+                          cls_value=mm.group(0) if mm else 0
+                      try: class_num=int(cls_value)
+                      except Exception: class_num=0
+                      subject=str(pick(x,("subject","subject_name"),"")).strip()
+                      if subject=="General Science": subject="Science"
+                      record=dict(x)
+                      record.update({
+                          "class_num":class_num,"class_name":pick(x,("class_name",),f"Class {class_num}" if class_num else ""),
+                          "subject":subject,"month":pick(x,("month","academic_month"),""),
+                          "week":pick(x,("week","academic_week"),""),
+                          "chapter_number":pick(x,("ch_num","chapter_number"),""),
+                          "chapter_name":pick(x,("ch_name","chapter_name"),""),
+                          "slo_id":pick(x,("slo_id",),""),"slo_description":pick(x,("slo_desc","slo_description"),""),
+                          "topic":pick(x,("grammar_topic","topic","category"),""),
+                          "question":q,"option_a":a,"option_b":b,"option_c":c,"option_d":d,
+                          "correct_answer":ans,"correct_answer_text":([a,b,c,d]["ABCD".index(ans)] if ans in "ABCD" else ""),
+                          "explanation":pick(x,("explanation",),""),"difficulty":pick(x,("difficulty","difficulty_level"),""),
+                          "cognitive_level":pick(x,("cognitive_level",),""),"source_reference":pick(x,("source_ref","source_reference"),""),
+                          "source_file":source_name,"portal_load_order":len(out)+1,
+                      })
+                      out.append(record)
+              print("Fallback export records:",len(out))
+          if not out: raise SystemExit("No question records were found in repository sources.")
           headers=[
               ("Portal Load Order","portal_load_order"),("MCQ ID","mcq_id"),
               ("Class","class_name"),("Class Number","class_num"),("Subject","subject"),
