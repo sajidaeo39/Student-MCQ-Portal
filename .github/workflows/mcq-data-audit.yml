@@ -122,6 +122,7 @@ jobs:
           python audit_mcq_json.py
       - name: Export the exact merged portal MCQ bank to Excel
         run: |
+          python -m pip install openpyxl
           python - <<'PY'
           import json, re
           from pathlib import Path
@@ -190,7 +191,7 @@ jobs:
                   ans=ans_raw.replace("OPTION","",1).strip()[:1]
                   if not q or not all([a,b,c,d]) or ans not in "ABCD": continue
                   if re.search(r"Evaluate standard curriculum concept|Correct option [A-D] for .* concept|Alternative distractor [A-D] for", q+" "+a+" "+b, re.I): continue
-                  class_num=int(pick(x, ("class_num",), 0) or re.search(r"\\d+", str(pick(x,("class_name","class","grade"),""))).group() if re.search(r"\\d+", str(pick(x,("class_name","class","grade"),""))) else 0)
+                  class_num=int(pick(x, ("class_num",), 0) or re.search(r"\d+", str(pick(x,("class_name","class","grade"),""))).group() if re.search(r"\d+", str(pick(x,("class_name","class","grade"),""))) else 0)
                   subject=str(pick(x, ("subject","subject_name"), "")).strip()
                   if subject=="General Science": subject="Science"
                   if not class_num or not subject: continue
@@ -203,14 +204,14 @@ jobs:
                       elif "'تلمیح'" in q: ans="D"; explanation="تلمیح میں کسی معروف تاریخی، مذہبی یا ادبی واقعے کی طرف اشارہ کیا جاتا ہے۔"
                       elif "'صنعتِ تضاد'" in q: ans="A"; explanation="صنعتِ تضاد میں ایک کلام میں دو متضاد الفاظ یا معنی جمع کیے جاتے ہیں۔"
                   if subject=="Mathematics":
-                      m=re.search(r"3x\\s*\\+\\s*6\\s*=\\s*(\\d+(?:\\.\\d+)?)",q,re.I)
+                      m=re.search(r"3x\s*\+\s*6\s*=\s*(\d+(?:\.\d+)?)",q,re.I)
                       if m:
                           value=(float(m.group(1))-6)/3
-                          matches=[i for i,v in enumerate([a,b,c,d]) if re.search(r"-?\\d+(?:\\.\\d+)?",v) and float(re.search(r"-?\\d+(?:\\.\\d+)?",v).group())==value]
+                          matches=[i for i,v in enumerate([a,b,c,d]) if re.search(r"-?\d+(?:\.\d+)?",v) and float(re.search(r"-?\d+(?:\.\d+)?",v).group())==value]
                           if len(matches)==1:
                               ans="ABCD"[matches[0]]; explanation=f"3x + 6 = {m.group(1)}. Subtract 6 from both sides, then divide by 3: x = {value:g}."
-                  key_q=re.sub(r"\\s*\\[[^\\]]*?-\\s*Q\\d+\\]\\s*$","",q,flags=re.I)
-                  key_q=re.sub(r"\\s+"," ",key_q.lower()).strip()
+                  key_q=re.sub(r"\s*\[[^\]]*?-\s*Q\d+\]\s*$","",q,flags=re.I)
+                  key_q=re.sub(r"\s+"," ",key_q.lower()).strip()
                   key=(class_num,subject,key_q)
                   if key in seen: continue
                   seen.add(key)
@@ -289,7 +290,7 @@ jobs:
           summary=wb.create_sheet("Summary")
           summary.append(["Class","Subject","MCQ Count"])
           counts=Counter((r["class_name"],r["subject"]) for r in out)
-          for (cls,sub),n in sorted(counts.items(),key=lambda z:(int(re.search(r"\\d+",z[0][0]).group()),z[0][1])):
+          for (cls,sub),n in sorted(counts.items(),key=lambda z:(int(re.search(r"\d+",z[0][0]).group()),z[0][1])):
               summary.append([cls,sub,n])
           summary.append(["TOTAL","All subjects",len(out)])
           for cell in summary[1]:
