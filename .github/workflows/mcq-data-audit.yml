@@ -240,7 +240,11 @@ jobs:
                   })
                   out.append(record)
 
-          if not out: raise SystemExit("No valid MCQs were exported.")
+          if not out:
+              print("DEBUG source row counts:", [(name, len(rows) if isinstance(rows,list) else type(rows).__name__) for name,rows in sources])
+              legacy=sources[-1][1]
+              print("DEBUG legacy sample:", legacy[0] if legacy else "EMPTY")
+              raise SystemExit("No valid MCQs were exported; diagnostics printed above.")
           headers=[
               ("Portal Load Order","portal_load_order"),("MCQ ID","mcq_id"),
               ("Class","class_name"),("Class Number","class_num"),("Subject","subject"),
