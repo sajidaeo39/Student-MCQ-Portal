@@ -787,4 +787,130 @@ header.site-header h2{font-size:.9rem!important;letter-spacing:.08em!important;m
 @media(max-width:700px){header.site-header{padding:14px 10px 12px!important}header.site-header h1{font-size:clamp(1.05rem,4.5vw,1.4rem)!important}.header-credit{font-size:.7rem!important;line-height:1.35!important}.site-header .header-links{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:6px!important;width:100%!important;padding:0 2px!important}.site-header .header-links .header-support{min-height:43px!important;padding:6px 4px!important;gap:5px!important;border-radius:9px!important}.site-header .header-links .header-support>span{font-size:.63rem!important;line-height:1.2!important}.site-header .header-links .social-card-icon{width:17px!important;height:17px!important;min-width:17px!important;flex-basis:17px!important}.summary-panel{margin:10px 9px!important;padding:10px!important;border-radius:13px!important}.summary-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important}.summary-card{min-height:72px!important;padding:9px 7px 9px 40px!important;border-radius:11px!important}.summary-card:before{left:7px!important;width:26px!important;height:26px!important;font-size:14px!important;border-radius:8px!important}.summary-card strong{font-size:1.15rem!important}.summary-card span{font-size:.63rem!important;line-height:1.2!important}#portalHome.portal-home{margin:10px 9px 16px!important;padding:15px 12px!important;border-radius:15px!important}#portalHome .portal-home-grid{grid-template-columns:1fr!important;gap:10px!important;margin:12px 0 8px!important}#portalHome .portal-choice{min-height:112px!important;padding:15px!important;border-radius:13px!important;gap:6px!important}#portalHome .portal-choice .choice-icon{width:38px!important;height:38px!important;font-size:22px!important}#portalHome .portal-choice strong{font-size:.98rem!important}#portalHome .portal-choice small{font-size:.76rem!important}}
 @media(prefers-reduced-motion:reduce){.summary-card,#portalHome .portal-choice,.site-header .header-links .header-support{transition:none!important}.summary-card:hover,#portalHome .portal-choice:hover,.site-header .header-links .header-support:hover{transform:none!important}}
 </style>
+<style id="pectaa-desktop-layout-refinement-v105">
+
+/* PECTAA desktop layout refinement v105 — desktop only; mobile rules and app logic unchanged. */
+@media screen and (min-width:1051px) {
+  body { background:#f1f5f9!important; }
+  header.site-header { padding:24px 28px 20px!important; }
+  header.site-header h1 { font-size:clamp(1.8rem,2.3vw,2.25rem)!important; }
+  .summary-panel {
+    width:min(calc(100% - 64px),1360px)!important;
+    max-width:1360px!important;
+    margin:18px auto 14px!important;
+    padding:16px 20px!important;
+    box-sizing:border-box!important;
+  }
+  .summary-grid {
+    display:grid!important;
+    grid-template-columns:repeat(4,minmax(0,1fr))!important;
+    gap:12px!important;
+    width:100%!important;
+  }
+  .summary-card {
+    min-width:0!important;
+    min-height:82px!important;
+    padding:12px 14px 12px 58px!important;
+    border-radius:13px!important;
+  }
+  .summary-card strong { font-size:clamp(1.35rem,1.65vw,1.8rem)!important; }
+  .summary-card span { font-size:.78rem!important; }
+  main {
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:center!important;
+    gap:16px!important;
+    width:min(calc(100% - 64px),1360px)!important;
+    max-width:1360px!important;
+    margin:14px auto 28px!important;
+    padding:0!important;
+    box-sizing:border-box!important;
+  }
+  main > * {
+    width:100%!important;
+    max-width:1360px!important;
+    margin-left:auto!important;
+    margin-right:auto!important;
+    box-sizing:border-box!important;
+  }
+  #portalHome.portal-home {
+    width:100%!important;
+    max-width:1360px!important;
+    margin:0 auto!important;
+    padding:28px 34px!important;
+    border-radius:20px!important;
+  }
+  #portalHome > h2 { margin-bottom:8px!important; }
+  #portalHome .portal-home-grid {
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:20px!important;
+    width:min(100%,1040px)!important;
+    margin:22px auto 16px!important;
+  }
+  #portalHome .portal-choice {
+    min-height:148px!important;
+    padding:22px 24px!important;
+    border-radius:17px!important;
+  }
+  #portalHome .portal-choice strong { font-size:1.12rem!important; }
+  #portalHome .portal-choice small { font-size:.88rem!important; }
+  #portalHome #homeTestOptions { max-width:1040px!important; margin:16px auto!important; }
+  #portalHome #homeTestOptions > div:last-child {
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:14px!important;
+  }
+  .student-info {
+    width:100%!important;
+    max-width:100%!important;
+    padding:18px 20px!important;
+    box-sizing:border-box!important;
+  }
+  .student-info .grid2,.student-info .grid3 {
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:16px!important;
+  }
+  main > .panel, main > section {
+    padding:20px 24px!important;
+    border-radius:15px!important;
+  }
+  .panel .grid3,.panel .steps {
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    gap:16px!important;
+  }
+  .tabs {
+    width:100%!important;
+    justify-content:center!important;
+    gap:10px!important;
+    margin:0 auto 12px!important;
+  }
+  .question-box,.quiz-header,.result-box {
+    width:100%!important;
+    max-width:1120px!important;
+    margin-left:auto!important;
+    margin-right:auto!important;
+  }
+  .question { max-width:1040px!important; }
+  .option { max-width:1040px!important; }
+  #portalResultPage {
+    width:min(calc(100% - 64px),1360px)!important;
+    max-width:1360px!important;
+    margin:16px auto!important;
+    padding:22px!important;
+    box-sizing:border-box!important;
+  }
+  .site-footer,.portal-footer {
+    width:min(calc(100% - 64px),1360px)!important;
+    max-width:1360px!important;
+    margin:18px auto!important;
+    box-sizing:border-box!important;
+  }
+}
+@media screen and (min-width:701px) and (max-width:1050px) {
+  .summary-panel { width:calc(100% - 36px)!important; margin-left:auto!important; margin-right:auto!important; }
+  main { width:calc(100% - 36px)!important; max-width:100%!important; margin-left:auto!important; margin-right:auto!important; padding:0!important; }
+  main > * { width:100%!important; max-width:100%!important; }
+  #portalHome.portal-home { padding:22px!important; }
+  #portalHome .portal-home-grid { grid-template-columns:repeat(2,minmax(0,1fr))!important; }
+}
+</style>
 </body></html>
