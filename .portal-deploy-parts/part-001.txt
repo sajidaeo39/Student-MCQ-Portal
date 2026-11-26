@@ -624,7 +624,7 @@ main,.container{width:100%;max-width:1200px;margin-left:auto!important;margin-ri
             <span><svg class="social-card-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a8 8 0 0 0-8 8v3a3 3 0 0 0 3 3h1v-7H6a6 6 0 0 1 12 0h-2v7h1a3 3 0 0 0 3-3v-3a8 8 0 0 0-8-8Zm-5 9h-1v3h1v-3Zm11 0h-1v3h1v-3ZM8 18h5a3 3 0 0 0 3-3h-2a1 1 0 0 1-1 1H8v2Z"/></svg></span><span>For support contact<br>0349 6027086</span>
           </a>
           <a class="header-support youtube-link" href="https://youtube.com/@sajideducationalhelper" target="_blank" rel="noopener noreferrer">
-            <span><svg class="social-card-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.3 3.6-6.3 3.6Z"/></svg>Educational Helper</span><span>YouTube Channel</span>
+            <span><svg class="social-card-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.3 3.6-6.3 3.6Z"/></svg></span><span>The Educational Helper<br>YouTube Channel</span>
           </a>
         </div>
         <style id="pic-tool-matched-social-cards">
