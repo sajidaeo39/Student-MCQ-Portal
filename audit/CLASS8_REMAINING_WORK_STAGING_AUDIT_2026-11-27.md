@@ -22,6 +22,17 @@ Exact repeated question+option sets found within V20:
 - Mathematics: 5 duplicate groups (10 extra copies); keep these flagged for review rather than silently deleting them.
 - Science: 0 duplicate groups.
 
+## Structural validation of V20 Class 8 records
+An automated structural pass over all 2,500 Class 8 records found:
+- 0 blank question stems.
+- 0 blank options among the four option fields.
+- 0 invalid answer keys (all are A–D).
+- 0 duplicate options within an individual question.
+- 0 blank SLO IDs, source references, explanations, or review-status fields.
+- All 125 subject/SLO groups contain exactly 20 rows.
+
+This is schema/structure validation only. It does not prove the answer is factually correct, the distractors are academically sound, or the SLO is officially worded.
+
 ## Calendar coverage gaps
 - English and Urdu currently contain April-only draft items. Their other calendar allocations have no V20 question groups.
 - Mathematics has draft coverage in all seven teaching-month labels shown in the current calendar mapping. Its five repeated groups need review; 200 questions are explicitly marked as text proxies for visual/procedural outcomes, so these must not be treated as fully verified practical/diagram assessments.
