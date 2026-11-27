@@ -102,6 +102,34 @@ December is explicitly treated as mid-term revision, because the supplied calend
 
 **Release limitation:** These are merged draft packages, not academically approved question banks. The PECTAA items do not consistently include exact textbook page references, and lesson/unit-level alignment, factual correctness, distractor quality, and answer-key correctness still need independent subject-expert review. All items remain DRAFT / HOLD. The live portal has not been modified. Generated JSON files are delivered as conversation attachments; this GitHub branch records the audit and counts only.
  
+## Updated full-subject consolidation (27 November 2026)
+The earlier English/Urdu-only package has now been expanded to all four Class 8 portal subjects by merging the previous PECTAA Class 8 set with V20:
+| Subject | PECTAA previous draft | Master V20 | Combined draft |
+|---|---:|---:|---:|
+| English | 160 | 60 | 220 |
+| Urdu | 160 | 40 | 200 |
+| Mathematics | 160 | 2,140 | 2,300 |
+| Science | 160 (labelled General Science) | 260 | 420 |
+| **Total** | **640** | **2,500** | **3,140** |
+
+The PECTAA label `General Science` is normalized to portal subject `Science` in the export; source question wording and original MCQ IDs are retained. Four separate subject JSONs and one combined JSON are delivered as conversation files, together with monthly counts, Science register reconciliation, repeated-stem review, and a full completion audit.
+
+Structural checks passed on all merged subject exports: no duplicate MCQ IDs, no missing options, four distinct options, valid A–D answer key, explanation present, and explicit answer text matches one of the options. These checks are not an independent factual/academic answer review.
+
+Repeated-stem check: 21 repeated normalized stems in Mathematics (all retained for manual review because different operations/versions can share the same stem); none found in English, Urdu or Science. This supersedes the earlier preliminary note of five exact repeated groups: that earlier finding is not reproduced by the current normalization check.
+
+Science register reconciliation: 87 official-register SLO groups; 4 have a matching V20 SLO ID; 83 have no matching ID; 21 draft IDs are not found in the register. The 160 PECTAA Science questions use local IDs and do not prove coverage of the 83 missing register groups.
+
+## Owner handover constraint confirmed
+The repository `PROJECT_HANDOVER.md` includes a later explicit owner clarification: Classes 6–8 have English, Urdu, Mathematics and Science only; exactly 3 independently verified questions per approved subject are required for class practice, and the Class 8 mixed test contains exactly 12 questions (3 per subject). Do not fabricate questions to fill a quota. This later clarification takes precedence over older generic wording about nine-question individual practice. The 3,140-item consolidated curriculum bank is a draft/staging resource, not a 3,140-question live test.
+
+## Remaining release blockers
+- No set of exactly 3 questions per Class 8 subject has completed independent source and answer verification against the sample Question bank PDF and textbooks.
+- English/Urdu provisional unit inventories still need lesson-page-level SLO mapping and answer review.
+- Mathematics has no reconciled official full-year SLO register in the currently inspected sources; 21 repeated stems remain for manual review.
+- Science has 83 register SLOs without matching draft IDs and 21 unmatched draft IDs.
+- Therefore portal integration, mixed-test activation, and live deployment remain on HOLD. The live branch, portal code, student records and Classes 3–7 remain unchanged.
+
 ## Calendar coverage gaps
 - English and Urdu currently contain April-only draft items. Their other calendar allocations have no V20 question groups.
 - Mathematics has draft coverage in all seven teaching-month labels shown in the current calendar mapping. Its five repeated groups need review; 200 questions are explicitly marked as text proxies for visual/procedural outcomes, so these must not be treated as fully verified practical/diagram assessments.
