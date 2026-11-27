@@ -84,6 +84,24 @@ Deliverable files were generated separately:
 
 Academic release remains HOLD: the previous PECTAA items do not consistently include exact textbook page references; structural validation does not establish answer correctness, distractor quality or full lesson/SLO alignment. These compiled banks are draft deliverables and have not been imported into the live portal or merged into the Master V20 file. Classes 3–7 and student records remain unchanged.
 
+## Completed draft expansion: English and Urdu MCQ banks
+Standalone JSON packages were generated from the previous PECTAA Class 8 draft bank plus the existing V20 Class 8 language records:
+- English: 160 PECTAA + 60 V20 = 220 draft MCQs.
+- Urdu: 160 PECTAA + 40 V20 = 200 draft MCQs.
+- Combined: 420 draft MCQs.
+
+Structural QA on the merged packages: all IDs unique; normalized question stems unique within each subject; all four options present and distinct; A–D answer keys valid; explanations present; provided correct_answer_text matches one of the options. No structural errors were detected.
+
+Monthly counts in the generated draft packages:
+| Subject | April | May | Aug/Sep | October | November | December revision | January | February | Total |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| English | 80 | 20 | 20 | 20 | 20 | 20 | 20 | 20 | 220 |
+| Urdu | 60 | 20 | 20 | 20 | 20 | 20 | 20 | 20 | 200 |
+
+December is explicitly treated as mid-term revision, because the supplied calendar marks December as Mid Term Exam, not a fresh unit allocation.
+
+**Release limitation:** These are merged draft packages, not academically approved question banks. The PECTAA items do not consistently include exact textbook page references, and lesson/unit-level alignment, factual correctness, distractor quality, and answer-key correctness still need independent subject-expert review. All items remain DRAFT / HOLD. The live portal has not been modified. Generated JSON files are delivered as conversation attachments; this GitHub branch records the audit and counts only.
+ 
 ## Calendar coverage gaps
 - English and Urdu currently contain April-only draft items. Their other calendar allocations have no V20 question groups.
 - Mathematics has draft coverage in all seven teaching-month labels shown in the current calendar mapping. Its five repeated groups need review; 200 questions are explicitly marked as text proxies for visual/procedural outcomes, so these must not be treated as fully verified practical/diagram assessments.
