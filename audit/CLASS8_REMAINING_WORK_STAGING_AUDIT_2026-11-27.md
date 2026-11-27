@@ -131,10 +131,10 @@ The repository `PROJECT_HANDOVER.md` includes a later explicit owner clarificati
 - Therefore portal integration, mixed-test activation, and live deployment remain on HOLD. The live branch, portal code, student records and Classes 3–7 remain unchanged.
 
 ## Calendar coverage gaps
-- English and Urdu currently contain April-only draft items. Their other calendar allocations have no V20 question groups.
-- Mathematics has draft coverage in all seven teaching-month labels shown in the current calendar mapping. Its five repeated groups need review; 200 questions are explicitly marked as text proxies for visual/procedural outcomes, so these must not be treated as fully verified practical/diagram assessments.
-- Science has 13 draft SLO groups, but only four intersect the Class 8 Science register. The register contains 87 distinct Class 8 SLOs; 83 have no corresponding MCQs in V20. The nine existing Chapter 1 Ecology/Energy groups are not present in the current Science register and require reconciliation to the source before approval.
-- The Science register records 87/87 as independently unapproved and HOLD. Its 83 missing groups represent a numeric target of 1,660 MCQs at 20 per SLO, but quantity must not be padded with repetitive or unsupported questions.
+- In V20 alone, English (60) and Urdu (40) have April-only question groups. The merged PECTAA + V20 draft exports add the other calendar month labels, but those legacy items still need lesson-level and answer verification.
+- Mathematics has 2,300 merged draft items across all eight calendar labels when December revision is included. There are 21 repeated normalized stems in the merged bank (all in Mathematics); retain and manually inspect them rather than deleting automatically. Some Math outcomes are text proxies for visual/procedural tasks and cannot replace practical assessment.
+- Science has 420 merged draft items, but only four V20 SLO IDs intersect the 87-row Class 8 Science register. 83 official register SLO IDs have no matching draft ID; 21 draft Science IDs are not in the register. PECTAA's 12 local Science SLO IDs do not establish official register coverage.
+- All 87 Science register rows remain independently unapproved and HOLD. The numeric gap is 1,660 target items at 20 per SLO for the 83 unmatched outcomes; do not pad this with repetitive or unsupported questions.
 
 ## Source and academic QA limitations
 1. The four original Class 8 books are available in the user's Google Drive folder: English 8 SNC 2023–24, Urdu 8 SNC 2023–24, Mathematics 8 SNC 2023–24, and General Science 8 SNC 2023–24.
