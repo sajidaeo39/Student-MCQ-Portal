@@ -61,6 +61,29 @@ Calendar mapping transcribed from the Urdu row on the supplied Class 8 Taleemi C
 
 Source basis: Urdu 8 SNC 2023–24 contents/index, visually inspected (PDF page 4); Taleemi Calendar 8, Urdu subject row, visually inspected (PDF page 1). The contents page supplies lesson titles and starting pages, not granular official SLOs. Two lesson-title readings (Lessons 3 and 5) are flagged for confirmation from clearer lesson-page scans. No new Urdu MCQs have been generated or marked approved from this inventory. The current V20 Urdu draft remains 40 MCQs and April-only; all other month coverage remains outstanding pending lesson-page extraction and question writing.
 
+## Completed next step: English and Urdu MCQ draft banks compiled
+A standalone downloadable package was assembled from the previous `PECTAA_Class8_MCQs.json` draft bank plus the existing Class 8 records in `Master_MCQ_DRAFT_V20.json`:
+- English: 160 prior PECTAA items + 60 V20 items = 220.
+- Urdu: 160 prior PECTAA items + 40 V20 items = 200.
+- Combined: 420 English/Urdu items.
+
+Structural QA passed on the compiled package:
+- No duplicate MCQ IDs within either subject bank.
+- No exact duplicate normalized question stems within either subject bank.
+- Every item has four non-empty distinct options, a valid A–D answer key and a non-empty explanation.
+- Where an explicit `correct_answer_text` exists, it matches one of the four options.
+- The 160-item PECTAA English and Urdu sets each have 20 items in each month bucket (April, May, August/September, October, November, December revision, January, February). The V20 items add 60 English and 40 Urdu questions to April.
+- December is classified as mid-term revision because the supplied Class 8 calendar marks December as Mid Term Exam.
+
+Deliverable files were generated separately:
+- `Class8_English_MCQ_Bank_Complete_DRAFT.json`
+- `Class8_Urdu_MCQ_Bank_Complete_DRAFT.json`
+- `Class8_English_Urdu_MCQ_Bank_Combined_DRAFT.json`
+- `Class8_English_Urdu_MCQ_Monthly_QA_Summary.csv`
+- `Class8_English_Urdu_MCQ_Completion_Report.md`
+
+Academic release remains HOLD: the previous PECTAA items do not consistently include exact textbook page references; structural validation does not establish answer correctness, distractor quality or full lesson/SLO alignment. These compiled banks are draft deliverables and have not been imported into the live portal or merged into the Master V20 file. Classes 3–7 and student records remain unchanged.
+
 ## Calendar coverage gaps
 - English and Urdu currently contain April-only draft items. Their other calendar allocations have no V20 question groups.
 - Mathematics has draft coverage in all seven teaching-month labels shown in the current calendar mapping. Its five repeated groups need review; 200 questions are explicitly marked as text proxies for visual/procedural outcomes, so these must not be treated as fully verified practical/diagram assessments.
