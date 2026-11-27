@@ -33,6 +33,20 @@ An automated structural pass over all 2,500 Class 8 records found:
 
 This is schema/structure validation only. It does not prove the answer is factually correct, the distractors are academically sound, or the SLO is officially worded.
 
+## Completed next step: Class 8 English textbook inventory
+A provisional 12-unit English inventory has now been added at `audit/CLASS8_ENGLISH_TEXTBOOK_SLO_INVENTORY_STAGING.csv`. It maps the textbook's contents-list entries to the calendar months and records each unit's theme, oral communication, reading, vocabulary/grammar, and writing skills.
+
+Calendar mapping recorded from the supplied Class 8 Taleemi Calendar:
+- April: Units 1–2
+- May: Units 3–4
+- August/September: Units 5–6
+- October: Unit 7
+- November: Units 8–9
+- January: Units 10–11
+- February: Unit 12
+
+Source basis: English 8 SNC 2023–24, printed contents-list pages ii–iii (PDF pages 3–4), visually inspected; Class 8 Taleemi Calendar, page 1, visually inspected. The inventory preserves the contents-list terminology. These are provisional unit-level mappings, not official granular SLO codes. Lesson-page review and independent academic validation are still required before generating or approving MCQs. The current 60 English draft MCQs remain April-only in V20; this inventory does not claim that the other months' question banks have been created.
+
 ## Calendar coverage gaps
 - English and Urdu currently contain April-only draft items. Their other calendar allocations have no V20 question groups.
 - Mathematics has draft coverage in all seven teaching-month labels shown in the current calendar mapping. Its five repeated groups need review; 200 questions are explicitly marked as text proxies for visual/procedural outcomes, so these must not be treated as fully verified practical/diagram assessments.
