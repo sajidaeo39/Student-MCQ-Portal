@@ -90,7 +90,18 @@ The current V20 tracker has only 3 linked English groups and 2 linked Urdu group
 
 Do not invent official SLO codes. Any local IDs must be labelled as local identifiers, not official codes.
 
-## 6. Required remaining work before release
+## 6. Source PDF inspection
+
+The four supplied Class 8 textbooks are accessible, but all are scanned/image-based PDFs with no usable text layer in the initial extraction check. Their page counts are:
+- English: 129 pages
+- Urdu: 129 pages
+- Mathematics: 241 pages
+- General Science: 169 pages
+- **Total: 668 pages**
+
+OCR can be used to create a draft index, but every extracted SLO, question, option, diagram, mathematical expression, Urdu text, and page reference still needs visual verification against the original page images. The complete page-by-page visual review has not yet been performed; do not describe the books as fully audited.
+
+## 7. Required remaining work before release
 
 1. Establish the authoritative Class 8 dataset and reconcile the 640-record JSON against the V20 inventory (especially Mathematics and English/Urdu).
 2. Complete the source-page ledger for all four supplied Class 8 textbooks and the Class 8 Taleemi Calendar.
@@ -101,7 +112,7 @@ Do not invent official SLO codes. Any local IDs must be labelled as local identi
 7. Integrate Class 8 into the existing portal architecture only after the release gates pass. Preserve Classes 1–7, existing UI, optional student/school fields, 9-question individual tests, 12-question Class 8 mixed test (3 per approved subject), randomization, scoring, review, and mobile layout.
 8. Run automated tests and verify the deployed live URL and GitHub Pages workflow before calling the work complete.
 
-## 7. Changes made in this audit step
+## 8. Changes made in this audit step
 
 - Created this isolated audit branch from the current `main`.
 - Added this report only.
@@ -111,3 +122,7 @@ Do not invent official SLO codes. Any local IDs must be labelled as local identi
 ## Release status
 
 **Class 8: NOT READY FOR LIVE DEPLOYMENT.** Quantity in some draft inventories is not equivalent to verified, source-traceable, independently approved coverage.
+
+
+### Correction to an earlier conversational estimate
+The earlier statement that the live catalogue had 208 Class 8 entries was incorrect. The current portal code contains 52 Class 8 SLO catalogue records (14 English, 14 Urdu, 12 Mathematics, 12 Science). The separate full-year Class 8 Science source register has 96 rows. These are different inventories and must not be conflated.
