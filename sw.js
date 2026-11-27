@@ -2,13 +2,16 @@
  * PECTAA Smart Practice Portal — offline-first service worker.
  * Pre-caches the complete split portal so all 16 data parts are available offline.
  */
-const APP_CACHE = 'pectaa-mcqs-v112';
+const APP_CACHE = 'pectaa-mcqs-v113';
 const FONT_CACHE = 'pectaa-fonts-v1';
-const PART_VERSION = '20261127-desktop-spacing-social-v112';
+const PART_VERSION = '20261127-class3-v27-v113';
 const PARTS = Array.from({length:16}, (_,i) =>
   `./.portal-deploy-parts/part-${String(i+1).padStart(3,'0')}.txt?v=${PART_VERSION}`
 );
-const APP_SHELL = ['./','./index.html','./manifest.webmanifest','./icon.svg','./Classes_1_to_8_Portal_Ready_MCQ_Data%20(3).json?v=20261122-data85','./Classes_1_to_8_Portal_Ready_MCQ_Data%20(4).json?v=20261122-data85','./data/mcq-update-part-01.txt?v=20261122-data85',...PARTS];
+const CLASS3_BANK_PARTS = Array.from({length:10}, (_,i) =>
+  `./data/class3-final-v25-part-${String(i+1).padStart(2,'0')}.json?v=20261127-class3-v27`
+);
+const APP_SHELL = ['./','./index.html','./manifest.webmanifest','./icon.svg','./Classes_1_to_8_Portal_Ready_MCQ_Data%20(3).json?v=20261122-data85','./Classes_1_to_8_Portal_Ready_MCQ_Data%20(4).json?v=20261122-data85','./data/mcq-update-part-01.txt?v=20261122-data85',...CLASS3_BANK_PARTS,...PARTS];
 const FONT_HOSTS = new Set(['fonts.googleapis.com','fonts.gstatic.com']);
 
 self.addEventListener('install', event => {
@@ -21,7 +24,7 @@ self.addEventListener('install', event => {
         if (!response.ok) throw new Error('HTTP '+response.status+' for '+path);
         await cache.put(path, response);
       } catch (error) {
-        if (PARTS.includes(path) || path === './index.html' || path === './') throw error;
+        if (PARTS.includes(path) || CLASS3_BANK_PARTS.includes(path) || path === './index.html' || path === './') throw error;
         // Optional manifest/icon files must not block installation.
       }
     }
