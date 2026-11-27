@@ -47,6 +47,20 @@ Calendar mapping recorded from the supplied Class 8 Taleemi Calendar:
 
 Source basis: English 8 SNC 2023–24, printed contents-list pages ii–iii (PDF pages 3–4), visually inspected; Class 8 Taleemi Calendar, page 1, visually inspected. The inventory preserves the contents-list terminology. These are provisional unit-level mappings, not official granular SLO codes. Lesson-page review and independent academic validation are still required before generating or approving MCQs. The current 60 English draft MCQs remain April-only in V20; this inventory does not claim that the other months' question banks have been created.
 
+## Completed next step: Class 8 Urdu textbook lesson inventory
+A provisional 20-lesson Urdu inventory has been added at `audit/CLASS8_URDU_TEXTBOOK_SLO_INVENTORY_STAGING.csv`. It records the lesson number, title, genre, printed textbook starting page, and month/lesson range from the supplied calendar.
+
+Calendar mapping transcribed from the Urdu row on the supplied Class 8 Taleemi Calendar:
+- April: Lessons 1–2
+- May: Lessons 3–6
+- August/September: Lessons 7–10
+- October: Lessons 11–12
+- November: Lessons 13–14
+- January: Lessons 15–17
+- February: Lessons 18–20
+
+Source basis: Urdu 8 SNC 2023–24 contents/index, visually inspected (PDF page 4); Taleemi Calendar 8, Urdu subject row, visually inspected (PDF page 1). The contents page supplies lesson titles and starting pages, not granular official SLOs. Two lesson-title readings (Lessons 3 and 5) are flagged for confirmation from clearer lesson-page scans. No new Urdu MCQs have been generated or marked approved from this inventory. The current V20 Urdu draft remains 40 MCQs and April-only; all other month coverage remains outstanding pending lesson-page extraction and question writing.
+
 ## Calendar coverage gaps
 - English and Urdu currently contain April-only draft items. Their other calendar allocations have no V20 question groups.
 - Mathematics has draft coverage in all seven teaching-month labels shown in the current calendar mapping. Its five repeated groups need review; 200 questions are explicitly marked as text proxies for visual/procedural outcomes, so these must not be treated as fully verified practical/diagram assessments.
